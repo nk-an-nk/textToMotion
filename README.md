@@ -8,6 +8,15 @@
 
 [モデル互換性](reports/model_compatibility.md)、[実行結果と未達条件](reports/execution_results.md)、[環境調査](docs/environment.md)、[ライセンス](reports/licenses.md) を参照してください。
 
+## 生成済み MP4
+
+検証動画をリポジトリに収録しています。GitHub のファイル画面で再生できない場合は **Download raw file** で取得してください。
+
+- [Kimodo：右手を上げて振る指示から生成](reports/videos/kimodo-wave.mp4) — 3秒、30fps。
+- [ARDY：CPU 無条件診断](reports/videos/ardy-unconditional.mp4) — 3秒、20fps。テキスト・音声による指示はありません。
+
+どちらも実モデルが出力した関節位置をスケルトン表示した動画で、音声はありません。[動画の出典と検証値](reports/videos/README.md) を参照してください。
+
 ## セットアップと起動
 
 Python 3.11+、Node.js/npm が必要です。動画には FFmpeg、ブラウザテストには Chromium が必要です。Python 依存と Three.js はローカルに導入し、CDN に依存しません。
@@ -111,8 +120,8 @@ scripts/    調査、固定ソース導入、公式推論／変換／smoke
 configs/    コミット台帳、runtime例、ARDY CPU依存lock
 tests/      PythonとChromiumブラウザテスト
 docs/       環境、GPU、形式
-reports/    互換性、実行結果、ライセンス、検証証拠
+reports/    互換性、実行結果、ライセンス、検証証拠、videos/ の MP4
 outputs/    元モーション、正規化JSON、動画、実験記録（Git管理外）
 ```
 
-成果物と重みは Git に自動追加しません。既存 `.devcontainer/devcontainer.json` は公式 Universal `6.1.9-noble` を指定する Codespaces 設定です。本クラウドタスクでは、そのコンテナーを起動せず提供された Linux 環境で検証しています。
+日常の生成結果は `outputs/` に保存し、Git に自動追加しません。検証用 MP4 の2本は `reports/videos/` に収録しています。重みは Git 管理外です。既存 `.devcontainer/devcontainer.json` は公式 Universal `6.1.9-noble` を指定する Codespaces 設定です。本クラウドタスクでは、そのコンテナーを起動せず提供された Linux 環境で検証しています。

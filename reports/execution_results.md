@@ -23,16 +23,16 @@
 | 実験 | 入力条件 / device | 時間の実測 | 出力 |
 |---|---|---|
 | ARDY Core8 standalone seed0 | テキスト・音声なし、CPU、10 diffusion steps、3秒 | load 1.06秒、推論9.88秒、first result 10.94秒 | 60 frames / 20fps / Core27、元NPZとJSON |
-| ARDY 共通API `cfc9aaf72a0944cf8449a978df8d5e29` | 無条件CPU診断、seed0 | 推論 19.72秒（このAPI実行） | [元NPZ](../outputs/cfc9aaf72a0944cf8449a978df8d5e29/original.npz)、[JSON](../outputs/cfc9aaf72a0944cf8449a978df8d5e29/motion.json)、[MP4](../outputs/cfc9aaf72a0944cf8449a978df8d5e29/video.mp4) |
+| ARDY 共通API `cfc9aaf72a0944cf8449a978df8d5e29` | 無条件CPU診断、seed0 | 推論 19.72秒（このAPI実行） | [MP4](videos/ardy-unconditional.mp4)。元NPZ/JSONは workspace 内の `outputs/cfc9aaf72a0944cf8449a978df8d5e29/` |
 | Kimodo 公式standalone wave | Raise your right hand and wave for three seconds. / official remote GPU | 生成通知まで2.59秒、取得まで8.62秒 | 90 frames / 30fps / SOMA77、実NPZ取得 |
 | Kimodo 公式standalone bow | Bow, then raise both arms. / 同seed0・同3秒 | 生成通知まで2.62秒、取得まで8.56秒 | 90 frames、入力変更により関節位置が変化 |
-| Kimodo 共通API `9c59514de11744aeb0a97038e73c7e5d` | wave / NVIDIA official Space | 生成通知まで 2.37秒 | [元NPZ](../outputs/9c59514de11744aeb0a97038e73c7e5d/original.npz)、[JSON](../outputs/9c59514de11744aeb0a97038e73c7e5d/motion.json)、[MP4](../outputs/9c59514de11744aeb0a97038e73c7e5d/video.mp4) |
+| Kimodo 共通API `9c59514de11744aeb0a97038e73c7e5d` | wave / NVIDIA official Space | 生成通知まで 2.37秒 | [MP4](videos/kimodo-wave.mp4)。元NPZ/JSONは workspace 内の `outputs/9c59514de11744aeb0a97038e73c7e5d/` |
 
 ARDY standalone seed0/1の最大関節座標差は0.864m、Kimodo同seed・異なる入力の差は0.828m。これは出力差の検査で、意味的一致や自然さのスコアではありません。実行時間はCPU/外部GPU・条件・処理範囲が違うため、優劣のbenchmarkに使いません。
 
 Kimodoの時間には外部テキストエンコーディングと通知通信が含まれます。公開Space runtimeが報告するGPUはl40sx1。実行コンテナー内部のGit SHA・checkpoint SHA・peak VRAMは観測不能なのでnull。公式SpaceのGit revisionとGUIモデル名は保存。ローカルGPU実測と区別します。
 
-JSONメタデータ: [ardy_cpu_result.json](ardy_cpu_result.json)、[kimodo_api_result.json](kimodo_api_result.json)、[入力変更比較](kimodo_input_comparison.json)。元データと動画はGit管理外ですが現在のworkspaceに保存されています。
+JSONメタデータ: [ardy_cpu_result.json](ardy_cpu_result.json)、[kimodo_api_result.json](kimodo_api_result.json)、[入力変更比較](kimodo_input_comparison.json)。MP4 の2本は [videos/](videos/README.md) に収録しています。元NPZ/JSONと日常の生成結果はGit管理外で、現在のworkspaceの `outputs/` に保存されています。
 
 ## UI・テスト
 
