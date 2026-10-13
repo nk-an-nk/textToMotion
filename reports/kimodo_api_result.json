@@ -1,0 +1,82 @@
+{
+  "id": "9c59514de11744aeb0a97038e73c7e5d",
+  "status": "succeeded",
+  "created_at": "2026-10-13T12:33:28.219750+00:00",
+  "model_id": "kimodo",
+  "task_type": "instruction",
+  "input_text": "Raise your right hand and wave for three seconds.",
+  "model_text": "Raise your right hand and wave for three seconds.",
+  "duration_requested": 3.0,
+  "seed": 0,
+  "input_audio": null,
+  "metadata": {
+    "translation": null,
+    "git_commit": "58e781898b3d7e328a676a75d3e338c45dce3ad9",
+    "model_version": "Kimodo",
+    "checkpoint_repository": "nvidia/Kimodo-SOMA-RP-v1.1",
+    "audio_conditioned": false,
+    "gpu_memory_note": "Peak model memory is not measured by external CLI; never substitute an estimate."
+  },
+  "artifacts": {
+    "original_motion_path": "original.npz",
+    "normalized_motion_path": "motion.json",
+    "rendered_video_path": "video.mp4"
+  },
+  "started_at": "2026-10-13T12:33:28.220299+00:00",
+  "finished_at": "2026-10-13T12:33:37.989048+00:00",
+  "inference_time": 2.3704514780001773,
+  "time_to_first_result": 9.768771409999772,
+  "checkpoint": "Kimodo-SOMA-RP-v1",
+  "device": "remote: l40sx1 (provider-reported)",
+  "gpu_peak_memory_bytes": null,
+  "skeleton_type": "Kimodo:SOMASkeleton77",
+  "model_metadata": {
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "backend": "nvidia_official_online_demo",
+    "endpoint": "https://nvidia-kimodo.hf.space/",
+    "space_repository": "nvidia/Kimodo",
+    "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+    "model_code_git_commit": null,
+    "protocol": "viser-v1.0.16",
+    "text_conditioned": true,
+    "audio_conditioned": false,
+    "trained_model_output": true,
+    "prompt": "Raise your right hand and wave for three seconds.",
+    "seed": 0,
+    "fps": 30.0,
+    "duration_requested": 3.0,
+    "frames_requested": 90,
+    "checkpoint": "Kimodo-SOMA-RP-v1",
+    "checkpoint_sha256": null,
+    "device": "remote: l40sx1 (provider-reported)",
+    "inference_time": 2.3704514780001773,
+    "time_to_first_result": 8.282637408000028,
+    "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+    "server_success_notification": {
+      "mode": "update",
+      "uuid": "e72bf191-5d58-4472-b18f-4430d61cabdd",
+      "props": {
+        "title": "Motion generation finished!",
+        "body": "Motions have been generated successfully for the given prompt.",
+        "loading": false,
+        "with_close_button": true,
+        "auto_close_seconds": 5.0,
+        "color": "green"
+      },
+      "type": "NotificationMessage"
+    },
+    "download_bytes": 585058
+  },
+  "frames": 90,
+  "fps": 30.0,
+  "duration": 3.0,
+  "acceleration_rms_m_s2": 3.6949300542124996,
+  "semantic_alignment": null,
+  "naturalness": null,
+  "evaluation_note": "意味的一致・自然さは未評価。主観評価が必要。足接地の真値なしに足滑りを採点しません。",
+  "artifact_sha256": {
+    "original_motion_path": "6d7cd93ef147d57026834db4a3be8c6c50b180a3854f7626cc8854001ae80aa6",
+    "normalized_motion_path": "cedea4bd9df824c76a4ac51126e2d9403ad576cd3e61f592f7bfe3df90f16554"
+  }
+}

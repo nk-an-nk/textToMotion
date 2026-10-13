@@ -1,0 +1,81 @@
+{
+  "same_seed": 0,
+  "same_duration": 3,
+  "same_frames": 90,
+  "different_input_results": true,
+  "maximum_joint_difference_m": 0.8275768756866455,
+  "wave": {
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "backend": "nvidia_official_online_demo",
+    "endpoint": "https://nvidia-kimodo.hf.space/",
+    "space_repository": "nvidia/Kimodo",
+    "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+    "protocol": "viser-v1.0.16",
+    "text_conditioned": true,
+    "audio_conditioned": false,
+    "trained_model_output": true,
+    "prompt": "Raise your right hand and wave for three seconds.",
+    "seed": 0,
+    "fps": 30.0,
+    "duration_requested": 3.0,
+    "frames_requested": 90,
+    "checkpoint": "Kimodo-SOMA-RP-v1",
+    "device": "remote (official Space reports L40S; process memory unmeasured)",
+    "inference_time": 2.5913625039997896,
+    "time_to_first_result": 8.621356385000126,
+    "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+    "server_success_notification": {
+      "mode": "update",
+      "uuid": "38dc6027-dd9f-4659-8f49-0b32c6e1df56",
+      "props": {
+        "title": "Motion generation finished!",
+        "body": "Motions have been generated successfully for the given prompt.",
+        "loading": false,
+        "with_close_button": true,
+        "auto_close_seconds": 5.0,
+        "color": "green"
+      },
+      "type": "NotificationMessage"
+    },
+    "download_bytes": 585058
+  },
+  "bow": {
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "backend": "nvidia_official_online_demo",
+    "endpoint": "https://nvidia-kimodo.hf.space/",
+    "space_repository": "nvidia/Kimodo",
+    "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+    "protocol": "viser-v1.0.16",
+    "text_conditioned": true,
+    "audio_conditioned": false,
+    "trained_model_output": true,
+    "prompt": "Bow, then raise both arms.",
+    "seed": 0,
+    "fps": 30.0,
+    "duration_requested": 3.0,
+    "frames_requested": 90,
+    "checkpoint": "Kimodo-SOMA-RP-v1",
+    "device": "remote (official Space reports L40S; process memory unmeasured)",
+    "inference_time": 2.6202002310001262,
+    "time_to_first_result": 8.558333188999768,
+    "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+    "server_success_notification": {
+      "mode": "update",
+      "uuid": "36d6c8a2-cc6a-4666-b8de-9c253cbf17aa",
+      "props": {
+        "title": "Motion generation finished!",
+        "body": "Motions have been generated successfully for the given prompt.",
+        "loading": false,
+        "with_close_button": true,
+        "auto_close_seconds": 5.0,
+        "color": "green"
+      },
+      "type": "NotificationMessage"
+    },
+    "download_bytes": 585058
+  },
+  "semantic_alignment_score": null,
+  "naturalness_score": null
+}

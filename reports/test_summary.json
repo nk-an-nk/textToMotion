@@ -1,0 +1,16 @@
+[
+  {
+    "file": "reports/pytest.xml",
+    "tests": 36,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "file": "reports/browser-tests.xml",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+]

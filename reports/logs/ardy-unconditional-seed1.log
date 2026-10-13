@@ -1,0 +1,10 @@
+sparsify_token_seq: False
+
+
+
+
+
+
+
+
+{"task_type": "unconditional_diagnostic", "trained_model_output": true, "text_conditioned": false, "audio_conditioned": false, "prompt": null, "seed": 1, "model_id": "ardy", "device": "cpu", "checkpoint": "nvidia/ARDY-Core-RP-20FPS-Horizon8", "checkpoint_revision": "257a0843a10bf5201065963d7bca2791e9393a7a", "load_time": 0.6394304719997308, "inference_time": 9.613268965000316, "time_to_first_result": 10.254151268999976, "fps": 20.0, "frames": 60, "duration": 3.0, "diffusion_steps": 10, "text_guidance": 0, "constraint_guidance": 0, "postprocess": false, "notice": "実学習済みモデルの無条件CPU診断。テキスト・音声条件付き生成の成功ではありません。"}

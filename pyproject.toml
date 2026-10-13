@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=78.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "motion-lab"
+version = "0.1.0"
+description = "Local research UI for official text-to-motion and co-speech models"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi==0.115.12",
+  "uvicorn==0.34.3",
+  "python-multipart==0.0.20",
+  "numpy==2.2.6",
+  "scipy==1.15.3",
+  "matplotlib==3.10.3",
+  "msgspec==0.22.0",
+  "websockets==15.0.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest==8.3.5", "httpx==0.28.1"]
+
+[tool.setuptools.packages.find]
+include = ["app*", "adapters*"]
+
+[tool.setuptools.package-data]
+app = ["ui/*", "viewer/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

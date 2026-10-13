@@ -1,0 +1,66 @@
+{
+  "id": "JuzeZhang/LoM-a2m-4part",
+  "sha": "95f5a7c330a82da854d8c4e4c0ed47a9004720b2",
+  "gated": false,
+  "cardData": {
+    "license": "other",
+    "license_name": "research-use-only",
+    "license_link": "LICENSE",
+    "library_name": "pytorch",
+    "pipeline_tag": "audio-to-audio",
+    "tags": [
+      "audio-to-motion",
+      "co-speech-gesture",
+      "talking-head",
+      "smpl-x",
+      "motion-generation",
+      "decoder-only"
+    ],
+    "base_model": [
+      "Qwen/Qwen3-1.7B",
+      "Qwen/Qwen3-0.6B"
+    ]
+  },
+  "siblings": [
+    {
+      "rfilename": ".gitattributes",
+      "blobId": "a6344aac8c09253b3b630fb776ae94478aa0275b",
+      "size": 1519
+    },
+    {
+      "rfilename": "INFERENCE.md",
+      "blobId": "5f6536ac76f15a6b969bf897912aac69f9e3efd4",
+      "size": 2575
+    },
+    {
+      "rfilename": "LICENSE",
+      "blobId": "de089d4f7a6b6bf20e0527228ca77b6d7e91423a",
+      "size": 1528
+    },
+    {
+      "rfilename": "README.md",
+      "blobId": "4e41c840bc8cdbc00fb7ba08c7473169881c20b4",
+      "size": 4152
+    },
+    {
+      "rfilename": "qwen3-0.6B_4part.pt",
+      "blobId": "3dd125d2a35e676b1b2bd09a4af4728436e94d61",
+      "size": 1228396888,
+      "lfs": {
+        "sha256": "44d823e83b8165d649665401c3f25fa3b29747f1d8d19368d6e3e398fae401cd",
+        "size": 1228396888,
+        "pointerSize": 135
+      }
+    },
+    {
+      "rfilename": "qwen3-1.7B_4part.pt",
+      "blobId": "b8d37f0d4e9f49e1d1befb1ff8ad0fdaef076ce8",
+      "size": 3513639256,
+      "lfs": {
+        "sha256": "9cf1f28a9e3eeb655e8fe433a90f60754a578977e1347eb03f9d8c9cf22cb45d",
+        "size": 3513639256,
+        "pointerSize": 135
+      }
+    }
+  ]
+}

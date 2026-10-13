@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Motion Lab · 3Dモーション研究</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script type="importmap">{"imports":{"three":"/vendor/three/build/three.module.js","three/addons/":"/vendor/three/examples/jsm/"}}</script>
+</head>
+<body>
+  <header><div class="brand"><span class="brand-mark">M</span><div>Motion Lab<small>TEXT · SPEECH · MOVEMENT</small></div></div><div class="header-note"><span id="connection" class="status-dot"></span><span id="readiness">接続中</span></div></header>
+  <main>
+    <aside>
+      <div class="section-label">01 / INPUT</div><h1>ことばから、動きへ。</h1><p class="intro">公開モデルの動作を生成・再生・比較する研究ワークスペース。</p>
+      <div class="modes" role="tablist" aria-label="入力モード">
+        <button class="active" role="tab" aria-selected="true" data-mode="instruction">動作指示</button>
+        <button role="tab" aria-selected="false" data-mode="conversation_text">会話テキスト</button>
+        <button role="tab" aria-selected="false" data-mode="audio">音声</button>
+      </div>
+      <label for="model">モデル</label><select id="model"></select>
+      <details class="model-info" open><summary>モデルの準備状況</summary><p id="model-status"></p><ul id="blockers"></ul><a id="official" target="_blank" rel="noopener">公式リポジトリ ↗</a></details>
+      <label for="text" id="text-label">動作の指示</label><textarea id="text" rows="4" placeholder="Raise your right hand and wave for three seconds.">Raise your right hand and wave for three seconds.</textarea>
+      <div class="examples"><button data-example="wave">手を振る</button><button data-example="sequence">歩く → お辞儀</button><button data-example="conversation">嬉しい出来事</button></div>
+      <details><summary>日本語入力の英訳</summary><p class="hint">英語モデルには、ここに指定した文章を渡します。自動翻訳は未導入です。元の入力と英訳を両方保存します。</p><label for="translation">モデルへ渡す英訳</label><textarea id="translation" rows="2" placeholder="日本語を入力した場合の英訳"></textarea></details>
+      <div id="audio-input" hidden><label for="wav">WAV ファイル</label><input id="wav" type="file" accept=".wav,audio/wav"><p id="audio-info" class="hint">PCM WAV / 推論は20秒以内</p></div>
+      <div class="parameters"><div><label for="duration">長さ（秒）</label><input id="duration" type="number" min="0.5" max="20" step="0.5" value="3"></div><div><label for="seed">シード</label><input id="seed" type="number" min="0" max="4294967295" value="0"></div></div>
+      <details><summary>複数モデルで比較</summary><p class="hint">同じ入力・長さ・シードで順番に実行します。未準備モデルのエラーは個別に表示します。</p><div id="compare-models"></div></details>
+      <button id="generate" class="primary">モーションを生成 <span>↗</span></button>
+      <button id="diagnose-ardy" class="secondary" hidden>ARDY 無条件CPU診断（テキスト条件なし）</button>
+      <div id="message" role="status" aria-live="polite" hidden></div>
+      <div class="import-section"><div class="section-label">EXISTING MOTION</div><label for="motion-file">モーションを取り込む</label><input id="motion-file" type="file" accept=".json,.npz,.bvh"><div class="parameters"><div><label for="source-up">元データの上方向</label><select id="source-up"><option>Y</option><option>Z</option></select></div><div><label for="source-unit">元データの単位</label><select id="source-unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select></div></div><p class="hint">BVH / 関節定義付き NPZ / Motion Lab JSON。SMPL-X パラメーターは許諾済みモデルで変換が必要です。</p><button id="fixture" class="secondary">ビューアー検証用サンプルを表示</button><p class="hint">人工アニメーションです。モデルの生成結果ではありません。</p></div>
+    </aside>
+    <section class="workspace">
+      <div class="workspace-heading"><div><div class="section-label">02 / SIMULATION</div><h2>3Dモーションビューアー</h2></div><div class="viewer-options"><label><input type="checkbox" id="avatar"> 簡易アバター</label><button id="reset-camera" title="カメラをリセット">視点を戻す</button></div></div>
+      <div id="viewport"><div class="scene-badge">Y-UP · METRES · ORIGINAL ROOT</div><div id="empty-scene"><div class="empty-symbol">⌁</div><h3>動きを、ここで確かめる。</h3><p>生成結果や保存済みモーションを読み込むと<br>3Dで再生・比較できます。</p></div><div id="legend"></div><div class="viewport-hint">ドラッグで回転 · ホイールで拡大縮小 · 右ドラッグで移動</div></div>
+      <div class="transport"><div class="transport-buttons"><button id="play" aria-label="再生">▶ 再生</button><button id="pause" aria-label="一時停止">Ⅱ</button><button id="stop" aria-label="停止">■</button></div><output id="time">0.00 / 0.00 s</output><label for="speed">速度</label><select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><input id="timeline" type="range" min="0" max="0" step="0.01" value="0" aria-label="タイムライン"></div>
+      <div class="audio-player"><span>同期音声</span><audio id="audio" controls preload="metadata"></audio><span id="sync-note">音声なし</span><label for="sync-wav" class="audio-attach">同期用 WAV を追加</label><input id="sync-wav" type="file" accept=".wav,audio/wav" hidden></div>
+      <div id="motion-notice" class="notice" hidden></div>
+      <div class="results-heading"><div><div class="section-label">03 / EXPERIMENTS</div><h2>実験と比較</h2></div><button id="refresh">更新 ↻</button></div>
+      <p class="hint">推論時間は実測値を記録します。意味的一致・自然さは主観評価が必要です。比較表示の位置オフセットは保存データに加えません。</p>
+      <div class="table-wrap"><table><thead><tr><th>表示</th><th>モデル / 出所</th><th>状態</th><th>長さ / FPS</th><th>推論時間</th><th>成果物</th></tr></thead><tbody id="results"><tr><td colspan="6" class="empty-results">実験はまだありません。</td></tr></tbody></table></div>
+      <details id="experiment-details"><summary>選択結果の記録</summary><pre id="metadata">モデル・入力・シード・チェックポイント・出力をここで確認できます。</pre></details>
+    </section>
+  </main>
+  <footer>Motion Lab / Research workspace<span>サンプル、取り込み、実モデルの推論を別々に記録します。</span></footer>
+  <script type="module" src="/static/main.js"></script>
+</body>
+</html>

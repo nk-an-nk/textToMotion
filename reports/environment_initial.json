@@ -1,0 +1,74 @@
+{
+  "inspected_at": "2026-10-13T11:37:47.039785+00:00",
+  "os": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "architecture": "x86_64",
+  "cpu_count": 5,
+  "cpu": {
+    "exit_code": 0,
+    "output": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           46 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  5\nOn-line CPU(s) list:                     0-4\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      1\nCore(s) per socket:                      5\nSocket(s):                               1\nStepping:                                2\nBogoMIPS:                                4600.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 arat avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk avx512_fp16 arch_capabilities\nHypervisor vendor:                       KVM\nVirtualization type:                     full\nL1d cache:                               144 KiB (3 instances)\nL1i cache:                               96 KiB (3 instances)\nL2 cache:                                6 MiB (3 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-4\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Vulnerable\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file da"
+  },
+  "memory": {
+    "MemTotal": 35743784960,
+    "MemAvailable": 34825269248
+  },
+  "disk": {
+    "total_bytes": 33770192896,
+    "free_bytes": 30348234752
+  },
+  "python_executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+  "torch_probe_interpreter": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+  "torch": {
+    "installed": false
+  },
+  "nvidia_smi": {
+    "exit_code": null,
+    "output": "[Errno 2] No such file or directory: 'nvidia-smi'"
+  },
+  "versions": {
+    "python": {
+      "exit_code": 0,
+      "output": "Python 3.12.14"
+    },
+    "node": {
+      "exit_code": 0,
+      "output": "v24.19.0"
+    },
+    "npm": {
+      "exit_code": 0,
+      "output": "11.9.0"
+    },
+    "git": {
+      "exit_code": 0,
+      "output": "git version 2.52.0"
+    },
+    "gh": {
+      "exit_code": 0,
+      "output": "gh version 2.46.0 (2025-01-13 Debian 2.46.0-3)\nhttps://github.com/cli/cli/releases/tag/v2.46.0"
+    },
+    "blender": {
+      "exit_code": 0,
+      "output": "Blender 4.3.2"
+    },
+    "ffmpeg": {
+      "exit_code": 8,
+      "output": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers\n  built with gcc 14 (Debian 14.2.0-19)\n  configuration: --prefix=/usr --extra-version=0+deb13u1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-libmfx --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared\n  libavutil      59. 39.100 / 59. 39.100\n  libavcodec     61. 19.101 / 61. 19.101\n  libavformat    61.  7.103 / 61.  7.103\n  libavdevice    61.  3.100 / 61.  3.100\n  libavfilter    10.  5.100 / 10.  5.100\n  libswscale      8.  3.100 /  8.  3.100\n  libswresample   5.  3.100 /  5.  3.100\n  libpostproc    58.  3.100 / 58.  3.100\nUnrecognized option '-version'.\nError splitting the argument list: Option not found"
+    },
+    "docker": {
+      "exit_code": 0,
+      "output": "Docker version 28.4.0, build d8eb465"
+    }
+  },
+  "docker_daemon": {
+    "exit_code": 0,
+    "output": "\"28.4.0\""
+  },
+  "existing_virtualenvs": [
+    "/workspace/textToMotion/.venv",
+    "/workspace/shared/motion-lab/envs/ardy"
+  ],
+  "bindings_presence": {
+    "HF_TOKEN": false,
+    "HUGGING_FACE_HUB_TOKEN": false,
+    "SMPLX_MODEL_PATH": false
+  }
+}

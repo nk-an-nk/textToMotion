@@ -1,0 +1,6 @@
+{
+  "ardy": {"model": "core8", "checkpoint_dir": "checkpoints/ardy", "text_encoder_cached": false},
+  "kimodo": {"backend": "local", "model": "kimodo-soma-rp-v1.1", "checkpoint_cached": false, "text_encoder_cached": false, "online_validated": false},
+  "language_of_motion": {"assets_confirmed": false, "cfg_text": "configs/demo_text2motion.yaml", "cfg_audio": "configs/demo_cospeech.yaml"},
+  "streamtalk": {"checkpoint": "", "example_motion_npz": "", "smplx_model": "", "retrieval_data_folder": "", "retrieval_csv_file": "", "wavlm_model": "patrickvonplaten/wavlm-libri-clean-100h-large", "pid": "2_scott_0"}
+}

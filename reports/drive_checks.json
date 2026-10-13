@@ -1,0 +1,16 @@
+[
+  {
+    "model": "llm_gesture",
+    "url": "https://drive.google.com/drive/folders/1w4pqZerPJlT-Kdsft8D8bbuERhRZoGdi",
+    "operation": "HEAD on official README folder link",
+    "checked_at": "2026-10-13T13:08:33.821904+00:00",
+    "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "model": "freetalker",
+    "url": "https://drive.google.com/drive/folders/1M2m_3S5I5SgnPU1bWNeX0r2wKWDV9maW",
+    "operation": "HEAD on official README folder link",
+    "checked_at": "2026-10-13T13:08:33.836933+00:00",
+    "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+  }
+]

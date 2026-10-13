@@ -1,0 +1,83 @@
+[
+  {
+    "id": "language_of_motion",
+    "repository": "Juzezhang/language_of_motion",
+    "root": "/workspace/shared/motion-lab/upstreams/language_of_motion",
+    "head": "f238afba0cb6e32df7bc15c974ff2ece109892e3",
+    "commit_time": "2026-07-16T12:26:56-07:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "ardy",
+    "repository": "nv-tlabs/ardy",
+    "root": "/workspace/shared/motion-lab/upstreams/ardy",
+    "head": "693f74d13b3d04a0a22ce127ee79c929dd89756b",
+    "commit_time": "2026-07-09T19:52:46+02:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "kimodo",
+    "repository": "nv-tlabs/kimodo",
+    "root": "/workspace/shared/motion-lab/upstreams/kimodo",
+    "head": "58e781898b3d7e328a676a75d3e338c45dce3ad9",
+    "commit_time": "2026-09-22T12:30:02+02:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "miburi",
+    "repository": "m-hamza-mughal/miburi",
+    "root": "/workspace/shared/motion-lab/upstreams/miburi",
+    "head": "2d43849265d3d17e7508ca8e01f362f1b7eda697",
+    "commit_time": "2026-09-30T13:00:01+02:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "streamtalk",
+    "repository": "Xiangyue-Zhang/StreamTalk",
+    "root": "/workspace/shared/motion-lab/upstreams/streamtalk",
+    "head": "550faa3d2fcf56d2055552fef6a19a107c998d44",
+    "commit_time": "2026-08-28T13:09:45+08:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "llm_gesture",
+    "repository": "AI-Unicamp/LLM-Gesture-Pipelines",
+    "root": "/workspace/shared/motion-lab/upstreams/llm_gesture",
+    "head": "b551372ffee1ebb78fc79993c09b44ea18e5df0a",
+    "commit_time": "2025-10-14T15:08:15-03:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "vibes",
+    "repository": "Juzezhang/ViBES",
+    "root": "/workspace/shared/motion-lab/upstreams/vibes",
+    "head": "aa2347fa64e01a99f3a41db9f72417066f7d3011",
+    "commit_time": "2026-08-03T11:36:49-07:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "freetalker",
+    "repository": "YoungSeng/FreeTalker",
+    "root": "/workspace/shared/motion-lab/upstreams/freetalker",
+    "head": "33bff1fe955305ed8f753ec1cea709312a57a30f",
+    "commit_time": "2026-04-09T15:17:50+08:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  },
+  {
+    "id": "xrblocks",
+    "repository": "google/xrblocks",
+    "root": "/workspace/shared/motion-lab/upstreams/xrblocks",
+    "head": "b97fa6fd4d9770566a3abe0c63bb9f8bdf3dcf93",
+    "commit_time": "2026-10-12T22:33:50-07:00",
+    "tracked_changes": [],
+    "classification": "third-party source/dependency cache; not a primary project checkout"
+  }
+]
