@@ -31,6 +31,8 @@ def test_planner_keeps_order_and_does_not_invent_unknown_translation():
     assert joy.gesture_type=='semantic' and joy.priority<plan.priority
     timed=plan_gesture(PlanInput(turn_id='t',response_id='r',user_text='右手',motion_prompt_override='Wave your right hand for 3 seconds.'))
     assert timed.expected_duration_ms==3000
+    spelled=plan_gesture(PlanInput(turn_id='t',response_id='r',user_text='右手',motion_prompt_override='Raise your right hand and wave for three seconds.'))
+    assert spelled.expected_duration_ms==3000
     assert plan_gesture(PlanInput(turn_id='t',response_id='r',user_text='右手を振って30秒')).motion_prompt==''
 
 

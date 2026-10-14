@@ -43,8 +43,11 @@ def plan_gesture(value: PlanInput) -> GesturePlan:
     common = dict(turn_id=value.turn_id, response_id=value.response_id, original_text=text,
                   deadline_ms=value.deadline_ms)
     if value.motion_prompt_override.strip():
-        durations=re.findall(r'\b(?:for|over)\s+([0-9]+(?:\.[0-9]+)?)\s+seconds?\b',value.motion_prompt_override,re.I)
-        duration_ms=round(sum(map(float,durations))*1000) if durations else 2000
+        words=dict(zip('one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty'.split(),range(1,21)))
+        number_pattern=r'[0-9]+(?:\.[0-9]+)?|'+'|'.join(words)
+        durations=re.findall(r'\b(?:for|over)\s+('+number_pattern+r')\s+seconds?\b',value.motion_prompt_override,re.I)
+        seconds=[words[number.lower()] if number.lower() in words else float(number) for number in durations]
+        duration_ms=round(sum(seconds)*1000) if durations else 2000
         if not 500<=duration_ms<=20000:
             return GesturePlan(**common,gesture_type='none',status='default_only',reason='指定された動作時間は対応範囲0.5〜20秒を超えています。')
         return GesturePlan(**common, gesture_type='explicit_action', priority=100,

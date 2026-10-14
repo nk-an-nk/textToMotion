@@ -1,0 +1,72 @@
+{
+  "setup_completed_at": "2026-10-14T09:36:17.994661+00:00",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "torch": "2.9.0+cu128",
+  "python_tests_passed": 74,
+  "application_startup_health": {
+    "status": "ok",
+    "version": "0.1.0",
+    "viewer_assets_present": true,
+    "ready_models": 3,
+    "note": "Application readiness is separate from pretrained model readiness."
+  },
+  "real_generation": {
+    "kimodo": {
+      "model": "kimodo",
+      "status": "succeeded",
+      "experiment_id": "fb31b848c7c74f0aba06fd38ab998e62",
+      "device": "cuda",
+      "text_encoder_device": "cpu",
+      "input_text": "Raise your right hand and wave for three seconds.",
+      "model_text": "Raise your right hand and wave for three seconds.",
+      "video": "${PROJECT_ROOT}\\.motion-lab\\outputs\\fb31b848c7c74f0aba06fd38ab998e62\\video.mp4",
+      "inference_time": 40.515000000130385,
+      "time_to_first_result": 51.45299999997951,
+      "frames": 90,
+      "fps": 30.0,
+      "timings": {
+        "skeleton_seconds": 51.45299999997951,
+        "mp4_render_seconds": 3.094000000040978,
+        "total_seconds": 54.54700000002049
+      }
+    },
+    "ardy": {
+      "model": "ardy",
+      "status": "succeeded",
+      "experiment_id": "0934428dd4644c5d87d9816c352f901b",
+      "device": "cuda",
+      "text_encoder_device": "cpu",
+      "input_text": "こんにちは",
+      "model_text": "Hello.",
+      "video": "${PROJECT_ROOT}\\.motion-lab\\outputs\\0934428dd4644c5d87d9816c352f901b\\video.mp4",
+      "inference_time": 74.65599999995902,
+      "time_to_first_result": 81.82799999997951,
+      "frames": 60,
+      "fps": 20.0,
+      "timings": {
+        "skeleton_seconds": 81.82799999997951,
+        "mp4_render_seconds": 1.906999999890104,
+        "total_seconds": 83.73499999986961
+      }
+    },
+    "text_to_vrma": {
+      "model": "text_to_vrma",
+      "status": "succeeded",
+      "experiment_id": "0492cb2804054a2b89046a7c5f6d469b",
+      "device": "cuda",
+      "text_encoder_device": "cpu",
+      "input_text": "こんにちは",
+      "model_text": "Hello.",
+      "video": "${PROJECT_ROOT}\\.motion-lab\\outputs\\0492cb2804054a2b89046a7c5f6d469b\\video.mp4",
+      "inference_time": 73.8430000001099,
+      "time_to_first_result": 73.93700000015087,
+      "frames": 90,
+      "fps": 30.0,
+      "timings": {
+        "skeleton_seconds": 73.93700000015087,
+        "mp4_render_seconds": 3.3119999999180436,
+        "total_seconds": 77.24900000006892
+      }
+    }
+  }
+}

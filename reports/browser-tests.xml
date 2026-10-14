@@ -1,22 +1,28 @@
-<testsuites id="" name="" tests="13" failures="0" skipped="1" errors="0" time="36.436302">
-<testsuite name="conversation.spec.cjs" timestamp="2026-10-14T09:15:56.061Z" hostname="" tests="7" failures="0" skipped="0" time="23.586" errors="0">
-<testcase name="offline conversation has actual audio playback, Japanese fixture reply, default motion and unknown model timings" classname="conversation.spec.cjs" time="2.645">
+<testsuites id="" name="" tests="13" failures="0" skipped="2" errors="0" time="20.91319">
+<testsuite name="conversation.spec.cjs" timestamp="2026-10-14T10:35:39.404Z" hostname="" tests="7" failures="0" skipped="1" time="10.666" errors="0">
+<testcase name="offline conversation has actual audio playback, Japanese fixture reply, default motion and unknown model timings" classname="conversation.spec.cjs" time="1.572">
 </testcase>
-<testcase name="offline missing motion preserves speech and never sends a new inference request" classname="conversation.spec.cjs" time="1.599">
+<testcase name="offline missing motion preserves speech and never sends a new inference request" classname="conversation.spec.cjs" time="0.868">
 </testcase>
-<testcase name="recorded-motion switch, delayed result expiry and interruption preserve turn ownership" classname="conversation.spec.cjs" time="4.437">
+<testcase name="recorded-motion switch, delayed result expiry and interruption preserve turn ownership" classname="conversation.spec.cjs" time="3.5">
 </testcase>
-<testcase name="retargeting two authored humanoid sizes preserves side, finite rotations, root continuity and minimum-swing limits" classname="conversation.spec.cjs" time="1.04">
+<testcase name="retargeting two authored humanoid sizes preserves side, finite rotations, root continuity and minimum-swing limits" classname="conversation.spec.cjs" time="0.447">
 </testcase>
-<testcase name="stopping during experiment B preparation never restarts speech when the delayed motion arrives" classname="conversation.spec.cjs" time="2.739">
+<testcase name="stopping during experiment B preparation never restarts speech when the delayed motion arrives" classname="conversation.spec.cjs" time="1.791">
 </testcase>
-<testcase name="actual free VRM and existing trained Kimodo/ARDY results load and animate without redistributing the avatar" classname="conversation.spec.cjs" time="7.904">
+<testcase name="actual free VRM and existing trained Kimodo/ARDY results load and animate without redistributing the avatar" classname="conversation.spec.cjs" time="0.132">
+<properties>
+<property name="skip" value="Set MOTION_LAB_TEST_VRM to a licensed local VRM 1.0 file.">
+</property>
+</properties>
+<skipped>
+</skipped>
 </testcase>
-<testcase name="official VRMA loader and animation clips support sequential playback and keep the root continuous" classname="conversation.spec.cjs" time="3.222">
+<testcase name="official VRMA loader and animation clips support sequential playback and keep the root continuous" classname="conversation.spec.cjs" time="2.356">
 </testcase>
 </testsuite>
-<testsuite name="live.spec.cjs" timestamp="2026-10-14T09:15:56.061Z" hostname="" tests="1" failures="0" skipped="1" time="0.266" errors="0">
-<testcase name="live Realtime audio plus newly generated local motion reaches the VRM during the same response" classname="live.spec.cjs" time="0.266">
+<testsuite name="live.spec.cjs" timestamp="2026-10-14T10:35:39.404Z" hostname="" tests="1" failures="0" skipped="1" time="0.134" errors="0">
+<testcase name="live Realtime audio plus newly generated local motion reaches the VRM during the same response" classname="live.spec.cjs" time="0.134">
 <properties>
 <property name="skip" value="Not run: explicit paid-API opt-in, API key, licensed VRM and local GPU models required.">
 </property>
@@ -25,16 +31,16 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="viewer.spec.cjs" timestamp="2026-10-14T09:15:56.061Z" hostname="" tests="5" failures="0" skipped="0" time="10.467" errors="0">
-<testcase name="synthetic provenance, actual 3D camera, playback, seek, speed and downloads" classname="viewer.spec.cjs" time="4.219">
+<testsuite name="viewer.spec.cjs" timestamp="2026-10-14T10:35:39.404Z" hostname="" tests="5" failures="0" skipped="0" time="8.09" errors="0">
+<testcase name="synthetic provenance, actual 3D camera, playback, seek, speed and downloads" classname="viewer.spec.cjs" time="3.423">
 </testcase>
-<testcase name="uploaded WAV is the playback clock and respects seek/rate" classname="viewer.spec.cjs" time="2.211">
+<testcase name="uploaded WAV is the playback clock and respects seek/rate" classname="viewer.spec.cjs" time="1.171">
 </testcase>
-<testcase name="unavailable models report an error instead of generating sample animation" classname="viewer.spec.cjs" time="1.249">
+<testcase name="unavailable models report an error instead of generating sample animation" classname="viewer.spec.cjs" time="1.418">
 </testcase>
-<testcase name="motion import retains source label and comparison draws multiple selected results" classname="viewer.spec.cjs" time="1.23">
+<testcase name="motion import retains source label and comparison draws multiple selected results" classname="viewer.spec.cjs" time="0.568">
 </testcase>
-<testcase name="short and medium ARDY presets retain literal utterances and timings CSV downloads" classname="viewer.spec.cjs" time="1.558">
+<testcase name="short and medium ARDY presets retain literal utterances and timings CSV downloads" classname="viewer.spec.cjs" time="1.51">
 </testcase>
 </testsuite>
 </testsuites>

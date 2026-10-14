@@ -62,6 +62,19 @@ def test_encoder_checksum_change_is_detected_without_download(tmp_path):
     assert not prepare_lab_text.valid_record(record)
 
 
+def test_public_encoder_check_does_not_mark_missing_llama_complete(tmp_path,monkeypatch):
+    file=tmp_path/'adapter.safetensors'
+    file.write_bytes(b'public-adapter')
+    record={'path':str(tmp_path),'sha256':{file.name:prepare_lab_text.digest(file)}}
+    manifest=tmp_path/'manifest.json'
+    manifest.write_text(json.dumps({repo:record for repo in prepare_lab_text.REPOSITORIES[1:]}),encoding='utf-8')
+    monkeypatch.setattr(sys,'argv',['prepare_lab_text','--manifest',str(manifest),'--check','--public-only'])
+    prepare_lab_text.main()
+    monkeypatch.setattr(sys,'argv',['prepare_lab_text','--manifest',str(manifest),'--check'])
+    with pytest.raises(RuntimeError,match='missing'):
+        prepare_lab_text.main()
+
+
 def test_runner_redacts_tokens_and_signed_urls(tmp_path):
     runner=setup_lab.Runner(tmp_path/'log.txt',{})
     token='hf_'+'A'*30
@@ -123,8 +136,10 @@ def test_kimodo_local_encoder_and_checkpoint_do_not_use_external_api(tmp_path):
     environments=[]
     adapter.run=lambda command,*args,**kwargs:environments.append(kwargs['env']) or .1
     adapter.cuda_available=lambda:True
-    adapter.export_official=lambda *args:tmp_path/'motion.json'
+    exports=[]
+    adapter.export_official=lambda *args,**kwargs:exports.append(kwargs) or tmp_path/'motion.json'
     adapter.generate(MotionInput('instruction','Wave',None,3,0,'kimodo'),tmp_path)
+    assert exports==[{'model':'kimodo-soma-rp-v1.1','checkpoint_dir':str(tmp_path/'checkpoints/kimodo')}]
     assert environments[0]['TEXT_ENCODER_MODE']=='local'
     assert environments[0]['TEXT_ENCODER_DEVICE']=='cpu'
     assert environments[0]['CHECKPOINT_DIR']==str(tmp_path/'checkpoints/kimodo')

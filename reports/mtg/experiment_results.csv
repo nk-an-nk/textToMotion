@@ -1,0 +1,34 @@
+﻿experiment_id,phase,model,status,started_at_jst,input_text,model_text,duration_seconds,seed,official_command_seconds,skeleton_seconds,mp4_render_seconds,total_seconds,failure_seconds,new_inference,audio_conditioned,error
+85a9c693a50d46efbe9ca652c43a0948,setup_fps_failure,kimodo,failed,2026-10-14T18:16:53.877306+09:00,Raise your right hand and wave for three seconds.,Raise your right hand and wave for three seconds.,3,0,,,,,64.31199999991804,True,False,"公式コマンドが exit 1 で失敗しました。
+Traceback (most recent call last):
+  File ""${PROJECT_ROOT}\scripts\export_official.py"", line 22, in <module>
+    fps = float(data['fps'])
+                ~~~~^^^^^^^
+  File ""${PROJECT_ROOT}\.motion-lab\envs\kimodo\Lib\site-packages\numpy\lib\_npyio_impl.py"", line 243, in __getitem__
+    raise KeyError(f""{key} is not a file in the archive"") from None
+KeyError: 'fps is not a file in the archive'
+"
+fb31b848c7c74f0aba06fd38ab998e62,setup_success,kimodo,succeeded,2026-10-14T18:20:29.476489+09:00,Raise your right hand and wave for three seconds.,Raise your right hand and wave for three seconds.,3,0,40.515000000130385,51.45299999997951,3.094000000040978,54.54700000002049,,True,False,
+0934428dd4644c5d87d9816c352f901b,setup_success,ardy,succeeded,2026-10-14T18:21:24.904728+09:00,こんにちは,Hello.,3,0,74.65599999995902,81.82799999997951,1.906999999890104,83.73499999986961,,True,False,
+cc28fe8e74cb4a13ad56eeea4c1e401b,setup_cleanup_failure,text_to_vrma,failed,2026-10-14T18:22:49.472607+09:00,こんにちは,Hello.,3,0,,,,,66.39099999982864,True,False,"公式コマンドが exit 1 で失敗しました。
+Official text-to-vrma ARDY pipeline exported VRMA: duration=3
+Traceback (most recent call last):
+  File ""${PROJECT_ROOT}\scripts\generate_text_to_vrma.py"", line 106, in <module>
+    capture.unlink()
+  File ""${USER_HOME}\AppData\Local\Programs\Python\Python312\Lib\pathlib.py"", line 1342, in unlink
+    os.unlink(self)
+PermissionError: [WinError 32] プロセスはファイルにアクセスできません。別のプロセスが使用中です。: '${USER_HOME}\\Desktop\\develop\\textToMotion\\.motion-lab\\outputs\\cc28fe8e74cb4a13ad56eeea4c1e401b\\.text-vrma-engine-capture'
+"
+6ed544f25f3e463e979e2d1a047558c4,setup_cleanup_retry_failure,text_to_vrma,failed,2026-10-14T18:31:18.266479+09:00,こんにちは,Hello.,3,0,,,,,82.67200000002049,True,False,"公式コマンドが exit 1 で失敗しました。
+Official text-to-vrma ARDY pipeline exported VRMA: duration=3
+Traceback (most recent call last):
+  File ""${PROJECT_ROOT}\scripts\generate_text_to_vrma.py"", line 118, in <module>
+    capture.unlink()
+  File ""${USER_HOME}\AppData\Local\Programs\Python\Python312\Lib\pathlib.py"", line 1342, in unlink
+    os.unlink(self)
+PermissionError: [WinError 32] プロセスはファイルにアクセスできません。別のプロセスが使用中です。: '${USER_HOME}\\Desktop\\develop\\textToMotion\\.motion-lab\\outputs\\6ed544f25f3e463e979e2d1a047558c4\\.text-vrma-engine-capture'
+"
+0492cb2804054a2b89046a7c5f6d469b,setup_success,text_to_vrma,succeeded,2026-10-14T18:35:00.602897+09:00,こんにちは,Hello.,3,0,73.8430000001099,73.93700000015087,3.3119999999180436,77.24900000006892,,True,False,
+753b2940004541ddbcb2a2b999eb4c61,live_software_late,kimodo,cancelled,2026-10-14T19:03:45.385506+09:00,日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。,Raise your right hand and wave for three seconds.,2.0,0,101.875,120.6710000000894,,,,True,False,
+eaa34d251d0346df891192a86290bd36,live_hardware_brief,kimodo,succeeded,2026-10-14T19:06:49.407067+09:00,日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。,Raise your right hand and wave for three seconds.,2.0,0,51.468000000109896,62.53099999995902,,,,True,False,
+fb707be72644490ab0757d4822f38101,live_hardware_corrected,kimodo,succeeded,2026-10-14T19:19:53.988635+09:00,日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。,Raise your right hand above your shoulder and wave repeatedly for 8 seconds.,8.0,0,56.859999999869615,68.09400000004098,,,,True,False,

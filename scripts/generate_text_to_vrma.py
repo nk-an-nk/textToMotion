@@ -15,6 +15,33 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from adapters.base import redact
 
+def stop_engine(process):
+    if process.poll() is not None:
+        return
+    if os.name=='nt':
+        # Windows venv launchers spawn the real interpreter. Stop that child too
+        # so it releases the capture file and its GPU memory before cleanup.
+        result=subprocess.run(['taskkill','/PID',str(process.pid),'/T','/F'],
+                              stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        if result.returncode!=0 and process.poll() is None:
+            process.terminate()
+    else:
+        process.terminate()
+    try:process.wait(timeout=10)
+    except subprocess.TimeoutExpired:process.kill();process.wait(timeout=5)
+
+def remove_temporary(path):
+    # Windows can retain inherited file handles briefly after process exit.
+    for attempt in range(20):
+        try:
+            path.unlink(missing_ok=True)
+            return
+        except PermissionError:
+            if attempt==19:
+                print(f'Temporary diagnostic retained while locked: {path.name}',flush=True)
+                return
+            time.sleep(.25)
+
 
 def main():
     parser=argparse.ArgumentParser()
@@ -84,10 +111,7 @@ def main():
                       'timing_note':'Includes engine boot, CPU text encoding, CUDA generation, retargeting and VRMA export.'}
             (output/'original.metadata.json').write_text(json.dumps(metadata,indent=2),encoding='utf-8')
         finally:
-            if process.poll() is None:
-                process.terminate()
-                try:process.wait(timeout=10)
-                except subprocess.TimeoutExpired:process.kill();process.wait(timeout=5)
+            stop_engine(process)
     # Keep redacted source-engine diagnostics and remove temporary request/capture.
 
 
@@ -103,5 +127,5 @@ if __name__=='__main__':
             capture=output/'.text-vrma-engine-capture'
             if capture.is_file():
                 (output/'text-vrma-engine.log').write_text(redact(capture.read_text(encoding='utf-8',errors='replace')),encoding='utf-8')
-                capture.unlink()
-            (output/'.text-vrma-request.json').unlink(missing_ok=True)
+                remove_temporary(capture)
+            remove_temporary(output/'.text-vrma-request.json')

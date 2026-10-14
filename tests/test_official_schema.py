@@ -3,6 +3,16 @@ import numpy as np
 import pytest
 from app.official_schema import normalize_kimodo_online
 from app.motion import MotionError
+from scripts.export_official import official_fps
+
+
+def test_exporter_requires_official_fps_and_rejects_invalid_values():
+    assert official_fps({'fps':np.asarray(20)},'ardy')==20
+    with pytest.raises(ValueError,match='no fps'):
+        official_fps({},'kimodo')
+    for value in (0,-1,float('nan'),float('inf')):
+        with pytest.raises(ValueError,match='finite and positive'):
+            official_fps({'fps':np.asarray(value)},'ardy')
 
 
 def test_official_output_matches_frames_and_hierarchy_without_executing_source(tmp_path):

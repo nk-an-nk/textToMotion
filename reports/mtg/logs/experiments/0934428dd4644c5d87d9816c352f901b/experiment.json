@@ -1,0 +1,54 @@
+{
+  "id": "0934428dd4644c5d87d9816c352f901b",
+  "status": "succeeded",
+  "created_at": "2026-10-14T09:21:24.904728+00:00",
+  "model_id": "ardy",
+  "task_type": "instruction",
+  "input_text": "こんにちは",
+  "model_text": "Hello.",
+  "duration_requested": 3,
+  "seed": 0,
+  "input_audio": null,
+  "metadata": {
+    "verification": "local CUDA setup smoke; actual pretrained inference"
+  },
+  "artifacts": {
+    "original_motion_path": "original.npz",
+    "normalized_motion_path": "motion.json",
+    "rendered_video_path": "video.mp4"
+  },
+  "started_at": "2026-10-14T09:21:24.904728+00:00",
+  "finished_at": "2026-10-14T09:22:46.733880+00:00",
+  "inference_time": 74.65599999995902,
+  "time_to_first_result": 81.82799999997951,
+  "timings": {
+    "skeleton_seconds": 81.82799999997951,
+    "mp4_render_seconds": 1.906999999890104,
+    "total_seconds": 83.73499999986961
+  },
+  "checkpoint": "core8",
+  "device": "cuda",
+  "gpu_peak_memory_bytes": null,
+  "skeleton_type": "ardy:cskel27",
+  "model_metadata": {
+    "postprocess": false,
+    "text_encoder_device": "cpu",
+    "text_guidance": 2.0,
+    "constraint_guidance": 2.0,
+    "history_policy": "longest history within official trained 10-second window"
+  },
+  "frames": 60,
+  "fps": 20.0,
+  "duration": 3.0,
+  "acceleration_rms_m_s2": 0.9153129204382658,
+  "semantic_alignment": null,
+  "naturalness": null,
+  "evaluation_note": "意味的一致・自然さは未評価。主観評価が必要。足接地の真値なしに足滑りを採点しません。",
+  "artifact_sha256": {
+    "original_motion_path": "b20edbc5345057aafb5e4e62c3fe09676162bf874a6cfe063bd3a4af3b720ed0",
+    "normalized_motion_path": "db5e19c21733218f75e1a44a2a362026ca468a787b5861c2c948613dd41b38ee",
+    "rendered_video_path": "a98ecaff1b4bf8bed070b1d88b71ee3a867f5605ce642d6b126ffde40e33f381"
+  },
+  "render_status": "succeeded",
+  "render_error": null
+}

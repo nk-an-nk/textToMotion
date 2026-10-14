@@ -210,7 +210,7 @@ def setup(args,profile):
         if not checkpoint_valid(data,model):
             runner.run([app_python,ROOT/'scripts/setup_models.py','--models',model,'--download',
                         '--accept-model-license','--max-download-gb','2','--data-dir',data])
-        model_signatures[model]=fingerprint([ROOT/'scripts/verify_lab_model.py',ROOT/'scripts/generate_ardy_local.py',
+        model_signatures[model]=fingerprint([ROOT/'scripts/verify_lab_model.py',ROOT/'scripts/generate_ardy_local.py',ROOT/'scripts/export_official.py',
                                             ROOT/'adapters'/f'{model}.py',ROOT/'adapters/base.py'],
                                            {'environment':signature,'text_device':'cpu'})
         runtime[model]={**runtime.get(model,{}),'backend':'local','checkpoint_dir':f'checkpoints/{model}',

@@ -1,0 +1,9 @@
+{
+  "torch": "2.9.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "capability": [
+    12,
+    0
+  ]
+}

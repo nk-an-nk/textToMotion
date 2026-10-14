@@ -1,0 +1,22 @@
+{
+  "id": "6ed544f25f3e463e979e2d1a047558c4",
+  "status": "failed",
+  "created_at": "2026-10-14T09:31:18.266479+00:00",
+  "model_id": "text_to_vrma",
+  "task_type": "instruction",
+  "input_text": "こんにちは",
+  "model_text": "Hello.",
+  "duration_requested": 3,
+  "seed": 0,
+  "input_audio": null,
+  "metadata": {
+    "verification": "local CUDA setup smoke; actual pretrained inference"
+  },
+  "artifacts": {
+    "original.vrma": "original.vrma"
+  },
+  "started_at": "2026-10-14T09:31:18.266479+00:00",
+  "finished_at": "2026-10-14T09:32:40.937560+00:00",
+  "error": "公式コマンドが exit 1 で失敗しました。\nOfficial text-to-vrma ARDY pipeline exported VRMA: duration=3\nTraceback (most recent call last):\n  File \"${PROJECT_ROOT}\\scripts\\generate_text_to_vrma.py\", line 118, in <module>\n    capture.unlink()\n  File \"${USER_HOME}\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\pathlib.py\", line 1342, in unlink\n    os.unlink(self)\nPermissionError: [WinError 32] プロセスはファイルにアクセスできません。別のプロセスが使用中です。: '${USER_HOME}\\\\Desktop\\\\develop\\\\textToMotion\\\\.motion-lab\\\\outputs\\\\6ed544f25f3e463e979e2d1a047558c4\\\\.text-vrma-engine-capture'\n",
+  "time_to_failure": 82.67200000002049
+}

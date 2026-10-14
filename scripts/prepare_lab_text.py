@@ -32,17 +32,20 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--manifest',type=Path,required=True)
     parser.add_argument('--check',action='store_true')
+    parser.add_argument('--public-only',action='store_true',
+                        help='Prepare the public LLM2Vec adapters while Llama access is pending.')
     args=parser.parse_args()
     records=json.loads(args.manifest.read_text(encoding='utf-8')) if args.manifest.is_file() else {}
-    complete=all(repo in records and valid_record(records[repo]) for repo in REPOSITORIES)
+    repositories=REPOSITORIES[1:] if args.public_only else REPOSITORIES
+    complete=all(repo in records and valid_record(records[repo]) for repo in repositories)
     if args.check:
         if not complete:
             raise RuntimeError('Encoder assets are missing or their checksums changed.')
-        print('All encoder assets verified; no downloads.')
+        print('Selected encoder assets verified; no downloads.')
         return
     from huggingface_hub import HfApi,snapshot_download
     api=HfApi()
-    for repo in REPOSITORIES:
+    for repo in repositories:
         if repo in records:
             if not valid_record(records[repo]):
                 raise RuntimeError(f'Existing encoder files changed: {repo}. Inspect them before replacing anything.')

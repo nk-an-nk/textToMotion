@@ -46,6 +46,8 @@ class KimodoAdapter(ModelAdapter):
         elapsed = self.run([self.python, '-m', 'kimodo.scripts.generate', request.text,
                             '--model', self.config.get('model', 'kimodo-soma-rp-v1.1'), '--duration', str(request.duration),
                             '--seed', str(request.seed), '--no-postprocess', '--output', original], output_dir, env=env)
-        return {'original_motion_path': original, 'normalized_motion_path': self.export_official(original, output_dir),
+        return {'original_motion_path': original, 'normalized_motion_path': self.export_official(
+                    original, output_dir, model=self.config.get('model','kimodo-soma-rp-v1.1'),
+                    checkpoint_dir=env['CHECKPOINT_DIR']),
                 'rendered_video_path': None, 'inference_time': elapsed, 'checkpoint': self.config.get('model'),
                 'device': 'cuda' if self.cuda_available() else 'cpu', 'metadata': {'postprocess': False, 'text_encoder_device': text_device}}

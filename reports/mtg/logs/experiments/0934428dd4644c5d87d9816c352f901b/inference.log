@@ -1,0 +1,55 @@
+Setting up text encoder (mode=local); first run may take a while...
+
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 290/290 [00:00<00:00, 9904.47it/s]
+[transformers] [1mLlamaBiModel LOAD REPORT[0m from: meta-llama/Meta-Llama-3-8B-Instruct
+Key            | Status     |  |
+---------------+------------+--+-
+lm_head.weight | UNEXPECTED |  |
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+Loading weights:   0%|          | 0/448 [00:00<?, ?it/s]
+Loading weights:  38%|███▊      | 169/448 [00:00<00:00, 1680.36it/s]
+Loading weights:  79%|███████▉  | 353/448 [00:00<00:00, 1752.20it/s]
+Loading weights: 100%|██████████| 448/448 [00:00<00:00, 1758.01it/s]
+${PROJECT_ROOT}\.motion-lab\envs\ardy\Lib\site-packages\peft\tuners\tuners_utils.py:331: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+sparsify_token_seq: False
+${PROJECT_ROOT}\.motion-lab\envs\ardy\Lib\site-packages\ardy\model\llm2vec\llm2vec_wrapper.py:100: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  encoded_text = torch.tensor(encoded_text).to(self._device)
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 10%|█         | 1/10 [00:00<00:03,  2.43it/s]
+ 80%|████████  | 8/10 [00:00<00:00, 19.83it/s]
+100%|██████████| 10/10 [00:00<00:00, 18.48it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 70%|███████   | 7/10 [00:00<00:00, 68.17it/s]
+100%|██████████| 10/10 [00:00<00:00, 68.62it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 80%|████████  | 8/10 [00:00<00:00, 71.25it/s]
+100%|██████████| 10/10 [00:00<00:00, 70.52it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 80%|████████  | 8/10 [00:00<00:00, 71.22it/s]
+100%|██████████| 10/10 [00:00<00:00, 70.33it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 80%|████████  | 8/10 [00:00<00:00, 71.59it/s]
+100%|██████████| 10/10 [00:00<00:00, 73.91it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 70%|███████   | 7/10 [00:00<00:00, 68.46it/s]
+100%|██████████| 10/10 [00:00<00:00, 67.80it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 80%|████████  | 8/10 [00:00<00:00, 72.53it/s]
+100%|██████████| 10/10 [00:00<00:00, 74.60it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 80%|████████  | 8/10 [00:00<00:00, 72.64it/s]
+100%|██████████| 10/10 [00:00<00:00, 71.58it/s]
+Generated real ARDY output: device=cuda, text_device=cpu, frames=60

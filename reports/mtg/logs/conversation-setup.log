@@ -1,0 +1,72 @@
+Requirement already satisfied: annotated-types==0.8.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 1)) (0.8.0)
+Requirement already satisfied: anyio==4.15.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 2)) (4.15.1)
+Requirement already satisfied: certifi==2026.7.22 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 3)) (2026.7.22)
+Requirement already satisfied: click==8.5.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 4)) (8.5.0)
+Requirement already satisfied: contourpy==1.4.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 5)) (1.4.0)
+Requirement already satisfied: cycler==0.12.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 6)) (0.12.1)
+Requirement already satisfied: fastapi==0.115.12 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 7)) (0.115.12)
+Requirement already satisfied: fonttools==4.66.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 8)) (4.66.1)
+Requirement already satisfied: h11==0.16.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 9)) (0.16.0)
+Requirement already satisfied: httpcore==1.0.9 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 10)) (1.0.9)
+Requirement already satisfied: httpx==0.28.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 11)) (0.28.1)
+Requirement already satisfied: idna==3.20 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 12)) (3.20)
+Requirement already satisfied: iniconfig==2.3.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 13)) (2.3.1)
+Requirement already satisfied: kiwisolver==1.5.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 14)) (1.5.1)
+Requirement already satisfied: matplotlib==3.10.3 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 15)) (3.10.3)
+Requirement already satisfied: msgspec==0.22.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 16)) (0.22.0)
+Requirement already satisfied: numpy==2.2.6 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 17)) (2.2.6)
+Requirement already satisfied: packaging==26.3 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 18)) (26.3)
+Requirement already satisfied: pillow==12.3.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 19)) (12.3.0)
+Requirement already satisfied: pluggy==1.6.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 20)) (1.6.0)
+Requirement already satisfied: pydantic==2.14.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 21)) (2.14.1)
+Requirement already satisfied: pydantic_core==2.50.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 22)) (2.50.1)
+Requirement already satisfied: pyparsing==3.3.3 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 23)) (3.3.3)
+Requirement already satisfied: pytest==8.3.5 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 24)) (8.3.5)
+Requirement already satisfied: python-dateutil==2.9.0.post0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 25)) (2.9.0.post0)
+Requirement already satisfied: python-multipart==0.0.20 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 26)) (0.0.20)
+Requirement already satisfied: scipy==1.15.3 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 27)) (1.15.3)
+Requirement already satisfied: six==1.17.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 28)) (1.17.0)
+Requirement already satisfied: starlette==0.46.2 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 29)) (0.46.2)
+Requirement already satisfied: typing-inspection==0.4.4 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 30)) (0.4.4)
+Requirement already satisfied: typing_extensions==4.16.0 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 31)) (4.16.0)
+Requirement already satisfied: uvicorn==0.34.3 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 32)) (0.34.3)
+Requirement already satisfied: websockets==15.0.1 in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from -r ${PROJECT_ROOT}\requirements-app.lock (line 33)) (15.0.1)
+Requirement already satisfied: colorama in ${USER_HOME}\desktop\develop\texttomotion\.venv\lib\site-packages (from pytest==8.3.5->-r ${PROJECT_ROOT}\requirements-app.lock (line 24)) (0.4.6)
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: ${PROJECT_ROOT}\.venv\Scripts\python.exe -m pip install --upgrade pip
+Obtaining file:///${PROJECT_ROOT}
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: motion-lab
+  Building editable for motion-lab (pyproject.toml): started
+  Building editable for motion-lab (pyproject.toml): finished with status 'done'
+  Created wheel for motion-lab: filename=motion_lab-0.1.0-0.editable-py3-none-any.whl size=2940 sha256=80e6630c59a52e5347a4bd8dd7df7694506f56f4112bbd97df2442beca828d1e
+  Stored in directory: ${USER_HOME}\AppData\Local\Temp\pip-ephem-wheel-cache-r1uoo8rw\wheels\dc\67\5b\5a1c7d9afc89e379f2c32fa12cbbc7018c0cf4ad67bc474d38
+Successfully built motion-lab
+Installing collected packages: motion-lab
+  Attempting uninstall: motion-lab
+    Found existing installation: motion-lab 0.1.0
+    Uninstalling motion-lab-0.1.0:
+      Successfully uninstalled motion-lab-0.1.0
+Successfully installed motion-lab-0.1.0
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: ${PROJECT_ROOT}\.venv\Scripts\python.exe -m pip install --upgrade pip
+
+added 20 packages, and audited 21 packages in 12s
+
+2 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+No broken requirements found.
+Application imports OK

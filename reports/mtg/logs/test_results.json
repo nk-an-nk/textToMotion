@@ -1,0 +1,20 @@
+{
+  "python": {
+    "passed": 89,
+    "failed": 0
+  },
+  "javascript": {
+    "passed": 16,
+    "failed": 0
+  },
+  "browser": {
+    "passed": 11,
+    "failed": 0,
+    "skipped": 2,
+    "skip_reasons": [
+      "Historical recordings absent in this checkout",
+      "Separate paid live E2E not repeated during publication checks"
+    ]
+  },
+  "live_experiments": "Three earlier real API trials are documented separately; skipped tests are not counted as passed."
+}

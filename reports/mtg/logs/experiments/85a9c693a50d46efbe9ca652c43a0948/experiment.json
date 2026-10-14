@@ -1,0 +1,22 @@
+{
+  "id": "85a9c693a50d46efbe9ca652c43a0948",
+  "status": "failed",
+  "created_at": "2026-10-14T09:16:53.877306+00:00",
+  "model_id": "kimodo",
+  "task_type": "instruction",
+  "input_text": "Raise your right hand and wave for three seconds.",
+  "model_text": "Raise your right hand and wave for three seconds.",
+  "duration_requested": 3,
+  "seed": 0,
+  "input_audio": null,
+  "metadata": {
+    "verification": "local CUDA setup smoke; actual pretrained inference"
+  },
+  "artifacts": {
+    "original.npz": "original.npz"
+  },
+  "started_at": "2026-10-14T09:16:53.877306+00:00",
+  "finished_at": "2026-10-14T09:17:58.186398+00:00",
+  "error": "公式コマンドが exit 1 で失敗しました。\nTraceback (most recent call last):\n  File \"${PROJECT_ROOT}\\scripts\\export_official.py\", line 22, in <module>\n    fps = float(data['fps'])\n                ~~~~^^^^^^^\n  File \"${PROJECT_ROOT}\\.motion-lab\\envs\\kimodo\\Lib\\site-packages\\numpy\\lib\\_npyio_impl.py\", line 243, in __getitem__\n    raise KeyError(f\"{key} is not a file in the archive\") from None\nKeyError: 'fps is not a file in the archive'\n",
+  "time_to_failure": 64.31199999991804
+}

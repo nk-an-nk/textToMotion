@@ -1,0 +1,109 @@
+{
+  "trial": 1,
+  "experiment_id": "753b2940004541ddbcb2a2b999eb4c61",
+  "result": {
+    "status": "live_speech_without_generated_gesture",
+    "avatar": "VRM1_Constraint_Twist_Sample",
+    "model": "kimodo",
+    "mode": "C",
+    "max_output_tokens": 2048,
+    "input": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+    "motion_prompt": "Raise your right hand and wave for three seconds.",
+    "first_text_seconds": 1.121,
+    "new_motion": null,
+    "generated_gesture_applied": false,
+    "transcript": "では、研究用アバターの仕組みを順番に、ゆっくり整理しながら説明していきますね。研究用の音声対話アバターは、まず人が話した音声をテキストに直すところから始まります。音声認識の仕組みが、音の高さや長さ、区切れなどを手がかりにして、言葉の候補を探します。雑音が多かったり、話し方に癖があると、その精度が下がることもあります。研究用のシステムでは、特定の話者や特定の環境に合わせて学習させることで、認識の安定を狙うことがあります。\n\n次に、得られたテキストをもとに応答を作ります。ここでは、ルールベースの仕組みや、大きな言語モデルが使われることがあります。初心者向けにざっくり言うと、質問の意図を推測して、適切そうな文を組み立てる段階です。研究用では、長い対話の文脈をどこまで覚えていられるかが重要になります。さらに、研究目的なら、説明の丁寧さや安全な言い回しも調整のポイントです。\n\nその次に、返事の内容に合わせて動きを作ります。動作生成は、表情、視線、頭や手の動きなどを、タイミング良く組み合わせる作業です。声の抑揚や、文の区切れに合",
+    "messages": "",
+    "browser_errors": []
+  },
+  "client_seconds_from_submit": {
+    "experiment_config": -5.161,
+    "interrupt_started": -5.143299999952316,
+    "motion_state": -5.143200000047684,
+    "interrupt_completed": -5.143200000047684,
+    "avatar_loaded": -4.966200000047683,
+    "realtime_event": -0.040799999952316285,
+    "user_text_submitted": 0.0,
+    "response_created_received": 0.16659999990463256,
+    "first_response_text": 0.625,
+    "first_audio_playback": 0.9658999998569489,
+    "gesture_planned": 1.841,
+    "motion_requested": 1.8413999998569488,
+    "response_generation_done_received": 19.379799999952315,
+    "gesture_invalidated": 87.83359999990464,
+    "audio_playback_ended": 87.835
+  },
+  "motion_status": "cancelled",
+  "motion_timings": {
+    "skeleton_seconds": 120.6710000000894,
+    "mp4_render_seconds": null,
+    "total_seconds": null
+  },
+  "adopted": false,
+  "rendering": "software SwiftShader",
+  "duration_seconds": 2.0,
+  "model_record": {
+    "id": "753b2940004541ddbcb2a2b999eb4c61",
+    "status": "cancelled",
+    "created_at": "2026-10-14T10:03:45.372426+00:00",
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "input_text": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+    "model_text": "Raise your right hand and wave for three seconds.",
+    "duration_requested": 2.0,
+    "seed": 0,
+    "input_audio": null,
+    "metadata": {
+      "dialogue": {
+        "turn_id": "f99af440-ea22-4dba-9ce5-33f9a451f99e",
+        "response_id": "resp_EYq7jawskDU8IwuqCShv2",
+        "gesture_id": "0b2db7c6d8a74e128890470f4da6a734",
+        "deadline_ms": 3000,
+        "server_requested_monotonic_ms": 1740068375.0
+      },
+      "translation": "gesture_planner",
+      "audio_conditioned": false
+    },
+    "artifacts": {
+      "original_motion_path": "original.npz",
+      "normalized_motion_path": "motion.json"
+    },
+    "started_at": "2026-10-14T10:03:45.385506+00:00",
+    "server_started_monotonic_ms": 1740068375.0,
+    "cancelled_at": "2026-10-14T10:05:11.363065+00:00",
+    "cancellation": {
+      "queued_work_prevented": false,
+      "running_inference_terminated": false,
+      "result_invalidated": true
+    },
+    "finished_at": "2026-10-14T10:05:46.048301+00:00",
+    "inference_time": 101.875,
+    "time_to_first_result": 120.6710000000894,
+    "timings": {
+      "skeleton_seconds": 120.6710000000894,
+      "mp4_render_seconds": null,
+      "total_seconds": null
+    },
+    "checkpoint": "kimodo-soma-rp-v1.1",
+    "device": "cuda",
+    "gpu_peak_memory_bytes": null,
+    "skeleton_type": "kimodo:somaskel77",
+    "trained_model_output": true,
+    "model_metadata": {
+      "postprocess": false,
+      "text_encoder_device": "cpu"
+    },
+    "frames": 60,
+    "fps": 30.0,
+    "duration": 2.0,
+    "acceleration_rms_m_s2": 3.2614810305759243,
+    "semantic_alignment": null,
+    "naturalness": null,
+    "evaluation_note": "意味的一致・自然さは未評価。主観評価が必要。足接地の真値なしに足滑りを採点しません。",
+    "artifact_sha256": {
+      "original_motion_path": "f3760decbdd96fbb21f5a6d45ab4cdc72b35cc68c4115e513db1b1e1cff2cd10",
+      "normalized_motion_path": "7849e6fc6f0ddfc2dd5f245e1583435c4bad48ea30ae878f4a8dd5f75a97a152"
+    },
+    "server_finished_monotonic_ms": 1740189046.0
+  }
+}

@@ -79,11 +79,16 @@ def test_cpu_engine_is_stopped_before_any_vrma_generation(tmp_path,monkeypatch):
     python.parent.mkdir(parents=True);python.touch()
     stopped=[]
     class ProcessDouble:
+        pid=12345
         def poll(self):return None
         def terminate(self):stopped.append(True)
         def wait(self,**kwargs):return 0
     monkeypatch.setattr(generate_text_to_vrma.subprocess,'Popen',lambda *args,**kwargs:ProcessDouble())
-    monkeypatch.setattr(generate_text_to_vrma.subprocess,'run',lambda *args,**kwargs:pytest.fail('CPU must not generate VRMA'))
+    def run(command,**kwargs):
+        assert command==['taskkill','/PID','12345','/T','/F']
+        stopped.append(True)
+        return type('Result',(),{'returncode':0})()
+    monkeypatch.setattr(generate_text_to_vrma.subprocess,'run',run)
     monkeypatch.setattr(generate_text_to_vrma.shutil,'which',lambda name:'/node')
     monkeypatch.setattr(generate_text_to_vrma.urllib.request,'urlopen',
                         lambda *args,**kwargs:io.StringIO(json.dumps({'status':'ok','model':'core8','device':'cpu','fps':20})))
@@ -91,6 +96,18 @@ def test_cpu_engine_is_stopped_before_any_vrma_generation(tmp_path,monkeypatch):
                                   '--prompt','Hello.','--duration','3','--seed','0'])
     with pytest.raises(RuntimeError,match='no CPU fallback'):generate_text_to_vrma.main()
     assert stopped and not (output/'original.vrma').exists()
+
+
+def test_temporary_cleanup_retries_windows_handle_release(monkeypatch):
+    calls=[]
+    class LockedFile:
+        name='temporary-capture'
+        def unlink(self,**kwargs):
+            calls.append(True)
+            if len(calls)<3:raise PermissionError('handle still closing')
+    monkeypatch.setattr(generate_text_to_vrma.time,'sleep',lambda seconds:None)
+    generate_text_to_vrma.remove_temporary(LockedFile())
+    assert len(calls)==3
 
 
 def test_text_to_vrma_requires_shared_ardy_and_has_no_llm_fallback(tmp_path):

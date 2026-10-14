@@ -1,3 +1,14 @@
 *.ps1 text eol=crlf
 *.sh text eol=lf
 *.py text eol=lf
+reports/mtg/**/*.md text eol=lf
+reports/mtg/**/*.json text eol=lf
+reports/mtg/**/*.csv text eol=lf
+reports/mtg/**/*.xml text eol=lf
+reports/mtg/**/*.txt text eol=lf
+reports/mtg/**/*.log text eol=lf
+*.mp4 binary
+*.webm binary
+*.npz binary
+*.vrma binary
+*.png binary

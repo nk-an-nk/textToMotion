@@ -19,3 +19,11 @@ test-results/
 playwright-report/
 # Private validation image of a separately licensed avatar; not redistributed.
 reports/conversation-vrm-screenshot.png
+
+# User-owned credentials; never include these in experiment publications.
+config/huggingface.md
+configs/huggingface.md
+config/realtimeapi.txt
+config/reaitimeapi.txt
+configs/realtimeapi.txt
+configs/reaitimeapi.txt

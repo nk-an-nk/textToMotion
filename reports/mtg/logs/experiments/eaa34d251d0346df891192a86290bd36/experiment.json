@@ -1,0 +1,58 @@
+{
+  "id": "eaa34d251d0346df891192a86290bd36",
+  "status": "succeeded",
+  "created_at": "2026-10-14T10:06:49.400043+00:00",
+  "model_id": "kimodo",
+  "task_type": "instruction",
+  "input_text": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+  "model_text": "Raise your right hand and wave for three seconds.",
+  "duration_requested": 2.0,
+  "seed": 0,
+  "input_audio": null,
+  "metadata": {
+    "dialogue": {
+      "turn_id": "a447e016-0730-4954-917a-316291d7ebed",
+      "response_id": "resp_EYqAhn231AjmcI5HStQnf",
+      "gesture_id": "dea76e7c470d49378902a4c3b9877820",
+      "deadline_ms": 3000,
+      "server_requested_monotonic_ms": 1740252406.0
+    },
+    "translation": "gesture_planner",
+    "audio_conditioned": false
+  },
+  "artifacts": {
+    "original_motion_path": "original.npz",
+    "normalized_motion_path": "motion.json"
+  },
+  "started_at": "2026-10-14T10:06:49.407067+00:00",
+  "server_started_monotonic_ms": 1740252406.0,
+  "finished_at": "2026-10-14T10:07:51.929985+00:00",
+  "inference_time": 51.468000000109896,
+  "time_to_first_result": 62.53099999995902,
+  "timings": {
+    "skeleton_seconds": 62.53099999995902,
+    "mp4_render_seconds": null,
+    "total_seconds": null
+  },
+  "checkpoint": "kimodo-soma-rp-v1.1",
+  "device": "cuda",
+  "gpu_peak_memory_bytes": null,
+  "skeleton_type": "kimodo:somaskel77",
+  "trained_model_output": true,
+  "model_metadata": {
+    "postprocess": false,
+    "text_encoder_device": "cpu"
+  },
+  "frames": 60,
+  "fps": 30.0,
+  "duration": 2.0,
+  "acceleration_rms_m_s2": 3.2614810305759243,
+  "semantic_alignment": null,
+  "naturalness": null,
+  "evaluation_note": "意味的一致・自然さは未評価。主観評価が必要。足接地の真値なしに足滑りを採点しません。",
+  "artifact_sha256": {
+    "original_motion_path": "f3760decbdd96fbb21f5a6d45ab4cdc72b35cc68c4115e513db1b1e1cff2cd10",
+    "normalized_motion_path": "7849e6fc6f0ddfc2dd5f245e1583435c4bad48ea30ae878f4a8dd5f75a97a152"
+  },
+  "server_finished_monotonic_ms": 1740314937.0
+}

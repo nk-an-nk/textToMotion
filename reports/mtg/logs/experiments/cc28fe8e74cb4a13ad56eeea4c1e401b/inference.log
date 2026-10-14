@@ -1,0 +1,7 @@
+Official text-to-vrma ARDY pipeline exported VRMA: duration=3
+Traceback (most recent call last):
+  File "${PROJECT_ROOT}\scripts\generate_text_to_vrma.py", line 106, in <module>
+    capture.unlink()
+  File "${USER_HOME}\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1342, in unlink
+    os.unlink(self)
+PermissionError: [WinError 32] プロセスはファイルにアクセスできません。別のプロセスが使用中です。: '${USER_HOME}\\Desktop\\develop\\textToMotion\\.motion-lab\\outputs\\cc28fe8e74cb4a13ad56eeea4c1e401b\\.text-vrma-engine-capture'

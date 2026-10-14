@@ -1,0 +1,367 @@
+[
+  {
+    "trial": 1,
+    "experiment_id": "753b2940004541ddbcb2a2b999eb4c61",
+    "result": {
+      "status": "live_speech_without_generated_gesture",
+      "avatar": "VRM1_Constraint_Twist_Sample",
+      "model": "kimodo",
+      "mode": "C",
+      "max_output_tokens": 2048,
+      "input": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+      "motion_prompt": "Raise your right hand and wave for three seconds.",
+      "first_text_seconds": 1.121,
+      "new_motion": null,
+      "generated_gesture_applied": false,
+      "transcript": "では、研究用アバターの仕組みを順番に、ゆっくり整理しながら説明していきますね。研究用の音声対話アバターは、まず人が話した音声をテキストに直すところから始まります。音声認識の仕組みが、音の高さや長さ、区切れなどを手がかりにして、言葉の候補を探します。雑音が多かったり、話し方に癖があると、その精度が下がることもあります。研究用のシステムでは、特定の話者や特定の環境に合わせて学習させることで、認識の安定を狙うことがあります。\n\n次に、得られたテキストをもとに応答を作ります。ここでは、ルールベースの仕組みや、大きな言語モデルが使われることがあります。初心者向けにざっくり言うと、質問の意図を推測して、適切そうな文を組み立てる段階です。研究用では、長い対話の文脈をどこまで覚えていられるかが重要になります。さらに、研究目的なら、説明の丁寧さや安全な言い回しも調整のポイントです。\n\nその次に、返事の内容に合わせて動きを作ります。動作生成は、表情、視線、頭や手の動きなどを、タイミング良く組み合わせる作業です。声の抑揚や、文の区切れに合",
+      "messages": "",
+      "browser_errors": []
+    },
+    "client_seconds_from_submit": {
+      "experiment_config": -5.161,
+      "interrupt_started": -5.143299999952316,
+      "motion_state": -5.143200000047684,
+      "interrupt_completed": -5.143200000047684,
+      "avatar_loaded": -4.966200000047683,
+      "realtime_event": -0.040799999952316285,
+      "user_text_submitted": 0.0,
+      "response_created_received": 0.16659999990463256,
+      "first_response_text": 0.625,
+      "first_audio_playback": 0.9658999998569489,
+      "gesture_planned": 1.841,
+      "motion_requested": 1.8413999998569488,
+      "response_generation_done_received": 19.379799999952315,
+      "gesture_invalidated": 87.83359999990464,
+      "audio_playback_ended": 87.835
+    },
+    "motion_status": "cancelled",
+    "motion_timings": {
+      "skeleton_seconds": 120.6710000000894,
+      "mp4_render_seconds": null,
+      "total_seconds": null
+    },
+    "adopted": false,
+    "rendering": "software SwiftShader",
+    "duration_seconds": 2.0,
+    "model_record": {
+      "id": "753b2940004541ddbcb2a2b999eb4c61",
+      "status": "cancelled",
+      "created_at": "2026-10-14T10:03:45.372426+00:00",
+      "model_id": "kimodo",
+      "task_type": "instruction",
+      "input_text": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+      "model_text": "Raise your right hand and wave for three seconds.",
+      "duration_requested": 2.0,
+      "seed": 0,
+      "input_audio": null,
+      "metadata": {
+        "dialogue": {
+          "turn_id": "f99af440-ea22-4dba-9ce5-33f9a451f99e",
+          "response_id": "resp_EYq7jawskDU8IwuqCShv2",
+          "gesture_id": "0b2db7c6d8a74e128890470f4da6a734",
+          "deadline_ms": 3000,
+          "server_requested_monotonic_ms": 1740068375.0
+        },
+        "translation": "gesture_planner",
+        "audio_conditioned": false
+      },
+      "artifacts": {
+        "original_motion_path": "original.npz",
+        "normalized_motion_path": "motion.json"
+      },
+      "started_at": "2026-10-14T10:03:45.385506+00:00",
+      "server_started_monotonic_ms": 1740068375.0,
+      "cancelled_at": "2026-10-14T10:05:11.363065+00:00",
+      "cancellation": {
+        "queued_work_prevented": false,
+        "running_inference_terminated": false,
+        "result_invalidated": true
+      },
+      "finished_at": "2026-10-14T10:05:46.048301+00:00",
+      "inference_time": 101.875,
+      "time_to_first_result": 120.6710000000894,
+      "timings": {
+        "skeleton_seconds": 120.6710000000894,
+        "mp4_render_seconds": null,
+        "total_seconds": null
+      },
+      "checkpoint": "kimodo-soma-rp-v1.1",
+      "device": "cuda",
+      "gpu_peak_memory_bytes": null,
+      "skeleton_type": "kimodo:somaskel77",
+      "trained_model_output": true,
+      "model_metadata": {
+        "postprocess": false,
+        "text_encoder_device": "cpu"
+      },
+      "frames": 60,
+      "fps": 30.0,
+      "duration": 2.0,
+      "acceleration_rms_m_s2": 3.2614810305759243,
+      "semantic_alignment": null,
+      "naturalness": null,
+      "evaluation_note": "意味的一致・自然さは未評価。主観評価が必要。足接地の真値なしに足滑りを採点しません。",
+      "artifact_sha256": {
+        "original_motion_path": "f3760decbdd96fbb21f5a6d45ab4cdc72b35cc68c4115e513db1b1e1cff2cd10",
+        "normalized_motion_path": "7849e6fc6f0ddfc2dd5f245e1583435c4bad48ea30ae878f4a8dd5f75a97a152"
+      },
+      "server_finished_monotonic_ms": 1740189046.0
+    }
+  },
+  {
+    "trial": 2,
+    "experiment_id": "eaa34d251d0346df891192a86290bd36",
+    "result": {
+      "status": "succeeded",
+      "avatar": "VRM1_Constraint_Twist_Sample",
+      "model": "kimodo",
+      "mode": "C",
+      "max_output_tokens": 4096,
+      "webgl_renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "input": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+      "motion_prompt": "Raise your right hand and wave for three seconds.",
+      "gesture_visible_seconds": 64.454,
+      "first_text_seconds": 0.545,
+      "new_motion": {
+        "request_id": "eaa34d251d0346df891192a86290bd36",
+        "turn_id": "a447e016-0730-4954-917a-316291d7ebed",
+        "response_id": "resp_EYqAhn231AjmcI5HStQnf",
+        "gesture_id": "dea76e7c470d49378902a4c3b9877820",
+        "deadline_ms": 3000,
+        "server_requested_monotonic_ms": 1740252406,
+        "status": "succeeded",
+        "transport": "batch",
+        "error": null,
+        "timings": {
+          "skeleton_seconds": 62.53099999995902,
+          "mp4_render_seconds": null,
+          "total_seconds": null
+        },
+        "server_started_monotonic_ms": 1740252406,
+        "server_finished_monotonic_ms": 1740314937,
+        "has_vrma": false,
+        "trained_model_output": true,
+        "cancellation": null
+      },
+      "generated_gesture_applied": true,
+      "transcript": "では、研究用アバターの仕組みを順番に、ゆっくり落ち着いて整理しながらお話ししますね。まず、研究用の音声対話アバターは、聞いた言葉を文字として扱えるようにするところから始まります。ここで使われるのが音声認識で、マイクから入った音の波を、音の特徴として取り出します。その特徴をもとに、言葉の単位や文章の区切りを推定して、文字として表現します。\n\n初心者向けにざっくり言うと、音の連なりを「これはこの単語っぽい」と順に当てはめていくイメージです。ただ、人の声は速さや癖が違うので、雑音や言い直しがあると難しくなります。そのため、音響モデルや言語モデルと呼ばれる仕組みで、それらの違いに対応します。\n\n次に、文字になった内容をもとに、アバターが何を話すかを決める応答生成が行われます。これは質問に答えたり、説明を続けたり、場面に合う短い返事を選ぶなどの処理です。ルールベースの方法もあれば、大規模な言語モデルを使う方法もあります。\n\n初心者向けには、入力された情報と状況を見て、「それならこう答えるのが良さそう」と文章を組み立てる仕組みだと考えると分かりやすいです。同じ内容でも、丁寧さや長さを調整できるようにすることもあります。\n\n続いて、動作生成の段階です。ここでは、話している内容や感情のニュアンスに合わせて、視線、うなずき、手の動き、姿勢の変化などを決めます。人間らしく見せるには、声のリズムや強弱と、身体の動きが自然に合っていることが大切です。たとえば、強調したい言葉の前に軽くうなずく、驚いたときに少し後ろへ引く、といった具合です。\n\nさらに、表情や唇の動きのタイミングも重要です。音素と呼ばれる発音の単位に合わせて、口の形を変える情報を作ることで、音と口の動きがずれて見えるのを防ぎます。\n\nその次に、生成した動きや表情を3Dモデルに適用します。3Dモデルには骨組みにあたるリグがあり、関節がどこまで動くか、どんな表情が作れるかが決まっています。動作生成で決めた内容を、このリグの仕組みに合わせて変換し、モデルが破綻しないように動かします。複数の動きが重なったときには、優先順位や混ぜ方を調整して、滑らかな結果にします。\n\n最後に、遅延の課題があります。音声認識、応答生成、動作生成、3Dへの適用は連続した処理なので、どこかが遅",
+      "messages": "",
+      "browser_errors": []
+    },
+    "client_seconds_from_submit": {
+      "experiment_config": -2.448399999856949,
+      "interrupt_started": -2.3840999999046324,
+      "motion_state": -2.383899999856949,
+      "interrupt_completed": -2.383899999856949,
+      "avatar_loaded": -2.2620999999046325,
+      "user_text_submitted": 0.0,
+      "realtime_event": 0.06390000009536743,
+      "response_created_received": 0.1467999999523163,
+      "first_response_text": 0.3872999999523163,
+      "first_audio_playback": 0.6947999999523163,
+      "gesture_planned": 1.4077000000476838,
+      "motion_requested": 1.408,
+      "response_generation_done_received": 36.59670000004768,
+      "first_motion_available": 64.16820000004769,
+      "vrm_conversion_completed": 64.1795,
+      "generated_gesture_started": 64.18460000014305,
+      "blend_completed": 64.47570000004768,
+      "gesture_completed": 66.193
+    },
+    "motion_status": "succeeded",
+    "motion_timings": {
+      "skeleton_seconds": 62.53099999995902,
+      "mp4_render_seconds": null,
+      "total_seconds": null
+    },
+    "adopted": true,
+    "rendering": "RTX 5070 Direct3D11",
+    "duration_seconds": 2.0,
+    "model_record": {
+      "id": "eaa34d251d0346df891192a86290bd36",
+      "status": "succeeded",
+      "created_at": "2026-10-14T10:06:49.400043+00:00",
+      "model_id": "kimodo",
+      "task_type": "instruction",
+      "input_text": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+      "model_text": "Raise your right hand and wave for three seconds.",
+      "duration_requested": 2.0,
+      "seed": 0,
+      "input_audio": null,
+      "metadata": {
+        "dialogue": {
+          "turn_id": "a447e016-0730-4954-917a-316291d7ebed",
+          "response_id": "resp_EYqAhn231AjmcI5HStQnf",
+          "gesture_id": "dea76e7c470d49378902a4c3b9877820",
+          "deadline_ms": 3000,
+          "server_requested_monotonic_ms": 1740252406.0
+        },
+        "translation": "gesture_planner",
+        "audio_conditioned": false
+      },
+      "artifacts": {
+        "original_motion_path": "original.npz",
+        "normalized_motion_path": "motion.json"
+      },
+      "started_at": "2026-10-14T10:06:49.407067+00:00",
+      "server_started_monotonic_ms": 1740252406.0,
+      "finished_at": "2026-10-14T10:07:51.929985+00:00",
+      "inference_time": 51.468000000109896,
+      "time_to_first_result": 62.53099999995902,
+      "timings": {
+        "skeleton_seconds": 62.53099999995902,
+        "mp4_render_seconds": null,
+        "total_seconds": null
+      },
+      "checkpoint": "kimodo-soma-rp-v1.1",
+      "device": "cuda",
+      "gpu_peak_memory_bytes": null,
+      "skeleton_type": "kimodo:somaskel77",
+      "trained_model_output": true,
+      "model_metadata": {
+        "postprocess": false,
+        "text_encoder_device": "cpu"
+      },
+      "frames": 60,
+      "fps": 30.0,
+      "duration": 2.0,
+      "acceleration_rms_m_s2": 3.2614810305759243,
+      "semantic_alignment": null,
+      "naturalness": null,
+      "evaluation_note": "意味的一致・自然さは未評価。主観評価が必要。足接地の真値なしに足滑りを採点しません。",
+      "artifact_sha256": {
+        "original_motion_path": "f3760decbdd96fbb21f5a6d45ab4cdc72b35cc68c4115e513db1b1e1cff2cd10",
+        "normalized_motion_path": "7849e6fc6f0ddfc2dd5f245e1583435c4bad48ea30ae878f4a8dd5f75a97a152"
+      },
+      "server_finished_monotonic_ms": 1740314937.0
+    }
+  },
+  {
+    "trial": 3,
+    "experiment_id": "fb707be72644490ab0757d4822f38101",
+    "result": {
+      "status": "succeeded",
+      "avatar": "VRM1_Constraint_Twist_Sample",
+      "model": "kimodo",
+      "mode": "C",
+      "max_output_tokens": 4096,
+      "webgl_renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "input": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+      "motion_prompt": "Raise your right hand above your shoulder and wave repeatedly for 8 seconds.",
+      "gesture_visible_seconds": 69.628,
+      "first_text_seconds": 0.554,
+      "new_motion": {
+        "request_id": "fb707be72644490ab0757d4822f38101",
+        "turn_id": "3b3b1229-bdb7-4b5d-a3fb-a93b198436b2",
+        "response_id": "resp_EYqNN6uYcVXJgn3dUQdie",
+        "gesture_id": "872cc58ad6834ffe90f3865304ca160b",
+        "deadline_ms": 3000,
+        "server_requested_monotonic_ms": 1741036984,
+        "status": "succeeded",
+        "transport": "batch",
+        "error": null,
+        "timings": {
+          "skeleton_seconds": 68.09400000004098,
+          "mp4_render_seconds": null,
+          "total_seconds": null
+        },
+        "server_started_monotonic_ms": 1741036984,
+        "server_finished_monotonic_ms": 1741105078,
+        "has_vrma": false,
+        "trained_model_output": true,
+        "cancellation": null
+      },
+      "generated_gesture_applied": true,
+      "transcript": "では、順番にゆっくり整理しながらお話ししますね。少し長めの説明になるので、流れをイメージしながら聞いてみてください。まず最初に、音声認識は「聞こえた音」を文字に直す役目を持っています。人が話した音は一度デジタルな波として扱われます。そこから音の特徴が取り出され、音素や単語の候補が並びます。辞書や言語モデルを使って、自然な文章になるように整えていきます。研究用の対話アバターでは、この書き起こしが後ろの処理の土台になります。\n\n次に、応答生成は「何を話すか」を決める段階です。書き起こされた文章の意味を解析し、ユーザーの意図を推測します。質問なのか、命令なのか、雑談なのかを判別します。その上で、短い返事にするか、説明を長くするかといった方針が決まります。最近は大規模な言語モデルを使う場合もありますが、研究では制御しやすさを重視して、ルールやテンプレートを併用することもあります。ここで作られるのは、音声にする前の文章や、会話の行動の指示です。\n\n続いて、動作生成は「どう動くか」を決める部分です。返事の内容に合わせて、うなずき、視線、手振り、体の向きなどの候補が作られます。感情表現が必要なら、明るさや丁寧さの度合いもラベルとして付けられます。動きは完全に自由に作ると不自然になりやすいので、あらかじめ決めたモーションの部品を組み合わせることも多いです。\n\nその次に、3Dモデルへの適用があります。モデルには骨格のような構造があり、関節ごとに回転などの値を渡せます。顔には表情のパラメータがあり、口の開きや眉の動きなどを調整できます。音声のタイミングに合わせて、口の形の連続も制御します。\n\n最後に、遅延の課題です。音声認識、応答生成、動作生成、描画が直列につながると、待ち時間が積み重なります。少しでも遅いと、声と口の動きがずれて不自然に見えます。そこで、音声の先読みや、簡易な動作の仮決めを先に出しておく工夫があります。また、処理を並列化したり、モデルを軽くしたり、音声と動きの同期を後から微調整する方法も使われます。研究用のアバターでは、自然さと速さのバランスを取ることが、いつも大事なポイントになります。",
+      "messages": "",
+      "browser_errors": []
+    },
+    "client_seconds_from_submit": {
+      "experiment_config": -3.1574000000953673,
+      "interrupt_started": -3.147,
+      "motion_state": -3.146799999952316,
+      "interrupt_completed": -3.146799999952316,
+      "avatar_loaded": -3.0334000000953676,
+      "user_text_submitted": 0.0,
+      "realtime_event": 0.0785,
+      "response_created_received": 0.14140000009536743,
+      "first_response_text": 0.3464000000953674,
+      "first_audio_playback": 0.6787000000476837,
+      "gesture_planned": 0.9340999999046325,
+      "motion_requested": 0.9342999999523163,
+      "response_generation_done_received": 36.0445,
+      "first_motion_available": 69.08409999990464,
+      "vrm_conversion_completed": 69.10909999990463,
+      "generated_gesture_started": 69.11509999990463,
+      "blend_completed": 69.40820000004769,
+      "gesture_completed": 77.12490000009537
+    },
+    "motion_status": "succeeded",
+    "motion_timings": {
+      "skeleton_seconds": 68.09400000004098,
+      "mp4_render_seconds": null,
+      "total_seconds": null
+    },
+    "adopted": true,
+    "rendering": "RTX 5070 Direct3D11",
+    "duration_seconds": 8.0,
+    "model_record": {
+      "id": "fb707be72644490ab0757d4822f38101",
+      "status": "succeeded",
+      "created_at": "2026-10-14T10:19:53.981652+00:00",
+      "model_id": "kimodo",
+      "task_type": "instruction",
+      "input_text": "日本語で、研究用の音声対話アバターがどのように文章から声と動きを作るか、初心者向けに詳しく説明してください。音声認識、応答生成、動作生成、3Dモデルへの適用、遅延の課題について順番に、二十文以上、千二百文字程度で話してください。急がず、ゆっくり落ち着いて説明してください。",
+      "model_text": "Raise your right hand above your shoulder and wave repeatedly for 8 seconds.",
+      "duration_requested": 8.0,
+      "seed": 0,
+      "input_audio": null,
+      "metadata": {
+        "dialogue": {
+          "turn_id": "3b3b1229-bdb7-4b5d-a3fb-a93b198436b2",
+          "response_id": "resp_EYqNN6uYcVXJgn3dUQdie",
+          "gesture_id": "872cc58ad6834ffe90f3865304ca160b",
+          "deadline_ms": 3000,
+          "server_requested_monotonic_ms": 1741036984.0
+        },
+        "translation": "gesture_planner",
+        "audio_conditioned": false
+      },
+      "artifacts": {
+        "original_motion_path": "original.npz",
+        "normalized_motion_path": "motion.json"
+      },
+      "started_at": "2026-10-14T10:19:53.988635+00:00",
+      "server_started_monotonic_ms": 1741036984.0,
+      "finished_at": "2026-10-14T10:21:02.069587+00:00",
+      "inference_time": 56.859999999869615,
+      "time_to_first_result": 68.09400000004098,
+      "timings": {
+        "skeleton_seconds": 68.09400000004098,
+        "mp4_render_seconds": null,
+        "total_seconds": null
+      },
+      "checkpoint": "kimodo-soma-rp-v1.1",
+      "device": "cuda",
+      "gpu_peak_memory_bytes": null,
+      "skeleton_type": "kimodo:somaskel77",
+      "trained_model_output": true,
+      "model_metadata": {
+        "postprocess": false,
+        "text_encoder_device": "cpu"
+      },
+      "frames": 240,
+      "fps": 30.0,
+      "duration": 8.0,
+      "acceleration_rms_m_s2": 2.263316966720327,
+      "semantic_alignment": null,
+      "naturalness": null,
+      "evaluation_note": "意味的一致・自然さは未評価。主観評価が必要。足接地の真値なしに足滑りを採点しません。",
+      "artifact_sha256": {
+        "original_motion_path": "e353c272112e1844b718e6b1e226215f2bef1e949250a03682f6fa5cfdebc234",
+        "normalized_motion_path": "11b847f2e41ff118828ce516271530d200d18bc7539a712d4839a2346b6263a0"
+      },
+      "server_finished_monotonic_ms": 1741105078.0
+    }
+  }
+]

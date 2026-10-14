@@ -112,10 +112,13 @@ class ModelAdapter:
                       'x=torch.ones((32,32),device="cuda"); y=x@x; torch.cuda.synchronize(); '
                       'assert torch.isfinite(y).all()'],output_dir,env=env)
 
-    def export_official(self, original, output_dir):
+    def export_official(self, original, output_dir, *, model=None, checkpoint_dir=None):
         normalized = Path(output_dir) / 'motion.json'
-        self.run([self.python, settings.ROOT / 'scripts/export_official.py', '--family', self.id,
-                  '--input', original, '--output', normalized], output_dir)
+        command=[self.python, settings.ROOT / 'scripts/export_official.py', '--family', self.id,
+                 '--input', original, '--output', normalized]
+        if model is not None:
+            command.extend(['--model',model,'--checkpoint-dir',checkpoint_dir])
+        self.run(command, output_dir)
         return normalized
 
     def export_smplx(self, original, output_dir, body_model, *, flat_hand_mean):
