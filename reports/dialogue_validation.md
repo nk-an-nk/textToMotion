@@ -2,7 +2,17 @@
 
 検証日: 2026-10-14（日本時間）。開始時は `work` / `6697dda`、未コミット変更なし。既存のFastAPI・Three.js・モデルアダプター・VRMA変換・Windowsセットアップを拡張しました。
 
+## 追補：実Realtime音声と音声付きVRM録画
+
+2026-10-14（日本時間）、利用者のPublish後に `realtime` の認証を実行環境で確認し、実際のOpenAI Realtime GA WebSocket / `gpt-realtime-2.1` / `marin` から「こんにちは。よろしくお願いします。」の音声を生成しました。WAVは3.00秒、生成処理の所要時間は5.20秒、API使用量は input 58 / output 79 / total 137 tokensです。実請求額は計測していません。
+
+同じ音声を、保存済みKimodo右手を振るモーションとARDY無条件CPU診断モーションへ組み合わせ、実VRMの音声時計に沿った再生と口の開閉をMP4へ録画しました。新規Text-to-Motion生成、発話からARDYへの条件付け、ライブWebRTC会話とGPU推論を組み合わせたE2Eは未実施です。
+
+[元音声とAPI記録](audio/realtime-hello.json)、[2本の音声付き動画](videos/README.md)、[録画の検査結果](videos/voice-recordings-validation.json) に根拠を保存しています。両動画のH.264＋AAC、全デコード、元音声との波形一致、描画姿勢の変化、口の開閉、ブラウザエラーなしを確認しました。
+
 ## 実行した検証
+
+次の表と受入シナリオは初回の統合検証時点の記録です。追補で確認した実API音声生成は上記に区別して記録しています。
 
 | 検証 | 結果 | 範囲 |
 |---|---|---|
@@ -43,7 +53,7 @@
 
 - `src/resources/realtime/realtime.ts` SHA-256: `649e40ef616f221e9c8fcf5573d5ddb41c31a244824d1fc54fb7d20fd547827e`
 - `src/resources/realtime/calls.ts` SHA-256: `84b09f99bf6f894788cc251e12e613a47a180447ae443a1c6132ed1db0ac9c26`
-- `gpt-realtime-2.1`、GA calls multipart、`response.output_audio_transcript.*`、`response.output_text.*`、`response.done`、WebRTCの音声バッファ開始・停止・clearを確認。利用者アカウントでのAPI利用権は未確認。
+- `gpt-realtime-2.1`、GA calls multipart、`response.output_audio_transcript.*`、`response.output_text.*`、`response.done`、WebRTCの音声バッファ開始・停止・clearを確認。初回は利用者アカウントのAPI利用権が未確認でしたが、追補の実WebSocket音声生成で同モデルの利用を確認しました。WebRTC calls経路は実接続未検証です。
 
 予算は要求回数と事前予約枠のガードであり、実請求額の厳密なドル上限ではありません。出力デバイスの物理的な遅延、単語時刻、LLM内部の処理開始・終了、GPUピークメモリ、部分生成チャンクは未測定です。タイムスタンプの受信と実際の発声は分離しています。
 

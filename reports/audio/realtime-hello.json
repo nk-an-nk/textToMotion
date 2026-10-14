@@ -1,0 +1,38 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "generated_at_utc": "2026-10-14T10:26:51.624285+00:00",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "こんにちは。よろしくお願いします。",
+  "sample_rate": 24000,
+  "duration_seconds": 3.0,
+  "audio_sha256": "875ba6b1a208f416edc259fb38f5c4934234bf531ae3ab4ffc6b6d255870ebe5",
+  "authorized_allowance_usd": 1,
+  "actual_charge_usd": null,
+  "response_id": "resp_EYqU3Q38qW6wFL7vC0Ibf",
+  "transcript": "こんにちは。よろしくお願いします。",
+  "usage": {
+    "total_tokens": 137,
+    "input_tokens": 58,
+    "output_tokens": 79,
+    "input_token_details": {
+      "text_tokens": 58,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 19,
+      "audio_tokens": 60
+    }
+  },
+  "generation_wall_seconds": 5.203536503999999
+}

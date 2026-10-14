@@ -1,0 +1,171 @@
+{
+  "schema": "motion-lab/vrm-video-v1",
+  "recorded_at_utc": "2026-10-14T10:37:13.155Z",
+  "renderer": "app/ui/viewer.js + app/ui/motion-sink.js",
+  "playback_only": true,
+  "new_motion_inference": false,
+  "live_realtime_session": false,
+  "voice_generated_with_realtime": true,
+  "motion": {
+    "filename": "motion.json",
+    "sha256": "cedea4bd9df824c76a4ac51126e2d9403ad576cd3e61f592f7bfe3df90f16554",
+    "skeleton_type": "Kimodo:SOMASkeleton77",
+    "trained_model_output": true,
+    "metadata": {
+      "model_id": "kimodo",
+      "task_type": "instruction",
+      "backend": "nvidia_official_online_demo",
+      "endpoint": "https://nvidia-kimodo.hf.space/",
+      "space_repository": "nvidia/Kimodo",
+      "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+      "model_code_git_commit": null,
+      "protocol": "viser-v1.0.16",
+      "text_conditioned": true,
+      "audio_conditioned": false,
+      "trained_model_output": true,
+      "prompt": "Raise your right hand and wave for three seconds.",
+      "seed": 0,
+      "fps": 30,
+      "duration_requested": 3,
+      "frames_requested": 90,
+      "checkpoint": "Kimodo-SOMA-RP-v1",
+      "checkpoint_sha256": null,
+      "device": "remote: l40sx1 (provider-reported)",
+      "inference_time": 2.3704514780001773,
+      "time_to_first_result": 8.282637408000028,
+      "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+      "server_success_notification": {
+        "mode": "update",
+        "uuid": "e72bf191-5d58-4472-b18f-4430d61cabdd",
+        "props": {
+          "title": "Motion generation finished!",
+          "body": "Motions have been generated successfully for the given prompt.",
+          "loading": false,
+          "with_close_button": true,
+          "auto_close_seconds": 5,
+          "color": "green"
+        },
+        "type": "NotificationMessage"
+      },
+      "download_bytes": 585058,
+      "source_format": "official Kimodo Download NPZ",
+      "hierarchy_source": "definitions.py:SOMASkeleton77"
+    }
+  },
+  "audio": {
+    "filename": "realtime-hello.wav",
+    "sha256": "875ba6b1a208f416edc259fb38f5c4934234bf531ae3ab4ffc6b6d255870ebe5",
+    "generation": {
+      "schema": "motion-lab/realtime-speech-v1",
+      "generated_at_utc": "2026-10-14T10:26:51.624285+00:00",
+      "provider": "OpenAI",
+      "api": "Realtime GA WebSocket",
+      "model": "gpt-realtime-2.1",
+      "voice": "marin",
+      "synthetic_voice": true,
+      "requested_text": "こんにちは。よろしくお願いします。",
+      "sample_rate": 24000,
+      "duration_seconds": 3,
+      "audio_sha256": "875ba6b1a208f416edc259fb38f5c4934234bf531ae3ab4ffc6b6d255870ebe5",
+      "authorized_allowance_usd": 1,
+      "actual_charge_usd": null,
+      "response_id": "resp_EYqU3Q38qW6wFL7vC0Ibf",
+      "transcript": "こんにちは。よろしくお願いします。",
+      "usage": {
+        "total_tokens": 137,
+        "input_tokens": 58,
+        "output_tokens": 79,
+        "input_token_details": {
+          "text_tokens": 58,
+          "audio_tokens": 0,
+          "image_tokens": 0,
+          "cached_tokens": 0,
+          "cached_tokens_details": {
+            "text_tokens": 0,
+            "audio_tokens": 0,
+            "image_tokens": 0
+          }
+        },
+        "output_token_details": {
+          "text_tokens": 19,
+          "audio_tokens": 60
+        }
+      },
+      "generation_wall_seconds": 5.203536503999999
+    }
+  },
+  "capture": {
+    "blob_bytes": 153384,
+    "chunk_count": 21,
+    "avatar": {
+      "metaVersion": "1",
+      "name": "AvatarSample_VRM1.0",
+      "authors": [
+        "pixiv VRoid Project"
+      ],
+      "licenseUrl": "https://vrm.dev/licenses/1.0/",
+      "avatarPermission": "everyone",
+      "allowExcessivelyViolentUsage": false,
+      "allowExcessivelySexualUsage": false,
+      "commercialUsage": "personalNonProfit",
+      "allowPoliticalOrReligiousUsage": false,
+      "allowAntisocialOrHateUsage": false,
+      "creditNotation": "unnecessary",
+      "allowRedistribution": false,
+      "modification": "prohibited"
+    },
+    "frames": 23,
+    "wall_seconds": 5.000599999999976,
+    "audio_seconds": 3,
+    "motion_seconds": 3,
+    "maxRMS": 0.14406248557288684,
+    "maxLip": 1,
+    "samples": [
+      {
+        "wall_seconds": 2.1116,
+        "audio_seconds": 1.392,
+        "motion_seconds": 1.392,
+        "rms": 0.14406248557288684,
+        "mode": "offline"
+      },
+      {
+        "wall_seconds": 4.2448,
+        "audio_seconds": 3,
+        "motion_seconds": 3.6447999999999996,
+        "rms": 0,
+        "mode": "returning"
+      }
+    ],
+    "audio_tracks": 1,
+    "canvas": {
+      "width": 960,
+      "height": 640
+    }
+  },
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 960,
+        "height": 640,
+        "r_frame_rate": "30/1"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0"
+      }
+    ],
+    "format": {
+      "duration": "4.560000",
+      "size": "243088"
+    }
+  },
+  "video_sha256": "a801cbc5a64f1a678f8f5cf7920523dff479c7d783313c46e58418601cca8649",
+  "browser_errors": []
+}

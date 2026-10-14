@@ -1,0 +1,70 @@
+{
+  "date_jst": "2026-10-14",
+  "audio_source": "../audio/realtime-hello.wav",
+  "new_motion_inference": false,
+  "live_webrtc_conversation": false,
+  "checks": [
+    {
+      "video": "kimodo-vrm-voice.mp4",
+      "decode": "passed",
+      "audio_source_correlation": 0.9915495845311114,
+      "audio_start_seconds": 0.7314583333333333,
+      "nonzero_lip_expression": true,
+      "rendered_pose_change": true,
+      "video_sha256": "a801cbc5a64f1a678f8f5cf7920523dff479c7d783313c46e58418601cca8649",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 960,
+            "height": 640
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "4.560000",
+          "size": "243088"
+        }
+      }
+    },
+    {
+      "video": "ardy-vrm-unconditional-voice.mp4",
+      "decode": "passed",
+      "audio_source_correlation": 0.9842775308384639,
+      "audio_start_seconds": 0.7432083333333334,
+      "nonzero_lip_expression": true,
+      "rendered_pose_change": true,
+      "video_sha256": "39cf90a622d8176ca0ddd29f5cd78ad1e96020c1582b17779b6397470388c0af",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 960,
+            "height": 640
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "4.740000",
+          "size": "305053"
+        }
+      }
+    }
+  ]
+}

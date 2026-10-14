@@ -48,8 +48,9 @@ async function main() {
    const viewer=new MotionViewer(document.querySelector('#scene'));viewer.vrmSink.manual=true;
    const avatar=await viewer.vrmSink.loadAvatar(decode(avatarEncoded).buffer);
    const sink=viewer.vrmSink,clip=sink.prepareMotion(motion);viewer.resetCamera();
-   // Move the camera closer without changing the loaded avatar, mesh, textures or material.
-   viewer.camera.position.sub(viewer.controls.target).multiplyScalar(.87).add(viewer.controls.target);viewer.controls.update();
+   // Leave space above the neutral avatar for raised hands; preserve the model itself.
+   viewer.camera.position.sub(viewer.controls.target).multiplyScalar(1.18).add(viewer.controls.target);
+   viewer.controls.target.y+=.12;viewer.camera.position.y+=.12;viewer.controls.update();
    viewer.draw(0); // Finish the first WebGL shader compilation before starting the recording clock.
    await new Promise(resolve=>setTimeout(resolve,250));
    let audio=null,audioContext=null,analyser=null,levels=null,destination=null;
@@ -109,8 +110,10 @@ async function main() {
   fs.mkdirSync(path.dirname(output),{recursive:true});rawPath=output.replace(/\.mp4$/i,'.webm');
   if(fs.existsSync(rawPath))throw new Error('Temporary WebM exists; choose a new output filename.');
   fs.writeFileSync(rawPath,Buffer.from(recording.base64,'base64'));
+  // Software WebGL can delay recorder packet timestamps. Keep speech samples
+  // continuous rather than inserting silence from those timestamp gaps.
   const encoded=spawnSync('ffmpeg',['-hide_banner','-loglevel','error','-n','-i',rawPath,'-vf','fps=30','-c:v','libx264','-preset','fast','-crf','20','-pix_fmt','yuv420p',
-    ...(wavBuffer?['-c:a','aac','-b:a','128k']:['-an']),'-movflags','+faststart',output],{encoding:'utf8'});
+    ...(wavBuffer?['-af','asetpts=N/SR/TB','-c:a','aac','-b:a','128k']:['-an']),'-movflags','+faststart',output],{encoding:'utf8'});
   if(encoded.status!==0)throw new Error('FFmpeg failed: '+(encoded.stderr||encoded.error?.message));
   const probe=spawnSync('ffprobe',['-v','error','-show_entries','stream=codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels:format=duration,size','-of','json',output],{encoding:'utf8'});
   if(probe.status!==0)throw new Error('ffprobe could not validate the MP4.');

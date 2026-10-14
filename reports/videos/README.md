@@ -1,8 +1,21 @@
 # 実生成の検証動画
 
+## 日本語音声付きVRM動画
+
+Realtime APIで実際に生成した「こんにちは。よろしくお願いします。」の日本語音声を追加し、音声時計に合わせたモーション再生と口の開閉を録画しました。両方ともH.264＋AAC、960×640、約5秒です。
+
+| 動画 | モーションの出所 | 録画記録 |
+|---|---|---|
+| [kimodo-vrm-voice.mp4](kimodo-vrm-voice.mp4) | 保存済みKimodo：右手を挙げて手を振る | [JSON](kimodo-vrm-voice.json) |
+| [ardy-vrm-unconditional-voice.mp4](ardy-vrm-unconditional-voice.mp4) | 保存済みARDY：テキスト・音声なしの無条件CPU診断 | [JSON](ardy-vrm-unconditional-voice.json) |
+
+音声はOpenAI Realtime GA WebSocket、`gpt-realtime-2.1`、`marin`で生成した合成音声です。音声の長さは3.00秒、生成処理の所要時間は5.20秒、使用量は137 tokens（input 58 / output 79）。1回生成した同じ音声を2本で使用しています。[元WAV](../audio/realtime-hello.wav) と [API生成記録](../audio/realtime-hello.json) も保存しています。
+
+動画は保存済みモーションと新規生成音声をブラウザで再生した録画です。今回の新規Text-to-Motion推論やライブWebRTC会話ではありません。ARDYの動作は発話文で条件付けしていません。再現方法は [音声付き録画手順](../../docs/vrm_recording.md) を参照してください。
+
 ## VRMアバターの実行画面録画
 
-保存済みの実生成モーションを実際のブラウザ内VRMレンダラーで再生した動画も追加しました。両方ともH.264、1280×720、約5秒、**現時点では無音**です。
+以前録画した無音版も保持しています。両方ともH.264、1280×720、約5秒です。
 
 | 動画 | モーションの出所 |
 |---|---|
@@ -13,7 +26,7 @@
 
 元モーションのハッシュ、実描画フレーム数、動画の検査結果は [録画記録](vrm-recordings.json) にあります。30fpsのMP4はソフトウェア描画のフレーム反復を含み、RTX 5070の性能測定ではありません。
 
-Realtime音声の生成・音声付き録画は [再現手順](../../docs/vrm_recording.md) と `scripts/generate_demo_speech.py`、`scripts/record_vrm_demo.cjs` を使用します。今回の実行環境にAPIキーがまだ届いていないため、AI音声付きの動画は未生成です。人工検証音による音声トラック・口の開閉の検証は、AI音声の成功とは区別します。
+Realtime音声の生成・音声付き録画は [再現手順](../../docs/vrm_recording.md) と `scripts/generate_demo_speech.py`、`scripts/record_vrm_demo.cjs` を使用します。人工検証音による事前の録画検証と、上記の実API音声による録画を区別して記録しています。
 
 ## スケルトンの実生成動画
 
