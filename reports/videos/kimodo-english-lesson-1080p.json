@@ -1,0 +1,301 @@
+{
+  "schema": "motion-lab/vrm-video-v2",
+  "recorded_at_utc": "2026-10-14T11:19:24.718Z",
+  "renderer": "app/ui/viewer.js + app/ui/motion-sink.js",
+  "render_mode": "offline_fixed_timestep",
+  "fps": 30,
+  "rendered_frames": 405,
+  "skipped_render_frames": 0,
+  "lossy_intermediate": false,
+  "encoding": {
+    "codec": "H.264",
+    "crf": 16
+  },
+  "playback_only": true,
+  "new_motion_inference": false,
+  "live_realtime_session": false,
+  "voice_generated_with_realtime": true,
+  "motion": {
+    "filename": "motion.json",
+    "sha256": "cedea4bd9df824c76a4ac51126e2d9403ad576cd3e61f592f7bfe3df90f16554",
+    "skeleton_type": "Kimodo:SOMASkeleton77",
+    "trained_model_output": true,
+    "metadata": {
+      "model_id": "kimodo",
+      "task_type": "instruction",
+      "backend": "nvidia_official_online_demo",
+      "endpoint": "https://nvidia-kimodo.hf.space/",
+      "space_repository": "nvidia/Kimodo",
+      "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+      "model_code_git_commit": null,
+      "protocol": "viser-v1.0.16",
+      "text_conditioned": true,
+      "audio_conditioned": false,
+      "trained_model_output": true,
+      "prompt": "Raise your right hand and wave for three seconds.",
+      "seed": 0,
+      "fps": 30,
+      "duration_requested": 3,
+      "frames_requested": 90,
+      "checkpoint": "Kimodo-SOMA-RP-v1",
+      "checkpoint_sha256": null,
+      "device": "remote: l40sx1 (provider-reported)",
+      "inference_time": 2.3704514780001773,
+      "time_to_first_result": 8.282637408000028,
+      "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+      "server_success_notification": {
+        "mode": "update",
+        "uuid": "e72bf191-5d58-4472-b18f-4430d61cabdd",
+        "props": {
+          "title": "Motion generation finished!",
+          "body": "Motions have been generated successfully for the given prompt.",
+          "loading": false,
+          "with_close_button": true,
+          "auto_close_seconds": 5,
+          "color": "green"
+        },
+        "type": "NotificationMessage"
+      },
+      "download_bytes": 585058,
+      "source_format": "official Kimodo Download NPZ",
+      "hierarchy_source": "definitions.py:SOMASkeleton77"
+    }
+  },
+  "audio": {
+    "filename": "realtime-english-lesson.wav",
+    "sha256": "5587b4d60dc20d4ca36e4b5518382f4e62b5cf44082fa433c9b6cfd054ff1c28",
+    "generation": {
+      "schema": "motion-lab/realtime-speech-v1",
+      "generated_at_utc": "2026-10-14T11:10:57.988017+00:00",
+      "provider": "OpenAI",
+      "api": "Realtime GA WebSocket",
+      "model": "gpt-realtime-2.1",
+      "voice": "marin",
+      "synthetic_voice": true,
+      "requested_text": "こんにちは！今日も一緒に楽しく英語を勉強しましょう！まずは英語で挨拶してみよう。Hello! How are you today? 元気なときは、I'm happy! って言ってみてね。",
+      "sample_rate": 24000,
+      "max_audio_seconds": 60,
+      "duration_seconds": 12.5,
+      "audio_sha256": "5587b4d60dc20d4ca36e4b5518382f4e62b5cf44082fa433c9b6cfd054ff1c28",
+      "authorized_allowance_usd": 1,
+      "actual_charge_usd": null,
+      "response_id": "resp_EYrAhxQg8W38D8lffpPzh",
+      "transcript": "こんにちは！今日も一緒に楽しく英語を勉強しましょう！まずは英語で挨拶してみよう。Hello! How are you today? 元気なときは、I'm happy! って言ってみてね。",
+      "usage": {
+        "total_tokens": 479,
+        "input_tokens": 136,
+        "output_tokens": 343,
+        "input_token_details": {
+          "text_tokens": 136,
+          "audio_tokens": 0,
+          "image_tokens": 0,
+          "cached_tokens": 0,
+          "cached_tokens_details": {
+            "text_tokens": 0,
+            "audio_tokens": 0,
+            "image_tokens": 0
+          }
+        },
+        "output_token_details": {
+          "text_tokens": 93,
+          "audio_tokens": 250,
+          "reasoning_tokens": 15
+        }
+      },
+      "generation_wall_seconds": 7.540730101000008
+    }
+  },
+  "capture": {
+    "avatar": {
+      "metaVersion": "1",
+      "name": "AvatarSample_VRM1.0",
+      "authors": [
+        "pixiv VRoid Project"
+      ],
+      "licenseUrl": "https://vrm.dev/licenses/1.0/",
+      "avatarPermission": "everyone",
+      "allowExcessivelyViolentUsage": false,
+      "allowExcessivelySexualUsage": false,
+      "commercialUsage": "personalNonProfit",
+      "allowPoliticalOrReligiousUsage": false,
+      "allowAntisocialOrHateUsage": false,
+      "creditNotation": "unnecessary",
+      "allowRedistribution": false,
+      "modification": "prohibited"
+    },
+    "camera": {
+      "position": [
+        0,
+        0.9037079538847256,
+        3.03036317174946
+      ],
+      "target": [
+        0,
+        0.9037079538847254,
+        -0.007964728566909052
+      ],
+      "front_alignment": 1,
+      "fov": 38
+    },
+    "seconds": 13.5,
+    "frameCount": 405,
+    "audio_seconds": 12.5,
+    "audio_offset_seconds": 0.5,
+    "motion_seconds": 3,
+    "source_canvas": {
+      "width": 1920,
+      "height": 820
+    },
+    "output_canvas": {
+      "width": 1920,
+      "height": 1080
+    },
+    "anisotropy": 8,
+    "maxRMS": 0.1769246672780704,
+    "maxLip": 1,
+    "samples": [
+      {
+        "frame": 0,
+        "time_seconds": 0,
+        "audio_seconds": 0,
+        "rms": 0,
+        "lip": 0,
+        "mode": "default"
+      },
+      {
+        "frame": 30,
+        "time_seconds": 1,
+        "audio_seconds": 0.5,
+        "rms": 0.15820258463102257,
+        "lip": 1,
+        "mode": "offline"
+      },
+      {
+        "frame": 60,
+        "time_seconds": 2,
+        "audio_seconds": 1.5,
+        "rms": 0.14868168419621658,
+        "lip": 1,
+        "mode": "offline"
+      },
+      {
+        "frame": 90,
+        "time_seconds": 3,
+        "audio_seconds": 2.5,
+        "rms": 0.001398063974081604,
+        "lip": 0.011184511792652832,
+        "mode": "offline"
+      },
+      {
+        "frame": 120,
+        "time_seconds": 4,
+        "audio_seconds": 3.5,
+        "rms": 0.06020421486502061,
+        "lip": 0.4816337189201649,
+        "mode": "default"
+      },
+      {
+        "frame": 150,
+        "time_seconds": 5,
+        "audio_seconds": 4.5,
+        "rms": 0.06099324323425392,
+        "lip": 0.48794594587403134,
+        "mode": "default"
+      },
+      {
+        "frame": 180,
+        "time_seconds": 6,
+        "audio_seconds": 5.5,
+        "rms": 0.004069703601848363,
+        "lip": 0.0325576288147869,
+        "mode": "default"
+      },
+      {
+        "frame": 210,
+        "time_seconds": 7,
+        "audio_seconds": 6.5,
+        "rms": 0.0005844779617478894,
+        "lip": 0.004675823693983115,
+        "mode": "default"
+      },
+      {
+        "frame": 240,
+        "time_seconds": 8,
+        "audio_seconds": 7.5,
+        "rms": 0.0008524020799444739,
+        "lip": 0.0068192166395557915,
+        "mode": "default"
+      },
+      {
+        "frame": 270,
+        "time_seconds": 9,
+        "audio_seconds": 8.5,
+        "rms": 0.0036897284692897266,
+        "lip": 0.029517827754317813,
+        "mode": "default"
+      },
+      {
+        "frame": 300,
+        "time_seconds": 10,
+        "audio_seconds": 9.5,
+        "rms": 0.1769246672780704,
+        "lip": 1,
+        "mode": "default"
+      },
+      {
+        "frame": 330,
+        "time_seconds": 11,
+        "audio_seconds": 10.5,
+        "rms": 0.10021174262141946,
+        "lip": 0.8016939409713557,
+        "mode": "default"
+      },
+      {
+        "frame": 360,
+        "time_seconds": 12,
+        "audio_seconds": 11.5,
+        "rms": 0.09805607478342405,
+        "lip": 0.7844485982673924,
+        "mode": "default"
+      },
+      {
+        "frame": 390,
+        "time_seconds": 13,
+        "audio_seconds": 12.5,
+        "rms": 0,
+        "lip": 0,
+        "mode": "default"
+      }
+    ],
+    "distinct_sampled_frames": 14
+  },
+  "render_wall_seconds": 144.955552907,
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "405"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "24000",
+        "channels": 1,
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "317"
+      }
+    ],
+    "format": {
+      "duration": "13.500000",
+      "size": "1405343"
+    }
+  },
+  "video_sha256": "aef4ffe32f638efaf0c243e5508aaa0581f9d09a5be96143b4fe22cc5cc5322e",
+  "browser_errors": []
+}

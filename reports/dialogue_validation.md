@@ -2,6 +2,14 @@
 
 検証日: 2026-10-14（日本時間）。開始時は `work` / `6697dda`、未コミット変更なし。既存のFastAPI・Three.js・モデルアダプター・VRMA変換・Windowsセットアップを拡張しました。
 
+## 追補：正面・1080pと英語学習の発話
+
+利用者指定の `configs/demo_english_lesson.txt` をRealtime APIへ入力し、日本語と英語を含む音声を実生成しました。要求した文章と実書き起こしは完全一致です。音声は12.50秒、生成処理は7.54秒、API使用量は input 136 / output 343 / total 479 tokensです。
+
+正面カメラと白飛びを抑えた照明へ変更し、1920×1080・30fpsで各フレームを描画するオフライン書き出しを追加しました。無損失PNGからH.264 CRF 16へ変換し、音声は元WAVから直接AACへ変換します。13.50秒・405フレームの2本の動画に、保存済み3秒のKimodo/ARDYモーションと、残りの発話中のデフォルト動作・口の開閉を使いました。新規学習済みジェスチャー生成の成功には数えません。
+
+正面カメラのリセット、実VRMと保存済みKimodo/ARDYの再生、公式VRMA再生のブラウザテストは **3 passed** でした。[映像の検査記録](videos/english-lesson-validation.json) にネイティブ解像度、全フレーム数、正面方向、音声の一致と再生結果を記録します。[完成した動画](videos/README.md) と [再現方法](../docs/vrm_recording.md) を参照してください。
+
 ## 追補：実Realtime音声と音声付きVRM録画
 
 2026-10-14（日本時間）、利用者のPublish後に `realtime` の認証を実行環境で確認し、実際のOpenAI Realtime GA WebSocket / `gpt-realtime-2.1` / `marin` から「こんにちは。よろしくお願いします。」の音声を生成しました。WAVは3.00秒、生成処理の所要時間は5.20秒、API使用量は input 58 / output 79 / total 137 tokensです。実請求額は計測していません。

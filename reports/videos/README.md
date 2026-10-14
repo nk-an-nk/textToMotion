@@ -1,5 +1,22 @@
 # 実生成の検証動画
 
+## 正面・1080p・英語学習の発話
+
+最新の動画は **1920×1080、30fps、H.264 CRF 16＋AAC** です。正面のカメラ、白飛びを抑えた照明、ネイティブ解像度の描画へ変更し、出力の各フレームを描画して無損失PNGから書き出しています。低解像度映像の拡大や、描画不足を補うフレーム反復は行っていません。
+
+| 動画 | モーション | 書き出し記録 |
+|---|---|---|
+| [kimodo-english-lesson-1080p.mp4](kimodo-english-lesson-1080p.mp4) | 保存済みKimodo：右手を振る | [JSON](kimodo-english-lesson-1080p.json) |
+| [ardy-unconditional-english-lesson-1080p.mp4](ardy-unconditional-english-lesson-1080p.mp4) | 保存済みARDY：無条件CPU診断 | [JSON](ardy-unconditional-english-lesson-1080p.json) |
+
+入力文は [保存したテキスト](../../configs/demo_english_lesson.txt) と同じです。
+
+> こんにちは！今日も一緒に楽しく英語を勉強しましょう！まずは英語で挨拶してみよう。Hello! How are you today? 元気なときは、I'm happy! って言ってみてね。
+
+Realtime APIの実際の書き起こしは入力文と完全に一致しました。音声は12.50秒、音声生成処理は7.54秒、使用量は479 tokens（input 136 / output 343）。同じ音声を2本で使用しています。[元WAV](../audio/realtime-english-lesson.wav)、[API生成記録](../audio/realtime-english-lesson.json)、[映像・音声の検査記録](english-lesson-validation.json) も保存しています。
+
+動画は13.50秒・405フレームです。保存済み3秒の生成モーションを再生した後、発話中はデフォルトの発話姿勢・呼吸・まばたき・音声RMSによる口の開閉を続けます。入力文から新たな学習済みジェスチャーを生成した結果ではありません。これはオフライン書き出しで、研究室GPUの実時間描画性能を示すものではありません。再現方法は [書き出し手順](../../docs/vrm_recording.md) にあります。
+
 ## 日本語音声付きVRM動画
 
 Realtime APIで実際に生成した「こんにちは。よろしくお願いします。」の日本語音声を追加し、音声時計に合わせたモーション再生と口の開閉を録画しました。両方ともH.264＋AAC、960×640、約5秒です。

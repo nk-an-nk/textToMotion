@@ -5,6 +5,21 @@ const realAvatar=process.env.MOTION_LAB_TEST_VRM||'/workspace/shared/motion-lab/
 async function loadFixture(page){await page.locator('#avatar-file').setInputFiles({name:'test-humanoid.vrm',mimeType:'model/gltf-binary',buffer:vrmFixture()});await expect(page.locator('#empty-scene')).toBeHidden();}
 async function recordedFixture(request){const result=await (await request.post('/api/viewer-fixture')).json();return (await request.get(`/api/experiments/${result.id}/files/motion.json`)).json();}
 
+test('VRM camera reset returns to a level front view at the actual canvas resolution',async({page})=>{
+  await page.goto('/conversation');
+  const result=await page.evaluate(async encoded=>{
+    const THREE=await import('three'),{MotionViewer}=await import('/static/viewer.js');
+    const container=document.createElement('div');container.style.width='640px';container.style.height='480px';document.body.append(container);
+    const viewer=new MotionViewer(container);viewer.renderer.setPixelRatio(1);viewer.resize();
+    await viewer.vrmSink.loadAvatar(Uint8Array.from(atob(encoded),c=>c.charCodeAt(0)).buffer);
+    viewer.setVRMVisible(true);viewer.camera.position.set(4,3,-2);viewer.resetCamera();viewer.draw(0);
+    const direction=viewer.camera.position.clone().sub(viewer.controls.target).normalize();
+    const result={front:direction.dot(new THREE.Vector3(0,0,1)),width:viewer.renderer.domElement.width,height:viewer.renderer.domElement.height};
+    viewer.resizeObserver.disconnect();viewer.controls.dispose();viewer.vrmSink.dispose();viewer.renderer.dispose();container.remove();return result;
+  },vrmFixture().toString('base64'));
+  expect(result.front).toBeGreaterThan(.99999);expect(result.width).toBe(640);expect(result.height).toBe(480);
+});
+
 test('offline conversation has actual audio playback, Japanese fixture reply, default motion and unknown model timings',async({page})=>{
   const errors=[];page.on('pageerror',error=>errors.push(error.message));await page.goto('/conversation');
   await expect(page.locator('#connection-status')).toContainText('オフライン検証');await expect(page.locator('#connect')).toBeDisabled();

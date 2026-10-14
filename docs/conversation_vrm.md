@@ -2,7 +2,7 @@
 
 `work`ブランチのMotion Labへ `/conversation` を追加しました。Realtime GAのWebRTC音声と書き起こし、ジェスチャー計画、既存の非同期モデルキュー、VRM表示を同じ画面で扱います。モーション研究画面 `/`、MP4出力、発話例とCSVは引き続き使用できます。
 
-**Realtime GAによる日本語音声の実生成と、保存済みKimodo・ARDYモーションを使った音声付きVRM録画を確認しました。CUDA GPUはなく、ライブWebRTC会話＋新規GPU推論のE2Eは未実施です。** 無料の実VRM、公式VRMAローダー、ローカル音声時計、遅延・割り込み制御も別々に検証しています。[検証結果](../reports/dialogue_validation.md)、[音声付きVRM動画](../reports/videos/README.md)、[録画手順](vrm_recording.md) を参照してください。
+**Realtime GAによる日本語・英語の音声生成と、保存済みKimodo・ARDYモーションを使った正面・1080p・30fpsの音声付きVRM動画を追加しました。CUDA GPUはなく、ライブWebRTC会話＋新規GPU推論のE2Eは未実施です。** 無料の実VRM、公式VRMAローダー、ローカル音声時計、遅延・割り込み制御も別々に検証しています。[検証結果](../reports/dialogue_validation.md)、[音声付きVRM動画](../reports/videos/README.md)、[書き出し手順](vrm_recording.md) を参照してください。
 
 ## Windowsで起動
 

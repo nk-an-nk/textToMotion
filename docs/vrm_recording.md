@@ -4,6 +4,25 @@
 
 これは**保存済みモーションと音声の再生録画**です。RealtimeとのライブWebRTC会話、新規Text-to-Motion推論、発話からARDYへの条件付けの成功としては数えません。ARDYの既存例はテキスト・音声なしの無条件CPU診断です。
 
+## 正面・高画質で書き出す（推奨）
+
+`scripts/export_vrm_video.cjs` は1920×1080・30fpsで、各フレームを既存のVRMレンダラーに描画させ、無損失PNGからH.264 CRF 16へ直接変換します。実時間の画面録画で取りこぼしたフレームを繰り返す方式から変更しました。CPUでも時間をかけて全フレームを描画するため、出力の30fpsをGPUの実時間性能として扱いません。
+
+アバターの初期カメラと視点リセットは正面になり、照明も白飛びを抑える強さへ調整しました。出力解像度、全フレーム数、正面のカメラ方向、音声と動画のハッシュ、描画の所要時間をJSONへ保存します。
+
+指定された日本語・英語の発話文は `configs/demo_english_lesson.txt` に保存しています。Realtime音声の上限を60秒へ広げ、長い文章を途中で切らない出力トークン枠にしました。日本語と英語をそれぞれ自然な発音で読み、翻訳や文の省略をしない指示を使用します。
+
+```powershell
+.\.venv\Scripts\python.exe scripts\generate_demo_speech.py --text-file configs\demo_english_lesson.txt --output .motion-lab\recordings\english-lesson.wav --budget-usd 1
+node scripts\export_vrm_video.cjs --avatar C:\Models\AvatarSample_VRM1.0.vrm --motion .motion-lab\outputs\<実験ID>\motion.json --wav .motion-lab\recordings\english-lesson.wav --speech-metadata .motion-lab\recordings\english-lesson.json --output .motion-lab\recordings\english-lesson-1080p.mp4 --title "英語学習のあいさつ"
+```
+
+先にMotion Labを起動し、ChromiumとFFmpegを準備します。`<実験ID>` は手元の実際のモーション保存先に置き換えます。元のWAVを0.5秒の待機後に再生する時刻へ合わせて直接AACへ変換するため、低ビットレートの画面録画音声を経由しません。口の開閉は同じWAVのPCM信号から計算します。
+
+`--width`、`--height`、`--fps` で解像度と出力フレームレートを選べます。`--preview-only yes` は正面と画質を確認するPNGを出力します。既存のMP4・JSON・プレビューは上書きしません。
+
+指定文の実音声は12.50秒、生成処理は7.54秒で、書き起こしが入力文と完全一致することを確認しました。[完成した動画とAPI記録](../reports/videos/README.md) を参照してください。モーションが先に終わる場合は、残りの発話中にデフォルトの発話姿勢・呼吸・まばたき・口の開閉を使います。
+
 ## クラウドのネットワークシークレット
 
 名前 `realtime`、環境変数名 `realtime`、接続先 `api.openai.com` を使用できます。バックエンドと録音スクリプトは、ローカル用の `OPENAI_API_KEY`、クラウド用の `MOTION_LAB_OPENAI_API_KEY`、`realtime` の順で存在する認証を使用します。名前だけを宣言しても値は渡されません。環境設定で既存の値を割り当て、保存・Publish後に実行環境への反映を確認してください。
@@ -20,7 +39,7 @@
 
 Linuxでは `.venv/bin/python` を使用します。Realtime GA WebSocketの実音声をPCM16・24kHz・モノラルWAVへ保存し、実際の書き起こし、モデル・声・使用量、音声のハッシュを `hello.json` に記録します。失敗や未設定を検証音で代替しません。既存の出力は上書きしません。
 
-## 音声とVRMを同時に録画する
+## 実時間の画面録画を行う
 
 まずMotion Labを起動し、PlaywrightのChromiumとFFmpegを用意します。APIキーは録画時のブラウザへ渡しません。使用条件を確認したVRM 1.0と、実際に手元へ保存したモーションJSONのパスを指定してください。
 

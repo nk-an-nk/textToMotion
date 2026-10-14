@@ -17,8 +17,8 @@ export class MotionViewer {
     container.appendChild(this.renderer.domElement);
     this.controls=new OrbitControls(this.camera,this.renderer.domElement);
     this.controls.target.set(0,1,0);this.controls.enableDamping=true;
-    this.scene.add(new THREE.HemisphereLight(0xffffff,0x819387,2.5));
-    const light=new THREE.DirectionalLight(0xffffff,2.5);light.position.set(3,5,3);this.scene.add(light);
+    this.scene.add(new THREE.HemisphereLight(0xffffff,0x819387,.7));
+    const light=new THREE.DirectionalLight(0xffffff,1.25);light.position.set(3,5,3);this.scene.add(light);
     this.scene.add(new THREE.GridHelper(24,48,0xa6bcb0,0xd2ddd4));
     const floor=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshStandardMaterial({color:0xedf1ed,roughness:1}));
     floor.rotation.x=-Math.PI/2;floor.position.y=-.01;this.scene.add(floor);
@@ -46,11 +46,13 @@ export class MotionViewer {
   setAvatar(value){this.avatar=value;for(const actor of this.actors){actor.skeleton.visible=!value;actor.avatar.visible=value;}}
   setVRMVisible(value){this.vrmVisible=value;if(this.vrmSink.vrm)this.vrmSink.vrm.scene.visible=value;for(const actor of this.actors)actor.group.visible=!value;}
   resetCamera(){
-    if(this.actors.length){const bounds=new THREE.Box3();for(const actor of this.actors){for(const pos of actor.data.positions[0])bounds.expandByPoint(new THREE.Vector3(...pos).add(actor.group.position));}
+    if(this.vrmSink.vrm&&(this.vrmVisible||!this.actors.length)){
+      const bounds=new THREE.Box3().setFromObject(this.vrmSink.vrm.scene),target=bounds.getCenter(new THREE.Vector3());
+      const height=Math.max(bounds.getSize(new THREE.Vector3()).y,1),distance=height*1.95;
+      target.y+=height*.08;this.controls.target.copy(target);this.camera.position.copy(target).add(new THREE.Vector3(0,0,distance));
+    }else if(this.actors.length){const bounds=new THREE.Box3();for(const actor of this.actors){for(const pos of actor.data.positions[0])bounds.expandByPoint(new THREE.Vector3(...pos).add(actor.group.position));}
       const target=bounds.getCenter(new THREE.Vector3());const size=bounds.getSize(new THREE.Vector3());const distance=Math.max(size.x,size.y,size.z,1.7)*2.15;
       this.controls.target.copy(target);this.camera.position.copy(target).add(new THREE.Vector3(distance*.7,distance*.3,distance));
-    }else if(this.vrmSink.vrm){const bounds=new THREE.Box3().setFromObject(this.vrmSink.vrm.scene);const target=bounds.getCenter(new THREE.Vector3());const height=bounds.getSize(new THREE.Vector3()).y;
-      this.controls.target.copy(target);this.camera.position.copy(target).add(new THREE.Vector3(.4,.1,1).multiplyScalar(Math.max(height,1)*1.65));
     }else{this.camera.position.set(3.5,2.3,5.2);this.controls.target.set(0,1,0);}this.controls.update();
   }
   draw(time){

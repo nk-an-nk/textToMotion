@@ -1,0 +1,94 @@
+{
+  "date_jst": "2026-10-14",
+  "input_file": "../../configs/demo_english_lesson.txt",
+  "transcript_matches_input": true,
+  "audio_generation_seconds": 7.540730101000008,
+  "audio_seconds": 12.5,
+  "browser_tests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "render_mode": "offline_fixed_timestep",
+  "runtime_gpu_benchmark": false,
+  "new_motion_inference": false,
+  "checks": [
+    {
+      "file": "kimodo-english-lesson-1080p.mp4",
+      "decode": "passed",
+      "native_resolution": true,
+      "complete_frame_count": 405,
+      "front_camera_alignment": 1,
+      "audio_source_correlation": 0.9999445923780369,
+      "audio_start_seconds": 0.5,
+      "lip_movement": true,
+      "pose_change": true,
+      "render_wall_seconds": 144.955552907,
+      "video_sha256": "aef4ffe32f638efaf0c243e5508aaa0581f9d09a5be96143b4fe22cc5cc5322e",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "405"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "317"
+          }
+        ],
+        "format": {
+          "duration": "13.500000",
+          "size": "1405343"
+        }
+      }
+    },
+    {
+      "file": "ardy-unconditional-english-lesson-1080p.mp4",
+      "decode": "passed",
+      "native_resolution": true,
+      "complete_frame_count": 405,
+      "front_camera_alignment": 1,
+      "audio_source_correlation": 0.9999445923780369,
+      "audio_start_seconds": 0.5,
+      "lip_movement": true,
+      "pose_change": true,
+      "render_wall_seconds": 158.10411788500002,
+      "video_sha256": "42d9dffacc11304954237fc52d5ddc66a5fa04e0162d2ef4db48a0679bd0c015",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "405"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "317"
+          }
+        ],
+        "format": {
+          "duration": "13.500000",
+          "size": "1452564"
+        }
+      }
+    }
+  ]
+}
