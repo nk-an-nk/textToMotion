@@ -1,0 +1,9 @@
+{
+  "id": "03",
+  "text": "まずは英語で挨拶してみよう。",
+  "motion_prompt": "まずは英語で挨拶してみよう。",
+  "model": "kimodo",
+  "seed": 2,
+  "plan_sha256": "e8bf672fd42b3db6d1302441b22c120a8dc35cabb3493cfbe325add81c5f3714",
+  "speech_source_manifest_sha256": "11364819f6ebe46f30669b5f0ac3e0f8c8ea94e3e08a0b558098059dff818b0a"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "今日も一緒に楽しく英語を勉強しましょう！",
+  "sample_rate": 24000,
+  "duration_seconds": 3.5,
+  "audio_sha256": "5270e6f381f41c2c7aa995ef7ecfa13b0780088755fab08ad70115774b296b2f",
+  "generated_at_utc": "2026-10-14T15:04:09.793438+00:00",
+  "actual_charge_usd": null,
+  "max_output_tokens": 512,
+  "max_audio_seconds": 10,
+  "input_submitted_at_utc": "2026-10-14T15:04:05.606807+00:00",
+  "session_setup_seconds": 0.6425743009999678,
+  "first_audio_seconds": 0.6172008969997478,
+  "complete_audio_seconds": 1.1744971519997307,
+  "response_done_seconds": 1.1840994499998487,
+  "generation_wall_seconds": 4.828051571999822,
+  "clock_domain": "single_client_monotonic",
+  "response_id": "resp_EYuoPALVQkBtlNXe6sfBQ",
+  "transcript": "今日も一緒に楽しく英語を勉強しましょう！",
+  "usage": {
+    "total_tokens": 213,
+    "input_tokens": 96,
+    "output_tokens": 117,
+    "input_token_details": {
+      "text_tokens": 96,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 47,
+      "audio_tokens": 70,
+      "reasoning_tokens": 17
+    }
+  }
+}

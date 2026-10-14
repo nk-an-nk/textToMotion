@@ -1,0 +1,52 @@
+{
+  "model": "kimodo",
+  "original_text": "今日も一緒に楽しく英語を勉強しましょう！",
+  "motion_prompt": "今日も一緒に楽しく英語を勉強しましょう！",
+  "seed": 1,
+  "duration_requested": 3.5,
+  "motion_sha256": "09236217760862c6adda32dd8b1c4d8843ed9e6efbb7c260ae5947bab758858d",
+  "skeleton_seconds": 10.762094119999801,
+  "input_to_skeleton_seconds": 10.762094119999801,
+  "input_submitted_at_utc": "2026-10-14T15:25:59.590577+00:00",
+  "skeleton_completed_at_utc": "2026-10-14T15:26:10.353290+00:00",
+  "inference_seconds": 2.8016402349999225,
+  "device": "remote: l40sx1 (provider-reported)",
+  "metadata": {
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "backend": "nvidia_official_online_demo",
+    "endpoint": "https://nvidia-kimodo.hf.space/",
+    "space_repository": "nvidia/Kimodo",
+    "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+    "model_code_git_commit": null,
+    "protocol": "viser-v1.0.16",
+    "text_conditioned": true,
+    "audio_conditioned": false,
+    "trained_model_output": true,
+    "prompt": "今日も一緒に楽しく英語を勉強しましょう！",
+    "seed": 1,
+    "fps": 30.0,
+    "duration_requested": 3.5000001,
+    "frames_requested": 105,
+    "checkpoint": "Kimodo-SOMA-RP-v1",
+    "checkpoint_sha256": null,
+    "device": "remote: l40sx1 (provider-reported)",
+    "inference_time": 2.8016402349999225,
+    "time_to_first_result": 8.832627586999934,
+    "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+    "server_success_notification": {
+      "mode": "update",
+      "uuid": "fd0e74bc-ac45-4774-a867-9755e6525d53",
+      "props": {
+        "title": "Motion generation finished!",
+        "body": "Motions have been generated successfully for the given prompt.",
+        "loading": false,
+        "with_close_button": true,
+        "auto_close_seconds": 5.0,
+        "color": "green"
+      },
+      "type": "NotificationMessage"
+    },
+    "download_bytes": 682348
+  }
+}

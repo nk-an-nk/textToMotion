@@ -1,0 +1,117 @@
+{
+  "schema": "motion-lab/audio-dialogue-video-v1",
+  "model": "maai",
+  "plan": {
+    "schema": "motion-lab/listener-lesson-video-plan-v1",
+    "model": "maai",
+    "fps": 30,
+    "frame_count": 389,
+    "duration_seconds": 12.966666666666667,
+    "student_audio_seconds": 0,
+    "teacher_start_seconds": 0,
+    "teacher_audio_seconds": 12.966666666666667,
+    "student_text": "",
+    "teacher_text": "",
+    "lesson_segments": [
+      {
+        "id": "01",
+        "text": "こんにちは！",
+        "motion_prompt": "こんにちは！",
+        "start_seconds": 0,
+        "end_seconds": 1.1
+      },
+      {
+        "id": "02",
+        "text": "今日も一緒に楽しく英語を勉強しましょう！",
+        "motion_prompt": "今日も一緒に楽しく英語を勉強しましょう！",
+        "start_seconds": 1.1,
+        "end_seconds": 4.6
+      },
+      {
+        "id": "03",
+        "text": "まずは英語で挨拶してみよう。",
+        "motion_prompt": "まずは英語で挨拶してみよう。",
+        "start_seconds": 4.6,
+        "end_seconds": 7.1
+      },
+      {
+        "id": "04",
+        "text": "Hello! How are you today?",
+        "motion_prompt": "Hello! How are you today?",
+        "start_seconds": 7.1,
+        "end_seconds": 9.366666666666667
+      },
+      {
+        "id": "05",
+        "text": "元気なときは、I'm happy! って言ってみてね。",
+        "motion_prompt": "元気なときは、I'm happy! って言ってみてね。",
+        "start_seconds": 9.366666666666667,
+        "end_seconds": 12.966666666666667
+      }
+    ],
+    "motion_scope": "head_only",
+    "avatar_role": "listener",
+    "motion_file": "head-controls-synthesized.json",
+    "motion_sha256": "6fc457af4a3f2f8da0a3c54d53e037ba29c0781bf8ad5f75f9075baf68add62a",
+    "measurement": {},
+    "caption": "同一5文の実音声→MaAI頭部予測 / 全身はアバターの基本姿勢",
+    "original_prediction_file": "head-controls.json",
+    "original_prediction_sha256": "ec2c1e3ad3bf2fd03139b8cf76e1848b4652743e7d5b83e8cb0382bd2c4bbfe5"
+  },
+  "render_wall_seconds": 174.884944311,
+  "live_recording": false,
+  "render_mode": "offline_replay_of_real_measurement",
+  "hardware_webgl": false,
+  "setup": {
+    "avatar": {
+      "metaVersion": "1",
+      "name": "AvatarSample_VRM1.0",
+      "authors": [
+        "pixiv VRoid Project"
+      ],
+      "licenseUrl": "https://vrm.dev/licenses/1.0/",
+      "avatarPermission": "everyone",
+      "allowExcessivelyViolentUsage": false,
+      "allowExcessivelySexualUsage": false,
+      "commercialUsage": "personalNonProfit",
+      "allowPoliticalOrReligiousUsage": false,
+      "allowAntisocialOrHateUsage": false,
+      "creditNotation": "unnecessary",
+      "allowRedistribution": false,
+      "modification": "prohibited"
+    },
+    "webgl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "front_alignment": 1
+  },
+  "stats": {
+    "maxLip": 0,
+    "maxHeadPitch": 0.07856104879935416,
+    "frames": 389
+  },
+  "media": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "389"
+      },
+      {
+        "codec_type": "audio",
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "304"
+      }
+    ],
+    "format": {
+      "duration": "12.967000"
+    }
+  },
+  "idle_image_update_seconds": 1,
+  "waiting_duration_compressed": false,
+  "audio_gesture_start_offset_seconds": 0,
+  "presentation_root_policy": "all source joints rotated to remove torso yaw before retargeting; avatar root anchored; original joints preserved",
+  "video_sha256": "fcc04e3a0bfc6d467f9f42941e19871fd689ec656fdc457bd1d07069a9540d2a",
+  "browser_errors": []
+}

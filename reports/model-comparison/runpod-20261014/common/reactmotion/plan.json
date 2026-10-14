@@ -1,0 +1,34 @@
+{
+  "schema": "motion-lab/segmented-dialogue-plan-v1",
+  "title": "英語学習 / 文ごとの発話とジェスチャー",
+  "fps": 30,
+  "blend_ms": 250,
+  "segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！",
+      "motion_prompt": "こんにちは！"
+    },
+    {
+      "id": "02",
+      "text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "motion_prompt": "今日も一緒に楽しく英語を勉強しましょう！"
+    },
+    {
+      "id": "03",
+      "text": "まずは英語で挨拶してみよう。",
+      "motion_prompt": "まずは英語で挨拶してみよう。"
+    },
+    {
+      "id": "04",
+      "text": "Hello! How are you today?",
+      "motion_prompt": "Hello! How are you today?"
+    },
+    {
+      "id": "05",
+      "text": "元気なときは、I'm happy! って言ってみてね。",
+      "motion_prompt": "元気なときは、I'm happy! って言ってみてね。"
+    }
+  ],
+  "comparison_input_policy": "Literal utterance shared by every model; no translation or gesture instruction substitution"
+}

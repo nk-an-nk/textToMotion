@@ -1,0 +1,73 @@
+{
+  "schema": "motion-lab/audio-input-dialogue-v1",
+  "model": "ardy",
+  "input_transport": "input_audio_buffer.append + commit",
+  "typed_student_input": false,
+  "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+  "clock_domain": "single_client_monotonic",
+  "student_audio_seconds": 1.9,
+  "student_audio_started_at_utc": "2026-10-14T16:17:32.047469+00:00",
+  "student_audio_ended_at_utc": "2026-10-14T16:17:33.947743+00:00",
+  "student_transcript": "先生、こんにちは。",
+  "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+  "teacher_audio_seconds": 4.75,
+  "asr_seconds_after_student_end": 0.5272509639999043,
+  "first_teacher_audio_seconds_after_student_end": 0.5675416939993738,
+  "teacher_transcript_seconds_after_student_end": 1.5417353789998742,
+  "response_done_seconds_after_student_end": 1.5449484699993263,
+  "first_teacher_audio_seconds_after_input_start": 2.4678178849999313,
+  "events": [
+    {
+      "event": "student_transcription_complete",
+      "seconds_after_student_end": 0.5272509639999043
+    },
+    {
+      "event": "teacher_first_audio",
+      "seconds_after_student_end": 0.5675416939993738
+    },
+    {
+      "event": "teacher_transcript_complete",
+      "seconds_after_student_end": 1.5417353789998742
+    }
+  ],
+  "response_id": "resp_EYvxV8zUWEpwMFlENj4ia",
+  "usage": {
+    "total_tokens": 241,
+    "input_tokens": 108,
+    "output_tokens": 133,
+    "input_token_details": {
+      "text_tokens": 89,
+      "audio_tokens": 19,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 38,
+      "audio_tokens": 95
+    }
+  },
+  "actual_charge_usd": null,
+  "max_output_tokens": 512,
+  "max_teacher_audio_seconds": 15,
+  "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+  "teacher_sha256": "855b9d4b586d21595fa974450e1efb5dda00b526992e6c9f1a3845f2d0a6a914",
+  "avatar_role": "speaker",
+  "generation_dispatch_seconds_after_student_end": 4.549024766999537,
+  "bone_ready_observed_seconds_after_student_end": 187.65984962099992,
+  "generation_command_observed_seconds": 183.11082485400038,
+  "completion_poll_interval_seconds": 5,
+  "motion_generation_seconds": 19.3227670621809,
+  "cold_model_load_seconds": 16.578132692025974,
+  "bone_minus_first_realtime_audio_seconds": 187.09230792700055,
+  "teacher_playback_seconds_after_student_end": 187.65984962099992,
+  "playback_policy": "buffer_teacher_voice_until_trained_motion_available",
+  "actual_inference_after_received_teacher_transcript": true,
+  "measurement_scope": "audio_input_and_generator_completion_single_client_monotonic",
+  "remote_upload_and_startup_included": true,
+  "measured_end_to_end": true
+}

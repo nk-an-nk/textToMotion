@@ -1,0 +1,154 @@
+{
+  "schema": "motion-lab/segmented-video-validation-v1",
+  "combined_video": {
+    "frames": 389,
+    "duration_seconds": 12.967,
+    "sha256": "b0ad20bc34b14cf659af438d2c807c2b63abe2e98e92d4f8a446a06adf6c5a40",
+    "full_decode_ok": true
+  },
+  "segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！",
+      "transcript_exact": true,
+      "new_motion_prompt_verified": true,
+      "individual_video": {
+        "frames": 33,
+        "duration_seconds": 1.1,
+        "sha256": "a178458df9f5038a19361705660815dee6f61646ac49628fb7cad6d927e4c252",
+        "full_decode_ok": true
+      },
+      "combined_speech_alignment": {
+        "expected_start_sample": 0,
+        "observed_start_sample": 0,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999586806011774
+      },
+      "individual_speech_alignment": {
+        "expected_start_sample": 0,
+        "observed_start_sample": 0,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999586822147318
+      }
+    },
+    {
+      "id": "02",
+      "text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "transcript_exact": true,
+      "new_motion_prompt_verified": true,
+      "individual_video": {
+        "frames": 105,
+        "duration_seconds": 3.5,
+        "sha256": "d0d490a2a75796d019a7f280178590a47a6b6baebe2fd056437c37663648b193",
+        "full_decode_ok": true
+      },
+      "combined_speech_alignment": {
+        "expected_start_sample": 26400,
+        "observed_start_sample": 26400,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999512850062391
+      },
+      "individual_speech_alignment": {
+        "expected_start_sample": 0,
+        "observed_start_sample": 0,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999375130595667
+      }
+    },
+    {
+      "id": "03",
+      "text": "まずは英語で挨拶してみよう。",
+      "transcript_exact": true,
+      "new_motion_prompt_verified": true,
+      "individual_video": {
+        "frames": 75,
+        "duration_seconds": 2.5,
+        "sha256": "f249c4fa30ca1730ce2617fcac0ee2f93259580dc1b11bcdd848b59bc972b52b",
+        "full_decode_ok": true
+      },
+      "combined_speech_alignment": {
+        "expected_start_sample": 110400,
+        "observed_start_sample": 110400,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999232878774891
+      },
+      "individual_speech_alignment": {
+        "expected_start_sample": 0,
+        "observed_start_sample": 0,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9998843712938225
+      }
+    },
+    {
+      "id": "04",
+      "text": "Hello! How are you today?",
+      "transcript_exact": true,
+      "new_motion_prompt_verified": true,
+      "individual_video": {
+        "frames": 68,
+        "duration_seconds": 2.267,
+        "sha256": "aac320d1c30326665ba69656f0628a3a1313a36e483d613aae690d2851e8c99b",
+        "full_decode_ok": true
+      },
+      "combined_speech_alignment": {
+        "expected_start_sample": 170400,
+        "observed_start_sample": 170400,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999748295750881
+      },
+      "individual_speech_alignment": {
+        "expected_start_sample": 0,
+        "observed_start_sample": 0,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999616958464107
+      }
+    },
+    {
+      "id": "05",
+      "text": "元気なときは、I'm happy! って言ってみてね。",
+      "transcript_exact": true,
+      "new_motion_prompt_verified": true,
+      "individual_video": {
+        "frames": 108,
+        "duration_seconds": 3.6,
+        "sha256": "866b09ec6d966a514dd9fed4deaa39b9c80456091d8cbb4d3c49bf07c9a5e167",
+        "full_decode_ok": true
+      },
+      "combined_speech_alignment": {
+        "expected_start_sample": 224800,
+        "observed_start_sample": 224800,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9999652028896894
+      },
+      "individual_speech_alignment": {
+        "expected_start_sample": 0,
+        "observed_start_sample": 0,
+        "offset_samples": 0,
+        "offset_seconds": 0.0,
+        "normalized_correlation": 0.9998715686489827
+      }
+    }
+  ],
+  "unique_new_model_outputs": 5,
+  "pcm_timeline_sample_exact": true,
+  "front_alignment": 1,
+  "root_boundary_jumps_metres": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "speech_and_gesture_same_start_frame": true,
+  "rendered_frames": 389,
+  "skipped_render_frames": 0
+}

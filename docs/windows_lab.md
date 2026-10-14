@@ -128,3 +128,7 @@ Python依存のうちアプリはlock、モデル本体は公式ソースのコ�
 | HF 401/403 | Llama利用承認と読み取りトークンを確認。値をチャットやログに貼らない |
 | インストール直後にツールが見つからない | PowerShellを閉じて開き直し、同じコマンドを再実行 |
 | パッケージ解決やMSVCビルドが失敗 | 完了とは扱わずログを確認。Windows実機の結果を受けて依存・ビルド設定を調整 |
+
+## 追加の5モデルと音声入力比較
+
+MotionLCM、MoMask、MMM、ReactMotion、MaAIは [音声入力の比較・専用venvの導入手順](audio_input_comparison.md) を使用します。共通入力は `configs/segmented_english_lesson_common.json` です。従来の発話文10通りとその英訳を使う検証は保持しています。今回の同一入力比較は翻訳なしです。

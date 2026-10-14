@@ -1,0 +1,24 @@
+[
+  {
+    "repo": "maai-kyoto/vap_nod_para_jp",
+    "revision": "130ebe25b2b67be9a3c8721054bbbe2a7183edf8",
+    "license": "mit",
+    "files": [
+      "vap-nod_para_state_dict_erica_12.5hz_20000msec.pt"
+    ]
+  },
+  {
+    "repo": "kyutai/mimi",
+    "revision": "89091b3e466eb6a9d11e537bf26b144f194978f7",
+    "license": "cc-by-4.0",
+    "files": [
+      "model.safetensors"
+    ]
+  },
+  {
+    "repo": "awakening-ai/ReactMotion1.0",
+    "revision": "f00075813798ff957a4768fbe393283e4c36560e",
+    "license": "mit",
+    "files": []
+  }
+]

@@ -1,0 +1,36 @@
+﻿model,id,input_text,motion_processing_seconds,realtime_first_chunk_seconds,separate_stage_duration_difference_seconds,scope
+kimodo,01,こんにちは！,10.285858442999597,0.6013423829999738,9.684516059999623,separate canonical-text requests; not conversation end-to-end
+kimodo,02,今日も一緒に楽しく英語を勉強しましょう！,10.762094119999801,0.6172008969997478,10.144893223000054,separate canonical-text requests; not conversation end-to-end
+kimodo,03,まずは英語で挨拶してみよう。,10.011552802000097,0.9628790430001573,9.04867375899994,separate canonical-text requests; not conversation end-to-end
+kimodo,04,Hello! How are you today?,9.886636377999821,0.9290705939997679,8.957565784000053,separate canonical-text requests; not conversation end-to-end
+kimodo,05,元気なときは、I'm happy! って言ってみてね。,10.462465538999822,0.668625966000036,9.793839572999786,separate canonical-text requests; not conversation end-to-end
+ardy,01,こんにちは！,7.3310789059542,0.6013423829999738,6.7297365229542265,separate canonical-text requests; not conversation end-to-end
+ardy,02,今日も一緒に楽しく英語を勉強しましょう！,7.884622662078073,0.6172008969997478,7.267421765078325,separate canonical-text requests; not conversation end-to-end
+ardy,03,まずは英語で挨拶してみよう。,7.214283439989231,0.9628790430001573,6.251404396989074,separate canonical-text requests; not conversation end-to-end
+ardy,04,Hello! How are you today?,7.184067784895888,0.9290705939997679,6.25499719089612,separate canonical-text requests; not conversation end-to-end
+ardy,05,元気なときは、I'm happy! って言ってみてね。,8.877659548152224,0.668625966000036,8.209033582152188,separate canonical-text requests; not conversation end-to-end
+motionlcm,01,こんにちは！,0.41412234702147543,0.6013423829999738,-0.18722003597849834,separate canonical-text requests; not conversation end-to-end
+motionlcm,02,今日も一緒に楽しく英語を勉強しましょう！,0.04053743300028145,0.6172008969997478,-0.5766634639994663,separate canonical-text requests; not conversation end-to-end
+motionlcm,03,まずは英語で挨拶してみよう。,0.03806469892151654,0.9628790430001573,-0.9248143440786407,separate canonical-text requests; not conversation end-to-end
+motionlcm,04,Hello! How are you today?,0.03716623899526894,0.9290705939997679,-0.8919043550044989,separate canonical-text requests; not conversation end-to-end
+motionlcm,05,元気なときは、I'm happy! って言ってみてね。,0.03964277287013829,0.668625966000036,-0.6289831931298977,separate canonical-text requests; not conversation end-to-end
+momask,01,こんにちは！,0.70468571013771,0.6013423829999738,0.1033433271377362,separate canonical-text requests; not conversation end-to-end
+momask,02,今日も一緒に楽しく英語を勉強しましょう！,0.2066827651578933,0.6172008969997478,-0.4105181318418545,separate canonical-text requests; not conversation end-to-end
+momask,03,まずは英語で挨拶してみよう。,0.2038926901295781,0.9628790430001573,-0.7589863528705791,separate canonical-text requests; not conversation end-to-end
+momask,04,Hello! How are you today?,0.200824614148587,0.9290705939997679,-0.7282459798511809,separate canonical-text requests; not conversation end-to-end
+momask,05,元気なときは、I'm happy! って言ってみてね。,0.19560978398658335,0.668625966000036,-0.47301618201345264,separate canonical-text requests; not conversation end-to-end
+mmm,01,こんにちは！,0.5266737218480557,0.6013423829999738,-0.07466866115191806,separate canonical-text requests; not conversation end-to-end
+mmm,02,今日も一緒に楽しく英語を勉強しましょう！,0.07097305287607014,0.6172008969997478,-0.5462278441236776,separate canonical-text requests; not conversation end-to-end
+mmm,03,まずは英語で挨拶してみよう。,0.06020999304018915,0.9628790430001573,-0.9026690499599681,separate canonical-text requests; not conversation end-to-end
+mmm,04,Hello! How are you today?,0.038116682786494493,0.9290705939997679,-0.8909539112132734,separate canonical-text requests; not conversation end-to-end
+mmm,05,元気なときは、I'm happy! って言ってみてね。,0.06133608100935817,0.668625966000036,-0.6072898849906778,separate canonical-text requests; not conversation end-to-end
+reactmotion,01,こんにちは！,0.8372735357843339,0.6013423829999738,0.23593115278436017,separate canonical-text requests; not conversation end-to-end
+reactmotion,02,今日も一緒に楽しく英語を勉強しましょう！,0.642681737896055,0.6172008969997478,0.0254808408963072,separate canonical-text requests; not conversation end-to-end
+reactmotion,03,まずは英語で挨拶してみよう。,0.4424659388605505,0.9628790430001573,-0.5204131041396067,separate canonical-text requests; not conversation end-to-end
+reactmotion,04,Hello! How are you today?,0.3945737381000072,0.9290705939997679,-0.5344968558997607,separate canonical-text requests; not conversation end-to-end
+reactmotion,05,元気なときは、I'm happy! って言ってみてね。,0.27972916699945927,0.668625966000036,-0.3888967990005767,separate canonical-text requests; not conversation end-to-end
+maai,01,こんにちは！,1.2157336550299078,0.6013423829999738,0.614391272029934,separate canonical-text requests; not conversation end-to-end
+maai,02,今日も一緒に楽しく英語を勉強しましょう！,1.9506606189534068,0.6172008969997478,1.333459721953659,separate canonical-text requests; not conversation end-to-end
+maai,03,まずは英語で挨拶してみよう。,1.5128789979498833,0.9628790430001573,0.5499999549497261,separate canonical-text requests; not conversation end-to-end
+maai,04,Hello! How are you today?,1.3208268210291862,0.9290705939997679,0.39175622702941837,separate canonical-text requests; not conversation end-to-end
+maai,05,元気なときは、I'm happy! って言ってみてね。,2.062469895929098,0.668625966000036,1.3938439299290621,separate canonical-text requests; not conversation end-to-end

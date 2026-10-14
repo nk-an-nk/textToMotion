@@ -1,0 +1,17 @@
+{
+  "schema": "motion-lab/runpod-trial-v1",
+  "budget_yen": 1000,
+  "usd_to_jpy_budget_rate": 200,
+  "max_hours": 3,
+  "max_gpu_hourly_usd": 1.0,
+  "storage_gb": 80,
+  "storage_usd_per_gb_month": 0.10,
+  "cost_reserve_fraction": 0.25,
+  "cloud_type": "SECURE",
+  "gpu_type_ids": ["NVIDIA GeForce RTX 4090", "NVIDIA RTX A6000", "NVIDIA GeForce RTX 3090"],
+  "first_task": "Generate common utterances and voice-input dialogue, then retrieve verified 1080p movies",
+  "additional_models": ["reactmotion", "maai", "motionlcm", "momask", "mmm"],
+  "automatic_deposit": false,
+  "network_volume": false,
+  "cleanup_policy": "Retrieve and validate artifacts, then terminate only the Pod created for this trial"
+}

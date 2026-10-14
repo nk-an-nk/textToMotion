@@ -1,0 +1,45 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "こんにちは！",
+  "sample_rate": 24000,
+  "duration_seconds": 1.1,
+  "audio_sha256": "81d52a1249b757d63436cbe311f5991931c7a907b8610b1985f5d47f4c5a20f2",
+  "generated_at_utc": "2026-10-14T15:04:04.961654+00:00",
+  "actual_charge_usd": null,
+  "max_output_tokens": 512,
+  "max_audio_seconds": 10,
+  "input_submitted_at_utc": "2026-10-14T15:04:01.285084+00:00",
+  "session_setup_seconds": 1.1146115449996614,
+  "first_audio_seconds": 0.6013423829999738,
+  "complete_audio_seconds": 0.65030041800037,
+  "response_done_seconds": 0.6558197250001285,
+  "generation_wall_seconds": 4.790771152999696,
+  "clock_domain": "single_client_monotonic",
+  "response_id": "resp_EYuoLQaceGMtOLTVXOx0e",
+  "transcript": "こんにちは！",
+  "usage": {
+    "total_tokens": 116,
+    "input_tokens": 82,
+    "output_tokens": 34,
+    "input_token_details": {
+      "text_tokens": 82,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 12,
+      "audio_tokens": 22
+    }
+  }
+}

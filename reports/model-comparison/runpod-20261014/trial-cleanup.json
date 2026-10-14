@@ -1,0 +1,17 @@
+{
+  "started_at_utc": "2026-10-14T14:34:18.784428+00:00",
+  "terminated_at_utc": "2026-10-14T17:20:45.227373+00:00",
+  "deletion_confirmed": true,
+  "elapsed_hours": 2.774011929166667,
+  "gpu_usd_per_hour": 0.89,
+  "time_based_gpu_estimate_usd": 2.4688706169583337,
+  "storage_upper_estimate_usd": 0.030822354768518523,
+  "usd_to_jpy_budget_assumption": 200,
+  "gpu_and_storage_estimate_yen": 499.93859434537046,
+  "authorized_budget_yen": 1000,
+  "realtime_actual_invoice_usd": null,
+  "realtime_usage_recorded": true,
+  "private_checkpoint_archives_verified": 6,
+  "original_vrm_and_weights_in_git": false,
+  "estimate_yen_with_25_percent_reserve": 624.923242931713
+}

@@ -1,0 +1,52 @@
+{
+  "model": "kimodo",
+  "original_text": "元気なときは、I'm happy! って言ってみてね。",
+  "motion_prompt": "元気なときは、I'm happy! って言ってみてね。",
+  "seed": 4,
+  "duration_requested": 3.6,
+  "motion_sha256": "34b7c141ccc4bd01a1495f50603d007db62b6b53c758e974a4c9cd7eee8c1bcf",
+  "skeleton_seconds": 10.462465538999822,
+  "input_to_skeleton_seconds": 10.462465538999822,
+  "input_submitted_at_utc": "2026-10-14T15:26:30.313198+00:00",
+  "skeleton_completed_at_utc": "2026-10-14T15:26:40.777448+00:00",
+  "inference_seconds": 2.7849390770002174,
+  "device": "remote: l40sx1 (provider-reported)",
+  "metadata": {
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "backend": "nvidia_official_online_demo",
+    "endpoint": "https://nvidia-kimodo.hf.space/",
+    "space_repository": "nvidia/Kimodo",
+    "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+    "model_code_git_commit": null,
+    "protocol": "viser-v1.0.16",
+    "text_conditioned": true,
+    "audio_conditioned": false,
+    "trained_model_output": true,
+    "prompt": "元気なときは、I'm happy! って言ってみてね。",
+    "seed": 4,
+    "fps": 30.0,
+    "duration_requested": 3.6000001,
+    "frames_requested": 108,
+    "checkpoint": "Kimodo-SOMA-RP-v1",
+    "checkpoint_sha256": null,
+    "device": "remote: l40sx1 (provider-reported)",
+    "inference_time": 2.7849390770002174,
+    "time_to_first_result": 8.84494834599991,
+    "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+    "server_success_notification": {
+      "mode": "update",
+      "uuid": "83e8c2bd-abeb-4d92-8faa-b865b59f7eb5",
+      "props": {
+        "title": "Motion generation finished!",
+        "body": "Motions have been generated successfully for the given prompt.",
+        "loading": false,
+        "with_close_button": true,
+        "auto_close_seconds": 5.0,
+        "color": "green"
+      },
+      "type": "NotificationMessage"
+    },
+    "download_bytes": 701806
+  }
+}

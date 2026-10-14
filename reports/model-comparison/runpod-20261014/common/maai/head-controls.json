@@ -1,0 +1,2630 @@
+{
+  "schema": "motion-lab/maai-head-controls-v1",
+  "trained_model_output": true,
+  "model": "maai",
+  "predictions": [
+    {
+      "p_nod": 0.5912660956382751,
+      "nod_repetitions": [
+        0.3874814808368683,
+        0.396111398935318,
+        0.21640706062316895
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04059549612247117,
+      "nod_speed": 0.09944356583683939,
+      "nod_swing_up": 0.43808767199516296,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.08
+    },
+    {
+      "p_nod": 0.5284040570259094,
+      "nod_repetitions": [
+        0.37713155150413513,
+        0.4052585959434509,
+        0.21760985255241394
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.04166840559548271,
+      "nod_speed": 0.09723237107186612,
+      "nod_swing_up": 0.4645465016365051,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.16
+    },
+    {
+      "p_nod": 0.3698568642139435,
+      "nod_repetitions": [
+        0.3829859495162964,
+        0.40457290410995483,
+        0.21244116127490997
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04194116882881332,
+      "nod_speed": 0.09769656636655485,
+      "nod_swing_up": 0.4792720079421997,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.24
+    },
+    {
+      "p_nod": 0.1991526037454605,
+      "nod_repetitions": [
+        0.3817366063594818,
+        0.3939187228679657,
+        0.22434461116790771
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.042021028822589096,
+      "nod_speed": 0.09727570595678864,
+      "nod_swing_up": 0.5002675652503967,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.32
+    },
+    {
+      "p_nod": 0.16389501094818115,
+      "nod_repetitions": [
+        0.38183051347732544,
+        0.39787858724594116,
+        0.2202908992767334
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04286592929986263,
+      "nod_speed": 0.09640472056079077,
+      "nod_swing_up": 0.5076510310173035,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.4
+    },
+    {
+      "p_nod": 0.20421543717384338,
+      "nod_repetitions": [
+        0.39783498644828796,
+        0.38853463530540466,
+        0.21363034844398499
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.040870939796881396,
+      "nod_speed": 0.09679970492399806,
+      "nod_swing_up": 0.49129047989845276,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.48
+    },
+    {
+      "p_nod": 0.2909989356994629,
+      "nod_repetitions": [
+        0.3998450040817261,
+        0.39738744497299194,
+        0.20276756584644318
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.03822772890971467,
+      "nod_speed": 0.09567172409518787,
+      "nod_swing_up": 0.4763560891151428,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.56
+    },
+    {
+      "p_nod": 0.10526465624570847,
+      "nod_repetitions": [
+        0.3788188397884369,
+        0.40432941913604736,
+        0.21685168147087097
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.03382043925182951,
+      "nod_speed": 0.08788075285934527,
+      "nod_swing_up": 0.47382888197898865,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.64
+    },
+    {
+      "p_nod": 0.03897721320390701,
+      "nod_repetitions": [
+        0.3837325870990753,
+        0.39727291464805603,
+        0.21899452805519104
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.03230534551885815,
+      "nod_speed": 0.08507694833954017,
+      "nod_swing_up": 0.447934627532959,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.72
+    },
+    {
+      "p_nod": 0.03249435871839523,
+      "nod_repetitions": [
+        0.3760819137096405,
+        0.4012698233127594,
+        0.2226482331752777
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.03122521904814099,
+      "nod_speed": 0.08239242506782055,
+      "nod_swing_up": 0.4674708843231201,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.8
+    },
+    {
+      "p_nod": 0.029837101697921753,
+      "nod_repetitions": [
+        0.3680046498775482,
+        0.40545108914375305,
+        0.22654421627521515
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.03063595630293496,
+      "nod_speed": 0.07984519969951251,
+      "nod_swing_up": 0.46963241696357727,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.88
+    },
+    {
+      "p_nod": 0.027686960995197296,
+      "nod_repetitions": [
+        0.3640613555908203,
+        0.4066278040409088,
+        0.22931084036827087
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.030316245240911505,
+      "nod_speed": 0.0783326207263117,
+      "nod_swing_up": 0.4705173969268799,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 0.96
+    },
+    {
+      "p_nod": 0.02629709616303444,
+      "nod_repetitions": [
+        0.36029455065727234,
+        0.40726208686828613,
+        0.23244336247444153
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.03007802346037889,
+      "nod_speed": 0.07745701877052717,
+      "nod_swing_up": 0.4705377519130707,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.04
+    },
+    {
+      "p_nod": 0.025623222813010216,
+      "nod_repetitions": [
+        0.35527101159095764,
+        0.4074386656284332,
+        0.23729035258293152
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.03000073602615321,
+      "nod_speed": 0.07694731143963693,
+      "nod_swing_up": 0.4666053056716919,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.12
+    },
+    {
+      "p_nod": 0.04619322344660759,
+      "nod_repetitions": [
+        0.3773316442966461,
+        0.3798576295375824,
+        0.2428107112646103
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04112188329931823,
+      "nod_speed": 0.08872797275505276,
+      "nod_swing_up": 0.5164877772331238,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.1800000000000002
+    },
+    {
+      "p_nod": 0.0655224621295929,
+      "nod_repetitions": [
+        0.377277135848999,
+        0.39157384634017944,
+        0.23114900290966034
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.036189747234123,
+      "nod_speed": 0.08877596166508031,
+      "nod_swing_up": 0.5322009921073914,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.26
+    },
+    {
+      "p_nod": 0.07583147287368774,
+      "nod_repetitions": [
+        0.3766251504421234,
+        0.39677727222442627,
+        0.22659756243228912
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.03875479657005563,
+      "nod_speed": 0.0950222003589285,
+      "nod_swing_up": 0.532433271408081,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.34
+    },
+    {
+      "p_nod": 0.06728389114141464,
+      "nod_repetitions": [
+        0.38722294569015503,
+        0.3965698778629303,
+        0.21620716154575348
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04429729866734693,
+      "nod_speed": 0.10185718987981571,
+      "nod_swing_up": 0.5285612940788269,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.4200000000000002
+    },
+    {
+      "p_nod": 0.10231932997703552,
+      "nod_repetitions": [
+        0.3831667900085449,
+        0.38621920347213745,
+        0.23061400651931763
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.048268525650524294,
+      "nod_speed": 0.1122162151195773,
+      "nod_swing_up": 0.5038048624992371,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.5
+    },
+    {
+      "p_nod": 0.12783293426036835,
+      "nod_repetitions": [
+        0.3878903388977051,
+        0.3791496753692627,
+        0.2329600304365158
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04639761097126384,
+      "nod_speed": 0.10711974125576885,
+      "nod_swing_up": 0.44221919775009155,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.58
+    },
+    {
+      "p_nod": 0.10527999699115753,
+      "nod_repetitions": [
+        0.385337769985199,
+        0.3867570459842682,
+        0.22790518403053284
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04368833509513462,
+      "nod_speed": 0.09920322998226527,
+      "nod_swing_up": 0.41379043459892273,
+      "nod_swing_up_pred": 0,
+      "input_audio_seconds": 1.6600000000000001
+    },
+    {
+      "p_nod": 0.09565522521734238,
+      "nod_repetitions": [
+        0.38434210419654846,
+        0.4090249538421631,
+        0.20663297176361084
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.0503474151722522,
+      "nod_speed": 0.1046342941160576,
+      "nod_swing_up": 0.5640935897827148,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.7400000000000002
+    },
+    {
+      "p_nod": 0.22709734737873077,
+      "nod_repetitions": [
+        0.40664827823638916,
+        0.39640116691589355,
+        0.19695058465003967
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05856646078313898,
+      "nod_speed": 0.11477089608624234,
+      "nod_swing_up": 0.5692260265350342,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.82
+    },
+    {
+      "p_nod": 0.17789104580879211,
+      "nod_repetitions": [
+        0.3859144449234009,
+        0.42110520601272583,
+        0.19298028945922852
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.0570042919765938,
+      "nod_speed": 0.11286092248101867,
+      "nod_swing_up": 0.5998713374137878,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.9000000000000001
+    },
+    {
+      "p_nod": 0.16201628744602203,
+      "nod_repetitions": [
+        0.3800494074821472,
+        0.4254051446914673,
+        0.19454549252986908
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.05715414218729077,
+      "nod_speed": 0.11313903586495608,
+      "nod_swing_up": 0.600937008857727,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 1.98
+    },
+    {
+      "p_nod": 0.1113467589020729,
+      "nod_repetitions": [
+        0.37128016352653503,
+        0.4282297194004059,
+        0.20049016177654266
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.05328254241352901,
+      "nod_speed": 0.10724363490082783,
+      "nod_swing_up": 0.5933639407157898,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.06
+    },
+    {
+      "p_nod": 0.12177106738090515,
+      "nod_repetitions": [
+        0.39902234077453613,
+        0.4008597731590271,
+        0.20011790096759796
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06113393053800316,
+      "nod_speed": 0.1181550904228687,
+      "nod_swing_up": 0.613717794418335,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.14
+    },
+    {
+      "p_nod": 0.11978559195995331,
+      "nod_repetitions": [
+        0.39975449442863464,
+        0.4040546119213104,
+        0.19619089365005493
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0660287354446947,
+      "nod_speed": 0.1225700347614911,
+      "nod_swing_up": 0.6327333450317383,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.22
+    },
+    {
+      "p_nod": 0.12794210016727448,
+      "nod_repetitions": [
+        0.4010649621486664,
+        0.41216474771499634,
+        0.1867702603340149
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06751729585379017,
+      "nod_speed": 0.12607760551364217,
+      "nod_swing_up": 0.6413553953170776,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.3
+    },
+    {
+      "p_nod": 0.11285461485385895,
+      "nod_repetitions": [
+        0.3902212679386139,
+        0.4262232184410095,
+        0.1835554987192154
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.06685992113675382,
+      "nod_speed": 0.1286440422646512,
+      "nod_swing_up": 0.6526851654052734,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.38
+    },
+    {
+      "p_nod": 0.09552370756864548,
+      "nod_repetitions": [
+        0.3930928111076355,
+        0.41931039094924927,
+        0.18759676814079285
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.0672618801087161,
+      "nod_speed": 0.12886628757396576,
+      "nod_swing_up": 0.6349121332168579,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.46
+    },
+    {
+      "p_nod": 0.08781085163354874,
+      "nod_repetitions": [
+        0.38551512360572815,
+        0.4239374101161957,
+        0.19054743647575378
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.06655008953326068,
+      "nod_speed": 0.1270431825129152,
+      "nod_swing_up": 0.6279085874557495,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.54
+    },
+    {
+      "p_nod": 0.09499116241931915,
+      "nod_repetitions": [
+        0.37720438838005066,
+        0.42561888694763184,
+        0.19717678427696228
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.06291568251621149,
+      "nod_speed": 0.12075716293587382,
+      "nod_swing_up": 0.6054271459579468,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.62
+    },
+    {
+      "p_nod": 0.20025067031383514,
+      "nod_repetitions": [
+        0.3639611601829529,
+        0.4230361580848694,
+        0.21300269663333893
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.06233074609695854,
+      "nod_speed": 0.1210283827012299,
+      "nod_swing_up": 0.5868709087371826,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.7
+    },
+    {
+      "p_nod": 0.15966174006462097,
+      "nod_repetitions": [
+        0.37595900893211365,
+        0.4091857373714447,
+        0.21485523879528046
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.0611991075789919,
+      "nod_speed": 0.12216251200506703,
+      "nod_swing_up": 0.5592064261436462,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.7800000000000002
+    },
+    {
+      "p_nod": 0.14032521843910217,
+      "nod_repetitions": [
+        0.37793293595314026,
+        0.40944984555244446,
+        0.2126171737909317
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.061121225413257325,
+      "nod_speed": 0.12094013730660647,
+      "nod_swing_up": 0.5561875700950623,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.8600000000000003
+    },
+    {
+      "p_nod": 0.0785006731748581,
+      "nod_repetitions": [
+        0.37875646352767944,
+        0.41718360781669617,
+        0.20405985414981842
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.06330628488254694,
+      "nod_speed": 0.12430955886005617,
+      "nod_swing_up": 0.6063782572746277,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 2.9400000000000004
+    },
+    {
+      "p_nod": 0.21809901297092438,
+      "nod_repetitions": [
+        0.3758099675178528,
+        0.41681182384490967,
+        0.20737828314304352
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.06043223034329923,
+      "nod_speed": 0.11915317274864676,
+      "nod_swing_up": 0.5592033267021179,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.02
+    },
+    {
+      "p_nod": 0.22013641893863678,
+      "nod_repetitions": [
+        0.3930290937423706,
+        0.4020713269710541,
+        0.20489956438541412
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05943747135674953,
+      "nod_speed": 0.12197239632837048,
+      "nod_swing_up": 0.5462251901626587,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.1
+    },
+    {
+      "p_nod": 0.22123737633228302,
+      "nod_repetitions": [
+        0.4145585894584656,
+        0.3966083824634552,
+        0.188833087682724
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06362117792780009,
+      "nod_speed": 0.1292560278333036,
+      "nod_swing_up": 0.6049679517745972,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.18
+    },
+    {
+      "p_nod": 0.21606892347335815,
+      "nod_repetitions": [
+        0.4040941298007965,
+        0.3923235535621643,
+        0.2035822868347168
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06466293245987301,
+      "nod_speed": 0.13380847197177548,
+      "nod_swing_up": 0.5644463896751404,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.2600000000000002
+    },
+    {
+      "p_nod": 0.3182535767555237,
+      "nod_repetitions": [
+        0.42950886487960815,
+        0.384147971868515,
+        0.18634314835071564
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07212014697632173,
+      "nod_speed": 0.14477869600850354,
+      "nod_swing_up": 0.585384726524353,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.3400000000000003
+    },
+    {
+      "p_nod": 0.19259685277938843,
+      "nod_repetitions": [
+        0.40553367137908936,
+        0.40893420577049255,
+        0.18553213775157928
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07432610494777107,
+      "nod_speed": 0.14788882009346732,
+      "nod_swing_up": 0.6376185417175293,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.42
+    },
+    {
+      "p_nod": 0.20325013995170593,
+      "nod_repetitions": [
+        0.43539959192276,
+        0.3834218680858612,
+        0.1811784952878952
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07330587632502235,
+      "nod_speed": 0.14796517649372584,
+      "nod_swing_up": 0.62784743309021,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.5
+    },
+    {
+      "p_nod": 0.13362255692481995,
+      "nod_repetitions": [
+        0.4445804953575134,
+        0.36279478669166565,
+        0.1926247775554657
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07699579158742055,
+      "nod_speed": 0.14833171115114238,
+      "nod_swing_up": 0.6426992416381836,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.58
+    },
+    {
+      "p_nod": 0.13338446617126465,
+      "nod_repetitions": [
+        0.4174385368824005,
+        0.3778795301914215,
+        0.20468193292617798
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07900037597682057,
+      "nod_speed": 0.15433583542849685,
+      "nod_swing_up": 0.6821153163909912,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.66
+    },
+    {
+      "p_nod": 0.1232612133026123,
+      "nod_repetitions": [
+        0.4099927246570587,
+        0.4078349769115448,
+        0.1821722537279129
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08237150780275082,
+      "nod_speed": 0.15733955592786392,
+      "nod_swing_up": 0.7015600204467773,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.74
+    },
+    {
+      "p_nod": 0.1423448920249939,
+      "nod_repetitions": [
+        0.39938420057296753,
+        0.42824602127075195,
+        0.1723698079586029
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.08606482919969044,
+      "nod_speed": 0.15814341283966013,
+      "nod_swing_up": 0.7149674892425537,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.8200000000000003
+    },
+    {
+      "p_nod": 0.18130935728549957,
+      "nod_repetitions": [
+        0.39485424757003784,
+        0.43403443694114685,
+        0.1711113601922989
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.09575115074713691,
+      "nod_speed": 0.1735318011509844,
+      "nod_swing_up": 0.7465881109237671,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.9
+    },
+    {
+      "p_nod": 0.12562312185764313,
+      "nod_repetitions": [
+        0.4034067392349243,
+        0.428851455450058,
+        0.1677418351173401
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.09338147486116583,
+      "nod_speed": 0.17254675259318833,
+      "nod_swing_up": 0.7353318929672241,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 3.98
+    },
+    {
+      "p_nod": 0.19117644429206848,
+      "nod_repetitions": [
+        0.4008978605270386,
+        0.425000935792923,
+        0.17410121858119965
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.087760215098035,
+      "nod_speed": 0.16572748809898652,
+      "nod_swing_up": 0.714165210723877,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.0600000000000005
+    },
+    {
+      "p_nod": 0.24490581452846527,
+      "nod_repetitions": [
+        0.41718021035194397,
+        0.3984438180923462,
+        0.18437591195106506
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07477607794296555,
+      "nod_speed": 0.14999008745150985,
+      "nod_swing_up": 0.642700731754303,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.140000000000001
+    },
+    {
+      "p_nod": 0.1592235416173935,
+      "nod_repetitions": [
+        0.44949284195899963,
+        0.36771225929260254,
+        0.18279483914375305
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0693813393094781,
+      "nod_speed": 0.14513299928017334,
+      "nod_swing_up": 0.5702238082885742,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.220000000000001
+    },
+    {
+      "p_nod": 0.15300287306308746,
+      "nod_repetitions": [
+        0.4392226040363312,
+        0.3743153214454651,
+        0.18646208941936493
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07101688622790037,
+      "nod_speed": 0.14546018286485476,
+      "nod_swing_up": 0.5941911935806274,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.300000000000001
+    },
+    {
+      "p_nod": 0.14966194331645966,
+      "nod_repetitions": [
+        0.4348564147949219,
+        0.3755122125148773,
+        0.1896314024925232
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07256239157386776,
+      "nod_speed": 0.14722130676016734,
+      "nod_swing_up": 0.608912467956543,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.38
+    },
+    {
+      "p_nod": 0.13258707523345947,
+      "nod_repetitions": [
+        0.4399092197418213,
+        0.3689386248588562,
+        0.19115214049816132
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07322378211168569,
+      "nod_speed": 0.14868326488472464,
+      "nod_swing_up": 0.6040717959403992,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.46
+    },
+    {
+      "p_nod": 0.11965617537498474,
+      "nod_repetitions": [
+        0.44146856665611267,
+        0.36589619517326355,
+        0.19263526797294617
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07387202285922263,
+      "nod_speed": 0.14904997333959033,
+      "nod_swing_up": 0.6054185628890991,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.54
+    },
+    {
+      "p_nod": 0.11146345734596252,
+      "nod_repetitions": [
+        0.44232505559921265,
+        0.3634762465953827,
+        0.19419874250888824
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07358417246314342,
+      "nod_speed": 0.14833516628605936,
+      "nod_swing_up": 0.6015388369560242,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.62
+    },
+    {
+      "p_nod": 0.6050444841384888,
+      "nod_repetitions": [
+        0.4907006323337555,
+        0.34096214175224304,
+        0.16833722591400146
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07693547371032396,
+      "nod_speed": 0.15131058902231576,
+      "nod_swing_up": 0.5948277115821838,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.68
+    },
+    {
+      "p_nod": 0.2591787278652191,
+      "nod_repetitions": [
+        0.440680593252182,
+        0.3478166460990906,
+        0.21150274574756622
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06787966022977364,
+      "nod_speed": 0.132788356916682,
+      "nod_swing_up": 0.6003345847129822,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.76
+    },
+    {
+      "p_nod": 0.22520054876804352,
+      "nod_repetitions": [
+        0.4488183557987213,
+        0.3546927571296692,
+        0.1964888721704483
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06088261636569567,
+      "nod_speed": 0.11812887926985097,
+      "nod_swing_up": 0.610773503780365,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.84
+    },
+    {
+      "p_nod": 0.1623518168926239,
+      "nod_repetitions": [
+        0.4499964416027069,
+        0.34298422932624817,
+        0.20701929926872253
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05925083077829302,
+      "nod_speed": 0.11440944734579546,
+      "nod_swing_up": 0.5815533399581909,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 4.92
+    },
+    {
+      "p_nod": 0.15055875480175018,
+      "nod_repetitions": [
+        0.41640758514404297,
+        0.36763185262680054,
+        0.2159605473279953
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05542685240123534,
+      "nod_speed": 0.10818597507708091,
+      "nod_swing_up": 0.5881907939910889,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.0
+    },
+    {
+      "p_nod": 0.11455174535512924,
+      "nod_repetitions": [
+        0.3839709460735321,
+        0.40422654151916504,
+        0.21180246770381927
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.045152824092181694,
+      "nod_speed": 0.099350410404102,
+      "nod_swing_up": 0.5407893657684326,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.08
+    },
+    {
+      "p_nod": 0.14018912613391876,
+      "nod_repetitions": [
+        0.42713767290115356,
+        0.36622607707977295,
+        0.2066362053155899
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04994681370953639,
+      "nod_speed": 0.1094399809112844,
+      "nod_swing_up": 0.4046217203140259,
+      "nod_swing_up_pred": 0,
+      "input_audio_seconds": 5.16
+    },
+    {
+      "p_nod": 0.054427530616521835,
+      "nod_repetitions": [
+        0.3893817365169525,
+        0.40810951590538025,
+        0.20250874757766724
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04370702349547924,
+      "nod_speed": 0.09472181592462267,
+      "nod_swing_up": 0.5386285781860352,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.239999999999999
+    },
+    {
+      "p_nod": 0.05646452307701111,
+      "nod_repetitions": [
+        0.3861338794231415,
+        0.4005446135997772,
+        0.2133215218782425
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.03880603199799865,
+      "nod_speed": 0.08767314087896672,
+      "nod_swing_up": 0.5629321932792664,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.319999999999999
+    },
+    {
+      "p_nod": 0.04131842777132988,
+      "nod_repetitions": [
+        0.39678388833999634,
+        0.3662484586238861,
+        0.23696762323379517
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.039644965796831785,
+      "nod_speed": 0.0864422261693228,
+      "nod_swing_up": 0.5264294743537903,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.3999999999999995
+    },
+    {
+      "p_nod": 0.04506176710128784,
+      "nod_repetitions": [
+        0.4003312885761261,
+        0.3460639417171478,
+        0.2536047697067261
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04573203725798394,
+      "nod_speed": 0.09411919460415792,
+      "nod_swing_up": 0.5064208507537842,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.4799999999999995
+    },
+    {
+      "p_nod": 0.05209807679057121,
+      "nod_repetitions": [
+        0.4021500051021576,
+        0.3607584834098816,
+        0.23709149658679962
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04837694935388541,
+      "nod_speed": 0.09303648020557323,
+      "nod_swing_up": 0.5437399744987488,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.56
+    },
+    {
+      "p_nod": 0.04681501165032387,
+      "nod_repetitions": [
+        0.40230709314346313,
+        0.37098196148872375,
+        0.22671090066432953
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.047776248400357144,
+      "nod_speed": 0.09403903547408415,
+      "nod_swing_up": 0.5630359053611755,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.64
+    },
+    {
+      "p_nod": 0.052678003907203674,
+      "nod_repetitions": [
+        0.4138825237751007,
+        0.3822377622127533,
+        0.2038796991109848
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.043452329035246776,
+      "nod_speed": 0.09710375679669167,
+      "nod_swing_up": 0.5480027794837952,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.72
+    },
+    {
+      "p_nod": 0.06661837548017502,
+      "nod_repetitions": [
+        0.42658737301826477,
+        0.3802734613418579,
+        0.19313912093639374
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05090725392182979,
+      "nod_speed": 0.10965512966487641,
+      "nod_swing_up": 0.5275899171829224,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.8
+    },
+    {
+      "p_nod": 0.05790307745337486,
+      "nod_repetitions": [
+        0.41154664754867554,
+        0.3835080564022064,
+        0.20494528114795685
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04595697024703408,
+      "nod_speed": 0.0978939170125113,
+      "nod_swing_up": 0.4959642291069031,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.88
+    },
+    {
+      "p_nod": 0.054024700075387955,
+      "nod_repetitions": [
+        0.3935685455799103,
+        0.3892144560813904,
+        0.21721696853637695
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.04919195834890259,
+      "nod_speed": 0.095800030322189,
+      "nod_swing_up": 0.5539166331291199,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 5.96
+    },
+    {
+      "p_nod": 0.053146809339523315,
+      "nod_repetitions": [
+        0.39524567127227783,
+        0.3898346722126007,
+        0.21491964161396027
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05146850619606341,
+      "nod_speed": 0.097809607557724,
+      "nod_swing_up": 0.550388514995575,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.039999999999999
+    },
+    {
+      "p_nod": 0.06486263126134872,
+      "nod_repetitions": [
+        0.3774290084838867,
+        0.3998464345932007,
+        0.2227245420217514
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.049472516714289316,
+      "nod_speed": 0.0981926404843691,
+      "nod_swing_up": 0.5580820441246033,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.119999999999999
+    },
+    {
+      "p_nod": 0.0727977603673935,
+      "nod_repetitions": [
+        0.36939212679862976,
+        0.4164840579032898,
+        0.21412383019924164
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.04822667868184262,
+      "nod_speed": 0.09777068109193049,
+      "nod_swing_up": 0.5382315516471863,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.199999999999999
+    },
+    {
+      "p_nod": 0.06128294765949249,
+      "nod_repetitions": [
+        0.3591116666793823,
+        0.4239814281463623,
+        0.2169068604707718
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.04831726043993689,
+      "nod_speed": 0.09746153393593764,
+      "nod_swing_up": 0.5476977825164795,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.279999999999999
+    },
+    {
+      "p_nod": 0.06102636456489563,
+      "nod_repetitions": [
+        0.35462647676467896,
+        0.4240875542163849,
+        0.22128592431545258
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.051618090852226184,
+      "nod_speed": 0.10048808226193234,
+      "nod_swing_up": 0.568115770816803,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.359999999999999
+    },
+    {
+      "p_nod": 0.06200520694255829,
+      "nod_repetitions": [
+        0.35013797879219055,
+        0.4154592752456665,
+        0.23440273106098175
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.052696464939636894,
+      "nod_speed": 0.0988201512646755,
+      "nod_swing_up": 0.5604923963546753,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.4399999999999995
+    },
+    {
+      "p_nod": 0.0583040788769722,
+      "nod_repetitions": [
+        0.3421383500099182,
+        0.4355319142341614,
+        0.222329780459404
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.05304685999822972,
+      "nod_speed": 0.10272362115822423,
+      "nod_swing_up": 0.5753064751625061,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.52
+    },
+    {
+      "p_nod": 0.08713511377573013,
+      "nod_repetitions": [
+        0.3713080883026123,
+        0.4102259576320648,
+        0.21846599876880646
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.05433158793897201,
+      "nod_speed": 0.11346517146142623,
+      "nod_swing_up": 0.5292417407035828,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.6
+    },
+    {
+      "p_nod": 0.0903063416481018,
+      "nod_repetitions": [
+        0.41333332657814026,
+        0.3754972517490387,
+        0.21116939187049866
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05886825797887591,
+      "nod_speed": 0.12494982241845673,
+      "nod_swing_up": 0.48423248529434204,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.68
+    },
+    {
+      "p_nod": 0.06783317029476166,
+      "nod_repetitions": [
+        0.46418097615242004,
+        0.3349836766719818,
+        0.20083528757095337
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05982970785163791,
+      "nod_speed": 0.1303075877382514,
+      "nod_swing_up": 0.4530056416988373,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.76
+    },
+    {
+      "p_nod": 0.07697855681180954,
+      "nod_repetitions": [
+        0.45129868388175964,
+        0.3448295295238495,
+        0.20387175679206848
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0640554418854676,
+      "nod_speed": 0.13621890756005245,
+      "nod_swing_up": 0.5075571537017822,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.84
+    },
+    {
+      "p_nod": 0.06525394320487976,
+      "nod_repetitions": [
+        0.46765926480293274,
+        0.3278294503688812,
+        0.20451125502586365
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0639585649635065,
+      "nod_speed": 0.13844942194086868,
+      "nod_swing_up": 0.4896930158138275,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 6.92
+    },
+    {
+      "p_nod": 0.06435782462358475,
+      "nod_repetitions": [
+        0.47509893774986267,
+        0.31993401050567627,
+        0.20496706664562225
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06548730156067262,
+      "nod_speed": 0.14110519916653622,
+      "nod_swing_up": 0.491667240858078,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.0
+    },
+    {
+      "p_nod": 0.07009605318307877,
+      "nod_repetitions": [
+        0.4770922362804413,
+        0.31652915477752686,
+        0.20637857913970947
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06649560175382192,
+      "nod_speed": 0.14215139918937375,
+      "nod_swing_up": 0.49758338928222656,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.08
+    },
+    {
+      "p_nod": 0.057749517261981964,
+      "nod_repetitions": [
+        0.47758930921554565,
+        0.3151058256626129,
+        0.20730479061603546
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06499518198351015,
+      "nod_speed": 0.13911136959298312,
+      "nod_swing_up": 0.48616307973861694,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.16
+    },
+    {
+      "p_nod": 0.4324817955493927,
+      "nod_repetitions": [
+        0.5033369660377502,
+        0.3192540109157562,
+        0.17740903794765472
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06347077862777978,
+      "nod_speed": 0.13192354601329329,
+      "nod_swing_up": 0.5197520852088928,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.18
+    },
+    {
+      "p_nod": 0.18648533523082733,
+      "nod_repetitions": [
+        0.4668005704879761,
+        0.31840646266937256,
+        0.21479293704032898
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06615914485053348,
+      "nod_speed": 0.13453899468566222,
+      "nod_swing_up": 0.5643873810768127,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.26
+    },
+    {
+      "p_nod": 0.12388145923614502,
+      "nod_repetitions": [
+        0.45357561111450195,
+        0.3421766757965088,
+        0.20424774289131165
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05663050460634995,
+      "nod_speed": 0.11847203660930367,
+      "nod_swing_up": 0.5362051725387573,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.34
+    },
+    {
+      "p_nod": 0.08377473056316376,
+      "nod_repetitions": [
+        0.4484451711177826,
+        0.35761359333992004,
+        0.19394120573997498
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05288383440996594,
+      "nod_speed": 0.11814314314911964,
+      "nod_swing_up": 0.47184258699417114,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.42
+    },
+    {
+      "p_nod": 0.24664729833602905,
+      "nod_repetitions": [
+        0.45309412479400635,
+        0.34621575474739075,
+        0.2006901502609253
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.053633168449242735,
+      "nod_speed": 0.12001479181505041,
+      "nod_swing_up": 0.41163042187690735,
+      "nod_swing_up_pred": 0,
+      "input_audio_seconds": 7.5
+    },
+    {
+      "p_nod": 0.2173803597688675,
+      "nod_repetitions": [
+        0.48702242970466614,
+        0.3161417841911316,
+        0.19683578610420227
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05709029153587652,
+      "nod_speed": 0.1262046191871593,
+      "nod_swing_up": 0.35027748346328735,
+      "nod_swing_up_pred": 0,
+      "input_audio_seconds": 7.58
+    },
+    {
+      "p_nod": 0.22579656541347504,
+      "nod_repetitions": [
+        0.48623308539390564,
+        0.3127749264240265,
+        0.20099188387393951
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.058377670872671254,
+      "nod_speed": 0.12705645356124687,
+      "nod_swing_up": 0.35914087295532227,
+      "nod_swing_up_pred": 0,
+      "input_audio_seconds": 7.66
+    },
+    {
+      "p_nod": 0.18866048753261566,
+      "nod_repetitions": [
+        0.4777449071407318,
+        0.3187516927719116,
+        0.20350342988967896
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05971092337215323,
+      "nod_speed": 0.12802833722244666,
+      "nod_swing_up": 0.38788625597953796,
+      "nod_swing_up_pred": 0,
+      "input_audio_seconds": 7.739999999999999
+    },
+    {
+      "p_nod": 0.16729621589183807,
+      "nod_repetitions": [
+        0.4775467813014984,
+        0.31764453649520874,
+        0.20480866730213165
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.061694038991404555,
+      "nod_speed": 0.13215329791542596,
+      "nod_swing_up": 0.4121423363685608,
+      "nod_swing_up_pred": 0,
+      "input_audio_seconds": 7.819999999999999
+    },
+    {
+      "p_nod": 0.04688639938831329,
+      "nod_repetitions": [
+        0.474306583404541,
+        0.33138710260391235,
+        0.19430628418922424
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05929525722200746,
+      "nod_speed": 0.12827810913373527,
+      "nod_swing_up": 0.46019211411476135,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.8999999999999995
+    },
+    {
+      "p_nod": 0.12354360520839691,
+      "nod_repetitions": [
+        0.4803168475627899,
+        0.3191436529159546,
+        0.2005394846200943
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06321391478063638,
+      "nod_speed": 0.13433432997699601,
+      "nod_swing_up": 0.4360419511795044,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 7.9799999999999995
+    },
+    {
+      "p_nod": 0.255060076713562,
+      "nod_repetitions": [
+        0.46066048741340637,
+        0.35681283473968506,
+        0.18252666294574738
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.054164006430730785,
+      "nod_speed": 0.11387116022120343,
+      "nod_swing_up": 0.49223315715789795,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.059999999999999
+    },
+    {
+      "p_nod": 0.27867838740348816,
+      "nod_repetitions": [
+        0.4660091698169708,
+        0.3579729497432709,
+        0.1760178655385971
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05652564099346301,
+      "nod_speed": 0.11907013295187112,
+      "nod_swing_up": 0.4904716908931732,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.14
+    },
+    {
+      "p_nod": 0.12005645781755447,
+      "nod_repetitions": [
+        0.42863938212394714,
+        0.38777920603752136,
+        0.1835813969373703
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.055537801638864466,
+      "nod_speed": 0.11145337336507412,
+      "nod_swing_up": 0.5164737105369568,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.219999999999999
+    },
+    {
+      "p_nod": 0.09076208621263504,
+      "nod_repetitions": [
+        0.444684773683548,
+        0.3768382966518402,
+        0.178476944565773
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05028439576185387,
+      "nod_speed": 0.10842438771197835,
+      "nod_swing_up": 0.5089176297187805,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.299999999999999
+    },
+    {
+      "p_nod": 0.14239364862442017,
+      "nod_repetitions": [
+        0.44428297877311707,
+        0.3819623589515686,
+        0.1737547069787979
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05488800767392173,
+      "nod_speed": 0.11472908479093383,
+      "nod_swing_up": 0.49530768394470215,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.379999999999999
+    },
+    {
+      "p_nod": 0.11874829977750778,
+      "nod_repetitions": [
+        0.42032214999198914,
+        0.3933010399341583,
+        0.18637679517269135
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05724188029891461,
+      "nod_speed": 0.11261415091731006,
+      "nod_swing_up": 0.5299731492996216,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.459999999999999
+    },
+    {
+      "p_nod": 0.10453318804502487,
+      "nod_repetitions": [
+        0.43179407715797424,
+        0.3760851323604584,
+        0.1921207308769226
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06503520049857611,
+      "nod_speed": 0.12123940194417414,
+      "nod_swing_up": 0.5511627793312073,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.54
+    },
+    {
+      "p_nod": 0.10747396945953369,
+      "nod_repetitions": [
+        0.4080652594566345,
+        0.40974724292755127,
+        0.1821875125169754
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06622003567536859,
+      "nod_speed": 0.12262330211859662,
+      "nod_swing_up": 0.5831008553504944,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.62
+    },
+    {
+      "p_nod": 0.1292375773191452,
+      "nod_repetitions": [
+        0.3725348711013794,
+        0.4324875473976135,
+        0.1949775218963623
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.05857361139221104,
+      "nod_speed": 0.11161694486370072,
+      "nod_swing_up": 0.5689631104469299,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.7
+    },
+    {
+      "p_nod": 0.09101227670907974,
+      "nod_repetitions": [
+        0.39317747950553894,
+        0.39765188097953796,
+        0.20917057991027832
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.05367386883089913,
+      "nod_speed": 0.11352197304689865,
+      "nod_swing_up": 0.4953756034374237,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.78
+    },
+    {
+      "p_nod": 0.11366605758666992,
+      "nod_repetitions": [
+        0.4171298146247864,
+        0.37619438767433167,
+        0.20667575299739838
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0574765143270424,
+      "nod_speed": 0.1191095756064956,
+      "nod_swing_up": 0.46709367632865906,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.86
+    },
+    {
+      "p_nod": 0.11672072112560272,
+      "nod_repetitions": [
+        0.4432235360145569,
+        0.3514550030231476,
+        0.20532149076461792
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06273346508046532,
+      "nod_speed": 0.12909392580772,
+      "nod_swing_up": 0.472573459148407,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 8.94
+    },
+    {
+      "p_nod": 0.10944642871618271,
+      "nod_repetitions": [
+        0.4383141100406647,
+        0.3539273738861084,
+        0.20775854587554932
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06377407371706122,
+      "nod_speed": 0.1326511329032039,
+      "nod_swing_up": 0.5144303441047668,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.02
+    },
+    {
+      "p_nod": 0.1241365522146225,
+      "nod_repetitions": [
+        0.4349965453147888,
+        0.3568006455898285,
+        0.20820283889770508
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0670227102155106,
+      "nod_speed": 0.13971854425050975,
+      "nod_swing_up": 0.5569084882736206,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.1
+    },
+    {
+      "p_nod": 0.12123244255781174,
+      "nod_repetitions": [
+        0.4383532404899597,
+        0.35189926624298096,
+        0.20974747836589813
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07030435880776736,
+      "nod_speed": 0.14559023539197358,
+      "nod_swing_up": 0.5804196000099182,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.18
+    },
+    {
+      "p_nod": 0.11779499053955078,
+      "nod_repetitions": [
+        0.43916237354278564,
+        0.3500921428203583,
+        0.21074554324150085
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07239560171550422,
+      "nod_speed": 0.1485072944471219,
+      "nod_swing_up": 0.5956900715827942,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.26
+    },
+    {
+      "p_nod": 0.12045896053314209,
+      "nod_repetitions": [
+        0.4388090968132019,
+        0.3482871949672699,
+        0.21290375292301178
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07322746892837963,
+      "nod_speed": 0.1485247345528263,
+      "nod_swing_up": 0.5986692309379578,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.34
+    },
+    {
+      "p_nod": 0.10736396908760071,
+      "nod_repetitions": [
+        0.432636022567749,
+        0.3497929871082306,
+        0.21757107973098755
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06764049171966466,
+      "nod_speed": 0.13837108924506578,
+      "nod_swing_up": 0.5643768906593323,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.42
+    },
+    {
+      "p_nod": 0.18916107714176178,
+      "nod_repetitions": [
+        0.4691120386123657,
+        0.3439669609069824,
+        0.18692101538181305
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06850650170776262,
+      "nod_speed": 0.13193307573330373,
+      "nod_swing_up": 0.5958858728408813,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.446666666666667
+    },
+    {
+      "p_nod": 0.09187141805887222,
+      "nod_repetitions": [
+        0.4632353186607361,
+        0.3490769565105438,
+        0.1876877248287201
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06572661045507962,
+      "nod_speed": 0.13863991123004574,
+      "nod_swing_up": 0.5271673202514648,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.526666666666667
+    },
+    {
+      "p_nod": 0.047736212611198425,
+      "nod_repetitions": [
+        0.46186956763267517,
+        0.31949326395988464,
+        0.2186371386051178
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.062424246188735995,
+      "nod_speed": 0.12517091775063777,
+      "nod_swing_up": 0.5397607088088989,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.606666666666667
+    },
+    {
+      "p_nod": 0.06320859491825104,
+      "nod_repetitions": [
+        0.4503694772720337,
+        0.3594561219215393,
+        0.1901744306087494
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06577640538798424,
+      "nod_speed": 0.12360405569392212,
+      "nod_swing_up": 0.5907817482948303,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.686666666666667
+    },
+    {
+      "p_nod": 0.0820908322930336,
+      "nod_repetitions": [
+        0.42803388833999634,
+        0.38659265637397766,
+        0.18537338078022003
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06898383079638266,
+      "nod_speed": 0.12584093501604926,
+      "nod_swing_up": 0.6179935336112976,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.766666666666667
+    },
+    {
+      "p_nod": 0.0823528990149498,
+      "nod_repetitions": [
+        0.414749413728714,
+        0.3908964693546295,
+        0.1943541169166565
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07228285168619003,
+      "nod_speed": 0.13213196974223665,
+      "nod_swing_up": 0.6392943263053894,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.846666666666668
+    },
+    {
+      "p_nod": 0.09507942944765091,
+      "nod_repetitions": [
+        0.3978670537471771,
+        0.4145285189151764,
+        0.18760445713996887
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08028426576106427,
+      "nod_speed": 0.14381482732367817,
+      "nod_swing_up": 0.682415783405304,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 9.926666666666668
+    },
+    {
+      "p_nod": 0.08564437180757523,
+      "nod_repetitions": [
+        0.40133076906204224,
+        0.41542354226112366,
+        0.18324565887451172
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08178579131705364,
+      "nod_speed": 0.14829985210137936,
+      "nod_swing_up": 0.692821204662323,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.006666666666668
+    },
+    {
+      "p_nod": 0.09349703788757324,
+      "nod_repetitions": [
+        0.39462244510650635,
+        0.4207334518432617,
+        0.18464411795139313
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.08336269010166797,
+      "nod_speed": 0.15078654392222335,
+      "nod_swing_up": 0.7053329944610596,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.086666666666668
+    },
+    {
+      "p_nod": 0.17244777083396912,
+      "nod_repetitions": [
+        0.3757472336292267,
+        0.44284310936927795,
+        0.18140965700149536
+      ],
+      "nod_repetitions_pred": 1,
+      "nod_range": 0.08668468604019125,
+      "nod_speed": 0.15306061589846578,
+      "nod_swing_up": 0.7134321331977844,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.166666666666668
+    },
+    {
+      "p_nod": 0.12484587728977203,
+      "nod_repetitions": [
+        0.4249160587787628,
+        0.3877098858356476,
+        0.187374085187912
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0735296224443607,
+      "nod_speed": 0.1484302376535504,
+      "nod_swing_up": 0.6279231905937195,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.246666666666668
+    },
+    {
+      "p_nod": 0.09377029538154602,
+      "nod_repetitions": [
+        0.4344262182712555,
+        0.37434273958206177,
+        0.19123105704784393
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07214985433385222,
+      "nod_speed": 0.14782019820004702,
+      "nod_swing_up": 0.6154374480247498,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.326666666666668
+    },
+    {
+      "p_nod": 0.08590096980333328,
+      "nod_repetitions": [
+        0.429625928401947,
+        0.378216952085495,
+        0.19215711951255798
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07423888264471025,
+      "nod_speed": 0.1506181987176136,
+      "nod_swing_up": 0.6474483609199524,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.406666666666666
+    },
+    {
+      "p_nod": 0.08329330384731293,
+      "nod_repetitions": [
+        0.43661487102508545,
+        0.37003785371780396,
+        0.1933472901582718
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07678280613199066,
+      "nod_speed": 0.15536477460677137,
+      "nod_swing_up": 0.6567186117172241,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.486666666666668
+    },
+    {
+      "p_nod": 0.08264584839344025,
+      "nod_repetitions": [
+        0.44386523962020874,
+        0.3620638847351074,
+        0.19407086074352264
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07950774073551047,
+      "nod_speed": 0.15914508975459576,
+      "nod_swing_up": 0.665365993976593,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.566666666666666
+    },
+    {
+      "p_nod": 0.08360276371240616,
+      "nod_repetitions": [
+        0.43823620676994324,
+        0.3991222679615021,
+        0.16264156997203827
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07745359204455259,
+      "nod_speed": 0.14778843073217335,
+      "nod_swing_up": 0.6914716958999634,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.646666666666667
+    },
+    {
+      "p_nod": 0.09123105555772781,
+      "nod_repetitions": [
+        0.43124887347221375,
+        0.3781995475292206,
+        0.19055157899856567
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.06610019174394015,
+      "nod_speed": 0.13450973010919678,
+      "nod_swing_up": 0.6617725491523743,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.726666666666667
+    },
+    {
+      "p_nod": 0.4952523410320282,
+      "nod_repetitions": [
+        0.5028888583183289,
+        0.33259811997413635,
+        0.16451296210289001
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07187280090796545,
+      "nod_speed": 0.14006382956801108,
+      "nod_swing_up": 0.5793361663818359,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.806666666666667
+    },
+    {
+      "p_nod": 0.5570368766784668,
+      "nod_repetitions": [
+        0.514844536781311,
+        0.32363903522491455,
+        0.16151639819145203
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07440076683256075,
+      "nod_speed": 0.1492437897571799,
+      "nod_swing_up": 0.5609790086746216,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.886666666666667
+    },
+    {
+      "p_nod": 0.3653460741043091,
+      "nod_repetitions": [
+        0.4645335376262665,
+        0.3793371319770813,
+        0.156129390001297
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07826651463845076,
+      "nod_speed": 0.14985240552858492,
+      "nod_swing_up": 0.6188760995864868,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 10.966666666666667
+    },
+    {
+      "p_nod": 0.5253769755363464,
+      "nod_repetitions": [
+        0.49669039249420166,
+        0.33995088934898376,
+        0.16335870325565338
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07572137290245598,
+      "nod_speed": 0.14992601030934932,
+      "nod_swing_up": 0.5633804202079773,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.046666666666667
+    },
+    {
+      "p_nod": 0.5795333385467529,
+      "nod_repetitions": [
+        0.4939611256122589,
+        0.3386490046977997,
+        0.167389914393425
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08347249966775447,
+      "nod_speed": 0.1625171932004193,
+      "nod_swing_up": 0.5670873522758484,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.126666666666667
+    },
+    {
+      "p_nod": 0.08870724588632584,
+      "nod_repetitions": [
+        0.4693704843521118,
+        0.35184547305107117,
+        0.1787840574979782
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07411211579647639,
+      "nod_speed": 0.15402612837413493,
+      "nod_swing_up": 0.5701533555984497,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.206666666666667
+    },
+    {
+      "p_nod": 0.15443748235702515,
+      "nod_repetitions": [
+        0.4835430979728699,
+        0.34760281443595886,
+        0.16885408759117126
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07480613574257991,
+      "nod_speed": 0.15214068830822833,
+      "nod_swing_up": 0.5699561834335327,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.286666666666667
+    },
+    {
+      "p_nod": 0.26328372955322266,
+      "nod_repetitions": [
+        0.4725157618522644,
+        0.3581041395664215,
+        0.1693800538778305
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08408334701744377,
+      "nod_speed": 0.16353477206159933,
+      "nod_swing_up": 0.6157758831977844,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.366666666666667
+    },
+    {
+      "p_nod": 0.28022634983062744,
+      "nod_repetitions": [
+        0.49047449231147766,
+        0.325036883354187,
+        0.18448860943317413
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07585125085345222,
+      "nod_speed": 0.1520345074331353,
+      "nod_swing_up": 0.47377461194992065,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.446666666666667
+    },
+    {
+      "p_nod": 0.26492229104042053,
+      "nod_repetitions": [
+        0.5053542852401733,
+        0.3041343688964844,
+        0.1905113160610199
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07932040999188432,
+      "nod_speed": 0.15642749709518888,
+      "nod_swing_up": 0.46584588289260864,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.526666666666667
+    },
+    {
+      "p_nod": 0.23060618340969086,
+      "nod_repetitions": [
+        0.5026786923408508,
+        0.29956114292144775,
+        0.19776010513305664
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.07964550959799767,
+      "nod_speed": 0.15624913512142977,
+      "nod_swing_up": 0.4856874942779541,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.606666666666667
+    },
+    {
+      "p_nod": 0.2737669348716736,
+      "nod_repetitions": [
+        0.487452894449234,
+        0.30815771222114563,
+        0.20438934862613678
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08194674433516376,
+      "nod_speed": 0.1602232687682503,
+      "nod_swing_up": 0.5261271595954895,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.686666666666667
+    },
+    {
+      "p_nod": 0.2777526080608368,
+      "nod_repetitions": [
+        0.493268221616745,
+        0.301103413105011,
+        0.2056284248828888
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08482561066724739,
+      "nod_speed": 0.16443200815733988,
+      "nod_swing_up": 0.5399391651153564,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.766666666666667
+    },
+    {
+      "p_nod": 0.23375222086906433,
+      "nod_repetitions": [
+        0.48786357045173645,
+        0.31171873211860657,
+        0.20041771233081818
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08702111873929037,
+      "nod_speed": 0.16829219936394366,
+      "nod_swing_up": 0.5841906666755676,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.846666666666668
+    },
+    {
+      "p_nod": 0.18811212480068207,
+      "nod_repetitions": [
+        0.48695194721221924,
+        0.31680765748023987,
+        0.19624048471450806
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08643916012687149,
+      "nod_speed": 0.16710913411008665,
+      "nod_swing_up": 0.5889946818351746,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 11.926666666666668
+    },
+    {
+      "p_nod": 0.20460496842861176,
+      "nod_repetitions": [
+        0.4491029977798462,
+        0.38330167531967163,
+        0.16759531199932098
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08594857025447376,
+      "nod_speed": 0.15888262022248728,
+      "nod_swing_up": 0.6579544544219971,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.006666666666668
+    },
+    {
+      "p_nod": 0.07930844277143478,
+      "nod_repetitions": [
+        0.47626835107803345,
+        0.33272549510002136,
+        0.1910061240196228
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0845375400130454,
+      "nod_speed": 0.16668645038815944,
+      "nod_swing_up": 0.6018747091293335,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.086666666666668
+    },
+    {
+      "p_nod": 0.07378790527582169,
+      "nod_repetitions": [
+        0.4494633078575134,
+        0.3395504951477051,
+        0.2109862118959427
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08540691784119955,
+      "nod_speed": 0.1671156801337697,
+      "nod_swing_up": 0.630835771560669,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.166666666666668
+    },
+    {
+      "p_nod": 0.12977072596549988,
+      "nod_repetitions": [
+        0.4403482675552368,
+        0.39297303557395935,
+        0.16667871177196503
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.09281578561325654,
+      "nod_speed": 0.16990988520644404,
+      "nod_swing_up": 0.7004107236862183,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.246666666666666
+    },
+    {
+      "p_nod": 0.11284752190113068,
+      "nod_repetitions": [
+        0.4307878613471985,
+        0.4085162281990051,
+        0.1606958955526352
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.09114327198226685,
+      "nod_speed": 0.16569647930380996,
+      "nod_swing_up": 0.7115009427070618,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.326666666666668
+    },
+    {
+      "p_nod": 0.1018834114074707,
+      "nod_repetitions": [
+        0.44941583275794983,
+        0.3951799273490906,
+        0.1554042249917984
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.08950929418686049,
+      "nod_speed": 0.16385833503954095,
+      "nod_swing_up": 0.6947759985923767,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.406666666666666
+    },
+    {
+      "p_nod": 0.13345055282115936,
+      "nod_repetitions": [
+        0.4049389958381653,
+        0.4248598515987396,
+        0.1702011525630951
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.09187647773288035,
+      "nod_speed": 0.16975131324641415,
+      "nod_swing_up": 0.7425351738929749,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.486666666666668
+    },
+    {
+      "p_nod": 0.27687016129493713,
+      "nod_repetitions": [
+        0.4324790835380554,
+        0.40407511591911316,
+        0.16344575583934784
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.10584453558429816,
+      "nod_speed": 0.19535716201060668,
+      "nod_swing_up": 0.7768772840499878,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.566666666666666
+    },
+    {
+      "p_nod": 0.3448444604873657,
+      "nod_repetitions": [
+        0.5227445363998413,
+        0.32498571276664734,
+        0.15226973593235016
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.09688568823543528,
+      "nod_speed": 0.18570320700441123,
+      "nod_swing_up": 0.6399434208869934,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.646666666666667
+    },
+    {
+      "p_nod": 0.3526672422885895,
+      "nod_repetitions": [
+        0.5271891355514526,
+        0.3106716573238373,
+        0.16213923692703247
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0961368092349176,
+      "nod_speed": 0.18407540552594912,
+      "nod_swing_up": 0.6272436380386353,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.726666666666667
+    },
+    {
+      "p_nod": 0.3383242189884186,
+      "nod_repetitions": [
+        0.5063483119010925,
+        0.32418426871299744,
+        0.16946743428707123
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.0955444317563208,
+      "nod_speed": 0.18286572532619855,
+      "nod_swing_up": 0.6513683795928955,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.806666666666667
+    },
+    {
+      "p_nod": 0.32706382870674133,
+      "nod_repetitions": [
+        0.4966525137424469,
+        0.3282042443752289,
+        0.175143301486969
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.09543287257312093,
+      "nod_speed": 0.18231525572891433,
+      "nod_swing_up": 0.6506168842315674,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.886666666666667
+    },
+    {
+      "p_nod": 0.31224924325942993,
+      "nod_repetitions": [
+        0.49489542841911316,
+        0.3252304196357727,
+        0.17987415194511414
+      ],
+      "nod_repetitions_pred": 0,
+      "nod_range": 0.09640767485980588,
+      "nod_speed": 0.183267653261745,
+      "nod_swing_up": 0.6504329442977905,
+      "nod_swing_up_pred": 1,
+      "input_audio_seconds": 12.966666666666667
+    }
+  ],
+  "source_segments": [
+    {
+      "id": "01",
+      "model": "maai",
+      "original_text": "こんにちは！",
+      "motion_prompt": "こんにちは！",
+      "seed": 0,
+      "input_submitted_at_utc": "2026-10-14T15:58:48.067511+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T15:58:49.283247+00:00",
+      "input_to_skeleton_seconds": 1.2157336550299078,
+      "skeleton_seconds": 1.2157336550299078,
+      "cold_model_load_seconds": 11.560222079977393,
+      "motion_sha256": "60a2ddbf542069663c94120255f9e81bae84046bc01291bc5aed041bbfed0710",
+      "output_file": "head-controls.json",
+      "new_gesture_generated": true,
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "cpu_threads": 8,
+      "torch_vram_allocator_limit_mib": 12227,
+      "peak_torch_allocated_mib": 826.94873046875,
+      "peak_torch_reserved_mib": 844.0,
+      "process_peak_ram_mib": 1507.5546875,
+      "input_translation": false,
+      "input_truncation": false,
+      "avatar_role": "listener",
+      "first_prediction_processing_seconds": 0.6318530081771314,
+      "first_prediction_audio_available_seconds": 0.08,
+      "chunk_processing_seconds": [
+        0.6298533389344811,
+        0.04486393299885094,
+        0.040810574078932405,
+        0.04059265600517392,
+        0.040469881845638156,
+        0.04054768499918282,
+        0.0413025610614568,
+        0.040890445932745934,
+        0.04084350494667888,
+        0.04054028517566621,
+        0.04090583696961403,
+        0.054895338136702776,
+        0.04147707694210112,
+        0.041139495791867375
+      ],
+      "prediction_count": 14,
+      "audio_conditioned_model": true,
+      "audio_processed_at_maximum_speed": true,
+      "motion_scope": "head_only"
+    },
+    {
+      "id": "02",
+      "model": "maai",
+      "original_text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "motion_prompt": "今日も一緒に楽しく英語を勉強しましょう！",
+      "seed": 1,
+      "input_submitted_at_utc": "2026-10-14T15:58:49.284407+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T15:58:51.235073+00:00",
+      "input_to_skeleton_seconds": 1.9506606189534068,
+      "skeleton_seconds": 1.9506606189534068,
+      "cold_model_load_seconds": 11.560222079977393,
+      "motion_sha256": "aaf20d27c0b22d7699c51ee8592df3c410e809ff1eda0e66f652b4080be7e95e",
+      "output_file": "head-controls.json",
+      "new_gesture_generated": true,
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "cpu_threads": 8,
+      "torch_vram_allocator_limit_mib": 12227,
+      "peak_torch_allocated_mib": 829.57373046875,
+      "peak_torch_reserved_mib": 844.0,
+      "process_peak_ram_mib": 1507.5546875,
+      "input_translation": false,
+      "input_truncation": false,
+      "avatar_role": "listener",
+      "first_prediction_processing_seconds": 0.06487751193344593,
+      "first_prediction_audio_available_seconds": 0.08,
+      "chunk_processing_seconds": [
+        0.06224263086915016,
+        0.040518143912777305,
+        0.04056852497160435,
+        0.040342537919059396,
+        0.04044192098081112,
+        0.04438628698699176,
+        0.04042382095940411,
+        0.04082358512096107,
+        0.04062251793220639,
+        0.04038965003564954,
+        0.04018821311183274,
+        0.04024393414147198,
+        0.040590417105704546,
+        0.04103626194410026,
+        0.04049421288073063,
+        0.040311167016625404,
+        0.04033256811089814,
+        0.04476809990592301,
+        0.04058963595889509,
+        0.04039570898748934,
+        0.04038654896430671,
+        0.04023294406943023,
+        0.040452230954542756,
+        0.040982360020279884,
+        0.040609836811199784,
+        0.04047510283999145,
+        0.04041449003852904,
+        0.0414797670673579,
+        0.041925652185454965,
+        0.04324107710272074,
+        0.040249344892799854,
+        0.04048157203942537,
+        0.04128598119132221,
+        0.0412582999560982,
+        0.04875696706585586,
+        0.040450001833960414,
+        0.04062235704623163,
+        0.040875077014788985,
+        0.04062333703041077,
+        0.04517935402691364,
+        0.04078925307840109,
+        0.04082995490171015,
+        0.04110070411115885,
+        0.05063338181935251
+      ],
+      "prediction_count": 44,
+      "audio_conditioned_model": true,
+      "audio_processed_at_maximum_speed": true,
+      "motion_scope": "head_only"
+    },
+    {
+      "id": "03",
+      "model": "maai",
+      "original_text": "まずは英語で挨拶してみよう。",
+      "motion_prompt": "まずは英語で挨拶してみよう。",
+      "seed": 2,
+      "input_submitted_at_utc": "2026-10-14T15:58:51.237578+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T15:58:52.750461+00:00",
+      "input_to_skeleton_seconds": 1.5128789979498833,
+      "skeleton_seconds": 1.5128789979498833,
+      "cold_model_load_seconds": 11.560222079977393,
+      "motion_sha256": "8d7a79a2ffe0771553e54f4fbd6c848f20669d4e5df3812f26677402ecfd208c",
+      "output_file": "head-controls.json",
+      "new_gesture_generated": true,
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "cpu_threads": 8,
+      "torch_vram_allocator_limit_mib": 12227,
+      "peak_torch_allocated_mib": 831.92919921875,
+      "peak_torch_reserved_mib": 848.0,
+      "process_peak_ram_mib": 1507.5546875,
+      "input_translation": false,
+      "input_truncation": false,
+      "avatar_role": "listener",
+      "first_prediction_processing_seconds": 0.04573659296147525,
+      "first_prediction_audio_available_seconds": 0.08,
+      "chunk_processing_seconds": [
+        0.04314945521764457,
+        0.040636138059198856,
+        0.04030435695312917,
+        0.040490512968972325,
+        0.041949033038690686,
+        0.04047012212686241,
+        0.0714874102268368,
+        0.08396484912373126,
+        0.04058047593571246,
+        0.0405844459310174,
+        0.04061039793305099,
+        0.04070014017634094,
+        0.04129550093784928,
+        0.04145848588086665,
+        0.0408854060806334,
+        0.04051545402035117,
+        0.04051218298263848,
+        0.04065127787180245,
+        0.041486687026917934,
+        0.0407353809569031,
+        0.04092277796007693,
+        0.04080935404635966,
+        0.04124963912181556,
+        0.041478927014395595,
+        0.04070878098718822,
+        0.04090515710413456,
+        0.04144391603767872,
+        0.0415887909475714,
+        0.041741225868463516,
+        0.05935927201062441,
+        0.04161103209480643,
+        0.041108934907242656
+      ],
+      "prediction_count": 32,
+      "audio_conditioned_model": true,
+      "audio_processed_at_maximum_speed": true,
+      "motion_scope": "head_only"
+    },
+    {
+      "id": "04",
+      "model": "maai",
+      "original_text": "Hello! How are you today?",
+      "motion_prompt": "Hello! How are you today?",
+      "seed": 3,
+      "input_submitted_at_utc": "2026-10-14T15:58:52.752353+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T15:58:54.073183+00:00",
+      "input_to_skeleton_seconds": 1.3208268210291862,
+      "skeleton_seconds": 1.3208268210291862,
+      "cold_model_load_seconds": 11.560222079977393,
+      "motion_sha256": "56c75b5de0596c587ab42963a39f2aab7707a9af7f0bb25eb9a65ee82a92dd32",
+      "output_file": "head-controls.json",
+      "new_gesture_generated": true,
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "cpu_threads": 8,
+      "torch_vram_allocator_limit_mib": 12227,
+      "peak_torch_allocated_mib": 834.39013671875,
+      "peak_torch_reserved_mib": 852.0,
+      "process_peak_ram_mib": 1507.5546875,
+      "input_translation": false,
+      "input_truncation": false,
+      "avatar_role": "listener",
+      "first_prediction_processing_seconds": 0.04496285691857338,
+      "first_prediction_audio_available_seconds": 0.08,
+      "chunk_processing_seconds": [
+        0.0426691179163754,
+        0.04164187307469547,
+        0.04100072104483843,
+        0.07168900594115257,
+        0.040727351093664765,
+        0.040825593983754516,
+        0.042256472865119576,
+        0.04093433800153434,
+        0.04460576386190951,
+        0.04086767602711916,
+        0.041056881891563535,
+        0.04213449917733669,
+        0.04102202202193439,
+        0.04147943714633584,
+        0.04094837908633053,
+        0.041109594982117414,
+        0.04126817989163101,
+        0.04526992794126272,
+        0.040666649118065834,
+        0.041034912224859,
+        0.04190887208096683,
+        0.04143228498287499,
+        0.05257788905873895,
+        0.04079647292383015,
+        0.041060552932322025,
+        0.04174274601973593,
+        0.05186655395664275,
+        0.0409669189248234,
+        0.04098382010124624
+      ],
+      "prediction_count": 29,
+      "audio_conditioned_model": true,
+      "audio_processed_at_maximum_speed": true,
+      "motion_scope": "head_only"
+    },
+    {
+      "id": "05",
+      "model": "maai",
+      "original_text": "元気なときは、I'm happy! って言ってみてね。",
+      "motion_prompt": "元気なときは、I'm happy! って言ってみてね。",
+      "seed": 4,
+      "input_submitted_at_utc": "2026-10-14T15:58:54.074992+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T15:58:56.137466+00:00",
+      "input_to_skeleton_seconds": 2.062469895929098,
+      "skeleton_seconds": 2.062469895929098,
+      "cold_model_load_seconds": 11.560222079977393,
+      "motion_sha256": "2cdc9958117aa4536bae432f2965eba2b77f98464977a1aa37295a6dbbbaea56",
+      "output_file": "head-controls.json",
+      "new_gesture_generated": true,
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "cpu_threads": 8,
+      "torch_vram_allocator_limit_mib": 12227,
+      "peak_torch_allocated_mib": 838.81396484375,
+      "peak_torch_reserved_mib": 858.0,
+      "process_peak_ram_mib": 1507.5546875,
+      "input_translation": false,
+      "input_truncation": false,
+      "avatar_role": "listener",
+      "first_prediction_processing_seconds": 0.06073898007161915,
+      "first_prediction_audio_available_seconds": 0.08,
+      "chunk_processing_seconds": [
+        0.05789374187588692,
+        0.04105119197629392,
+        0.04113554605282843,
+        0.04137245402671397,
+        0.042923196917399764,
+        0.041353023145347834,
+        0.041210837895050645,
+        0.0413549430668354,
+        0.04285729490220547,
+        0.043397082947194576,
+        0.05018819705583155,
+        0.04091805801726878,
+        0.041455205995589495,
+        0.04226371389813721,
+        0.05266439192928374,
+        0.04147420707158744,
+        0.04167627403512597,
+        0.04257722501643002,
+        0.04237089701928198,
+        0.05157243390567601,
+        0.04178859805688262,
+        0.04152241884730756,
+        0.044383347034454346,
+        0.04841058608144522,
+        0.041647973004728556,
+        0.04161279206164181,
+        0.04369036294519901,
+        0.04271874995902181,
+        0.04733057785779238,
+        0.04138330416753888,
+        0.04161612200550735,
+        0.04477978008799255,
+        0.041909371968358755,
+        0.04222946194931865,
+        0.04131143121048808,
+        0.04483113205060363,
+        0.043755925027653575,
+        0.04166004410944879,
+        0.04144075606018305,
+        0.0412786400411278,
+        0.04360301000997424,
+        0.043308980064466596,
+        0.04194037290289998,
+        0.041462806053459644,
+        0.04139972408302128
+      ],
+      "prediction_count": 45,
+      "audio_conditioned_model": true,
+      "audio_processed_at_maximum_speed": true,
+      "motion_scope": "head_only"
+    }
+  ],
+  "body_pose": "avatar_default_not_learned"
+}

@@ -1,0 +1,43 @@
+{
+  "checked_at_utc": "2026-10-14T13:58:31.476029+00:00",
+  "budget_yen": 1000,
+  "fx_budget_rate": 200,
+  "fx_note": "Conservative budgeting assumption, not a live exchange-rate quote.",
+  "cloud_type": "SECURE",
+  "gpu_candidates": [
+    {
+      "id": "NVIDIA GeForce RTX 3090",
+      "name": "RTX 3090",
+      "vram_gb": 24,
+      "gpu_hourly_usd": 0.5,
+      "max_hours": 2,
+      "storage_upper_estimate_usd": 0.022222222222222223,
+      "usd_with_reserve": 1.2777777777777777,
+      "yen_with_reserve": 255.55555555555554
+    },
+    {
+      "id": "NVIDIA GeForce RTX 4090",
+      "name": "RTX 4090",
+      "vram_gb": 24,
+      "gpu_hourly_usd": 0.89,
+      "max_hours": 2,
+      "storage_upper_estimate_usd": 0.022222222222222223,
+      "usd_with_reserve": 2.2527777777777778,
+      "yen_with_reserve": 450.55555555555554
+    },
+    {
+      "id": "NVIDIA RTX A6000",
+      "name": "RTX A6000",
+      "vram_gb": 48,
+      "gpu_hourly_usd": 0.59,
+      "max_hours": 2,
+      "storage_upper_estimate_usd": 0.022222222222222223,
+      "usd_with_reserve": 1.5027777777777775,
+      "yen_with_reserve": 300.5555555555555
+    }
+  ],
+  "stock_confirmed": false,
+  "gpu_created": false,
+  "automatic_deposit": false,
+  "account_inspected": false
+}

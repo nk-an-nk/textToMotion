@@ -10,9 +10,12 @@ from .vibes import VibesAdapter
 from .freetalker import FreeTalkerAdapter
 from .agenthands import AgentHandsAdapter
 from .text_to_vrma import TextToVrmaAdapter
+from .listener_models import ReactMotionAdapter, MaaiAdapter
+from .humanml import MotionLCMAdapter, MoMaskAdapter, MMMAdapter
 
 CLASSES = [LanguageOfMotionAdapter, ArdyAdapter, KimodoAdapter, MiburiAdapter, StreamTalkAdapter,
-           LLMGestureAdapter, VibesAdapter, FreeTalkerAdapter, AgentHandsAdapter,TextToVrmaAdapter]
+           LLMGestureAdapter, VibesAdapter, FreeTalkerAdapter, AgentHandsAdapter,TextToVrmaAdapter,
+           ReactMotionAdapter, MaaiAdapter, MotionLCMAdapter, MoMaskAdapter, MMMAdapter]
 CATALOG = json.loads((ROOT / 'configs/models.json').read_text())
 
 

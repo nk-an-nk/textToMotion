@@ -1,0 +1,57 @@
+{
+  "schema": "motion-lab/listener-lesson-video-plan-v1",
+  "model": "maai",
+  "fps": 30,
+  "frame_count": 389,
+  "duration_seconds": 12.966666666666667,
+  "student_audio_seconds": 0,
+  "teacher_start_seconds": 0,
+  "teacher_audio_seconds": 12.966666666666667,
+  "student_text": "",
+  "teacher_text": "",
+  "lesson_segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！",
+      "motion_prompt": "こんにちは！",
+      "start_seconds": 0.0,
+      "end_seconds": 1.1
+    },
+    {
+      "id": "02",
+      "text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "motion_prompt": "今日も一緒に楽しく英語を勉強しましょう！",
+      "start_seconds": 1.1,
+      "end_seconds": 4.6
+    },
+    {
+      "id": "03",
+      "text": "まずは英語で挨拶してみよう。",
+      "motion_prompt": "まずは英語で挨拶してみよう。",
+      "start_seconds": 4.6,
+      "end_seconds": 7.1
+    },
+    {
+      "id": "04",
+      "text": "Hello! How are you today?",
+      "motion_prompt": "Hello! How are you today?",
+      "start_seconds": 7.1,
+      "end_seconds": 9.366666666666667
+    },
+    {
+      "id": "05",
+      "text": "元気なときは、I'm happy! って言ってみてね。",
+      "motion_prompt": "元気なときは、I'm happy! って言ってみてね。",
+      "start_seconds": 9.366666666666667,
+      "end_seconds": 12.966666666666667
+    }
+  ],
+  "motion_scope": "head_only",
+  "avatar_role": "listener",
+  "motion_file": "head-controls-synthesized.json",
+  "motion_sha256": "6fc457af4a3f2f8da0a3c54d53e037ba29c0781bf8ad5f75f9075baf68add62a",
+  "measurement": {},
+  "caption": "同一5文の実音声→MaAI頭部予測 / 全身はアバターの基本姿勢",
+  "original_prediction_file": "head-controls.json",
+  "original_prediction_sha256": "ec2c1e3ad3bf2fd03139b8cf76e1848b4652743e7d5b83e8cb0382bd2c4bbfe5"
+}

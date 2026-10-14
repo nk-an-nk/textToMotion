@@ -1,0 +1,52 @@
+{
+  "model": "kimodo",
+  "original_text": "こんにちは！",
+  "motion_prompt": "こんにちは！",
+  "seed": 0,
+  "duration_requested": 2,
+  "motion_sha256": "fdee13e1fb4763341a519f921f7a2821fc7586094338733066c4982740e1b613",
+  "skeleton_seconds": 10.285858442999597,
+  "input_to_skeleton_seconds": 10.285858442999597,
+  "input_submitted_at_utc": "2026-10-14T15:25:49.290029+00:00",
+  "skeleton_completed_at_utc": "2026-10-14T15:25:59.576152+00:00",
+  "inference_seconds": 2.217646519000027,
+  "device": "remote: l40sx1 (provider-reported)",
+  "metadata": {
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "backend": "nvidia_official_online_demo",
+    "endpoint": "https://nvidia-kimodo.hf.space/",
+    "space_repository": "nvidia/Kimodo",
+    "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+    "model_code_git_commit": null,
+    "protocol": "viser-v1.0.16",
+    "text_conditioned": true,
+    "audio_conditioned": false,
+    "trained_model_output": true,
+    "prompt": "こんにちは！",
+    "seed": 0,
+    "fps": 30.0,
+    "duration_requested": 2.0000001,
+    "frames_requested": 60,
+    "checkpoint": "Kimodo-SOMA-RP-v1",
+    "checkpoint_sha256": null,
+    "device": "remote: l40sx1 (provider-reported)",
+    "inference_time": 2.217646519000027,
+    "time_to_first_result": 8.513646771999902,
+    "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+    "server_success_notification": {
+      "mode": "update",
+      "uuid": "4f224c59-7523-4a30-bec4-893e1b195b49",
+      "props": {
+        "title": "Motion generation finished!",
+        "body": "Motions have been generated successfully for the given prompt.",
+        "loading": false,
+        "with_close_button": true,
+        "auto_close_seconds": 5.0,
+        "color": "green"
+      },
+      "type": "NotificationMessage"
+    },
+    "download_bytes": 390478
+  }
+}

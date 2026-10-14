@@ -1,0 +1,52 @@
+{
+  "model": "kimodo",
+  "original_text": "Hello! How are you today?",
+  "motion_prompt": "Hello! How are you today?",
+  "seed": 3,
+  "duration_requested": 2.2666666666666666,
+  "motion_sha256": "2cf5b51781667dbf587fb8bb0d1273f401e6c59afff46ab4feb66812b8a746b6",
+  "skeleton_seconds": 9.886636377999821,
+  "input_to_skeleton_seconds": 9.886636377999821,
+  "input_submitted_at_utc": "2026-10-14T15:26:20.404908+00:00",
+  "skeleton_completed_at_utc": "2026-10-14T15:26:30.291934+00:00",
+  "inference_seconds": 2.3960002150001856,
+  "device": "remote: l40sx1 (provider-reported)",
+  "metadata": {
+    "model_id": "kimodo",
+    "task_type": "instruction",
+    "backend": "nvidia_official_online_demo",
+    "endpoint": "https://nvidia-kimodo.hf.space/",
+    "space_repository": "nvidia/Kimodo",
+    "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+    "model_code_git_commit": null,
+    "protocol": "viser-v1.0.16",
+    "text_conditioned": true,
+    "audio_conditioned": false,
+    "trained_model_output": true,
+    "prompt": "Hello! How are you today?",
+    "seed": 3,
+    "fps": 30.0,
+    "duration_requested": 2.2666667666666664,
+    "frames_requested": 68,
+    "checkpoint": "Kimodo-SOMA-RP-v1",
+    "checkpoint_sha256": null,
+    "device": "remote: l40sx1 (provider-reported)",
+    "inference_time": 2.3960002150001856,
+    "time_to_first_result": 8.370961267999974,
+    "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+    "server_success_notification": {
+      "mode": "update",
+      "uuid": "22ef6cdd-ddb2-4386-97dd-1c2b85f349a0",
+      "props": {
+        "title": "Motion generation finished!",
+        "body": "Motions have been generated successfully for the given prompt.",
+        "loading": false,
+        "with_close_button": true,
+        "auto_close_seconds": 5.0,
+        "color": "green"
+      },
+      "type": "NotificationMessage"
+    },
+    "download_bytes": 442366
+  }
+}

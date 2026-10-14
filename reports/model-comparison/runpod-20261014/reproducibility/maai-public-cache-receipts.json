@@ -1,0 +1,12 @@
+[
+  {
+    "file": "models--maai-kyoto--vap_nod_para_jp/snapshots/130ebe25b2b67be9a3c8721054bbbe2a7183edf8/vap-nod_para_state_dict_erica_12.5hz_20000msec.pt",
+    "sha256": "a664412b7562faa39210df889c3fd6fa8aed2631ab68e872af39269fde464d6d",
+    "bytes": 26593420
+  },
+  {
+    "file": "models--kyutai--mimi/snapshots/89091b3e466eb6a9d11e537bf26b144f194978f7/model.safetensors",
+    "sha256": "bac7e85083dcded655d24eaadde7e6eea34c0da1b35fa2d284e641bd2b942a5e",
+    "bytes": 384649828
+  }
+]

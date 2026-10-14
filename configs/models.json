@@ -48,7 +48,7 @@
     "dependencies": "Python >=3.10; torch >=2.4; transformers 5.8.1; C++17/CMake; numpy<2",
     "demo": "scripts/run_demo.py; scripts/visualize.py (Viser)",
     "implemented": true,
-    "blocker": "公開 Core8 重み取得・SHA256確認、CPU無条件診断成功。言語条件付きは gated Llama が HTTP401、未成功。"
+    "blocker": "公式LLM2Vec CPU＋ARDY Core8 CUDAで同一5文と教師の返答文を生成成功。Windows RTX5070実機は未検証。"
   },
   {
     "id": "kimodo",
@@ -133,8 +133,8 @@
     "updated": "2025-10-14",
     "priority": 4,
     "tasks": [
-      "conversation_text",
-      "audio"
+      "instruction",
+      "conversation_text"
     ],
     "paper": "From Embeddings to Language Models: A Comparative Analysis of Feature Extractors for Text-Only and Multimodal Gesture Generation",
     "year": 2025,
@@ -252,5 +252,137 @@
     "demo": "npm run dev / Electron / official ARDY engine + exported generateMotionWithArdy/buildVRMA",
     "implemented": true,
     "blocker": "公式ソースとNode依存を準備、ARDYの重み・エンコーダーとCUDAを検証する。LLM planner/Jevは無効。"
+  },
+  {
+    "id": "reactmotion",
+    "name": "ReactMotion（聞き手の全身反応）",
+    "repo": "awakening-ai/ReactMotion",
+    "commit": "73137065089d63479188c97ad8de2411d9be18a3",
+    "updated": "2026-10-14",
+    "priority": 2,
+    "tasks": [
+      "conversation_text",
+      "audio"
+    ],
+    "paper": "ReactMotion: Generating Reactive Listener Motions from Speaker Utterance",
+    "year": 2026,
+    "venue": "arXiv:2603.15083",
+    "checkpoint": "awakening-ai/ReactMotion1.0",
+    "code_license": "MIT（README記載、独立LICENSEファイルなし）",
+    "weights_license": "MIT（Hugging Faceモデルカード）。Motion VQ-VAE/evaluator/データは別条件。",
+    "data_license": "ReactMotionNet / HumanML3D / AMASS等の個別条件。推論に学習用全データは不要。",
+    "output": "Motion tokens NPY → HumanML3D 263-D → 22-joint Y-up positions / skeleton MP4, native20fps",
+    "gpu": "RTX4090・VRAM allocator上限12227MiBで実測約1GB。RTX5070 Windows実機未検証。",
+    "mac": "公式にMPSを選択する分岐なし。CPU経路の実行は未検証。",
+    "dependencies": "Python3.11、torch>=2、transformers>=4.35、moshi/Mimi、Motion VQ-VAE、mean/std。専用環境で版を検証。",
+    "demo": "demo_inference.py / demo_gradio.py",
+    "implemented": true,
+    "blocker": "CUDA推論・同一5文の骨格生成成功。出力は聞き手。日本語に未知トークンあり、品質は動画で評価。",
+    "comparison_role": "listener",
+    "comparison_input": "発話文、同じ発話WAV、任意の感情ラベル",
+    "full_body_output": true
+  },
+  {
+    "id": "maai",
+    "name": "MaAI（相槌・うなずき）",
+    "repo": "MaAI-Kyoto/MaAI",
+    "commit": "d4a156c69f75003aa99a296d210ed51fbbb45a7d",
+    "updated": "2026-10-14",
+    "priority": 2,
+    "tasks": [
+      "audio"
+    ],
+    "paper": "Real-time and Continuous Turn-taking Prediction Using Voice Activity Projection / nodding extensions",
+    "year": 2024,
+    "venue": "IWSDS / LREC-COLING / MaAI software",
+    "checkpoint": "maai-kyoto（mode=nod_para, model_type=normal-ver2, lang=jpで選択）",
+    "code_license": "MIT（LICENSE確認）",
+    "weights_license": "JP nod_paraモデルカードMIT（2026-10-14確認）、Mimi CC-BY-4.0。",
+    "data_license": "ヒューマンロボット対話コーパス等、モデルごとの学習データ規約。",
+    "output": "p_nod、nod_range(rad)、nod_speed(rad/s)、repetitions、swing-up。公式ルールでhead motionを合成。全身骨格なし。",
+    "gpu": "CPU動作を公式にサポート。GPU時は適合するPyTorchを先に導入。最低VRAM未記載。",
+    "mac": "pyprojectにdarwinのonnxruntime分岐あり。MPS経路は未検証。",
+    "dependencies": "Python>=3.10、torch>=2.6、transformers==5.5.3、ONNX runtime、PortAudio/PyAudio、Qt。既存ARDY/Kimodoと別環境。",
+    "demo": "example/nod/nod_para_mic.py / nod_generate_motion.py / WAV or Chunk input",
+    "implemented": false,
+    "blocker": "CUDA・実音声からnod_para予測成功。頭部専用CLIと動画対応。全身骨格APIへの変換は未実装。",
+    "comparison_role": "listener",
+    "comparison_input": "16kHz 2ch音声（ch1=話者、ch2=システム／無音）、JP nod_paraは12.5Hz",
+    "full_body_output": false
+  },
+  {
+    "id": "motionlcm",
+    "name": "MotionLCM",
+    "repo": "Dai-Wenxun/MotionLCM",
+    "commit": "81c06368c17b056713deef2e9f6483f3172eea42",
+    "updated": "2026-10-14",
+    "priority": 2,
+    "tasks": [
+      "instruction"
+    ],
+    "paper": "MotionLCM",
+    "year": 2024,
+    "venue": "公式README参照",
+    "checkpoint": "公式README配布チェックポイント",
+    "code_license": "非商用研究用途",
+    "weights_license": "モデル・HumanML3Dの各規約。重みはGitへ再配布しない。",
+    "data_license": "HumanML3D関連データの各規約",
+    "output": "HumanML3D 22 joints / 20fps / world positions",
+    "gpu": "RTX4090、allocator上限12227MiBで実測。約1–1.5GB。RTX5070 Windows未検証。",
+    "mac": "CUDA比較経路。MPS未検証。",
+    "dependencies": "Python3.12 / PyTorch2.8 cu128 / 専用venv",
+    "demo": "scripts/generate_humanml_comparison.py",
+    "implemented": true,
+    "blocker": "同一5文のCUDA生成と1080p動画成功。日本語文は翻訳せず入力、学習言語との差は品質評価が必要。"
+  },
+  {
+    "id": "momask",
+    "name": "MoMask",
+    "repo": "EricGuo5513/momask-codes",
+    "commit": "94a6636c9c463b7a9414c3401a6f1b67e6c51824",
+    "updated": "2026-10-14",
+    "priority": 2,
+    "tasks": [
+      "instruction"
+    ],
+    "paper": "MoMask",
+    "year": 2024,
+    "venue": "公式README参照",
+    "checkpoint": "公式README配布チェックポイント",
+    "code_license": "MIT",
+    "weights_license": "モデル・HumanML3Dの各規約。重みはGitへ再配布しない。",
+    "data_license": "HumanML3D関連データの各規約",
+    "output": "HumanML3D 22 joints / 20fps / world positions",
+    "gpu": "RTX4090、allocator上限12227MiBで実測。約1–1.5GB。RTX5070 Windows未検証。",
+    "mac": "CUDA比較経路。MPS未検証。",
+    "dependencies": "Python3.12 / PyTorch2.8 cu128 / 専用venv",
+    "demo": "scripts/generate_humanml_comparison.py",
+    "implemented": true,
+    "blocker": "同一5文のCUDA生成と1080p動画成功。日本語文は翻訳せず入力、学習言語との差は品質評価が必要。"
+  },
+  {
+    "id": "mmm",
+    "name": "MMM",
+    "repo": "exitudio/MMM",
+    "commit": "8c3e7ad107ed717b878779724958cf6eff00938e",
+    "updated": "2026-10-14",
+    "priority": 2,
+    "tasks": [
+      "instruction"
+    ],
+    "paper": "MMM",
+    "year": 2024,
+    "venue": "公式README参照",
+    "checkpoint": "公式README配布チェックポイント",
+    "code_license": "CC-BY-NC-ND-4.0",
+    "weights_license": "モデル・HumanML3Dの各規約。重みはGitへ再配布しない。",
+    "data_license": "HumanML3D関連データの各規約",
+    "output": "HumanML3D 22 joints / 20fps / world positions",
+    "gpu": "RTX4090、allocator上限12227MiBで実測。約1–1.5GB。RTX5070 Windows未検証。",
+    "mac": "CUDA比較経路。MPS未検証。",
+    "dependencies": "Python3.12 / PyTorch2.8 cu128 / 専用venv",
+    "demo": "scripts/generate_humanml_comparison.py",
+    "implemented": true,
+    "blocker": "同一5文のCUDA生成と1080p動画成功。日本語文は翻訳せず入力、学習言語との差は品質評価が必要。"
   }
 ]

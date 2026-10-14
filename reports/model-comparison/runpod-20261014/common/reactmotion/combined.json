@@ -1,0 +1,707 @@
+{
+  "schema": "motion-lab/segmented-vrm-video-v1",
+  "recorded_at_utc": "2026-10-14T17:08:02.275Z",
+  "manifest_sha256": "cee49fc04f984f2df18c04d43a0fc31297f9e8c12f9470a8e82b16c9d00078d3",
+  "renderer": "app/ui/viewer.js + app/ui/motion-sink.js",
+  "render_mode": "offline_fixed_timestep",
+  "fps": 30,
+  "rendered_frames": 389,
+  "skipped_render_frames": 0,
+  "requested_renderer": "software",
+  "hardware_webgl": false,
+  "gpu_backend": "vulkan",
+  "new_motion_inference": false,
+  "generated_assets_reused": true,
+  "live_realtime_session": false,
+  "audio_conditioned_model": false,
+  "speech_and_gesture_start_policy": "same_frame_per_segment",
+  "audio_offset_seconds": 0,
+  "presentation_root_policy": "all source joints rotated to remove torso yaw before retargeting; avatar root anchored; original joints preserved",
+  "timeline_audio_sha256": "81df6db655a9d607d4f1a134eeaab5137d10a50813b0decf55bbdc103ce86a0d",
+  "encoding": {
+    "codec": "H.264",
+    "crf": 16,
+    "audio": "AAC 192k"
+  },
+  "lossy_intermediate": false,
+  "model": "reactmotion",
+  "segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！",
+      "motion_prompt": "こんにちは！",
+      "motion": "segments/01/motion.json",
+      "motion_receipt": "segments/01/motion-generation.json",
+      "audio": "segments/01/voice.wav",
+      "speech_metadata": "segments/01/voice.json",
+      "motion_sha256": "f6b0fb0f79bca34c1ab79f0d5ad2b01654cf769377db756ecb952555b4bd3cfa",
+      "audio_sha256": "81d52a1249b757d63436cbe311f5991931c7a907b8610b1985f5d47f4c5a20f2",
+      "audio_seconds": 1.1,
+      "motion_seconds": 2.2,
+      "frame_count": 33,
+      "start_frame": 0,
+      "end_frame": 33,
+      "speech_start_frame": 0,
+      "gesture_start_frame": 0,
+      "start_seconds": 0,
+      "end_seconds": 1.1,
+      "playback_seconds": 1.1,
+      "playback_speed": 2,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.790771152999696,
+      "skeleton_seconds": 0.8372735357843339,
+      "input_to_skeleton_seconds": 0.8372735357843339,
+      "input_submitted_at_utc": "2026-10-14T16:08:34.165138+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T16:08:35.002414+00:00",
+      "new_gesture_generated": true,
+      "seed": 0
+    },
+    {
+      "id": "02",
+      "text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "motion_prompt": "今日も一緒に楽しく英語を勉強しましょう！",
+      "motion": "segments/02/motion.json",
+      "motion_receipt": "segments/02/motion-generation.json",
+      "audio": "segments/02/voice.wav",
+      "speech_metadata": "segments/02/voice.json",
+      "motion_sha256": "a2e7d2bb8e50f257b88203e70f0505f29d4972ea879f8d7ba5779330c287a1c6",
+      "audio_sha256": "5270e6f381f41c2c7aa995ef7ecfa13b0780088755fab08ad70115774b296b2f",
+      "audio_seconds": 3.5,
+      "motion_seconds": 10,
+      "frame_count": 105,
+      "start_frame": 33,
+      "end_frame": 138,
+      "speech_start_frame": 33,
+      "gesture_start_frame": 33,
+      "start_seconds": 1.1,
+      "end_seconds": 4.6,
+      "playback_seconds": 3.5,
+      "playback_speed": 2.857142857142857,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.828051571999822,
+      "skeleton_seconds": 0.642681737896055,
+      "input_to_skeleton_seconds": 0.642681737896055,
+      "input_submitted_at_utc": "2026-10-14T16:08:35.003125+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T16:08:35.645811+00:00",
+      "new_gesture_generated": true,
+      "seed": 1
+    },
+    {
+      "id": "03",
+      "text": "まずは英語で挨拶してみよう。",
+      "motion_prompt": "まずは英語で挨拶してみよう。",
+      "motion": "segments/03/motion.json",
+      "motion_receipt": "segments/03/motion-generation.json",
+      "audio": "segments/03/voice.wav",
+      "speech_metadata": "segments/03/voice.json",
+      "motion_sha256": "97785e3188cc0a58858191035ec05ab83fa3b5bd3d592ff35bea9990752bc403",
+      "audio_sha256": "274a6b239a5df0ee912f5572984a37910f81dc2851fb3d0050298260f4da9ae8",
+      "audio_seconds": 2.5,
+      "motion_seconds": 6.6,
+      "frame_count": 75,
+      "start_frame": 138,
+      "end_frame": 213,
+      "speech_start_frame": 138,
+      "gesture_start_frame": 138,
+      "start_seconds": 4.6,
+      "end_seconds": 7.1,
+      "playback_seconds": 2.5,
+      "playback_speed": 2.6399999999999997,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.788031985000089,
+      "skeleton_seconds": 0.4424659388605505,
+      "input_to_skeleton_seconds": 0.4424659388605505,
+      "input_submitted_at_utc": "2026-10-14T16:08:35.646742+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T16:08:36.089211+00:00",
+      "new_gesture_generated": true,
+      "seed": 2
+    },
+    {
+      "id": "04",
+      "text": "Hello! How are you today?",
+      "motion_prompt": "Hello! How are you today?",
+      "motion": "segments/04/motion.json",
+      "motion_receipt": "segments/04/motion-generation.json",
+      "audio": "segments/04/voice.wav",
+      "speech_metadata": "segments/04/voice.json",
+      "motion_sha256": "b5d07e1fdd83ff267cf18b3df6c802b178ad7691b2468f2d73305acdb7ef9fe7",
+      "audio_sha256": "2eb2a10602ad658963c3b667c1ba88297b025b365e027c426ddb0acfe288ebcc",
+      "audio_seconds": 2.25,
+      "motion_seconds": 5.8,
+      "frame_count": 68,
+      "start_frame": 213,
+      "end_frame": 281,
+      "speech_start_frame": 213,
+      "gesture_start_frame": 213,
+      "start_seconds": 7.1,
+      "end_seconds": 9.366666666666667,
+      "playback_seconds": 2.2666666666666666,
+      "playback_speed": 2.5588235294117645,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.634598751999874,
+      "skeleton_seconds": 0.3945737381000072,
+      "input_to_skeleton_seconds": 0.3945737381000072,
+      "input_submitted_at_utc": "2026-10-14T16:08:36.090001+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T16:08:36.484578+00:00",
+      "new_gesture_generated": true,
+      "seed": 3
+    },
+    {
+      "id": "05",
+      "text": "元気なときは、I'm happy! って言ってみてね。",
+      "motion_prompt": "元気なときは、I'm happy! って言ってみてね。",
+      "motion": "segments/05/motion.json",
+      "motion_receipt": "segments/05/motion-generation.json",
+      "audio": "segments/05/voice.wav",
+      "speech_metadata": "segments/05/voice.json",
+      "motion_sha256": "7c0629bca006f7dcb6397d4da0c3a50a51433cda5aebad0ef73ea9c9e60fbacf",
+      "audio_sha256": "fe662c7b010e8e406d6dc9a64ec251692e716671149adebf8d92a055e24b6a78",
+      "audio_seconds": 3.6,
+      "motion_seconds": 3.8,
+      "frame_count": 108,
+      "start_frame": 281,
+      "end_frame": 389,
+      "speech_start_frame": 281,
+      "gesture_start_frame": 281,
+      "start_seconds": 9.366666666666667,
+      "end_seconds": 12.966666666666667,
+      "playback_seconds": 3.6,
+      "playback_speed": 1.0555555555555556,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.597349226000006,
+      "skeleton_seconds": 0.27972916699945927,
+      "input_to_skeleton_seconds": 0.27972916699945927,
+      "input_submitted_at_utc": "2026-10-14T16:08:36.485344+00:00",
+      "skeleton_completed_at_utc": "2026-10-14T16:08:36.765077+00:00",
+      "new_gesture_generated": true,
+      "seed": 4
+    }
+  ],
+  "segment_videos": [
+    {
+      "id": "01",
+      "video": "segments/01/video.mp4",
+      "video_sha256": "ac77abc6052b95a99677558ea69781ca1cc63bc22d42c228d572c29f773afc87",
+      "render_wall_seconds": 31.603558314,
+      "input_to_skeleton_seconds": 0.8372735357843339,
+      "input_to_mp4_seconds": 3382.07,
+      "skeleton_and_mp4_processing_seconds": 32.44083184978433,
+      "mp4_completed_at_utc": "2026-10-14T17:04:56.235Z",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "33"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "26"
+          }
+        ],
+        "format": {
+          "duration": "1.100000",
+          "size": "231432"
+        }
+      }
+    },
+    {
+      "id": "02",
+      "video": "segments/02/video.mp4",
+      "video_sha256": "40a80c5baa488218811c0d22d8168cb13b943fdeed6cd147b84983a8853b7436",
+      "render_wall_seconds": 63.22956722,
+      "input_to_skeleton_seconds": 0.642681737896055,
+      "input_to_mp4_seconds": 3444.976,
+      "skeleton_and_mp4_processing_seconds": 63.872248957896055,
+      "mp4_completed_at_utc": "2026-10-14T17:05:59.979Z",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "105"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "83"
+          }
+        ],
+        "format": {
+          "duration": "3.500000",
+          "size": "703155"
+        }
+      }
+    },
+    {
+      "id": "03",
+      "video": "segments/03/video.mp4",
+      "video_sha256": "ad993a6e3acf6cd0d3c8592dd7990f0499f851249652d29dd6eb58a4f1a18add",
+      "render_wall_seconds": 27.577666287000014,
+      "input_to_skeleton_seconds": 0.4424659388605505,
+      "input_to_mp4_seconds": 3472.507,
+      "skeleton_and_mp4_processing_seconds": 28.020132225860564,
+      "mp4_completed_at_utc": "2026-10-14T17:06:28.153Z",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "75"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "59"
+          }
+        ],
+        "format": {
+          "duration": "2.500000",
+          "size": "459406"
+        }
+      }
+    },
+    {
+      "id": "04",
+      "video": "segments/04/video.mp4",
+      "video_sha256": "2a0bdee436a44e4278a8000b25911f293cb452a128b6458c47f6de70ec522645",
+      "render_wall_seconds": 27.524389895,
+      "input_to_skeleton_seconds": 0.3945737381000072,
+      "input_to_mp4_seconds": 3500.069,
+      "skeleton_and_mp4_processing_seconds": 27.918963633100006,
+      "mp4_completed_at_utc": "2026-10-14T17:06:56.159Z",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "68"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "54"
+          }
+        ],
+        "format": {
+          "duration": "2.267000",
+          "size": "441869"
+        }
+      }
+    },
+    {
+      "id": "05",
+      "video": "segments/05/video.mp4",
+      "video_sha256": "8cf400c0e422a9f3a9680ff82f22aa553e09db8370c700f9e0661b9a144e8d17",
+      "render_wall_seconds": 58.37453702299998,
+      "input_to_skeleton_seconds": 0.27972916699945927,
+      "input_to_mp4_seconds": 3558.457,
+      "skeleton_and_mp4_processing_seconds": 58.65426618999944,
+      "mp4_completed_at_utc": "2026-10-14T17:07:54.942Z",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "108"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "85"
+          }
+        ],
+        "format": {
+          "duration": "3.600000",
+          "size": "655990"
+        }
+      }
+    }
+  ],
+  "capture": {
+    "avatar": {
+      "metaVersion": "1",
+      "name": "AvatarSample_VRM1.0",
+      "authors": [
+        "pixiv VRoid Project"
+      ],
+      "licenseUrl": "https://vrm.dev/licenses/1.0/",
+      "avatarPermission": "everyone",
+      "allowExcessivelyViolentUsage": false,
+      "allowExcessivelySexualUsage": false,
+      "commercialUsage": "personalNonProfit",
+      "allowPoliticalOrReligiousUsage": false,
+      "allowAntisocialOrHateUsage": false,
+      "creditNotation": "unnecessary",
+      "allowRedistribution": false,
+      "modification": "prohibited"
+    },
+    "webgl": {
+      "renderer": "WebKit WebGL",
+      "vendor": "WebKit",
+      "unmasked_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "unmasked_vendor": "Google Inc. (Google)"
+    },
+    "camera": {
+      "position": [
+        0,
+        0.7790586041281565,
+        3.385860247604145
+      ],
+      "target": [
+        0,
+        0.7790586041281563,
+        -0.007964728566909052
+      ],
+      "front_alignment": 1
+    },
+    "source_canvas": {
+      "width": 1920,
+      "height": 820
+    },
+    "output_canvas": {
+      "width": 1920,
+      "height": 1080
+    },
+    "anisotropy": 8,
+    "segments": [
+      {
+        "id": "01",
+        "maxRMS": 0.18640576716074214,
+        "maxLip": 0,
+        "rendered_frames": 33
+      },
+      {
+        "id": "02",
+        "maxRMS": 0.15273282868426907,
+        "maxLip": 0,
+        "rendered_frames": 105
+      },
+      {
+        "id": "03",
+        "maxRMS": 0.13811852544366196,
+        "maxLip": 0,
+        "rendered_frames": 75
+      },
+      {
+        "id": "04",
+        "maxRMS": 0.14385836569257596,
+        "maxLip": 0,
+        "rendered_frames": 68
+      },
+      {
+        "id": "05",
+        "maxRMS": 0.1865938114077324,
+        "maxLip": 0,
+        "rendered_frames": 108
+      }
+    ],
+    "boundaries": [
+      {
+        "id": "01",
+        "frame": 0,
+        "speech_start_frame": 0,
+        "gesture_start_frame": 0,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "02",
+        "frame": 33,
+        "speech_start_frame": 33,
+        "gesture_start_frame": 33,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "03",
+        "frame": 138,
+        "speech_start_frame": 138,
+        "gesture_start_frame": 138,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "04",
+        "frame": 213,
+        "speech_start_frame": 213,
+        "gesture_start_frame": 213,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "05",
+        "frame": 281,
+        "speech_start_frame": 281,
+        "gesture_start_frame": 281,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      }
+    ],
+    "samples": [
+      {
+        "id": "01",
+        "frame": 0,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.017296831471805503,
+        "lip": 0
+      },
+      {
+        "id": "01",
+        "frame": 30,
+        "unit_seconds": 1,
+        "motion_seconds": 2.0156250000000004,
+        "speaking": true,
+        "rms": 0.0007941994762635065,
+        "lip": 0
+      },
+      {
+        "id": "02",
+        "frame": 33,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.002154910835081429,
+        "lip": 0
+      },
+      {
+        "id": "02",
+        "frame": 63,
+        "unit_seconds": 1,
+        "motion_seconds": 2.870192307692307,
+        "speaking": true,
+        "rms": 0.11198437336959498,
+        "lip": 0
+      },
+      {
+        "id": "02",
+        "frame": 93,
+        "unit_seconds": 2,
+        "motion_seconds": 5.740384615384614,
+        "speaking": true,
+        "rms": 0.03597525391513692,
+        "lip": 0
+      },
+      {
+        "id": "02",
+        "frame": 123,
+        "unit_seconds": 3,
+        "motion_seconds": 8.610576923076923,
+        "speaking": true,
+        "rms": 0.046871159312144424,
+        "lip": 0
+      },
+      {
+        "id": "03",
+        "frame": 138,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.00988123625661681,
+        "lip": 0
+      },
+      {
+        "id": "03",
+        "frame": 168,
+        "unit_seconds": 1,
+        "motion_seconds": 2.6554054054054053,
+        "speaking": true,
+        "rms": 0.09937398002961509,
+        "lip": 0
+      },
+      {
+        "id": "03",
+        "frame": 198,
+        "unit_seconds": 2,
+        "motion_seconds": 5.3108108108108105,
+        "speaking": true,
+        "rms": 0.050825643109693404,
+        "lip": 0
+      },
+      {
+        "id": "04",
+        "frame": 213,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.0017337633154803065,
+        "lip": 0
+      },
+      {
+        "id": "04",
+        "frame": 243,
+        "unit_seconds": 1,
+        "motion_seconds": 2.574626865671642,
+        "speaking": true,
+        "rms": 0.0907997151951336,
+        "lip": 0
+      },
+      {
+        "id": "04",
+        "frame": 273,
+        "unit_seconds": 2,
+        "motion_seconds": 5.149253731343284,
+        "speaking": true,
+        "rms": 0.001024040921644911,
+        "lip": 0
+      },
+      {
+        "id": "05",
+        "frame": 281,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.008821324058686224,
+        "lip": 0
+      },
+      {
+        "id": "05",
+        "frame": 311,
+        "unit_seconds": 1,
+        "motion_seconds": 1.0514018691588785,
+        "speaking": true,
+        "rms": 0.0009125230886006114,
+        "lip": 0
+      },
+      {
+        "id": "05",
+        "frame": 341,
+        "unit_seconds": 2,
+        "motion_seconds": 2.102803738317757,
+        "speaking": true,
+        "rms": 0.05714808761841938,
+        "lip": 0
+      },
+      {
+        "id": "05",
+        "frame": 371,
+        "unit_seconds": 3,
+        "motion_seconds": 3.1542056074766354,
+        "speaking": true,
+        "rms": 0.04884464682131637,
+        "lip": 0
+      }
+    ]
+  },
+  "render_wall_seconds": 238.62099804599998,
+  "speech_generation_seconds": 0,
+  "skeleton_seconds": 2.596724117640406,
+  "media": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "389"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "24000",
+        "channels": 1,
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "304"
+      }
+    ],
+    "format": {
+      "duration": "12.967000",
+      "size": "2486047"
+    }
+  },
+  "video_sha256": "6e5a5a32cce5124b1e8166480de62c3e33b1a2d905dbbae00c750af07aca4c3b",
+  "browser_errors": [],
+  "total_processing_seconds": 241.2177221636404,
+  "combined_mp4_completed_at_utc": "2026-10-14T17:08:02.333Z",
+  "input_to_combined_mp4_seconds": 3568.168
+}

@@ -1,0 +1,153 @@
+{
+  "schema": "motion-lab/audio-dialogue-video-v1",
+  "model": "reactmotion",
+  "plan": {
+    "schema": "motion-lab/audio-dialogue-video-plan-v1",
+    "model": "reactmotion",
+    "fps": 30,
+    "frame_count": 785,
+    "duration_seconds": 26.166666666666668,
+    "student_audio_seconds": 1.9,
+    "teacher_start_seconds": 20.9,
+    "teacher_audio_seconds": 4.75,
+    "student_text": "先生、こんにちは。",
+    "teacher_text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+    "measurement": {
+      "schema": "motion-lab/audio-input-dialogue-v1",
+      "model": "reactmotion",
+      "input_transport": "input_audio_buffer.append + commit",
+      "typed_student_input": false,
+      "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+      "clock_domain": "single_client_monotonic",
+      "student_audio_seconds": 1.9,
+      "student_audio_started_at_utc": "2026-10-14T16:09:44.960261+00:00",
+      "student_audio_ended_at_utc": "2026-10-14T16:09:46.862170+00:00",
+      "student_transcript": "先生、こんにちは。",
+      "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "teacher_audio_seconds": 4.75,
+      "asr_seconds_after_student_end": 0.5707155889995192,
+      "first_teacher_audio_seconds_after_student_end": 1.218033332000232,
+      "teacher_transcript_seconds_after_student_end": 2.1287419849995786,
+      "response_done_seconds_after_student_end": 2.1737347769994813,
+      "first_teacher_audio_seconds_after_input_start": 3.1199451000002227,
+      "events": [
+        {
+          "event": "student_transcription_complete",
+          "seconds_after_student_end": 0.5707155889995192
+        },
+        {
+          "event": "teacher_first_audio",
+          "seconds_after_student_end": 1.218033332000232
+        },
+        {
+          "event": "teacher_transcript_complete",
+          "seconds_after_student_end": 2.1287419849995786
+        }
+      ],
+      "response_id": "resp_EYvpyiFlDN1zEXdjOYlmh",
+      "usage": {
+        "total_tokens": 274,
+        "input_tokens": 108,
+        "output_tokens": 166,
+        "input_token_details": {
+          "text_tokens": 89,
+          "audio_tokens": 19,
+          "image_tokens": 0,
+          "cached_tokens": 0,
+          "cached_tokens_details": {
+            "text_tokens": 0,
+            "audio_tokens": 0,
+            "image_tokens": 0
+          }
+        },
+        "output_token_details": {
+          "text_tokens": 71,
+          "audio_tokens": 95,
+          "reasoning_tokens": 33
+        }
+      },
+      "actual_charge_usd": null,
+      "max_output_tokens": 512,
+      "max_teacher_audio_seconds": 15,
+      "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+      "teacher_sha256": "df76857c4bb547d71dbf5785fb4195542d709a11aed1bedb4f98d8be7e8c8b04",
+      "avatar_role": "listener",
+      "generation_dispatch_seconds_after_student_end": 5.201243210999564,
+      "bone_ready_observed_seconds_after_student_end": 18.998212052999406,
+      "generation_command_observed_seconds": 13.796968841999842,
+      "completion_poll_interval_seconds": 5,
+      "motion_generation_seconds": 1.0002060639671981,
+      "cold_model_load_seconds": 6.592159913154319,
+      "bone_minus_first_realtime_audio_seconds": 17.780178720999174,
+      "teacher_playback_seconds_after_student_end": 18.998212052999406,
+      "playback_policy": "buffer_teacher_voice_until_trained_motion_available",
+      "actual_inference_after_received_teacher_transcript": true,
+      "measurement_scope": "audio_input_and_generator_completion_single_client_monotonic",
+      "remote_upload_and_startup_included": true,
+      "measured_end_to_end": true
+    },
+    "motion_file": "motion.json",
+    "motion_scope": "full_body",
+    "avatar_role": "listener",
+    "motion_sha256": "34401c445475573b50bd128a0c269cd05c1c7d18cc6d202bba766eef812e8dab",
+    "speech_and_gesture_start_policy": "same_frame_when_buffered_teacher_starts",
+    "caption": "音声入力からの実測を再生 / ライブ録画ではありません",
+    "body_pose": "pretrained_full_body_joints"
+  },
+  "render_wall_seconds": 111.17200588300001,
+  "live_recording": false,
+  "render_mode": "offline_replay_of_real_measurement",
+  "hardware_webgl": false,
+  "setup": {
+    "avatar": {
+      "metaVersion": "1",
+      "name": "AvatarSample_VRM1.0",
+      "authors": [
+        "pixiv VRoid Project"
+      ],
+      "licenseUrl": "https://vrm.dev/licenses/1.0/",
+      "avatarPermission": "everyone",
+      "allowExcessivelyViolentUsage": false,
+      "allowExcessivelySexualUsage": false,
+      "commercialUsage": "personalNonProfit",
+      "allowPoliticalOrReligiousUsage": false,
+      "allowAntisocialOrHateUsage": false,
+      "creditNotation": "unnecessary",
+      "allowRedistribution": false,
+      "modification": "prohibited"
+    },
+    "webgl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "front_alignment": 1
+  },
+  "stats": {
+    "maxLip": 1,
+    "maxHeadPitch": 0,
+    "frames": 179
+  },
+  "media": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "785"
+      },
+      {
+        "codec_type": "audio",
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "614"
+      }
+    ],
+    "format": {
+      "duration": "26.167000"
+    }
+  },
+  "idle_image_update_seconds": 1,
+  "waiting_duration_compressed": false,
+  "audio_gesture_start_offset_seconds": 0,
+  "presentation_root_policy": "all source joints rotated to remove torso yaw before retargeting; avatar root anchored; original joints preserved",
+  "video_sha256": "d669c2229cf4eae9e5524cf6a2b58e7e43adfc78245ae1711e7a1ca31e0e60f7",
+  "browser_errors": []
+}

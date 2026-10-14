@@ -28,7 +28,7 @@ def test_application_and_local_viewer_assets(client):
     assert client.get('/api/health').json()['viewer_assets_present'] is True
     assert client.get('/vendor/three/build/three.module.js').status_code==200
     models=client.get('/api/models').json()
-    assert len(models)==10 and any(model['id']=='text_to_vrma' for model in models)
+    assert len(models)==15 and {'text_to_vrma','reactmotion','maai','motionlcm','momask','mmm'} <= {model['id'] for model in models}
     assert all(m['execution_status']!='実際に推論成功' for m in models)
 
 

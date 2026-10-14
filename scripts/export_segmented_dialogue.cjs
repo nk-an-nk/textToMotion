@@ -7,11 +7,13 @@ const os=require('node:os');
 const {spawn,spawnSync}=require('node:child_process');
 const {once}=require('node:events');
 const {hash,loadAssets}=require('./segmented_video_plan.cjs');
-const help='node scripts/export_segmented_dialogue.cjs --manifest manifest.json --avatar avatar.vrm --output combined.mp4 [--base-url http://127.0.0.1:8765] [--chromium PATH]';
+const {browserArgs,isSoftwareRenderer,requireHardware}=require('./webgl_backend.cjs');
+const help='node scripts/export_segmented_dialogue.cjs --manifest manifest.json --avatar avatar.vrm --output combined.mp4 [--base-url http://127.0.0.1:8765] [--chromium PATH] [--renderer software|gpu|auto] [--gpu-backend vulkan|gl] [--reuse-assets]';
 const args={};
 for(let i=2;i<process.argv.length;i++){
  if(process.argv[i]==='--help'){console.log(help);process.exit(0);}
- if(!['--manifest','--avatar','--output','--base-url','--chromium'].includes(process.argv[i])||!process.argv[i+1])throw new Error(help);
+ if(process.argv[i]==='--reuse-assets'){args['reuse-assets']=true;continue;}
+ if(!['--manifest','--avatar','--output','--base-url','--chromium','--renderer','--gpu-backend'].includes(process.argv[i])||!process.argv[i+1])throw new Error(help);
  args[process.argv[i].slice(2)]=process.argv[++i];
 }
 function command(binary,argv){const result=spawnSync(binary,argv,{encoding:'utf8',maxBuffer:4*1024*1024});if(result.error||result.status!==0)throw new Error(binary+': '+(result.error?.message||result.stderr));return result.stdout;}
@@ -30,7 +32,8 @@ async function main(){
  const avatar=fs.readFileSync(args.avatar),baseURL=args['base-url']||'http://127.0.0.1:8765';
  if(!(await fetch(baseURL+'/api/health')).ok)throw new Error('Start Motion Lab before exporting.');
  const executablePath=args.chromium||process.env.CHROMIUM_PATH||(fs.existsSync('/usr/bin/chromium')?'/usr/bin/chromium':undefined);
- const browser=await chromium.launch({...(executablePath?{executablePath}:{}),args:['--no-sandbox','--use-angle=swiftshader','--autoplay-policy=no-user-gesture-required']});
+ const rendererMode=args.renderer||'software',gpuBackend=args['gpu-backend']||'vulkan';
+ const browser=await chromium.launch({...(executablePath?{executablePath}:{}),args:browserArgs(rendererMode,gpuBackend)});
  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'motion-segmented-')),errors=[],began=performance.now(),renderResults=[];
  let encoder=null,encoderExit=null,encoderError='';
  try{
@@ -38,14 +41,20 @@ async function main(){
   await page.route('**/__export_segmented',route=>route.fulfill({contentType:'text/html',body:`<!doctype html><html lang="ja"><head><meta charset="utf-8"><script type="importmap">{"imports":{"three":"/vendor/three/build/three.module.js","three/addons/":"/vendor/three/examples/jsm/","@pixiv/three-vrm":"/vendor/three-vrm/three-vrm.module.js","@pixiv/three-vrm-animation":"/vendor/three-vrm-animation/three-vrm-animation.module.js"}}</script></head><body style="margin:0"><div id="scene"></div></body></html>`}));
   await page.goto(baseURL+'/__export_segmented');
   const setup=await page.evaluate(async data=>{
-   const THREE=await import('three'),{MotionViewer}=await import('/static/viewer.js'),decode=value=>Uint8Array.from(atob(value),char=>char.charCodeAt(0));
+   const THREE=await import('three'),{MotionViewer}=await import('/static/viewer.js'),{faceFrontMotion}=await import('/static/presentation-motion.js'),decode=value=>Uint8Array.from(atob(value),char=>char.charCodeAt(0));
    const {width,height,fps,manifest}=data,header=100,footer=160,container=document.querySelector('#scene');
    container.style.width=width+'px';container.style.height=(height-header-footer)+'px';
    const viewer=new MotionViewer(container);viewer.renderer.setPixelRatio(1);viewer.resize();viewer.vrmSink.manual=true;
+   const gl=viewer.renderer.getContext(),debug=gl.getExtension('WEBGL_debug_renderer_info');
+   const webgl={renderer:gl.getParameter(gl.RENDERER),vendor:gl.getParameter(gl.VENDOR),unmasked_renderer:debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):null,unmasked_vendor:debug?gl.getParameter(debug.UNMASKED_VENDOR_WEBGL):null};
+   if(data.rendererMode==='gpu'&&(!webgl.unmasked_renderer||/swiftshader|llvmpipe|softpipe|software|basic render|lavapipe/i.test(webgl.unmasked_renderer)))throw new Error('Hardware WebGL is required; software fallback refused.');
    const sink=viewer.vrmSink,avatar=await sink.loadAvatar(decode(data.avatarEncoded).buffer);viewer.resetCamera();viewer.controls.enabled=false;
+   sink.vrm.scene.updateMatrixWorld(true);const bounds=new THREE.Box3().setFromObject(sink.vrm.scene),center=bounds.getCenter(new THREE.Vector3()),size=bounds.getSize(new THREE.Vector3());
+   const distance=Math.max(size.y/2/Math.tan(THREE.MathUtils.degToRad(viewer.camera.fov/2)),size.x/2/viewer.camera.aspect/Math.tan(THREE.MathUtils.degToRad(viewer.camera.fov/2)))*1.5;
+   viewer.controls.target.copy(center);viewer.camera.position.set(center.x,center.y,center.z+distance);viewer.camera.lookAt(center);viewer.controls.update();
    const anisotropy=Math.min(8,viewer.renderer.capabilities.getMaxAnisotropy());
    sink.vrm.scene.traverse(object=>{for(const material of (Array.isArray(object.material)?object.material:[object.material]))if(material)for(const value of Object.values(material))if(value?.isTexture)value.anisotropy=anisotropy;});
-   const context=new AudioContext({sampleRate:24000}),clips=data.units.map(unit=>sink.prepareMotion(unit.motion)),audios=[];
+   const context=new AudioContext({sampleRate:24000}),clips=data.units.map(unit=>sink.prepareMotion(faceFrontMotion(unit.motion))),audios=[];
    for(const unit of data.units){const audio=await context.decodeAudioData(decode(unit.audioEncoded).buffer);if(Math.abs(audio.duration-unit.audio_seconds)>1/24000)throw new Error('Decoded speech length differs from manifest: '+unit.id+' '+audio.duration+' / '+unit.audio_seconds);audios.push(audio);}
    await context.close();
    const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d'),source=viewer.renderer.domElement;
@@ -62,11 +71,12 @@ async function main(){
     let rms=0;if(speaking){for(let i=begin;i<end;i++)rms+=channel[i]*channel[i];rms=Math.sqrt(rms/Math.max(1,end-begin));}
     // Retime each complete native gesture to its utterance, including its final pose.
     const motionTime=unit.frame_count===1?0:localFrame/(unit.frame_count-1)*Math.max(0,clip.duration-1/data.units[index].motion.fps);
-    sink.elapsed=Math.max(0,frame/fps-1/fps);sink.tick(1/fps,{speaking,lip:rms,offlineTime:motionTime});
+    sink.elapsed=Math.max(0,frame/fps-1/fps);sink.tick(1/fps,{speaking:manifest.avatar_role!=='listener'&&speaking,lip:rms,offlineTime:motionTime});
     const blendSeconds=Math.min(manifest.blend_ms/1000,unit.frame_count/fps/3);
     if(blendSeconds>0&&clock<blendSeconds){sink.blendFrom(clock/blendSeconds);sink.vrm.update(0);}
     if(before){const after=sink.rest.get('hips').node.position.clone();boundaries.push({id:unit.id,frame,speech_start_frame:frame,gesture_start_frame:frame,root_before:before.toArray(),root_after:after.toArray(),root_jump_metres:after.distanceTo(before),blend_seconds:blendSeconds});}
     for(const bone of sink.rest.values())if(![...bone.node.position.toArray(),...bone.node.quaternion.toArray()].every(Number.isFinite))throw new Error('Nonfinite avatar pose.');
+    const hips=sink.rest.get('hips');if(hips){hips.node.position.copy(hips.p);sink.vrm.update(0);}
     viewer.draw(0);const lip=sink.vrm.expressionManager?.getValue('aa')||0;stats[index].maxRMS=Math.max(stats[index].maxRMS,rms);stats[index].maxLip=Math.max(stats[index].maxLip,lip);stats[index].rendered_frames++;
     ctx.fillStyle='#edf1ed';ctx.fillRect(0,0,width,height);ctx.drawImage(source,0,header);
     ctx.fillStyle='#162b35';ctx.fillRect(0,0,width,header);ctx.fillStyle='#ffffff';ctx.font='bold 32px "Noto Sans CJK JP",sans-serif';ctx.fillText(manifest.title,32,42);
@@ -77,8 +87,9 @@ async function main(){
     return canvas.toDataURL('image/png').split(',')[1];
    };
    window.__segmentedStats=()=>({segments:stats,boundaries,samples});
-   return {avatar,camera:{position:viewer.camera.position.toArray(),target:viewer.controls.target.toArray(),front_alignment:viewer.camera.position.clone().sub(viewer.controls.target).normalize().dot(new THREE.Vector3(0,0,1))},source_canvas:{width:source.width,height:source.height},output_canvas:{width,height},anisotropy};
-  },{avatarEncoded:avatar.toString('base64'),manifest,width,height,fps,units:units.map(({unit,motion,audio})=>({...unit,motion,audioEncoded:audio.toString('base64')}))});
+   return {avatar,webgl,camera:{position:viewer.camera.position.toArray(),target:viewer.controls.target.toArray(),front_alignment:viewer.camera.position.clone().sub(viewer.controls.target).normalize().dot(new THREE.Vector3(0,0,1))},source_canvas:{width:source.width,height:source.height},output_canvas:{width,height},anisotropy};
+  },{avatarEncoded:avatar.toString('base64'),manifest,width,height,fps,rendererMode,units:units.map(({unit,motion,audio})=>({...unit,motion,audioEncoded:audio.toString('base64')}))});
+  if(rendererMode==='gpu')requireHardware(setup.webgl);
   if(setup.source_canvas.width!==1920||setup.source_canvas.height!==820||setup.camera.front_alignment<.99999)throw new Error('Native canvas or front camera validation failed.');
   fs.mkdirSync(path.dirname(output),{recursive:true});let lastReport=performance.now();
   for(const {unit,audioPath,videoPath} of units){
@@ -109,13 +120,14 @@ async function main(){
   fs.writeFileSync(list,renderResults.map((result,index)=>`file '${result.silent.replaceAll('\\','/').replaceAll("'","'\\''")}'\nduration ${units[index].unit.frame_count/fps}\n`).join(''));
   command('ffmpeg',['-hide_banner','-loglevel','error','-n','-f','concat','-safe','0','-i',list,'-i',assets.timelinePath,'-map','0:v:0','-map','1:a:0','-c:v','copy','-c:a','aac','-b:a','192k','-t',String(manifest.duration_seconds),'-movflags','+faststart',output]);
   const media=inspectVideo(output,manifest.frame_count),stats=await page.evaluate(()=>window.__segmentedStats());
-  if(errors.length||stats.segments.some((unit,index)=>unit.maxRMS<.001||unit.maxLip<.01||unit.rendered_frames!==units[index].unit.frame_count)||stats.boundaries.some(boundary=>manifest.blend_ms>0&&boundary.root_jump_metres>1e-6))throw new Error('Speech, lip movement, frame coverage or boundary continuity check failed: '+errors.join(';'));
+  if(errors.length||stats.segments.some((unit,index)=>unit.maxRMS<.001||(manifest.avatar_role!=='listener'&&unit.maxLip<.01)||unit.rendered_frames!==units[index].unit.frame_count)||stats.boundaries.some(boundary=>manifest.blend_ms>0&&boundary.root_jump_metres>1e-6))throw new Error('Speech, lip movement, frame coverage or boundary continuity check failed: '+errors.join(';'));
   for(const result of renderResults)delete result.silent;
   const renderSeconds=(performance.now()-began)/1000;
   const receipt={schema:'motion-lab/segmented-vrm-video-v1',recorded_at_utc:new Date().toISOString(),manifest_sha256:hash(fs.readFileSync(args.manifest)),
    renderer:'app/ui/viewer.js + app/ui/motion-sink.js',render_mode:'offline_fixed_timestep',fps,rendered_frames:manifest.frame_count,skipped_render_frames:0,
-   new_motion_inference:true,live_realtime_session:false,audio_conditioned_model:false,speech_and_gesture_start_policy:'same_frame_per_segment',
-   audio_offset_seconds:0,timeline_audio_sha256:manifest.timeline_audio_sha256,encoding:{codec:'H.264',crf:16,audio:'AAC 192k'},lossy_intermediate:false,
+   requested_renderer:rendererMode,hardware_webgl:!isSoftwareRenderer(setup.webgl)&&!!setup.webgl.unmasked_renderer,gpu_backend:gpuBackend,
+   new_motion_inference:!args['reuse-assets'],generated_assets_reused:!!args['reuse-assets'],live_realtime_session:false,audio_conditioned_model:false,speech_and_gesture_start_policy:'same_frame_per_segment',
+   audio_offset_seconds:0,presentation_root_policy:'all source joints rotated to remove torso yaw before retargeting; avatar root anchored; original joints preserved',timeline_audio_sha256:manifest.timeline_audio_sha256,encoding:{codec:'H.264',crf:16,audio:'AAC 192k'},lossy_intermediate:false,
    model:manifest.model,segments:manifest.segments,segment_videos:renderResults,capture:{...setup,...stats},render_wall_seconds:renderSeconds,
    speech_generation_seconds:units.reduce((sum,{unit})=>sum+unit.speech_generation_seconds,0),skeleton_seconds:units.reduce((sum,{unit})=>sum+unit.skeleton_seconds,0),
    media,video_sha256:hash(fs.readFileSync(output)),browser_errors:errors};

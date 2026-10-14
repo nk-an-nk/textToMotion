@@ -1,0 +1,46 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "Hello! How are you today?",
+  "sample_rate": 24000,
+  "duration_seconds": 2.25,
+  "audio_sha256": "2eb2a10602ad658963c3b667c1ba88297b025b365e027c426ddb0acfe288ebcc",
+  "generated_at_utc": "2026-10-14T15:04:19.219219+00:00",
+  "actual_charge_usd": null,
+  "max_output_tokens": 512,
+  "max_audio_seconds": 10,
+  "input_submitted_at_utc": "2026-10-14T15:04:14.969386+00:00",
+  "session_setup_seconds": 0.38521455599993715,
+  "first_audio_seconds": 0.9290705939997679,
+  "complete_audio_seconds": 1.237486565999916,
+  "response_done_seconds": 1.2484460299997409,
+  "generation_wall_seconds": 4.634598751999874,
+  "clock_domain": "single_client_monotonic",
+  "response_id": "resp_EYuoYKT45rv5M1SNDPhtC",
+  "transcript": "Hello! How are you today?",
+  "usage": {
+    "total_tokens": 169,
+    "input_tokens": 87,
+    "output_tokens": 82,
+    "input_token_details": {
+      "text_tokens": 87,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 37,
+      "audio_tokens": 45,
+      "reasoning_tokens": 18
+    }
+  }
+}
