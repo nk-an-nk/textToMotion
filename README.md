@@ -24,10 +24,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\start-conversation.ps1
 
 検証動画をリポジトリに収録しています。GitHub のファイル画面で再生できない場合は **Download raw file** で取得してください。
 
+- [英語学習：5区間それぞれで音声・Kimodoジェスチャーを新規生成して同期・連結](reports/segmented/english-lesson/combined.mp4) — 正面1080p / 30fps / 音声付き。[個別5本と時間](reports/segmented/english-lesson/README.md)・[独立した実装の使い方](docs/segmented_dialogue.md)。従来版も保持しています。
 - [Kimodo：右手を上げて振る指示から生成](reports/videos/kimodo-wave.mp4) — 3秒、30fps。
 - [ARDY：CPU 無条件診断](reports/videos/ardy-unconditional.mp4) — 3秒、20fps。テキスト・音声による指示はありません。
 
-どちらも実モデルが出力した関節位置をスケルトン表示した動画で、音声はありません。[動画の出典と検証値](reports/videos/README.md) を参照してください。
+上記の3秒のKimodo・ARDY動画は、実モデルが出力した関節位置をスケルトン表示した動画で、音声はありません。[動画の出典と検証値](reports/videos/README.md) を参照してください。
 
 ## セットアップと起動
 

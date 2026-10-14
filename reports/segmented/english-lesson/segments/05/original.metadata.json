@@ -1,0 +1,38 @@
+{
+  "model_id": "kimodo",
+  "task_type": "instruction",
+  "backend": "nvidia_official_online_demo",
+  "endpoint": "https://nvidia-kimodo.hf.space/",
+  "space_repository": "nvidia/Kimodo",
+  "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+  "model_code_git_commit": null,
+  "protocol": "viser-v1.0.16",
+  "text_conditioned": true,
+  "audio_conditioned": false,
+  "trained_model_output": true,
+  "prompt": "Bring both open hands toward your chest in an upbeat encouraging gesture, then gently present your open palms toward the listener. Stand in place and keep facing forward.",
+  "seed": 4,
+  "fps": 30.0,
+  "duration_requested": 4.3666667666666665,
+  "frames_requested": 131,
+  "checkpoint": "Kimodo-SOMA-RP-v1",
+  "checkpoint_sha256": null,
+  "device": "remote: l40sx1 (provider-reported)",
+  "inference_time": 3.1371815949996744,
+  "time_to_first_result": 9.179187899999306,
+  "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+  "server_success_notification": {
+    "mode": "update",
+    "uuid": "ea6872b8-786e-4629-9514-7b833cae348c",
+    "props": {
+      "title": "Motion generation finished!",
+      "body": "Motions have been generated successfully for the given prompt.",
+      "loading": false,
+      "with_close_button": true,
+      "auto_close_seconds": 5.0,
+      "color": "green"
+    },
+    "type": "NotificationMessage"
+  },
+  "download_bytes": 850984
+}

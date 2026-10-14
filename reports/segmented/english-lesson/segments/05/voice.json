@@ -1,0 +1,40 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "generated_at_utc": "2026-10-14T12:02:40.455981+00:00",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "元気なときは、I'm happy! って言ってみてね。",
+  "sample_rate": 24000,
+  "max_audio_seconds": 10,
+  "duration_seconds": 4.35,
+  "audio_sha256": "e0f2cdad48991b20efd3215742297f176819b4a7337aad43999ca776eb0d5103",
+  "authorized_allowance_usd": 1,
+  "actual_charge_usd": null,
+  "response_id": "resp_EYrymILjJt2JkyVrdgjLJ",
+  "transcript": "元気なときは、I'm happy! って言ってみてね。",
+  "usage": {
+    "total_tokens": 235,
+    "input_tokens": 98,
+    "output_tokens": 137,
+    "input_token_details": {
+      "text_tokens": 98,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 50,
+      "audio_tokens": 87,
+      "reasoning_tokens": 18
+    }
+  },
+  "generation_wall_seconds": 5.14298993400007
+}

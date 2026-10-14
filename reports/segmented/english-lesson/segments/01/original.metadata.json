@@ -1,0 +1,38 @@
+{
+  "model_id": "kimodo",
+  "task_type": "instruction",
+  "backend": "nvidia_official_online_demo",
+  "endpoint": "https://nvidia-kimodo.hf.space/",
+  "space_repository": "nvidia/Kimodo",
+  "space_commit": "032e9f86e8ab21aca62e72564aac6dbbb20cfe5b",
+  "model_code_git_commit": null,
+  "protocol": "viser-v1.0.16",
+  "text_conditioned": true,
+  "audio_conditioned": false,
+  "trained_model_output": true,
+  "prompt": "Give a friendly greeting by raising your right hand to shoulder height and waving. Stand in place and keep facing forward.",
+  "seed": 0,
+  "fps": 30.0,
+  "duration_requested": 2.0000001,
+  "frames_requested": 60,
+  "checkpoint": "Kimodo-SOMA-RP-v1",
+  "checkpoint_sha256": null,
+  "device": "remote: l40sx1 (provider-reported)",
+  "inference_time": 5.578654787999767,
+  "time_to_first_result": 14.697724110000308,
+  "timing_note": "Generation wall time includes remote text encoding and network notification latency, not isolated GPU kernel time.",
+  "server_success_notification": {
+    "mode": "update",
+    "uuid": "65a5ca6f-7dc4-4a8f-aa31-0968036e72fc",
+    "props": {
+      "title": "Motion generation finished!",
+      "body": "Motions have been generated successfully for the given prompt.",
+      "loading": false,
+      "with_close_button": true,
+      "auto_close_seconds": 5.0,
+      "color": "green"
+    },
+    "type": "NotificationMessage"
+  },
+  "download_bytes": 390478
+}

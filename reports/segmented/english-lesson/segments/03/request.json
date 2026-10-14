@@ -1,0 +1,8 @@
+{
+  "id": "03",
+  "text": "まずは英語で挨拶してみよう。",
+  "motion_prompt": "Demonstrate a small friendly greeting by lifting your right hand and gently waving, then lower it. Stand in place and keep facing forward.",
+  "model": "kimodo",
+  "seed": 2,
+  "plan_sha256": "a5c85c86f03c5e3723e3e3c94abf0058fabd91876c5845f52c7f0049c718dd68"
+}

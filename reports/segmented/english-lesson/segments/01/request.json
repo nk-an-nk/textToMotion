@@ -1,0 +1,8 @@
+{
+  "id": "01",
+  "text": "こんにちは！",
+  "motion_prompt": "Give a friendly greeting by raising your right hand to shoulder height and waving. Stand in place and keep facing forward.",
+  "model": "kimodo",
+  "seed": 0,
+  "plan_sha256": "a5c85c86f03c5e3723e3e3c94abf0058fabd91876c5845f52c7f0049c718dd68"
+}

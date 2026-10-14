@@ -1,0 +1,8 @@
+{
+  "id": "05",
+  "text": "元気なときは、I'm happy! って言ってみてね。",
+  "motion_prompt": "Bring both open hands toward your chest in an upbeat encouraging gesture, then gently present your open palms toward the listener. Stand in place and keep facing forward.",
+  "model": "kimodo",
+  "seed": 4,
+  "plan_sha256": "a5c85c86f03c5e3723e3e3c94abf0058fabd91876c5845f52c7f0049c718dd68"
+}

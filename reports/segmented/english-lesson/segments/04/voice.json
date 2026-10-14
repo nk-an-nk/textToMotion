@@ -1,0 +1,39 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "generated_at_utc": "2026-10-14T12:02:20.018776+00:00",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "Hello! How are you today?",
+  "sample_rate": 24000,
+  "max_audio_seconds": 10,
+  "duration_seconds": 2.25,
+  "audio_sha256": "27f2a644ded249f066e09c7a53ccbf0ce55f7670b7aa857c26b766c3e70f3776",
+  "authorized_allowance_usd": 1,
+  "actual_charge_usd": null,
+  "response_id": "resp_EYrySXk45y0tEUNgtJvq7",
+  "transcript": "Hello! How are you today?",
+  "usage": {
+    "total_tokens": 151,
+    "input_tokens": 87,
+    "output_tokens": 64,
+    "input_token_details": {
+      "text_tokens": 87,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 19,
+      "audio_tokens": 45
+    }
+  },
+  "generation_wall_seconds": 5.372922196000218
+}
