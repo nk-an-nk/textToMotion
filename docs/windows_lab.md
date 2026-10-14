@@ -1,3 +1,4 @@
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
 # Windows研究室PCのセットアップ
 
 対象として申告された構成: Ryzen 7 5700X（8コア）、RTX 5070（VRAM 12GB）、RAM 32GB、SSD 1TB。Windowsの通常ユーザー用Python仮想環境に導入します。SSH・WSL2・Dockerは不要です。
