@@ -5,6 +5,7 @@ import json
 import math
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -113,12 +114,41 @@ def verify_completed(plan, manifest, root, *, model, fingerprint, seed):
     return manifest
 
 
-def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, data_dir=None, seed=0):
+def load_speech_source(filename, plan):
+    """Share the same real utterances for model comparison; verify before copying."""
+    filename = Path(filename).resolve(); manifest = json.loads(filename.read_text(encoding='utf-8'))
+    if manifest.get('status') != 'generated' or manifest.get('schema') != 'motion-lab/segmented-dialogue-v1':
+        raise ValueError('Speech source must be a completed segmented manifest.')
+    if len(manifest['segments']) != len(plan['segments']):
+        raise ValueError('Speech source has different speech units.')
+    result = {}
+    for expected, unit in zip(plan['segments'], manifest['segments']):
+        if any(unit[key] != expected[key] for key in ('id', 'text')):
+            raise ValueError('Speech source text or unit order differs from the plan.')
+        paths = {}
+        for key in ('audio', 'speech_metadata'):
+            path = (filename.parent/unit[key]).resolve()
+            if not path.is_relative_to(filename.parent):
+                raise ValueError('Speech source artifact escapes its manifest directory.')
+            paths[key] = path
+        speech = json.loads(paths['speech_metadata'].read_text(encoding='utf-8'))
+        if (digest(paths['audio']) != unit['audio_sha256'] or speech['audio_sha256'] != unit['audio_sha256']
+                or speech['requested_text'] != expected['text']
+                or comparable_text(speech['transcript']) != comparable_text(expected['text'])):
+            raise ValueError('Speech source hash or actual transcript differs from the plan.')
+        speech_info(paths['audio'])
+        result[unit['id']] = paths
+    return result, digest(filename)
+
+
+def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, data_dir=None, seed=0,
+                      ardy_backend='local', speech_source=None):
     plan = load_plan(config_path)
     if not math.isfinite(budget_usd) or budget_usd < 0:
         raise ValueError('API allowance must be finite and nonnegative.')
     root = Path(output_dir).resolve(); root.mkdir(parents=True, exist_ok=True)
     fingerprint = hashlib.sha256(json.dumps(plan, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+    source_units, source_fingerprint = load_speech_source(speech_source, plan) if speech_source else ({}, None)
     saved_plan = root/'plan.json'
     if saved_plan.exists() and json.loads(saved_plan.read_text(encoding='utf-8')) != plan:
         raise ValueError('Output contains a different plan. Choose a new output directory.')
@@ -127,16 +157,25 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
         previous = json.loads(previous_manifest.read_text(encoding='utf-8'))
         if previous['model'] != model:
             raise ValueError('Output belongs to a different motion model.')
+        if previous.get('speech_source_manifest_sha256') != source_fingerprint or previous.get('ardy_backend', 'local') != ardy_backend:
+            raise ValueError('Existing output used a different speech source or ARDY backend.')
         if previous.get('status') == 'generated':
             return verify_completed(plan, previous, root, model=model, fingerprint=fingerprint, seed=seed)
     write_json(saved_plan, plan)
     adapter = adapters(data_dir).get(model)
+    if ardy_backend not in ('local', 'community_demo') or (ardy_backend != 'local' and model != 'ardy'):
+        raise ValueError('The optional community backend is only available for ARDY.')
+    if model == 'ardy' and ardy_backend == 'community_demo':
+        from adapters.ardy_online import ArdyOnlineAdapter
+        adapter = ArdyOnlineAdapter(data_dir)
     if adapter is None:
         raise ValueError('Unknown motion model.')
     blockers = adapter.blockers()
     if blockers:
         raise RuntimeError(' / '.join(blockers))
-    pending_speech = sum(not (root/'segments'/unit['id']/'voice.json').exists() for unit in plan['segments'])
+    if hasattr(adapter, 'check_service'):
+        adapter.check_service()
+    pending_speech = 0 if source_units else sum(not (root/'segments'/unit['id']/'voice.json').exists() for unit in plan['segments'])
     if budget_usd < pending_speech:
         raise ValueError(f'Authorize at least {pending_speech} USD of session allowances for {pending_speech} new speech responses.')
     if model == 'kimodo' and adapter.config.get('backend') == 'official_demo':
@@ -149,10 +188,17 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
                 'plan_sha256': fingerprint, 'model': model, 'title': plan['title'], 'fps': plan['fps'],
                 'blend_ms': plan.get('blend_ms', 250), 'new_motion_inference': True, 'audio_conditioned_model': False,
                 'speech_and_gesture_start_policy': 'same_frame_per_segment', 'segments': []}
+    if model == 'ardy':
+        manifest['ardy_backend'] = ardy_backend
+    if source_units:
+        manifest['speech_source_manifest_sha256'] = source_fingerprint
+        manifest['speech_reused'] = True
     cursor = 0; began = time.monotonic()
     for index, unit in enumerate(plan['segments']):
         directory = root/'segments'/unit['id']; directory.mkdir(parents=True, exist_ok=True)
         request = {**unit, 'model': model, 'seed': seed+index, 'plan_sha256': fingerprint}
+        if source_units:
+            request['speech_source_manifest_sha256'] = source_fingerprint
         request_path = directory/'request.json'
         if request_path.exists() and json.loads(request_path.read_text(encoding='utf-8')) != request:
             raise ValueError('Existing segment request differs; use a new output directory.')
@@ -166,8 +212,12 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
         if not voice_metadata.exists():
             if voice.exists():
                 raise ValueError('Partial voice output exists without metadata; preserve it and select a new directory.')
-            subprocess.run([sys.executable, str(settings.ROOT/'scripts/generate_demo_speech.py'), '--text-file', str(text_path),
-                            '--output', str(voice), '--budget-usd', '1', '--max-audio-seconds', '10'], check=True)
+            if source_units:
+                shutil.copyfile(source_units[unit['id']]['audio'], voice)
+                shutil.copyfile(source_units[unit['id']]['speech_metadata'], voice_metadata)
+            else:
+                subprocess.run([sys.executable, str(settings.ROOT/'scripts/generate_demo_speech.py'), '--text-file', str(text_path),
+                                '--output', str(voice), '--budget-usd', '1', '--max-audio-seconds', '10'], check=True)
         speech = json.loads(voice_metadata.read_text(encoding='utf-8'))
         if speech['audio_sha256'] != digest(voice) or speech['requested_text'] != unit['text']:
             raise ValueError('Saved speech provenance does not match the segment.')
@@ -181,6 +231,8 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
         # The official demo enforces a two-second minimum. Preserve its native result
         # and explicitly retime only playback to the utterance length; never reuse a clip.
         native_duration = max(2, duration) if model == 'kimodo' and adapter.config.get('backend') == 'official_demo' else max(.5, duration)
+        if hasattr(adapter, 'native_duration'):
+            native_duration = adapter.native_duration(duration)
         motion = directory/'motion.json'; receipt_path = directory/'motion-generation.json'
         print(json.dumps({'segment': unit['id'], 'stage': 'new_gesture', 'duration_seconds': duration,
                           'motion_prompt': unit['motion_prompt']}, ensure_ascii=False), flush=True)
@@ -220,8 +272,10 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
                  'playback_speed': motion_duration/duration, 'playback_seconds': duration,
                  'speech_start_frame': cursor, 'gesture_start_frame': cursor, 'end_frame': cursor+frame_count,
                  'start_seconds': cursor/plan['fps'], 'end_seconds': (cursor+frame_count)/plan['fps'],
-                 'speech_generation_seconds': speech['generation_wall_seconds'], 'skeleton_seconds': receipt['skeleton_seconds'],
+                 'speech_generation_seconds': 0 if source_units else speech['generation_wall_seconds'], 'skeleton_seconds': receipt['skeleton_seconds'],
                  'new_gesture_generated': True, 'seed': seed+index}
+        if source_units:
+            entry.update(speech_reused=True, speech_original_generation_seconds=speech['generation_wall_seconds'])
         manifest['segments'].append(entry); cursor += frame_count
         manifest.update(frame_count=cursor, duration_seconds=cursor/plan['fps'], generation_wall_seconds=time.monotonic()-began)
         write_json(previous_manifest, manifest)

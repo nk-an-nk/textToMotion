@@ -82,6 +82,12 @@ def validate(manifest_path, movie, destination):
             downloaded = json.loads((root/unit['motion']).with_name('original.metadata.json').read_text(encoding='utf-8'))
             if downloaded['prompt'] != unit['motion_prompt'] or not downloaded.get('server_success_notification'):
                 raise ValueError('Official provider generation did not acknowledge this prompt.')
+        if native.get('backend') == 'community_online_demo':
+            downloaded = json.loads((root/unit['motion']).with_name('original.metadata.json').read_text(encoding='utf-8'))
+            evidence = downloaded.get('provider_result', {})
+            if (downloaded.get('prompt') != unit['motion_prompt'] or evidence.get('prompt') != unit['motion_prompt']
+                    or evidence.get('seed') != unit['seed'] or digest((root/unit['motion']).with_name('original.npz')) != downloaded['download_sha256']):
+                raise ValueError('Community provider result does not match this prompt or original download.')
         motion_hashes.add(unit['motion_sha256'])
         source = pcm(root/unit['audio']); start_sample = cursor*800; end_sample = unit['end_frame']*800
         if not np.array_equal(timeline[start_sample:start_sample+len(source)], source) or np.any(timeline[start_sample+len(source):end_sample]):

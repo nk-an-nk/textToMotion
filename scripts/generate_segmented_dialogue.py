@@ -17,9 +17,11 @@ def main():
     parser.add_argument('--budget-usd', type=float, default=0)
     parser.add_argument('--data-dir', type=Path)
     parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--ardy-backend', choices=('local', 'community_demo'), default='local')
+    parser.add_argument('--speech-source', type=Path, help='Reuse verified utterances from an existing segmented manifest.')
     args = parser.parse_args()
     result = generate_segments(args.config, args.output_dir, model=args.model, budget_usd=args.budget_usd,
-                               data_dir=args.data_dir, seed=args.seed)
+                               data_dir=args.data_dir, seed=args.seed, ardy_backend=args.ardy_backend, speech_source=args.speech_source)
     print(json.dumps({'manifest': str(args.output_dir/'manifest.json'), 'segments': len(result['segments']),
                       'duration_seconds': result['duration_seconds'], 'new_motion_inference': True}, ensure_ascii=False))
 

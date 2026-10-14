@@ -6,7 +6,7 @@ import wave
 
 import pytest
 
-from app.segmented_dialogue import assemble_audio, comparable_text, generate_segments, load_plan, speech_info, split_units
+from app.segmented_dialogue import assemble_audio, comparable_text, digest, generate_segments, load_plan, load_speech_source, speech_info, split_units
 
 
 def wav(path, values, rate=24000):
@@ -68,3 +68,29 @@ def test_transcript_normalization_does_not_accept_rewording_or_translation():
     assert comparable_text("I'm happy!")==comparable_text('I’m happy.')
     assert comparable_text('こんにちは！')!=comparable_text('こんばんは！')
     assert comparable_text('Hello! How are you today?')!=comparable_text('こんにちは！今日の調子はいかが？')
+
+
+def test_shared_voices_require_the_same_text_order_and_pcm_hash(tmp_path):
+    # Test-only local PCM and metadata, not a Realtime API success claim.
+    voice=tmp_path/'voice.wav'; wav(voice,[1000]*2400)
+    speech=tmp_path/'voice.json'
+    speech.write_text(json.dumps({'audio_sha256':digest(voice),'requested_text':'Hello!','transcript':'Hello!'}))
+    source={'schema':'motion-lab/segmented-dialogue-v1','status':'generated','segments':[
+        {'id':'01','text':'Hello!','audio':'voice.wav','speech_metadata':'voice.json','audio_sha256':digest(voice)}]}
+    file=tmp_path/'manifest.json'; file.write_text(json.dumps(source))
+    plan={'segments':[{'id':'01','text':'Hello!','motion_prompt':'Wave'}]}
+    paths,fingerprint=load_speech_source(file,plan)
+    assert paths['01']['audio']==voice and fingerprint==digest(file)
+    with pytest.raises(ValueError,match='order'):
+        load_speech_source(file,{'segments':[{'id':'01','text':'Goodbye!'}]})
+    wav(voice,[2000]*2400)
+    with pytest.raises(ValueError,match='hash'):
+        load_speech_source(file,plan)
+
+
+def test_shared_voice_paths_cannot_escape_source_manifest(tmp_path):
+    source={'schema':'motion-lab/segmented-dialogue-v1','status':'generated','segments':[
+        {'id':'01','text':'Hello!','audio':'../outside.wav','speech_metadata':'voice.json'}]}
+    file=tmp_path/'manifest.json'; file.write_text(json.dumps(source))
+    with pytest.raises(ValueError,match='escapes'):
+        load_speech_source(file,{'segments':[{'id':'01','text':'Hello!'}]})

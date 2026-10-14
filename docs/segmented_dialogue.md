@@ -44,7 +44,7 @@ node scripts\export_segmented_dialogue.cjs --manifest .motion-lab\segmented\run-
 
 生成が途中で失敗した場合は、同じ設定と出力先で再実行すると、入力とハッシュが一致した成功済みの音声・動作を使って残りを進めます。不完全な音声や出典記録のない骨格は上書きせず停止します。動画が途中まで書き出された場合は、その動画を別名で保存してから書き出しを再開してください。従来の重み・結果は保持します。
 
-`--model ardy`、`--model text_to_vrma` も選択できます。text-to-vrmaは既存のARDYエンジン設定を使います。ただし、今回のクラウドではそのテキスト条件付き推論の前提が不足しており、この5区間を実生成したのは **Kimodoのみ**です。モデルの準備が不足すると音声API呼び出し前に停止します。研究室GPU側の準備は [Windows手順](windows_lab.md) を参照してください。
+`--model ardy`、`--model text_to_vrma` も選択できます。text-to-vrmaは既存のARDYエンジン設定を使います。ただし、今回のクラウドではそのローカルのテキスト条件付き推論の前提が不足しており、収録済みの5区間を実生成したのは **Kimodoのみ**です。[ARDYの公開サービスを使う別経路](ardy_segmented.md) と、同じ音声を使う比較用の `--speech-source` も追加しました。モデルの準備が不足すると音声API呼び出し前に停止します。研究室GPU側の準備は [Windows手順](windows_lab.md) を参照してください。
 
 ## 出力と時間
 
