@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motion Lab · 音声対話とVRM</title><link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/conversation.css">
+<script type="importmap">{"imports":{"three":"/vendor/three/build/three.module.js","three/addons/":"/vendor/three/examples/jsm/","@pixiv/three-vrm":"/vendor/three-vrm/three-vrm.module.js","@pixiv/three-vrm-animation":"/vendor/three-vrm-animation/three-vrm-animation.module.js"}}</script></head>
+<body><header><div class="brand"><span class="brand-mark">M</span><div>Motion Lab<small>VOICE · GESTURE · AVATAR</small></div></div><span id="connection-status" role="status">準備中</span></header>
+<nav class="app-nav"><a href="/">モーション研究</a><a href="/conversation" aria-current="page">音声対話・VRM</a></nav>
+<main class="dialogue-grid">
+<aside><div class="section-label">CONVERSATION</div><h1>声と、動きで話す。</h1>
+<label for="engine-mode">会話エンジン</label><select id="engine-mode"><option value="live">Realtime API（日本語音声）</option><option value="offline">オフライン検証（AI推論なし）</option></select>
+<div class="button-row"><button id="connect">有料APIに接続</button><button id="disconnect">切断</button></div>
+<p id="config-note" class="hint"></p>
+<label for="speech-mode">生成方式</label><select id="speech-mode"><option value="voice">Voice-first</option><option value="text">Text-first（実験）</option></select>
+<label for="utterance">話しかける</label><textarea id="utterance" rows="3" maxlength="4000" placeholder="今日はとても嬉しいことがありました">こんにちは</textarea>
+<div class="button-row"><button id="send" class="send-primary">送信</button><button id="microphone">マイク開始</button><button id="interrupt">割り込み・停止</button></div>
+<div class="examples"><button data-chat-example="こんにちは">こんにちは</button><button data-chat-example="今日は嬉しいことがありました">嬉しい出来事</button><button data-chat-example="右手を挙げて、手を振ってください">右手を振る</button><button data-chat-example="自己紹介して、最後にお辞儀してください">紹介とお辞儀</button></div>
+<label for="motion-model">ジェスチャー生成モデル</label><select id="motion-model"><option value="ardy">ARDY</option><option value="kimodo">Kimodo</option><option value="text_to_vrma">text-to-vrma（ARDY）</option></select>
+<label><input id="allow-external" type="checkbox"> NVIDIA公式デモへの動作指示送信を許可</label>
+<details><summary>実験・同期設定</summary>
+<label for="experiment-mode">比較条件</label><select id="experiment-mode"><option value="D">D：発話と並列・期限を守る（標準）</option><option value="A">A：デフォルト動作のみ</option><option value="B">B：生成完了まで発話を待つ</option><option value="C">C：発話と並列・完成次第切り替え</option></select>
+<label><input id="default-gestures" type="checkbox" checked> デフォルト動作・まばたき</label>
+<label for="gesture-deadline">音声開始からの適用期限（ms）</label><input id="gesture-deadline" type="number" value="3000" min="0" max="30000">
+<label for="blend-duration">切り替え時間（ms）</label><input id="blend-duration" type="number" value="300" min="50" max="2000">
+<label for="motion-override">英語の動作指示（任意）</label><textarea id="motion-override" rows="2" maxlength="4000" placeholder="左右・順序・方向・秒数を保持してください"></textarea>
+<label for="delivery-delay">検証用の結果配信遅延</label><select id="delivery-delay"><option value="0">0秒</option><option value="1000">1秒</option><option value="3000">3秒</option><option value="10000">10秒</option></select>
+<p class="hint">遅延は結果配信だけに適用します。モデルの部分生成ではありません。Bの待機は30秒で打ち切ります。</p></details>
+<details id="offline-settings" hidden><summary>オフライン検証の入力</summary><p class="hint">返答は定型文、音声は検証音です。Realtime・Text-to-Motionの実生成成功として記録しません。</p>
+<label for="offline-motion">保存済みモーションJSON（任意）</label><input id="offline-motion" type="file" accept=".json">
+<label for="offline-voice">保存済み発話WAV（任意・外部送信なし）</label><input id="offline-voice" type="file" accept=".wav">
+</details>
+<p class="hint">マイク音声はRealtime接続中にOpenAIへ送信されます。音声録音は保存しません。動作指示・生成結果は既存の実験フォルダーに保存します。</p>
+<div id="dialogue-message" role="alert" hidden></div>
+</aside>
+<section class="dialogue-stage"><div class="section-label">VRM AVATAR</div>
+<div class="avatar-tools"><label for="avatar-file">無料VRM 1.0を読み込む</label><input id="avatar-file" type="file" accept=".vrm"><select id="avatar-display" aria-label="表示方式"><option value="vrm">VRM</option><option value="skeleton">スケルトン</option></select><button id="camera-reset">視点を戻す</button></div>
+<p class="hint"><a href="https://hub.vroid.com/characters/2843975675147313744/models/5644550979324015604" target="_blank" rel="noopener">無料のAvatarSampleを取得 ↗</a> · <a href="https://vroid.pixiv.help/hc/ja/articles/4402394424089-AvatarSample-A-Z" target="_blank" rel="noopener">利用条件</a> · モデルはブラウザ内で読み込みます。</p>
+<div id="avatar-meta" class="hint">モデルファイルはGitにもサーバーにも保存しません。</div>
+<div id="viewport"><div class="scene-badge" id="gesture-state">IDLE</div><div id="empty-scene"><h3>VRMを選択してください</h3><p>読み込み後、待機・発話・動作の切り替えを確認できます。</p></div><div class="viewport-hint">ドラッグで回転 · ホイールでズーム</div></div>
+<div class="dialogue-transport"><output id="speech-time">音声待機</output><input id="dialogue-timeline" type="range" min="0" max="30" step=".01" value="0" aria-label="音声再生タイムライン" disabled><audio id="reply-audio" controls></audio></div>
+<p id="provenance" class="hint">音声時計とローカル信号検出を使用。スピーカー出力の遅延・正確な単語時刻は未測定です。</p>
+<div id="chat-history" aria-live="polite"></div></section>
+<section class="dialogue-research"><details open><summary>研究・デバッグ</summary>
+<div class="section-label">RESEARCH</div><label for="reply-transcript">AI応答・書き起こし</label><textarea id="reply-transcript" rows="5" readonly></textarea>
+<label for="planner-output">ジェスチャー計画</label><pre id="planner-output">動作不要の場合はデフォルト動作を続けます。</pre>
+<label for="motion-status">生成状態</label><pre id="motion-status">未要求</pre>
+<label for="event-log">Realtime・制御イベント</label><pre id="event-log"></pre>
+<button id="export-events">計測CSVを取得</button><button id="save-events">研究記録をこのサーバーに保存</button><p class="hint">保存ボタンを押した場合のみ、時計の領域・推定フラグ付きイベントをローカル保存します。音声は含みません。</p>
+</details></section></main><script type="module" src="/static/conversation.js"></script></body></html>

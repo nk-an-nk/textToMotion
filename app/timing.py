@@ -25,9 +25,9 @@ def summary_row(record,video=''):
             'error':record.get('error') or record.get('render_error') or ''}
 
 
-def csv_bytes(rows):
+def csv_bytes(rows, fields=None):
     output=io.StringIO(newline='')
-    writer=csv.DictWriter(output,fieldnames=FIELDS)
+    writer=csv.DictWriter(output,fieldnames=fields or FIELDS)
     writer.writeheader()
     for row in rows:
         # Excel should display user-supplied text rather than execute it as a formula.

@@ -17,3 +17,5 @@ outputs/*
 .pytest_cache/
 test-results/
 playwright-report/
+# Private validation image of a separately licensed avatar; not redistributed.
+reports/conversation-vrm-screenshot.png

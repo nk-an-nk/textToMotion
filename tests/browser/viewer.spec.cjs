@@ -70,7 +70,9 @@ test('motion import retains source label and comparison draws multiple selected 
   const motion=await (await request.get(`/api/experiments/${sample.id}/files/motion.json`)).json();
   await page.goto('/');await page.locator('#motion-file').setInputFiles({name:'imported.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(motion))});
   await expect(page.locator('#results')).toContainText('取り込みデータ');
-  await page.locator('#results input[type=checkbox]').last().check();
+  // Select this test's known source instead of assuming the last row is playable.
+  const sourceRow=page.locator('#results tr').filter({has:page.locator('code').filter({hasText:sample.id.slice(0,8)})});
+  await sourceRow.locator('input[type=checkbox]').check();
   await expect(page.locator('#legend .legend-item')).toHaveCount(2);
   await page.setViewportSize({width:390,height:844});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);

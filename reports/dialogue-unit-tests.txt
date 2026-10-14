@@ -1,0 +1,28 @@
+
+> motion-lab-viewer@0.1.0 test:unit
+> node --test tests/unit/*.test.mjs
+
+✔ recorded output can replay complete tracks; unimplemented Kebbi refuses commands (2.30083ms)
+✔ D delivery delay 0 ms preserves speech and discards late results (3.114214ms)
+✔ D delivery delay 1000 ms preserves speech and discards late results (2.064915ms)
+✔ D delivery delay 3000 ms preserves speech and discards late results (0.427268ms)
+✔ D delivery delay 10000 ms preserves speech and discards late results (0.434495ms)
+✔ no generated motion before observed audio, earliest window honored and blend completes (0.916293ms)
+✔ interrupt and next turn invalidate old completed requests (0.251108ms)
+✔ speech end cancels staged gestures and returns to idle (0.133231ms)
+✔ model failure leaves speech running and uses default (0.167319ms)
+✔ experiment A skips generation, B stages until audio, C ignores deadline while speech continues (0.282609ms)
+✔ audio buffer event and transcript arrival do not establish playback; silence drains on audio clock (0.362792ms)
+✔ response.done ends generation while playback remains armed; WebRTC interrupt clears unplayed audio (5.151308ms)
+✔ conversation correlates transcript item/content and rejects old response or wrong turn (5.576739ms)
+✔ research keeps unknown times null and does not combine clock domains (0.389885ms)
+✔ text-first generated gestures wait for transcript verification and discard mismatches (4.3436ms)
+✔ disconnect while microphone permission is pending stops late tracks and does not attach them (0.329028ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 295.905704

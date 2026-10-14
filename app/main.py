@@ -1,4 +1,6 @@
 import json
+import hmac
+import os
 import re
 import tempfile
 import uuid
@@ -18,6 +20,7 @@ from app.motion import MotionError, read_motion, viewer_fixture, save_motion
 from adapters.base import MotionInput, UnavailableError
 from adapters.registry import adapters, catalog
 from app.timing import csv_bytes,summary_row
+from app.dialogue_api import mount_dialogue
 
 MAX_UPLOAD = 32 * 1024 * 1024
 
@@ -61,7 +64,7 @@ class DiagnosticRequest(BaseModel):
     seed:int=Field(default=0,ge=0,le=4294967295)
 
 
-def create_app(*, data_dir=None, output_dir=None, model_adapters=None):
+def create_app(*, data_dir=None, output_dir=None, model_adapters=None, realtime_service=None):
     data_dir = Path(data_dir or settings.DATA)
     output_dir = Path(output_dir or settings.OUTPUTS)
     uploads = data_dir / 'uploads'
@@ -75,12 +78,32 @@ def create_app(*, data_dir=None, output_dir=None, model_adapters=None):
         store.close()
 
     app = FastAPI(title='Motion Lab',version='0.1.0',lifespan=lifespan)
+    service_token=os.environ.get('MOTION_SERVICE_ACCESS_TOKEN','')
+    if service_token:
+        @app.middleware('http')
+        async def protect_gpu_service(request,call_next):
+            if request.url.path.startswith('/api/') and request.url.path!='/api/health':
+                supplied=request.headers.get('authorization','').encode('utf-8')
+                expected=('Bearer '+service_token).encode('utf-8')
+                if not hmac.compare_digest(supplied,expected):
+                    return Response('Motion service authentication required.',status_code=401)
+            return await call_next(request)
     app.state.store = store
     app.mount('/static',StaticFiles(directory=settings.UI),name='ui')
     # Vendor Three.js locally. A network/CDN outage does not break playback.
     vendor = settings.ROOT / 'node_modules/three'
     if vendor.is_dir():
         app.mount('/vendor/three',StaticFiles(directory=vendor),name='three')
+    for package in ('three-vrm', 'three-vrm-animation'):
+        directory = settings.ROOT / 'node_modules/@pixiv' / package / 'lib'
+        if directory.is_dir():
+            app.mount('/vendor/'+package, StaticFiles(directory=directory), name=package)
+
+    mount_dialogue(app, store, instances, data_dir, realtime_service)
+
+    @app.get('/conversation')
+    def conversation():
+        return FileResponse(settings.UI / 'conversation.html')
 
     @app.get('/')
     def index():

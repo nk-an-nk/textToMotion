@@ -4,10 +4,12 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Motion Lab · 3Dモーション研究</title>
   <link rel="stylesheet" href="/static/style.css">
-  <script type="importmap">{"imports":{"three":"/vendor/three/build/three.module.js","three/addons/":"/vendor/three/examples/jsm/"}}</script>
+  <link rel="stylesheet" href="/static/conversation.css">
+  <script type="importmap">{"imports":{"three":"/vendor/three/build/three.module.js","three/addons/":"/vendor/three/examples/jsm/","@pixiv/three-vrm":"/vendor/three-vrm/three-vrm.module.js","@pixiv/three-vrm-animation":"/vendor/three-vrm-animation/three-vrm-animation.module.js"}}</script>
 </head>
 <body>
   <header><div class="brand"><span class="brand-mark">M</span><div>Motion Lab<small>TEXT · SPEECH · MOVEMENT</small></div></div><div class="header-note"><span id="connection" class="status-dot"></span><span id="readiness">接続中</span></div></header>
+  <nav class="app-nav"><a href="/">モーション研究</a><a href="/conversation">音声対話・VRM</a></nav>
   <main>
     <aside>
       <div class="section-label">01 / INPUT</div><h1>ことばから、動きへ。</h1><p class="intro">公開モデルの動作を生成・再生・比較する研究ワークスペース。</p>
@@ -31,6 +33,7 @@
       <div class="import-section"><div class="section-label">EXISTING MOTION</div><label for="motion-file">モーションを取り込む</label><input id="motion-file" type="file" accept=".json,.npz,.bvh"><div class="parameters"><div><label for="source-up">元データの上方向</label><select id="source-up"><option>Y</option><option>Z</option></select></div><div><label for="source-unit">元データの単位</label><select id="source-unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select></div></div><p class="hint">BVH / 関節定義付き NPZ / Motion Lab JSON。SMPL-X パラメーターは許諾済みモデルで変換が必要です。</p><button id="fixture" class="secondary">ビューアー検証用サンプルを表示</button><p class="hint">人工アニメーションです。モデルの生成結果ではありません。</p></div>
     </aside>
     <section class="workspace">
+      <div class="avatar-tools"><label for="vrm-file">VRM 1.0を読み込む（ブラウザ内のみ）</label><input id="vrm-file" type="file" accept=".vrm"><label><input id="vrm-visible" type="checkbox"> VRM表示</label><label for="vrma-file">VRMAを連続再生</label><input id="vrma-file" type="file" accept=".vrma" multiple><span id="vrm-info" class="hint">利用条件を確認したモデルを選択してください。</span></div>
       <div class="workspace-heading"><div><div class="section-label">02 / SIMULATION</div><h2>3Dモーションビューアー</h2></div><div class="viewer-options"><label><input type="checkbox" id="avatar"> 簡易アバター</label><button id="reset-camera" title="カメラをリセット">視点を戻す</button></div></div>
       <div id="viewport"><div class="scene-badge">Y-UP · METRES · ORIGINAL ROOT</div><div id="empty-scene"><div class="empty-symbol">⌁</div><h3>動きを、ここで確かめる。</h3><p>生成結果や保存済みモーションを読み込むと<br>3Dで再生・比較できます。</p></div><div id="legend"></div><div class="viewport-hint">ドラッグで回転 · ホイールで拡大縮小 · 右ドラッグで移動</div></div>
       <div class="transport"><div class="transport-buttons"><button id="play" aria-label="再生">▶ 再生</button><button id="pause" aria-label="一時停止">Ⅱ</button><button id="stop" aria-label="停止">■</button></div><output id="time">0.00 / 0.00 s</output><label for="speed">速度</label><select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><input id="timeline" type="range" min="0" max="0" step="0.01" value="0" aria-label="タイムライン"></div>

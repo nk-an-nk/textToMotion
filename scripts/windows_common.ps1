@@ -56,7 +56,7 @@ function Get-LabPrerequisites {
 }
 
 function Install-LabPrerequisites {
-    param($Checks)
+    param($Checks, [switch]$ApplicationOnly)
     if (-not (Get-Command winget.exe -ErrorAction SilentlyContinue)) {
         throw 'winget is unavailable. See docs/windows_lab.md for manual prerequisite installation.'
     }
@@ -70,7 +70,7 @@ function Install-LabPrerequisites {
         & winget.exe install --id $Package --exact --source winget
         if ($LASTEXITCODE -ne 0) { throw "winget failed for $Package. Restart PowerShell after resolving the installer." }
     }
-    if (-not $Checks.VisualStudio2022Cpp) {
+    if (-not $ApplicationOnly -and -not $Checks.VisualStudio2022Cpp) {
         Write-Host 'Installing Visual Studio 2022 C++ Build Tools. Windows may request administrator approval.'
         & winget.exe install --id Microsoft.VisualStudio.2022.BuildTools --exact --source winget `
             --override '--wait --passive --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended'

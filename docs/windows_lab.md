@@ -3,6 +3,8 @@ powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1
 
 対象として申告された構成: Ryzen 7 5700X（8コア）、RTX 5070（VRAM 12GB）、RAM 32GB、SSD 1TB。Windowsの通常ユーザー用Python仮想環境に導入します。SSH・WSL2・Dockerは不要です。
 
+日本語音声対話・VRMを使う場合は [対話用の追加手順](conversation_vrm.md) を参照してください。`setup-conversation.ps1` はGPU・モデル準備前でもアプリだけを導入できます。モデル準備後は同じデータフォルダーを `start-conversation.ps1` で使用します。
+
 **Windows実機とRTX 5070でのビルド・実推論は未検証です。** スクリプトは研究室PCで実際のCUDA演算・モデル推論・NPZ/JSON・MP4生成を検査し、その成功後だけ準備完了を記録します。既存のKimodo公式オンライン／ARDY CPU診断の実測時間は、この構成の速度を示しません。
 
 ## 初回の操作

@@ -2,10 +2,21 @@
 
 公開モデルの3D人体動作を生成し、ブラウザで再生・比較・保存する Python 研究アプリです。
 
+**日本語音声対話・VRM画面を追加しました。** Realtime GAのWebRTC接続、音声書き起こし、非同期ジェスチャー生成、VRM/VRMA再生、期限・割り込み制御、計測CSVを実装しています。実API＋新規GPU推論のE2Eは、APIキーとGPUがないため未実施です。[導入手順](docs/conversation_vrm.md)・[検証結果](reports/dialogue_validation.md)・[状態／シーケンス図](docs/dialogue_architecture.md)を参照してください。
+
+Windowsで対話アプリのみを準備して、オフライン検証を起動する場合:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\setup-conversation.ps1 -InstallPrerequisites
+powershell -NoProfile -ExecutionPolicy Bypass -File .\start-conversation.ps1
+```
+
+研究室PCのブラウザで `http://127.0.0.1:8765/conversation` を開き、利用条件を確認した無料VRM 1.0を選択してください。実Realtimeを使うときは起動に `-EnableRealtime -BudgetUsd 3` を追加し、OpenAI APIキーを非表示入力します。Codexへのログインとは別のAPI認証・課金です。GPUモデルの導入は既存のWindowsセットアップを使用します。
+
 - **Kimodo**: NVIDIA 公式オンラインデモで動作指示 → 実推論成功。異なる2入力、元 NPZ、SOMA77 関節、共通3D表示を確認。
 - **ARDY**: 公開重みを SHA-256 照合し CPU で実推論成功。ただし **無条件診断のみ**。テキストや音声への対応成功ではありません。
 - **text-to-vrma（ARDY）**: 公式ARDYエンジンとVRMA出力を比較経路に追加。同じARDY重み・CPUテキスト処理を共有。研究室GPUでの実生成は未検証です。
-- **会話／音声条件付きジェスチャー**: 未成立。CUDA GPU・許諾済み SMPL-X 等が不足しています。未実装モデルを動作済みと表示しません。
+- **専用の会話／音声条件付きモデル**: 未成立。CUDA GPU・許諾済み SMPL-X 等が不足しています。今回の対話画面は発話内容を英語の動作指示へ変換する経路で、音声条件付き学習モデルの推論成功ではありません。
 
 [モデル互換性](reports/model_compatibility.md)、[実行結果と未達条件](reports/execution_results.md)、[環境調査](docs/environment.md)、[ライセンス](reports/licenses.md) を参照してください。
 

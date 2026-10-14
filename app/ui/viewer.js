@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {VRMAvatarMotionSink} from './motion-sink.js';
 
 const COLORS = [0x138b7a,0xe68554,0x5578b5,0xa26ca9,0xa8a033,0x916e56,0x447e9d,0xb3586b,0x527e42];
 
@@ -7,9 +8,11 @@ export class MotionViewer {
   constructor(container) {
     this.container=container; this.actors=[]; this.avatar=false;
     this.scene=new THREE.Scene(); this.scene.background=new THREE.Color(0xedf1ed);
+    this.vrmSink=new VRMAvatarMotionSink(this.scene);this.lastDraw=performance.now();
     this.camera=new THREE.PerspectiveCamera(38,1,.01,200);
     this.camera.position.set(3.5,2.3,5.2);
     this.renderer=new THREE.WebGLRenderer({antialias:true});
+    this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=.9;
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
     container.appendChild(this.renderer.domElement);
     this.controls=new OrbitControls(this.camera,this.renderer.domElement);
@@ -37,15 +40,22 @@ export class MotionViewer {
       this.actors.push({group,skeleton,avatar,edges,lines,joints,bones,data,record,color});
     });
     this.setAvatar(this.avatar);this.draw(0);this.resetCamera();
+    if(this.vrmVisible)for(const actor of this.actors)actor.group.visible=false;
+    if(this.vrmSink.vrm&&motions[0])this.vrmSink.play(this.vrmSink.prepareMotion(motions[0].data),{offline:true});
   }
   setAvatar(value){this.avatar=value;for(const actor of this.actors){actor.skeleton.visible=!value;actor.avatar.visible=value;}}
+  setVRMVisible(value){this.vrmVisible=value;if(this.vrmSink.vrm)this.vrmSink.vrm.scene.visible=value;for(const actor of this.actors)actor.group.visible=!value;}
   resetCamera(){
     if(this.actors.length){const bounds=new THREE.Box3();for(const actor of this.actors){for(const pos of actor.data.positions[0])bounds.expandByPoint(new THREE.Vector3(...pos).add(actor.group.position));}
       const target=bounds.getCenter(new THREE.Vector3());const size=bounds.getSize(new THREE.Vector3());const distance=Math.max(size.x,size.y,size.z,1.7)*2.15;
       this.controls.target.copy(target);this.camera.position.copy(target).add(new THREE.Vector3(distance*.7,distance*.3,distance));
+    }else if(this.vrmSink.vrm){const bounds=new THREE.Box3().setFromObject(this.vrmSink.vrm.scene);const target=bounds.getCenter(new THREE.Vector3());const height=bounds.getSize(new THREE.Vector3()).y;
+      this.controls.target.copy(target);this.camera.position.copy(target).add(new THREE.Vector3(.4,.1,1).multiplyScalar(Math.max(height,1)*1.65));
     }else{this.camera.position.set(3.5,2.3,5.2);this.controls.target.set(0,1,0);}this.controls.update();
   }
   draw(time){
+    const now=performance.now(),delta=Math.min(.1,(now-this.lastDraw)/1000);this.lastDraw=now;
+    if(!this.vrmSink.manual)this.vrmSink.tick(delta,{offlineTime:time});
     for(const actor of this.actors){
       const frame=actor.data.positions[Math.min(actor.data.positions.length-1,Math.floor(time*actor.data.fps))];
       actor.joints.forEach((joint,index)=>joint.position.fromArray(frame[index]));

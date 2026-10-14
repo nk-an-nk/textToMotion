@@ -128,6 +128,26 @@ $('pause').addEventListener('click',pause);$('stop').addEventListener('click',()
 $('timeline').addEventListener('input',event=>seek(Number(event.target.value)));
 $('speed').addEventListener('change',event=>{state.speed=Number(event.target.value);$('audio').playbackRate=state.speed;});
 $('avatar').addEventListener('change',event=>viewer?.setAvatar(event.target.checked));$('reset-camera').addEventListener('click',()=>viewer?.resetCamera());$('refresh').addEventListener('click',()=>refresh().catch(error=>message(error.message)));
+$('vrm-file').addEventListener('change',async event=>{
+  try {
+    const file=event.target.files[0];if(!file)return;
+    const meta=await viewer.vrmSink.loadAvatar(await file.arrayBuffer());
+    $('vrm-info').textContent=`${meta.name} / ${meta.authors?.join(', ')} / 再配布: ${meta.allowRedistribution?'可':'不可'}`;
+    $('vrm-visible').checked=true;viewer.setVRMVisible(true);viewer.resetCamera();document.querySelector('.scene-badge').textContent='Y-UP · SIZE NORMALIZED · RELATIVE ROOT';
+    $('empty-scene').hidden=true;
+    if(state.motions[0])viewer.vrmSink.play(viewer.vrmSink.prepareMotion(state.motions[0].data),{offline:true});
+  } catch(error){message(error.message);}
+});
+$('vrm-visible').addEventListener('change',event=>{
+  viewer.setVRMVisible(event.target.checked);
+  document.querySelector('.scene-badge').textContent=event.target.checked?'Y-UP · SIZE NORMALIZED · RELATIVE ROOT':'Y-UP · METRES · ORIGINAL ROOT';
+});
+$('vrma-file').addEventListener('change',async event=>{
+  try {const files=[...event.target.files];if(!files.length)return;pause();const clips=[];
+    for(const file of files)clips.push(await viewer.vrmSink.prepareVRMA(await file.arrayBuffer()));
+    state.duration=viewer.vrmSink.playSequence(clips);$('timeline').max=state.duration;seek(0);$('empty-scene').hidden=true;
+  }catch(error){message(error.message);}
+});
 $('audio').addEventListener('play',()=>{state.playing=true;});$('audio').addEventListener('pause',()=>{state.playing=false;});$('audio').addEventListener('seeked',()=>{state.time=Math.min($('audio').currentTime,state.duration);});$('audio').addEventListener('ended',pause);
 let previous=performance.now();
 function tick(now){const delta=(now-previous)/1000;previous=now;
@@ -135,4 +155,4 @@ function tick(now){const delta=(now-previous)/1000;previous=now;
 }
 requestAnimationFrame(tick);
 setInterval(async()=>{if(state.pending.size){try{await refresh();}catch(error){message(error.message);}}},1200);
-try{const [health,models,items]=await Promise.all([api('/api/health'),api('/api/models'),api('/api/examples/ardy-utterances')]);for(const item of items)utterances[item.id]=item;state.models=models;populateModels();$('readiness').textContent=`アプリ起動済み · 構成済み ${health.ready_models} モデル`;await refresh();}catch(error){$('readiness').textContent='接続エラー';message(error.message);}
+try{const [health,models,items]=await Promise.all([api('/api/health'),api('/api/models'),api('/api/examples/ardy-utterances')]);for(const item of items)utterances[item.id]=item;state.models=models;populateModels();await refresh();$('readiness').textContent=`アプリ起動済み · 構成済み ${health.ready_models} モデル`;}catch(error){$('readiness').textContent='接続エラー';message(error.message);}

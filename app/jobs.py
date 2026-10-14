@@ -19,7 +19,7 @@ def now():
 
 def write_json(path, content):
     temporary = Path(path).with_suffix('.tmp')
-    temporary.write_text(json.dumps(content, ensure_ascii=False, allow_nan=False, indent=2))
+    temporary.write_text(json.dumps(content, ensure_ascii=False, allow_nan=False, indent=2), encoding='utf-8')
     temporary.replace(path)
 
 
@@ -39,6 +39,7 @@ class JobStore:
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix='model-inference')
         self.lock = threading.RLock()
         self.render_lock = threading.Lock()
+        self.futures = {}
         for path in self.output_dir.glob('*/experiment.json'):
             data = json.loads(path.read_text())
             if data.get('status') in ('queued','running'):
@@ -57,8 +58,22 @@ class JobStore:
                       'duration_requested':request.duration, 'seed':request.seed, 'input_audio': 'input.wav' if request.audio_path else None,
                       'metadata':details, 'artifacts':{}}
         write_json(directory / 'experiment.json',experiment)
-        self.executor.submit(self.generate, identifier, request)
+        with self.lock:
+            self.futures[identifier] = self.executor.submit(self.generate, identifier, request)
         return experiment
+
+    def cancel(self, identifier):
+        """Cancel queued work; invalidate running results without killing shared model resources."""
+        with self.lock:
+            record = self.get(identifier)
+            if record['status'] == 'failed':
+                return record
+            future = self.futures.get(identifier)
+            prevented = bool(future and future.cancel())
+            return self.update(identifier, status='cancelled', cancelled_at=now(),
+                               cancellation={'queued_work_prevented': prevented,
+                                             'running_inference_terminated': False,
+                                             'result_invalidated': True})
 
     def get(self, identifier):
         if not isinstance(identifier,str) or len(identifier) != 32 or any(c not in '0123456789abcdef' for c in identifier):
@@ -80,7 +95,10 @@ class JobStore:
     def generate(self, identifier, request):
         directory = self.output_dir / identifier
         started = time.monotonic()
-        self.update(identifier,status='running',started_at=now())
+        with self.lock:
+            if self.get(identifier)['status'] == 'cancelled':
+                return
+            self.update(identifier,status='running',started_at=now(),server_started_monotonic_ms=started*1000)
         try:
             result = self.adapters[request.model_name].generate(request,directory)
             artifacts = {}
@@ -94,24 +112,31 @@ class JobStore:
             measurements = {}
             normalized = result.get('normalized_motion_path')
             skeleton_type = None
+            trained_model_output = None
             if normalized:
                 motion = read_motion(normalized)
                 measurements = metrics(motion)
                 skeleton_type = motion['skeleton_type']
+                trained_model_output = motion.get('metadata',{}).get('trained_model_output')
             hashes={k:digest(directory/v) for k,v in artifacts.items()}
             skeleton_seconds=time.monotonic()-started
-            self.update(identifier,status='succeeded',finished_at=now(),artifacts=artifacts,
+            with self.lock:
+                cancelled = self.get(identifier)['status'] == 'cancelled'
+                self.update(identifier,status='cancelled' if cancelled else 'succeeded',finished_at=now(),artifacts=artifacts,
                         inference_time=result.get('inference_time'),time_to_first_result=skeleton_seconds,
                         timings={'skeleton_seconds':skeleton_seconds,'mp4_render_seconds':None,'total_seconds':None},
                         checkpoint=result.get('checkpoint'),device=result.get('device'),gpu_peak_memory_bytes=None,
                         skeleton_type=skeleton_type,
+                        trained_model_output=trained_model_output,
                         model_metadata=result.get('metadata',{}),**measurements,
-                        artifact_sha256=hashes)
+                        artifact_sha256=hashes,server_finished_monotonic_ms=(started+skeleton_seconds)*1000)
         except Exception as error:
             # Preserve native outputs even if conversion or inference subsequently fails.
             retained = {p.name:p.name for p in directory.iterdir() if p.suffix.lower() in ('.npz','.bvh','.mp4','.wav','.vrma')}
-            self.update(identifier,status='failed',finished_at=now(),error=redact(str(error)),artifacts=retained,
-                        time_to_failure=time.monotonic()-started)
+            with self.lock:
+                cancelled = self.get(identifier)['status'] == 'cancelled'
+                self.update(identifier,status='cancelled' if cancelled else 'failed',finished_at=now(),error=redact(str(error)),artifacts=retained,
+                            time_to_failure=time.monotonic()-started)
 
     def imported(self, original, motion, *, provenance, audio=None):
         identifier = uuid.uuid4().hex

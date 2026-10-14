@@ -15,6 +15,7 @@ class UnavailableError(RuntimeError):
 
 
 def redact(text):
+    text = re.sub(r'\bsk-[A-Za-z0-9_-]{8,}', '[REDACTED_OPENAI_KEY]', text)
     text = re.sub(r'hf_[A-Za-z0-9]{10,}', '[REDACTED_TOKEN]', text)
     text = re.sub(r'(?i)(authorization\s*[:=]\s*(?:bearer\s+)?)[^\s,]+', r'\1[REDACTED]', text)
     return re.sub(r'(https?://[^\s?]+)\?[^\s]+', r'\1?[REDACTED_QUERY]', text)

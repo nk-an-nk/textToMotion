@@ -34,3 +34,9 @@
 ARDY Core8 に同梱された NVIDIA Open Model Agreement は、commercial use、derivative、outputsへのNVIDIA非所有を記載します。ただし再配布時のAgreement/NOTICE等の条件は別に適用されます。学習済み重みのGit再配布は行っていません。Kimodoオンラインでは公開NVIDIAサービスの通常制限に従い、GPUを新規作成していません。
 
 Motion generation powered by Text-To-VRMA (© Kiratchi), https://github.com/Kirakun0328/text-to-vrma 。生成VRMAはMITのコードライセンスとは別で、公式READMEは生成した利用者の成果物と記載しています。公式cloneに含まれるVRoid素材の個別noticesはそのまま保持します。
+
+## 追加した対話VRM依存（2026-10-14）
+
+`@pixiv/three-vrm` と `@pixiv/three-vrm-animation` は3.5.5、コードはMIT。npmのlockで固定し、Three.js 0.176.0を使用します。OpenAI APIの音声・モデル利用はAPIの利用条件と課金に従い、CodexのChatGPTログインとは別です。
+
+VRoid AvatarSampleの元VRMと検証画像はGitに含めません。確認したモデルのメタデータは pixiv VRoid Project、everyone / personalNonProfit / allowRedistribution=false。無料モデルの利用条件は利用者が公式配布元でも確認し、手元のファイルをブラウザへ読み込む方式です。モデルとライブラリを同じMIT条件として扱いません。
