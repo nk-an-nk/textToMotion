@@ -1,0 +1,9 @@
+{
+  "id": "04",
+  "text": "Hello! How are you today?",
+  "motion_prompt": "Give a friendly greeting wave with your right hand, then open your left palm toward the listener in a gentle questioning gesture. Stand in place and keep facing forward.",
+  "model": "ardy",
+  "seed": 3,
+  "plan_sha256": "a5c85c86f03c5e3723e3e3c94abf0058fabd91876c5845f52c7f0049c718dd68",
+  "speech_source_manifest_sha256": "21dbb86dbec7e8145e9fbc0ae221128339833a8587d8b5203a772e07c9165d24"
+}

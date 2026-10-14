@@ -60,7 +60,7 @@ async function main(){
     if(index!==active){before=sink.rest.get('hips').node.position.clone();sink.play(clip,{offline:true});active=index;}
     const speaking=clock<audio.duration,begin=Math.floor(clock*audio.sampleRate),end=Math.min(channel.length,begin+Math.round(.025*audio.sampleRate));
     let rms=0;if(speaking){for(let i=begin;i<end;i++)rms+=channel[i]*channel[i];rms=Math.sqrt(rms/Math.max(1,end-begin));}
-    // For a short utterance, play the entire native 2s gesture faster, including its final pose.
+    // Retime each complete native gesture to its utterance, including its final pose.
     const motionTime=unit.frame_count===1?0:localFrame/(unit.frame_count-1)*Math.max(0,clip.duration-1/data.units[index].motion.fps);
     sink.elapsed=Math.max(0,frame/fps-1/fps);sink.tick(1/fps,{speaking,lip:rms,offlineTime:motionTime});
     const blendSeconds=Math.min(manifest.blend_ms/1000,unit.frame_count/fps/3);
@@ -94,8 +94,14 @@ async function main(){
    }
    encoder.stdin.end();const code=await encoderExit;encoder=null;if(code!==0)throw new Error('FFmpeg: '+encoderError);
    command('ffmpeg',['-hide_banner','-loglevel','error','-n','-i',silent,'-i',audioPath,'-map','0:v:0','-map','1:a:0','-c:v','copy','-af','apad','-c:a','aac','-b:a','192k','-t',String(unit.frame_count/fps),'-movflags','+faststart',videoPath]);
-   renderResults.push({id:unit.id,video:path.relative(root,videoPath).replaceAll('\\','/'),video_sha256:hash(fs.readFileSync(videoPath)),render_wall_seconds:(performance.now()-beganUnit)/1000,media:inspectVideo(videoPath,unit.frame_count),silent});
-   console.log(JSON.stringify({segment:unit.id,mp4:videoPath,render_wall_seconds:renderResults.at(-1).render_wall_seconds}));
+   const completedAt=new Date().toISOString(),submittedAt=Date.parse(unit.input_submitted_at_utc||'');
+   const renderSeconds=(performance.now()-beganUnit)/1000;
+   renderResults.push({id:unit.id,video:path.relative(root,videoPath).replaceAll('\\','/'),video_sha256:hash(fs.readFileSync(videoPath)),render_wall_seconds:renderSeconds,
+    input_to_skeleton_seconds:unit.input_to_skeleton_seconds??unit.skeleton_seconds,
+    input_to_mp4_seconds:Number.isFinite(submittedAt)?Math.max(0,(Date.parse(completedAt)-submittedAt)/1000):null,
+    skeleton_and_mp4_processing_seconds:unit.skeleton_seconds+renderSeconds,mp4_completed_at_utc:completedAt,
+    media:inspectVideo(videoPath,unit.frame_count),silent});
+   console.log(JSON.stringify({segment:unit.id,mp4:videoPath,render_wall_seconds:renderSeconds,input_to_skeleton_seconds:renderResults.at(-1).input_to_skeleton_seconds,input_to_mp4_seconds:renderResults.at(-1).input_to_mp4_seconds}));
   }
   // Concatenate the encoded video segments, then encode the original PCM timeline once.
   // This avoids accumulating separate AAC priming offsets at the five boundaries.
@@ -114,9 +120,12 @@ async function main(){
    speech_generation_seconds:units.reduce((sum,{unit})=>sum+unit.speech_generation_seconds,0),skeleton_seconds:units.reduce((sum,{unit})=>sum+unit.skeleton_seconds,0),
    media,video_sha256:hash(fs.readFileSync(output)),browser_errors:errors};
   receipt.total_processing_seconds=receipt.speech_generation_seconds+receipt.skeleton_seconds+renderSeconds;
+  const starts=manifest.segments.map(unit=>Date.parse(unit.input_submitted_at_utc||'')).filter(Number.isFinite);
+  receipt.combined_mp4_completed_at_utc=new Date().toISOString();
+  receipt.input_to_combined_mp4_seconds=starts.length?Math.max(0,(Date.parse(receipt.combined_mp4_completed_at_utc)-Math.min(...starts))/1000):null;
   fs.writeFileSync(metadataPath,JSON.stringify(receipt,null,2)+'\n');
-  fs.writeFileSync(path.join(root,'render-timings.csv'),'\ufeffid,speech_seconds,skeleton_seconds,mp4_render_seconds,total_seconds,video\n'+renderResults.map((result,index)=>{const unit=units[index].unit;return [unit.id,unit.speech_generation_seconds,unit.skeleton_seconds,result.render_wall_seconds,unit.speech_generation_seconds+unit.skeleton_seconds+result.render_wall_seconds,result.video].join(',');}).join('\n')+'\n');
-  console.log(JSON.stringify({mp4:output,segment_videos:renderResults.map(result=>result.video),render_wall_seconds:renderSeconds,total_processing_seconds:receipt.total_processing_seconds,frames:manifest.frame_count,duration_seconds:manifest.duration_seconds}));
+  fs.writeFileSync(path.join(root,'render-timings.csv'),'\ufeffid,speech_seconds,skeleton_seconds,mp4_render_seconds,total_seconds,input_to_skeleton_seconds,input_to_mp4_seconds,skeleton_and_mp4_processing_seconds,mp4_completed_at_utc,video\n'+renderResults.map((result,index)=>{const unit=units[index].unit;return [unit.id,unit.speech_generation_seconds,unit.skeleton_seconds,result.render_wall_seconds,unit.speech_generation_seconds+unit.skeleton_seconds+result.render_wall_seconds,result.input_to_skeleton_seconds,result.input_to_mp4_seconds??'',result.skeleton_and_mp4_processing_seconds,result.mp4_completed_at_utc,result.video].join(',');}).join('\n')+'\n');
+  console.log(JSON.stringify({mp4:output,segment_videos:renderResults.map(result=>result.video),render_wall_seconds:renderSeconds,total_processing_seconds:receipt.total_processing_seconds,input_to_combined_mp4_seconds:receipt.input_to_combined_mp4_seconds,frames:manifest.frame_count,duration_seconds:manifest.duration_seconds}));
  }finally{if(encoder){encoder.stdin.destroy();encoder.kill();await encoderExit.catch(()=>{});}await browser.close();fs.rmSync(temporary,{recursive:true,force:true});}
 }
 main().catch(error=>{console.error(error.stack||error.message);process.exitCode=1;});

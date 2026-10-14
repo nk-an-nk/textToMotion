@@ -2,6 +2,7 @@
 """Pinned community ARDY inference. Never substitute examples or evade provider limits."""
 import argparse
 import hashlib
+import inspect
 import json
 import math
 import os
@@ -59,6 +60,15 @@ def validate_result(payload, original, *, prompt, seed, frames):
             raise ValueError('NPZ and provider viewer payload do not describe the same motion.')
 
 
+def client_auth_kwargs(client_type, token):
+    parameters = inspect.signature(client_type).parameters
+    if 'token' in parameters:
+        return {'token': token}
+    if 'hf_token' in parameters:
+        return {'hf_token': token}
+    raise RuntimeError('This Gradio client has no supported Hugging Face authentication argument.')
+
+
 def generate(prompt, seconds, seed, output):
     from gradio_client import Client
     from huggingface_hub import get_token
@@ -70,7 +80,7 @@ def generate(prompt, seconds, seed, output):
         raise ValueError('Existing model output is preserved. Use a new filename.')
     info=check_service(); duration=native_duration(seconds); frames=round(duration*20); began=time.monotonic()
     with tempfile.TemporaryDirectory(prefix='ardy-download-') as temporary:
-        client=Client(ENDPOINT, hf_token=token, download_files=temporary, verbose=False)
+        client=Client(ENDPOINT, **client_auth_kwargs(Client, token), download_files=temporary, verbose=False)
         job=client.submit(prompt=prompt, duration=min(10, duration+1e-7), waypoints='', diffusion_steps=10,
                           cfg_text=2., cfg_constraint=2., postprocess=False, seed=seed, randomize_seed=False,
                           api_name='/generate')

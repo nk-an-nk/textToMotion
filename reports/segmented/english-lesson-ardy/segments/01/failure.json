@@ -1,0 +1,4 @@
+{
+  "stage": "new_gesture",
+  "error": "公式コマンドが exit 1 で失敗しました。\nClient.__init__() got an unexpected keyword argument 'hf_token'\n"
+}

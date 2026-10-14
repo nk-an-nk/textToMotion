@@ -1,0 +1,85 @@
+{
+  "checked_at_utc": "2026-10-14T13:17:55.123900+00:00",
+  "model": "ardy",
+  "checkpoint": "nvidia/ARDY-Core-RP-20FPS-Horizon40",
+  "provider": "hugging-apps/ardy-human-motion (community)",
+  "status": "succeeded",
+  "hf_auth_http_status": 200,
+  "generated_segments": 5,
+  "text_conditioned": true,
+  "audio_conditioned": false,
+  "speech_reused": true,
+  "additional_openai_calls": 0,
+  "same_speech_and_motion_start_frames_as_kimodo": true,
+  "input_to_skeleton_seconds": [
+    {
+      "id": "01",
+      "text": "こんにちは！",
+      "seconds": 28.568540428999995
+    },
+    {
+      "id": "02",
+      "text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "seconds": 43.212840908999965
+    },
+    {
+      "id": "03",
+      "text": "まずは英語で挨拶してみよう。",
+      "seconds": 14.360805516999903
+    },
+    {
+      "id": "04",
+      "text": "Hello! How are you today?",
+      "seconds": 15.73680467600002
+    },
+    {
+      "id": "05",
+      "text": "元気なときは、I'm happy! って言ってみてね。",
+      "seconds": 13.41434230599998
+    }
+  ],
+  "skeleton_processing_total_seconds": 115.29333383699986,
+  "manifest": "segmented/english-lesson-ardy/manifest.json",
+  "historical_readiness_record": "ardy_segmented_readiness.json",
+  "generated_mp4s": 6,
+  "rendered_frames": 424,
+  "duration_seconds": 14.133333333333333,
+  "mp4": "segmented/english-lesson-ardy/combined.mp4",
+  "validation": "segmented/english-lesson-ardy/validation.json",
+  "render_wall_seconds": 1038.905212666,
+  "total_processing_seconds": 1154.1985465029998,
+  "input_to_combined_mp4_seconds": 1219.864,
+  "input_to_mp4_seconds": [
+    {
+      "id": "01",
+      "seconds": 313.429,
+      "processing_seconds": 89.329465454
+    },
+    {
+      "id": "02",
+      "seconds": 543.311,
+      "processing_seconds": 300.6733813309999
+    },
+    {
+      "id": "03",
+      "seconds": 770.083,
+      "processing_seconds": 283.1487840109999
+    },
+    {
+      "id": "04",
+      "seconds": 843.378,
+      "processing_seconds": 100.200000476
+    },
+    {
+      "id": "05",
+      "seconds": 1096.113,
+      "processing_seconds": 280.551761964
+    }
+  ],
+  "max_audio_start_offset_samples": 0,
+  "tests": {
+    "python_passed": 103,
+    "javascript_passed": 19
+  },
+  "finalized_at_utc": "2026-10-14T13:32:05.715762+00:00"
+}

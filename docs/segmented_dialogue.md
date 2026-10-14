@@ -44,7 +44,7 @@ node scripts\export_segmented_dialogue.cjs --manifest .motion-lab\segmented\run-
 
 生成が途中で失敗した場合は、同じ設定と出力先で再実行すると、入力とハッシュが一致した成功済みの音声・動作を使って残りを進めます。不完全な音声や出典記録のない骨格は上書きせず停止します。動画が途中まで書き出された場合は、その動画を別名で保存してから書き出しを再開してください。従来の重み・結果は保持します。
 
-`--model ardy`、`--model text_to_vrma` も選択できます。text-to-vrmaは既存のARDYエンジン設定を使います。ただし、今回のクラウドではそのローカルのテキスト条件付き推論の前提が不足しており、収録済みの5区間を実生成したのは **Kimodoのみ**です。[ARDYの公開サービスを使う別経路](ardy_segmented.md) と、同じ音声を使う比較用の `--speech-source` も追加しました。モデルの準備が不足すると音声API呼び出し前に停止します。研究室GPU側の準備は [Windows手順](windows_lab.md) を参照してください。
+`--model ardy`、`--model text_to_vrma` も選択できます。text-to-vrmaは既存のARDYエンジン設定を使います。このクラウドではローカルのテキスト条件付き推論の前提が不足していますが、[ARDYの公開サービスを使う別経路](ardy_segmented.md) で5区間の実生成に成功しました。同じ音声を使う比較用の `--speech-source` を指定し、Kimodo版と条件を揃えています。モデルの準備が不足すると音声API呼び出し前に停止します。研究室GPU側の準備は [Windows手順](windows_lab.md) を参照してください。
 
 ## 出力と時間
 
@@ -64,5 +64,7 @@ node scripts\export_segmented_dialogue.cjs --manifest .motion-lab\segmented\run-
 ```
 
 音声生成・文章から骨格生成の時間は `timings.csv`、音声生成＋骨格生成＋個別MP4書き出しまでの時間は `render-timings.csv` に出力します。`combined.json` には連結を含む書き出し時間、処理時間合計、描画フレーム数、各区間の同期開始・口の開閉・姿勢の連続性を保存します。処理時間合計は成功した生成と書き出しの合計で、失敗した初回の待ち時間を含みません。クラウドのソフトウェア描画時間はRTX 5070の性能測定ではありません。
+
+新規生成には `input_to_skeleton_seconds` と入力・完了のUTC時刻も記録します。MP4書き出しには、待ち時間を含む `input_to_mp4_seconds` と、待ち時間を含まない `skeleton_and_mp4_processing_seconds` を分けて保存します。以前の記録に入力時刻がない場合、その経過時間は推定せず空欄にします。
 
 従来版は `scripts/generate_demo_speech.py`、`scripts/export_vrm_video.cjs`、`scripts/record_vrm_demo.cjs` をそのまま使えます。新しい処理は `app/segmented_dialogue.py`、`scripts/generate_segmented_dialogue.py`、`scripts/export_segmented_dialogue.cjs` に分離しました。

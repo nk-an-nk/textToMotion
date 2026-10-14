@@ -1,5 +1,7 @@
 # 公式モデル互換性調査
 
+最新の追加検証：公開コミュニティサービスのARDY Horizon40で、文章条件付きの5区間を新規生成し、Kimodo版と同じ音声を使ったVRM動画を出力しました。[ARDYの入力・計測・動画](segmented/english-lesson-ardy/README.md) を参照してください。以下の初期調査表にある「ARDY無条件CPU診断」とは別の実行記録です。ローカルCore8のテキスト条件付き推論は引き続き未検証です。
+
 確認日（日本時間）: 2026-10-13T21:58:00.488572+09:00
 
 公式 GitHub の README、license、依存定義、推論エントリ、実 HEAD を確認。実行証拠は execution_results.md、重みの HTTP 検査は huggingface_checks.json。主たる checkout は nk-an-nk/textToMotion、9モデルの source は ML dependency cache として別置き。

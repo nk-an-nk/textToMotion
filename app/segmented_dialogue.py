@@ -240,12 +240,15 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
             if motion.exists():
                 raise ValueError('Partial motion output exists without a generation receipt; preserve it before retrying.')
             started = time.monotonic()
+            submitted_at = datetime.now(timezone.utc).isoformat()
             value = MotionInput(task_type='instruction', text=unit['motion_prompt'], original_text=unit['text'],
                                 audio_path=None, duration=min(10, native_duration+1e-7), seed=seed+index, model_name=model)
             try:
                 result = adapter.generate(value, directory)
             except Exception as error:
-                write_json(directory/'failure.json', {'stage': 'new_gesture', 'error': redact(str(error))})
+                write_json(directory/'failure.json', {'stage': 'new_gesture', 'error': redact(str(error)),
+                           'input_submitted_at_utc': submitted_at, 'failed_at_utc': datetime.now(timezone.utc).isoformat(),
+                           'failed_attempt_seconds': time.monotonic()-started})
                 raise
             normalized = Path(result['normalized_motion_path'])
             if normalized.resolve() != motion.resolve():
@@ -253,9 +256,12 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
             generated = read_motion(motion)
             if generated.get('metadata', {}).get('trained_model_output') is not True:
                 raise ValueError('The adapter did not return a trained-model result.')
+            elapsed = time.monotonic()-started
             write_json(receipt_path, {'model': model, 'original_text': unit['text'], 'motion_prompt': unit['motion_prompt'],
                                       'seed': seed+index, 'duration_requested': native_duration, 'motion_sha256': digest(motion),
-                                      'skeleton_seconds': time.monotonic()-started, 'inference_seconds': result.get('inference_time'),
+                                      'skeleton_seconds': elapsed, 'input_to_skeleton_seconds': elapsed,
+                                      'input_submitted_at_utc': submitted_at, 'skeleton_completed_at_utc': datetime.now(timezone.utc).isoformat(),
+                                      'inference_seconds': result.get('inference_time'),
                                       'device': result.get('device'), 'metadata': result.get('metadata', {})})
         generated = read_motion(motion); receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
         if (receipt['motion_sha256'] != digest(motion) or receipt['motion_prompt'] != unit['motion_prompt']
@@ -274,6 +280,9 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
                  'start_seconds': cursor/plan['fps'], 'end_seconds': (cursor+frame_count)/plan['fps'],
                  'speech_generation_seconds': 0 if source_units else speech['generation_wall_seconds'], 'skeleton_seconds': receipt['skeleton_seconds'],
                  'new_gesture_generated': True, 'seed': seed+index}
+        entry.update(input_to_skeleton_seconds=receipt['skeleton_seconds'],
+                     input_submitted_at_utc=receipt.get('input_submitted_at_utc'),
+                     skeleton_completed_at_utc=receipt.get('skeleton_completed_at_utc'))
         if source_units:
             entry.update(speech_reused=True, speech_original_generation_seconds=speech['generation_wall_seconds'])
         manifest['segments'].append(entry); cursor += frame_count
@@ -287,6 +296,7 @@ def generate_segments(config_path, output_dir, *, model='kimodo', budget_usd=0, 
     manifest.update(status='generated', timeline_audio=audio.name, timeline_audio_sha256=digest(audio))
     write_json(previous_manifest, manifest)
     fields = ['id', 'text', 'motion_prompt', 'audio_seconds', 'motion_seconds', 'start_seconds', 'end_seconds',
-              'speech_start_frame', 'gesture_start_frame', 'speech_generation_seconds', 'skeleton_seconds']
+              'speech_start_frame', 'gesture_start_frame', 'speech_generation_seconds', 'skeleton_seconds',
+              'input_to_skeleton_seconds', 'input_submitted_at_utc', 'skeleton_completed_at_utc']
     (root/'timings.csv').write_bytes(csv_bytes([{key: unit[key] for key in fields} for unit in manifest['segments']], fields))
     return manifest

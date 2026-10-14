@@ -2,6 +2,8 @@
 
 最新の **文ごとの生成・同期・連結** は [連結MP4](../segmented/english-lesson/combined.mp4) と [個別5本・計測一覧](../segmented/english-lesson/README.md) にあります。5回の音声生成と5回の新規Kimodo推論を行い、各区間の音声とジェスチャーを同じフレームで開始しました。実装は [別のスクリプト](../../docs/segmented_dialogue.md) に分けています。以下の一括発話・保存済み動作再生の動画も保持しています。
 
+**ARDY版**も、同じ音声と動作指示を使い、5区間の動作を新規生成しました。[ARDY連結MP4](../segmented/english-lesson-ardy/combined.mp4)、[個別5本・入力→生成時間](../segmented/english-lesson-ardy/README.md)、[比較一覧](../segmented/README.md) を参照してください。公開コミュニティサービスのHorizon40のリモート推論で、下記のローカルCore8無条件診断とは別の実行結果です。
+
 ## 正面・1080p・英語学習の発話
 
 この一括発話の動画は **1920×1080、30fps、H.264 CRF 16＋AAC** です。正面のカメラ、白飛びを抑えた照明、ネイティブ解像度の描画へ変更し、出力の各フレームを描画して無損失PNGから書き出しています。低解像度映像の拡大や、描画不足を補うフレーム反復は行っていません。

@@ -1,0 +1,9 @@
+{
+  "id": "03",
+  "text": "まずは英語で挨拶してみよう。",
+  "motion_prompt": "Demonstrate a small friendly greeting by lifting your right hand and gently waving, then lower it. Stand in place and keep facing forward.",
+  "model": "ardy",
+  "seed": 2,
+  "plan_sha256": "a5c85c86f03c5e3723e3e3c94abf0058fabd91876c5845f52c7f0049c718dd68",
+  "speech_source_manifest_sha256": "21dbb86dbec7e8145e9fbc0ae221128339833a8587d8b5203a772e07c9165d24"
+}

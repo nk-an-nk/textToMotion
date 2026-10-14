@@ -1,0 +1,9 @@
+{
+  "id": "02",
+  "text": "今日も一緒に楽しく英語を勉強しましょう！",
+  "motion_prompt": "Welcome the listener with both hands open in a friendly inviting gesture at chest height, then relax your arms. Stand in place and keep facing forward.",
+  "model": "ardy",
+  "seed": 1,
+  "plan_sha256": "a5c85c86f03c5e3723e3e3c94abf0058fabd91876c5845f52c7f0049c718dd68",
+  "speech_source_manifest_sha256": "21dbb86dbec7e8145e9fbc0ae221128339833a8587d8b5203a772e07c9165d24"
+}

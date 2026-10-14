@@ -8,6 +8,15 @@ import pytest
 from scripts import ardy_online
 
 
+def test_client_auth_uses_the_installed_versions_parameter_without_logging_token():
+    class Modern:
+        def __init__(self, src, token=None): pass
+    class Legacy:
+        def __init__(self, src, hf_token=None): pass
+    assert ardy_online.client_auth_kwargs(Modern, 'test-only') == {'token':'test-only'}
+    assert ardy_online.client_auth_kwargs(Legacy, 'test-only') == {'hf_token':'test-only'}
+
+
 def test_native_ardy_frames_cover_utterance_and_obey_service_minimum():
     assert ardy_online.native_duration(.9666666667) == 1
     assert ardy_online.native_duration(3.6666666667) == 3.7

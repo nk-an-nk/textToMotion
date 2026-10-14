@@ -1,0 +1,40 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "generated_at_utc": "2026-10-14T12:01:57.646921+00:00",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "まずは英語で挨拶してみよう。",
+  "sample_rate": 24000,
+  "max_audio_seconds": 10,
+  "duration_seconds": 2.85,
+  "audio_sha256": "808ce016161f71545f360cfc30618b5d75b3db75179d4b98cfc0198843dea8d4",
+  "authorized_allowance_usd": 1,
+  "actual_charge_usd": null,
+  "response_id": "resp_EYry5IaK7iRYr1GnvuPue",
+  "transcript": "まずは英語で挨拶してみよう。",
+  "usage": {
+    "total_tokens": 191,
+    "input_tokens": 93,
+    "output_tokens": 98,
+    "input_token_details": {
+      "text_tokens": 93,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 41,
+      "audio_tokens": 57,
+      "reasoning_tokens": 14
+    }
+  },
+  "generation_wall_seconds": 4.514066458000343
+}

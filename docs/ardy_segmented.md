@@ -4,17 +4,19 @@ Kimodo版と同じ発話音声・入力・開始フレームを使い、ARDYの�
 
 ## 現在の状態
 
-2026-10-14：クラウドには公開Core8重みとCPU推論環境がありますが、ローカルのLLM2Vec / gated Llamaが未取得で、Hugging Face認証も未設定です。ローカルの無条件診断を、発話に対応したジェスチャー生成の代わりには使用しません。
+2026-10-14：Publish後のHugging Face認証（HTTP200）を確認し、5区間すべてで文章条件付きARDYの新規ジェスチャー生成に成功しました。[音声付き連結動画と各区間の時間](../reports/segmented/english-lesson-ardy/README.md) を保存しています。同じ音声・発話文・動作指示・seed・再生開始フレームの [Kimodo版](../reports/segmented/english-lesson/README.md) と比較できます。
+
+クラウドには公開Core8重みとCPU推論環境もありますが、ローカルのLLM2Vec / gated Llamaは未取得です。今回のテキスト条件付き動作は公開サービスのリモート推論結果です。
 
 公開コミュニティSpace [hugging-apps/ardy-human-motion](https://huggingface.co/spaces/hugging-apps/ardy-human-motion) は稼働しています。固定したソースを確認し、実際のNVIDIA ARDYとLLM2Vecを使うこと、Core27骨格定義が保持した公式ソースと一致することを確認しました。これは **NVIDIAがホストした公式デモではありません**。モデルは **ARDY-Core-RP-20FPS-Horizon40** で、研究室用の既定Core8とは予測ホライズンが異なります。
 
-最初の生成要求は `You have exceeded your ZeroGPU runs limit. Authenticate with a Hugging Face token for more quota` で拒否されました。文章条件付きARDYの生成・動画出力は未完了です。拒否を迂回する処理、匿名リクエストの反復、サンプルへの置換は行いません。
+匿名利用枠で拒否された初回の [検査記録](../reports/ardy_segmented_readiness.json) も保持しています。利用者のトークンで認証後、通常の利用枠内で生成できました。Gradioクライアントの認証引数は、2.xの `token` と旧版の `hf_token` に対応しています。
 
-[環境と実際の拒否の記録](../reports/ardy_segmented_readiness.json) を保存しています。実行経路の準備に対してPython 102テストとJavaScript 19テストが成功しました。これらのテスト成功は、公開サービスでのARDY推論成功を示すものではありません。
+元NPZ内の入力文と応答を照合し、5つの異なる学習済みモデル出力と共通Core27骨格を確認しました。各区間の出典・生成時間・ハッシュは `segments/<ID>/motion-generation.json`、`original.metadata.json` と `manifest.json` にあります。
 
 ## 認証と実行
 
-このクラウドの環境設定で `HF_TOKEN` を入力して保存・Publishしてください。トークンはチャット、Git、ログに貼りません。ネットワークシークレットの送信先は `huggingface.co` と `hugging-apps-ardy-human-motion.hf.space` に限定しています。無料のZeroGPU利用枠に従う推論で、有料GPUの起動・再開は行いません。認証しても利用枠・サービス障害で停止する場合は、そのエラーを記録します。
+このクラウドでは `HF_TOKEN` の保存・Publishと認証を確認済みです。新しい環境では環境設定から入力してください。トークンはチャット、Git、ログに貼りません。ネットワークシークレットの送信先は `huggingface.co` と `hugging-apps-ardy-human-motion.hf.space` に限定しています。無料のZeroGPU利用枠に従う推論で、有料GPUの起動・再開は行いません。認証しても利用枠・サービス障害で停止する場合は、そのエラーを記録します。
 
 ```bash
 .venv/bin/python scripts/generate_segmented_dialogue.py \
@@ -38,6 +40,10 @@ node scripts/export_segmented_dialogue.cjs \
 公開サービスは最短1秒・最大10秒、モデルは20fpsです。音声を切らず、動作の長さをネイティブ20fpsのフレーム境界へ切り上げて生成し、再生時は各発話区間の長さへ合わせます。①の動作は1秒、再生は約0.967秒になります。音声と動作は区間の同じフレームで開始し、個別5本を連結します。
 
 `--speech-source` は元の5区間と文・順序・音声ハッシュ・実際の書き起こしが一致するときだけ再利用します。元の音声生成記録をそのまま保存し、今回の音声生成時間は0秒、元の生成時間は `speech_original_generation_seconds` に別記します。骨格・MP4の生成時間は既存のCSVへ出力します。完了済みの出力は再実行で変更しません。
+
+`timings.csv` の `input_to_skeleton_seconds` は動作指示を生成処理へ渡す直前から、正規化した骨格JSONの生成完了までの実測時間です。キュー・テキスト処理・転送・変換を含み、GPUカーネルだけの時間ではありません。入力・完了のUTC時刻も保存します。
+
+`render-timings.csv` の `input_to_mp4_seconds` は同じ入力時刻から個別MP4完成までの経過時間です。他の区間の生成、描画開始待ちも含みます。`skeleton_and_mp4_processing_seconds` は骨格生成とその区間の動画書き出しの処理時間の合計です。両者を区別し、連結版の経過時間は `combined.json` の `input_to_combined_mp4_seconds` に保存します。
 
 ソース固定：Space revision `344cab081ed29a48879683c0a78f80918b5a1681`、`app.py` SHA-256 `54d625cd8984c6980abc54a7fe953718205a44bfb53f651115ca68b47754d828`。稼働状態・固定ソース・要求した文・seed・NPZ内の文・フレーム数・有限な関節位置・応答とNPZの一致を検査します。バージョン変更、認証不足、利用上限は失敗として停止します。
 
