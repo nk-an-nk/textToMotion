@@ -26,7 +26,11 @@ class RealtimeConfig:
 
     @classmethod
     def environment(cls):
-        return cls(api_key=os.environ.get('OPENAI_API_KEY', ''),
+        # Cloud network secrets may use their own variable name. OPENAI_API_KEY
+        # remains the conventional name for a direct local Windows/Linux key.
+        return cls(api_key=(os.environ.get('OPENAI_API_KEY') or
+                            os.environ.get('MOTION_LAB_OPENAI_API_KEY') or
+                            os.environ.get('realtime') or ''),
                    enabled=os.environ.get('OPENAI_REALTIME_ENABLED') == '1',
                    model=os.environ.get('OPENAI_REALTIME_MODEL', 'gpt-realtime-2.1'),
                    voice=os.environ.get('OPENAI_REALTIME_VOICE', 'marin'),

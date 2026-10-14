@@ -46,6 +46,20 @@ def test_unconfigured_realtime_offers_offline_and_performs_no_network(tmp_path):
         assert client.post('/api/conversation/prepare',json={'text':'こんにちは'}).status_code==409
 
 
+def test_cloud_realtime_secret_alias_enables_backend_without_exposing_it(monkeypatch):
+    for name in ('OPENAI_API_KEY', 'MOTION_LAB_OPENAI_API_KEY', 'realtime'):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv('realtime', 'private-cloud-test-credential')
+    monkeypatch.setenv('OPENAI_REALTIME_ENABLED', '1')
+    monkeypatch.setenv('OPENAI_API_BUDGET_USD', '1')
+    service = RealtimeService()
+    assert service.config.api_key == 'private-cloud-test-credential'
+    assert service.public_config()['enabled'] is True
+    assert 'private-cloud-test-credential' not in json.dumps(service.public_config())
+    monkeypatch.setenv('OPENAI_API_KEY', 'private-local-test-credential')
+    assert RealtimeConfig.environment().api_key == 'private-local-test-credential'
+
+
 def configured_service(handler,budget=2,max_calls=2,text_first=False):
     return RealtimeService(RealtimeConfig(api_key='sk-private-test-only-secret',enabled=True,
         budget_usd=budget,session_allowance_usd=1,max_calls=max_calls,text_first=text_first),httpx.MockTransport(handler))

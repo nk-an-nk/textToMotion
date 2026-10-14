@@ -1,0 +1,109 @@
+{
+  "recorded_at_utc": "2026-10-14T09:37:44.991Z",
+  "renderer": "app/ui/viewer.js + app/ui/motion-sink.js; actual browser canvas",
+  "new_inference": false,
+  "realtime_api_used": false,
+  "audio": false,
+  "avatar": {
+    "name": "AvatarSample_VRM1.0",
+    "authors": [
+      "pixiv VRoid Project"
+    ],
+    "model_redistributed": false,
+    "source_url": "https://hub.vroid.com/characters/2843975675147313744/models/5644550979324015604",
+    "credit": "pixiv VRoid Project",
+    "use": "personal non-profit research recording"
+  },
+  "recordings": [
+    {
+      "name": "kimodo-vrm",
+      "id": "9c59514de11744aeb0a97038e73c7e5d",
+      "title": "Kimodo / 生成済みモーションをVRMアバターで再生",
+      "input": "入力: Raise your right hand and wave for three seconds.",
+      "description": "Previously generated instruction-conditioned Kimodo result; no new inference.",
+      "source_sha256": "cedea4bd9df824c76a4ac51126e2d9403ad576cd3e61f592f7bfe3df90f16554",
+      "capture": {
+        "frames": 25,
+        "samples": [
+          {
+            "elapsed_ms": 2730.6000000089407,
+            "time": "1.47 / 3.00 s"
+          }
+        ],
+        "elapsed_ms": 6114,
+        "mime": "video/webm;codecs=vp9"
+      },
+      "browser_errors": [],
+      "inference_requests": [],
+      "mp4": {
+        "filename": "kimodo-vrm.mp4",
+        "sha256": "12dc65985afdb9dc41147d56b7d4d92380e1c6401943fb158a07637628087b66",
+        "metadata": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "width": 1280,
+              "height": 720,
+              "r_frame_rate": "30/1",
+              "nb_frames": "140"
+            }
+          ],
+          "format": {
+            "duration": "4.666667",
+            "size": "194351"
+          }
+        },
+        "decoded_without_errors": true,
+        "different_rendered_poses_verified": true
+      }
+    },
+    {
+      "name": "ardy-vrm-unconditional",
+      "id": "cfc9aaf72a0944cf8449a978df8d5e29",
+      "title": "ARDY / 無条件のCPU診断結果をVRMアバターで再生",
+      "input": "入力: テキスト・音声なし / ARDY Core8 公開重み / seed 0",
+      "description": "Previously generated unconditional ARDY CPU diagnostic; not text-conditioned gesture generation.",
+      "source_sha256": "f4312230e23ff9e4b27ed0a347e23a5939a6d52f56c8165335ef885ed2dca464",
+      "capture": {
+        "frames": 20,
+        "samples": [
+          {
+            "elapsed_ms": 3879.5999999940395,
+            "time": "2.65 / 3.00 s"
+          }
+        ],
+        "elapsed_ms": 5603,
+        "mime": "video/webm;codecs=vp9"
+      },
+      "browser_errors": [],
+      "inference_requests": [],
+      "mp4": {
+        "filename": "ardy-vrm-unconditional.mp4",
+        "sha256": "de70d8f48918c072dc810f4941fe6b4c4642b701a6acc3e10a9f1830e5e5460a",
+        "metadata": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "width": 1280,
+              "height": 720,
+              "r_frame_rate": "30/1",
+              "nb_frames": "143"
+            }
+          ],
+          "format": {
+            "duration": "4.766667",
+            "size": "171205"
+          }
+        },
+        "decoded_without_errors": true,
+        "different_rendered_poses_verified": true
+      }
+    }
+  ],
+  "note": "Silent browser-rendered VRM playback of previously generated motion. No new motion inference or Realtime audio generation.",
+  "encoded_fps_note": "30fps MP4 contains repeated software-rendered frames; capture frame counts are recorded separately."
+}

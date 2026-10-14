@@ -2,7 +2,7 @@
 
 `work`ブランチのMotion Labへ `/conversation` を追加しました。Realtime GAのWebRTC音声と書き起こし、ジェスチャー計画、既存の非同期モデルキュー、VRM表示を同じ画面で扱います。モーション研究画面 `/`、MP4出力、発話例とCSVは引き続き使用できます。
 
-**このクラウドではOpenAI APIキーとCUDA GPUがなく、実Realtime＋新規GPU推論のE2Eは未実施です。** 無料の実VRM、既存の実生成結果の再生、公式VRMAローダー、ローカル音声時計、遅延・割り込み制御を別々に検証しています。[検証結果](../reports/dialogue_validation.md)を参照してください。
+**このクラウドではOpenAI APIキーが実行環境へ未反映で、CUDA GPUもなく、実Realtime＋新規GPU推論のE2Eは未実施です。** 無料の実VRM、既存の実生成結果の再生、公式VRMAローダー、ローカル音声時計、遅延・割り込み制御を別々に検証しています。[検証結果](../reports/dialogue_validation.md)を参照してください。[VRMの動画](../reports/videos/README.md)と [日本語音声を追加する録画手順](vrm_recording.md) も追加しました。
 
 ## Windowsで起動
 

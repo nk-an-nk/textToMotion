@@ -23,6 +23,8 @@ def main():
     if args.enable_realtime:
         if args.budget_usd < 1: parser.error('--budget-usd >= 1 is required to authorize API allowances')
         if not env.get('OPENAI_API_KEY'):
+            env['OPENAI_API_KEY'] = env.get('MOTION_LAB_OPENAI_API_KEY') or env.get('realtime', '')
+        if not env.get('OPENAI_API_KEY'):
             env['OPENAI_API_KEY'] = getpass.getpass('OpenAI API key (hidden; child process only): ').strip()
         if not env['OPENAI_API_KEY']: parser.error('API key was not provided')
     env.update(OPENAI_REALTIME_ENABLED='1' if args.enable_realtime else '0',

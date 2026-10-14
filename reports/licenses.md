@@ -39,4 +39,4 @@ Motion generation powered by Text-To-VRMA (© Kiratchi), https://github.com/Kira
 
 `@pixiv/three-vrm` と `@pixiv/three-vrm-animation` は3.5.5、コードはMIT。npmのlockで固定し、Three.js 0.176.0を使用します。OpenAI APIの音声・モデル利用はAPIの利用条件と課金に従い、CodexのChatGPTログインとは別です。
 
-VRoid AvatarSampleの元VRMと検証画像はGitに含めません。確認したモデルのメタデータは pixiv VRoid Project、everyone / personalNonProfit / allowRedistribution=false。無料モデルの利用条件は利用者が公式配布元でも確認し、手元のファイルをブラウザへ読み込む方式です。モデルとライブラリを同じMIT条件として扱いません。
+VRoid AvatarSampleの元VRMと検証スクリーンショットはGitに含めません。確認したモデルのメタデータは pixiv VRoid Project、everyone / personalNonProfit / allowRedistribution=false。2026-10-14に利用者の指示で追加したMP4は、個人の非営利研究用の描画録画で、pixiv VRoid Projectの出典を表示します。モデルファイルは含めません。`allowRedistribution` は [公式仕様](https://github.com/vrm-c/vrm-specification/blob/master/specification/VRMC_vrm-1.0/meta.md) でモデルの再配布として定義されています。無料モデルの利用条件は利用者が公式配布元でも確認し、手元のファイルをブラウザへ読み込む方式です。モデルとライブラリを同じMIT条件として扱いません。
