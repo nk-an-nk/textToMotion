@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse,Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, model_validator
 
@@ -17,6 +17,7 @@ from app.jobs import JobStore, write_json
 from app.motion import MotionError, read_motion, viewer_fixture, save_motion
 from adapters.base import MotionInput, UnavailableError
 from adapters.registry import adapters, catalog
+from app.timing import csv_bytes,summary_row
 
 MAX_UPLOAD = 32 * 1024 * 1024
 
@@ -46,7 +47,7 @@ class GenerateRequest(InputRequest):
 
 
 class CompareRequest(InputRequest):
-    model_names: list[str] = Field(min_length=1, max_length=9)
+    model_names: list[str] = Field(min_length=1, max_length=10)
 
     @model_validator(mode='after')
     def unique_models(self):
@@ -196,6 +197,20 @@ def create_app(*, data_dir=None, output_dir=None, model_adapters=None):
     @app.get('/api/experiments')
     def experiments():
         return store.list()
+
+    @app.get('/api/experiments.csv')
+    def experiment_timings():
+        rows=[]
+        for record in store.list():
+            filename=record.get('artifacts',{}).get('rendered_video_path')
+            video=f"/api/experiments/{record['id']}/files/{filename}" if filename else ''
+            rows.append(summary_row(record,video))
+        return Response(csv_bytes(rows),media_type='text/csv; charset=utf-8',
+                        headers={'Content-Disposition':'attachment; filename="motion-timings.csv"'})
+
+    @app.get('/api/examples/ardy-utterances')
+    def ardy_utterances():
+        return json.loads((settings.ROOT/'configs/ardy-utterances.json').read_text(encoding='utf-8'))
 
     @app.get('/api/experiments/{identifier}')
     def experiment(identifier:str):

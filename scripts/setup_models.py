@@ -46,9 +46,17 @@ def clone(model, data):
     return target
 
 
-def install(model_id, data, device, demo):
+def install(model_id, data, device, demo, cuda_build='cu126'):
+    if model_id=='text_to_vrma':
+        source=clone(CATALOG[model_id],data)
+        node=shutil.which('node');npm=shutil.which('npm')
+        if not node or not npm:raise RuntimeError('Node.js 20.6+ and npm are required for text-to-vrma.')
+        run([node,'-e','const [a,b]=process.versions.node.split(".").map(Number); if(a<20 || (a===20&&b<6))process.exit(1)'])
+        run([npm,'ci','--omit=dev','--cache',data/'npm-cache'],cwd=source)
+        run([node,'--input-type=module','-e','import {buildVRMA} from "./src/vrmaBuilder.js"; if(typeof buildVRMA!=="function")process.exit(1); console.log("Official VRMA builder imports OK")'],cwd=source)
+        return
     if model_id not in ('ardy','kimodo'):
-        raise RuntimeError('Automated installer currently supports ARDY and Kimodo only. See official commands in docs/gpu_setup.md for other models.')
+        raise RuntimeError('Automated installer supports ARDY, Kimodo and text-to-vrma. See docs/gpu_setup.md for other models.')
     source=clone(CATALOG[model_id],data)
     environment=data/'envs'/model_id
     if not environment.exists():
@@ -58,9 +66,12 @@ def install(model_id, data, device, demo):
         raise RuntimeError('Existing model environment is invalid; inspect before replacing it.')
     env=os.environ.copy();env['PATH']=str(interpreter.parent)+os.pathsep+env.get('PATH','')
     if device=='cuda':
-        run([interpreter,'-m','pip','install','--no-cache-dir','torch==2.9.0+cu126','--index-url','https://download.pytorch.org/whl/cu126'],env=env)
+        run([interpreter,'-m','pip','install','--no-cache-dir','torch==2.9.0+'+cuda_build,'--index-url','https://download.pytorch.org/whl/'+cuda_build],env=env)
     else:
         run([interpreter,'-m','pip','install','--no-cache-dir','torch==2.9.0+cpu','--index-url','https://download.pytorch.org/whl/cpu'],env=env)
+    constraint=environment/'motion-lab-torch-constraint.txt'
+    constraint.write_text('torch==2.9.0+'+(cuda_build if device=='cuda' else 'cpu')+'\n')
+    env['PIP_CONSTRAINT']=str(constraint)
     run([interpreter,'-m','pip','install','--no-cache-dir','cmake==3.31.6','setuptools==78.1.0','wheel==0.45.1'],env=env)
     locked=ROOT/'configs'/f'requirements-{model_id}-{device}.lock'
     if locked.exists():
@@ -124,6 +135,7 @@ if __name__=='__main__':
     parser.add_argument('--clone',action='store_true')
     parser.add_argument('--install',action='store_true')
     parser.add_argument('--device',choices=['cpu','cuda'],default='cpu')
+    parser.add_argument('--cuda-build',choices=['cu126','cu128'],default='cu126')
     parser.add_argument('--demo',action='store_true')
     parser.add_argument('--download',action='store_true')
     parser.add_argument('--accept-model-license',action='store_true')
@@ -133,7 +145,7 @@ if __name__=='__main__':
     for model_id in args.models:
         try:
             if args.clone:clone(CATALOG[model_id],data)
-            if args.install:install(model_id,data,args.device,args.demo)
+            if args.install:install(model_id,data,args.device,args.demo,args.cuda_build)
             if args.download:download(model_id,data,args.max_download_gb,args.accept_model_license)
             if not any([args.clone,args.install,args.download]):print(model_id, 'Select --clone, --install, or --download.')
         except Exception as error:

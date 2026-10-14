@@ -13,6 +13,7 @@
 | [ViBES (body)](https://github.com/Juzezhang/ViBES/tree/aa2347fa64e01a99f3a41db9f72417066f7d3011) | MIT | Face: CC-BY-4.0 / Audio: Apache-2.0 / T2M: research-only。会話 body expert の公開は未確認。 | SMPL-X/FLAME/BEAT2/BONES 等の個別規約 |
 | [FreeTalker](https://github.com/YoungSeng/FreeTalker/tree/33bff1fe955305ed8f753ec1cea709312a57a30f) | root LICENSE なし。HumanML3D 等のサブツリーには別ライセンス。 | Google/Baidu 配布の条件未確認。 | BEAT / AMASS / HumanML3D / SMPL-X 個別規約 |
 | [AgentHands / XR Blocks](https://github.com/google/xrblocks/tree/b97fa6fd4d9770566a3abe0c63bb9f8bdf3dcf93) | Apache-2.0（assets は個別条件） | N/A; 外部 LLM provider の条件は別 | N/A / hand assets の規約は別 |
+| [text-to-vrma](https://github.com/Kirakun0328/text-to-vrma/tree/53c50504d1dc5137d4414b27ae8afaff89a62943) | MIT, Copyright 2026 Kiratchi。公式ソースとLICENSEを保持 | 今回はARDY Core8を共有。NVIDIA Open ModelとLlamaの規約は独立 | 同梱AvatarSampleはpixivの個別規約。共通比較はVRMAの骨格を使用し、VRMメッシュをprimary repoへ再配布しない。FuguMT/ARDY-miniは使用・取得していない |
 
 ## 追加OSS
 
@@ -31,3 +32,5 @@
 | LLM2Vec / Meta Llama | LLM2Vec adapters MIT。backbone Llama3のgated license/利用承認は別。今回はbackboneを取得していない |
 
 ARDY Core8 に同梱された NVIDIA Open Model Agreement は、commercial use、derivative、outputsへのNVIDIA非所有を記載します。ただし再配布時のAgreement/NOTICE等の条件は別に適用されます。学習済み重みのGit再配布は行っていません。Kimodoオンラインでは公開NVIDIAサービスの通常制限に従い、GPUを新規作成していません。
+
+Motion generation powered by Text-To-VRMA (© Kiratchi), https://github.com/Kirakun0328/text-to-vrma 。生成VRMAはMITのコードライセンスとは別で、公式READMEは生成した利用者の成果物と記載しています。公式cloneに含まれるVRoid素材の個別noticesはそのまま保持します。

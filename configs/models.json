@@ -43,7 +43,7 @@
     "weights_license": "NVIDIA Open Model License（公式 README）。Llama encoder は独立ライセンス。",
     "data_license": "Bones Rigplay 1 独自規約。データの再配布はしない。",
     "output": "Core 27 / G1 34 joints; world posed_joints NPZ; Core 20 fps / G1 25 fps",
-    "gpu": "公式 CLI に CPU 分岐あり。LLM2Vec の GPU bf16 は約14GB（README）。CPU 推論速度は未測定。",
+    "gpu": "CPU無条件診断を実測済み。LLM2VecのGPU bf16は約14GB（公式）。研究室構成はCPUテキスト＋CUDA動作生成、実機未検証。",
     "mac": "ビルドに ARM64 分岐あり。MPS 推論は未検証。",
     "dependencies": "Python >=3.10; torch >=2.4; transformers 5.8.1; C++17/CMake; numpy<2",
     "demo": "scripts/run_demo.py; scripts/visualize.py (Viser)",
@@ -227,5 +227,30 @@
     "demo": "demos/agent_hands; src/addons/agenthands",
     "implemented": false,
     "blocker": "手動作の選択・制御。任意3D人体動作の生成モデルとしては利用不可。addon 統合は未実装。"
+  },
+  {
+    "id": "text_to_vrma",
+    "name": "Text-To-VRMA（ARDY）",
+    "repo": "Kirakun0328/text-to-vrma",
+    "commit": "53c50504d1dc5137d4414b27ae8afaff89a62943",
+    "updated": "2026-10-12",
+    "priority": 2,
+    "tasks": [
+      "instruction"
+    ],
+    "paper": "Text-To-VRMA: VRM特化型Text-To-Motionツール",
+    "year": 2026,
+    "venue": "OSS tool",
+    "checkpoint": "nvidia/ARDY-Core-RP-20FPS-Horizon8",
+    "code_license": "MIT (Copyright 2026 Kiratchi)",
+    "weights_license": "ARDYはNVIDIA Open Model Agreement、Llamaは別規約。独立の動作モデル重みではない。",
+    "data_license": "同梱VRoid AvatarSampleは別規約。比較はVRMメッシュをコピーせずVRMAの骨格を使用。",
+    "output": "VRMA/GLB humanoid44 + source spec JSON、元VRMAを保持してFKで共通骨格へ変換",
+    "gpu": "この比較では共有ARDY Core8をCUDA、LLM2VecをCPU。RTX 5070/cu128想定、実機未検証。",
+    "mac": "比較経路のMPSは未検証。公式はWindowsでの検証を記載。",
+    "dependencies": "Node.js >=20.6、公式npm lock、既存ARDY専用Python環境を共有",
+    "demo": "npm run dev / Electron / official ARDY engine + exported generateMotionWithArdy/buildVRMA",
+    "implemented": true,
+    "blocker": "公式ソースとNode依存を準備、ARDYの重み・エンコーダーとCUDAを検証する。LLM planner/Jevは無効。"
   }
 ]

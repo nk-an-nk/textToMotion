@@ -45,8 +45,13 @@ test('uploaded WAV is the playback clock and respects seek/rate',async({page})=>
   await expect.poll(()=>page.locator('#audio').evaluate(a=>a.currentTime)).toBeCloseTo(1.2,1);
   await page.locator('#speed').selectOption('1.5');expect(await page.locator('#audio').evaluate(a=>a.playbackRate)).toBe(1.5);
   await page.locator('#play').click();await page.waitForTimeout(400);
-  const audioTime=await page.locator('#audio').evaluate(a=>a.currentTime),motionTime=parseFloat(await page.locator('#time').textContent());
-  expect(Math.abs(audioTime-motionTime)).toBeLessThan(.12);
+  // Read both clocks in one browser turn after a frame; separate protocol calls
+  // sample different times while the audio continues at 1.5x speed.
+  const delta=await page.evaluate(async()=>{
+    await new Promise(resolve=>requestAnimationFrame(resolve));
+    return Math.abs(document.getElementById('audio').currentTime-parseFloat(document.getElementById('time').textContent));
+  });
+  expect(delta).toBeLessThan(.12);
   await page.locator('#pause').click();expect(await page.locator('#audio').evaluate(a=>a.paused)).toBe(true);
 });
 
@@ -69,4 +74,25 @@ test('motion import retains source label and comparison draws multiple selected 
   await expect(page.locator('#legend .legend-item')).toHaveCount(2);
   await page.setViewportSize({width:390,height:844});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
+test('short and medium ARDY presets retain literal utterances and timings CSV downloads',async({page})=>{
+  await page.goto('/');await expect(page.locator('#readiness')).toContainText('アプリ起動済み');
+  await page.getByText('ARDY：発話文の試行',{exact:true}).click();
+  await page.locator('[data-utterance="hello"]').click();
+  await expect(page.locator('#model')).toHaveValue('ardy');
+  await expect(page.locator('#text')).toHaveValue('こんにちは');
+  await expect(page.locator('#translation')).toHaveValue('Hello.');
+  await expect(page.locator('#duration')).toHaveValue('3');
+  await page.locator('[data-utterance="idea"]').click();
+  await expect(page.locator('#text')).toHaveValue('今日は新しい研究のアイデアを思いつきました。みなさんの意見を聞かせてください。');
+  await expect(page.locator('#translation')).toHaveValue("I came up with a new research idea today. I'd like to hear what you think.");
+  await expect(page.locator('#duration')).toHaveValue('6');
+  await page.locator('#fixture').click();await expect(page.locator('#results')).toContainText('人工サンプル（推論なし）');
+  const downloadPromise=page.waitForEvent('download');await page.locator('#timing-csv').click();
+  const download=await downloadPromise;const content=fs.readFileSync(await download.path(),'utf8');
+  expect(content).toContain('skeleton_seconds');expect(content).toContain('total_seconds');
+  expect(content).toContain('synthetic_viewer_fixture');
+  await expect(page.getByRole('columnheader',{name:'骨格まで',exact:true})).toBeVisible();
+  await expect(page.getByRole('columnheader',{name:'MP4まで（合計）',exact:true})).toBeVisible();
 });

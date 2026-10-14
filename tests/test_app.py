@@ -28,7 +28,7 @@ def test_application_and_local_viewer_assets(client):
     assert client.get('/api/health').json()['viewer_assets_present'] is True
     assert client.get('/vendor/three/build/three.module.js').status_code==200
     models=client.get('/api/models').json()
-    assert len(models)==9
+    assert len(models)==10 and any(model['id']=='text_to_vrma' for model in models)
     assert all(m['execution_status']!='実際に推論成功' for m in models)
 
 
@@ -131,3 +131,22 @@ def test_comparison_continues_after_one_model_failure_and_records_translation(tm
 def test_credentials_and_signed_queries_redacted():
     output=redact('Authorization: Bearer SECRET hf_1234567890123456 https://host/file?Signature=SECRET')
     assert 'SECRET' not in output and 'hf_1234567890123456' not in output
+
+
+def test_timing_csv_imports_have_no_invented_generation_times(client):
+    import csv
+    import io
+    client.post('/api/viewer-fixture')
+    response=client.get('/api/experiments.csv')
+    assert response.status_code==200 and response.content.startswith(b'\xef\xbb\xbf')
+    rows=list(csv.DictReader(io.StringIO(response.content.decode('utf-8-sig'))))
+    assert rows and all(row['skeleton_seconds']=='' and row['total_seconds']=='' for row in rows)
+
+
+def test_short_and_medium_utterances_are_shared_by_ui_and_batch(client):
+    samples=client.get('/api/examples/ardy-utterances').json()
+    assert len(samples)==10 and len({sample['id'] for sample in samples})==10
+    assert sum(sample['group']=='short' for sample in samples)==5
+    assert sum(sample['group']=='medium' for sample in samples)==5
+    assert all(sample['duration']==(3 if sample['group']=='short' else 6) for sample in samples)
+    assert samples[0]['model_text']=='Hello.'

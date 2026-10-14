@@ -1,0 +1,7 @@
+{
+  "models": ["kimodo", "ardy", "text_to_vrma"],
+  "cuda_build": "cu128",
+  "text_encoder_device": "cpu",
+  "min_free_gib": 40,
+  "port": 8765
+}

@@ -33,3 +33,9 @@ Kimodo オンラインの時間は「外部エンコーディングと通知通�
 ## 音声同期
 
 PCM WAV を検証し、HTML audio.currentTime を再生の master clock に使います。seek / pause / playbackRate を同じ時刻に反映します。FFmpeg 動画にも音声を mux できます。**音声と人工サンプルの同期検査は、音声条件付きのモデル生成成功を意味しません**。モデル生成は task_type=audio とモデル固有アダプターを通る必要があります。
+
+## text-to-vrmaのVRMA変換
+
+比較アダプターは元VRMA/GLBとspec JSONを保持し、埋め込みglTF 2.0の `VRMC_vrm_animation.humanoid.humanBones` から親子階層を取得します。LINEARの回転はquaternion SLERP、平行移動は線形補間、STEPは前のキーを保持し、TRSのFKで世界座標の関節位置へ変換します。Y-up・右手系・metres、元hips軌跡を維持し、既定30fpsでsamplingします。
+
+外部buffer URI、sparse accessor、範囲外読み取り、循環、複数親、未知の補間、matrix nodeは拒否します。表情・look-atは元VRMAに保持し、共通骨格／MP4では描画しません。VRMA対応は比較アダプター内部の経路で、現行の汎用ファイル取り込みUIはJSON/NPZ/BVHが対象です。

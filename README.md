@@ -4,6 +4,7 @@
 
 - **Kimodo**: NVIDIA 公式オンラインデモで動作指示 → 実推論成功。異なる2入力、元 NPZ、SOMA77 関節、共通3D表示を確認。
 - **ARDY**: 公開重みを SHA-256 照合し CPU で実推論成功。ただし **無条件診断のみ**。テキストや音声への対応成功ではありません。
+- **text-to-vrma（ARDY）**: 公式ARDYエンジンとVRMA出力を比較経路に追加。同じARDY重み・CPUテキスト処理を共有。研究室GPUでの実生成は未検証です。
 - **会話／音声条件付きジェスチャー**: 未成立。CUDA GPU・許諾済み SMPL-X 等が不足しています。未実装モデルを動作済みと表示しません。
 
 [モデル互換性](reports/model_compatibility.md)、[実行結果と未達条件](reports/execution_results.md)、[環境調査](docs/environment.md)、[ライセンス](reports/licenses.md) を参照してください。
@@ -18,6 +19,8 @@
 どちらも実モデルが出力した関節位置をスケルトン表示した動画で、音声はありません。[動画の出典と検証値](reports/videos/README.md) を参照してください。
 
 ## セットアップと起動
+
+**研究室のWindows PC（RTX 5070 / VRAM 12GB / RAM 32GB）**では [Windows用の実行手順](docs/windows_lab.md) を使ってください。PowerShellから仮想環境・CUDA 12.8版PyTorch・モデル導入・実生成とMP4検査をまとめて実行します。WSL2は不要です。Windows実機での検証は未実施です。
 
 Python 3.11+、Node.js/npm が必要です。動画には FFmpeg、ブラウザテストには Chromium が必要です。Python 依存と Three.js はローカルに導入し、CDN に依存しません。
 
@@ -85,9 +88,12 @@ export MOTION_LAB_DATA=/workspace/shared/motion-lab
 - 骨格／簡易アバター切り替え。アバターは骨間の円柱で、SMPL-X/SOMA 人体メッシュではありません。
 - WAV を同期用または音声入力としてアップロード。audio.currentTime を master clock に再生・seek・速度を同期します。
 - 元 NPZ、変換 JSON、実験記録を取得。「動画を作成」で MP4 を生成し、音声があれば mux します。
+- 「骨格まで」「MP4まで（合計）」の秒数を表示。「時間をCSVで取得」で入力と測定値を保存できます。
 - 同一入力で複数モデルを順番に実行し、失敗を個別に記録します。会話／音声モデルの実推論は現在未成立です。
 
 「ビューアー検証用サンプル」は人工アニメーションです。モデル選択に含めず、画面・実験一覧に **推論ではない**と表示します。音声との同期検査を co-speech 生成成功とは数えません。
+
+研究室PCでは、短い発話5通りと中程度の発話5通りを [一括実行して3経路を比較](docs/windows_lab.md#発話文10通りの生成時間比較) できます。元日本語と指定英訳を保存し、ARDYには発話文の英訳をそのまま渡します。
 
 [モーション形式・座標・評価](docs/motion_format.md) に JSON / NPZ / BVH、原データ保持、root、未知形式の拒否、評価値の意味を記載しています。SMPL-X poses を関節位置と仮定しません。
 

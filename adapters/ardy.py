@@ -49,12 +49,21 @@ class ArdyAdapter(ModelAdapter):
         self.preflight(request)
         output_dir = Path(output_dir)
         env = self.environment()
-        env.update({'TEXT_ENCODER_MODE': 'local', 'TEXT_ENCODER_DEVICE': 'cpu' if not self.cuda_available() else 'cuda'})
+        text_device=self.config.get('text_encoder_device','cpu' if not self.cuda_available() else 'cuda')
+        env.update({'TEXT_ENCODER_MODE': 'local', 'TEXT_ENCODER_DEVICE': text_device})
+        self.ensure_requested_cuda(output_dir,env)
         original = output_dir / 'original.npz'
-        elapsed = self.run([self.python, 'scripts/generate.py', request.text, '--model', self.config.get('model', 'core8'),
+        if text_device=='cpu':
+            command=[self.python,settings.ROOT/'scripts/generate_ardy_local.py',request.text,
+                     '--text-device','cpu']
+            if self.config.get('require_cuda'):command+=['--require-cuda']
+        else:
+            command=[self.python,'scripts/generate.py',request.text]
+        elapsed = self.run(command + ['--model', self.config.get('model', 'core8'),
                             '--duration', str(request.duration), '--seed', str(request.seed), '--no-postprocess',
                             '--checkpoints_dir', self.data / self.config.get('checkpoint_dir', 'checkpoints/ardy'),
                             '--output', original], output_dir, env=env)
         return {'original_motion_path': original, 'normalized_motion_path': self.export_official(original, output_dir),
                 'rendered_video_path': None, 'inference_time': elapsed, 'checkpoint': self.config.get('model', 'core8'),
-                'device': 'cuda' if self.cuda_available() else 'cpu', 'metadata': {'postprocess': False}}
+                'device': 'cuda' if self.cuda_available() else 'cpu', 'metadata': {'postprocess': False, 'text_encoder_device':text_device,
+                'text_guidance':2.0,'constraint_guidance':2.0,'history_policy':'longest history within official trained 10-second window'}}

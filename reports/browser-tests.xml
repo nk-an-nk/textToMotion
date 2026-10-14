@@ -1,12 +1,14 @@
-<testsuites id="" name="" tests="4" failures="0" skipped="0" errors="0" time="12.423973">
-<testsuite name="viewer.spec.cjs" timestamp="2026-10-13T12:50:40.458Z" hostname="" tests="4" failures="0" skipped="0" time="10.514" errors="0">
-<testcase name="synthetic provenance, actual 3D camera, playback, seek, speed and downloads" classname="viewer.spec.cjs" time="5.667">
+<testsuites id="" name="" tests="5" failures="0" skipped="0" errors="0" time="14.687338">
+<testsuite name="viewer.spec.cjs" timestamp="2026-10-14T04:19:29.686Z" hostname="" tests="5" failures="0" skipped="0" time="12.533" errors="0">
+<testcase name="synthetic provenance, actual 3D camera, playback, seek, speed and downloads" classname="viewer.spec.cjs" time="6.239">
 </testcase>
-<testcase name="uploaded WAV is the playback clock and respects seek/rate" classname="viewer.spec.cjs" time="2.273">
+<testcase name="uploaded WAV is the playback clock and respects seek/rate" classname="viewer.spec.cjs" time="2.154">
 </testcase>
-<testcase name="unavailable models report an error instead of generating sample animation" classname="viewer.spec.cjs" time="1.194">
+<testcase name="unavailable models report an error instead of generating sample animation" classname="viewer.spec.cjs" time="1.13">
 </testcase>
-<testcase name="motion import retains source label and comparison draws multiple selected results" classname="viewer.spec.cjs" time="1.38">
+<testcase name="motion import retains source label and comparison draws multiple selected results" classname="viewer.spec.cjs" time="1.367">
+</testcase>
+<testcase name="short and medium ARDY presets retain literal utterances and timings CSV downloads" classname="viewer.spec.cjs" time="1.643">
 </testcase>
 </testsuite>
 </testsuites>

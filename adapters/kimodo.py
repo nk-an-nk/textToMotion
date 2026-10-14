@@ -39,10 +39,13 @@ class KimodoAdapter(ModelAdapter):
                     'inference_time':metadata['inference_time'],'checkpoint':metadata['checkpoint'],
                     'device':metadata['device'],'metadata':metadata}
         env = self.environment()
-        env.update({'TEXT_ENCODER_DEVICE': 'cpu', 'LOCAL_CACHE': 'true'})
+        text_device=self.config.get('text_encoder_device','cpu')
+        env.update({'TEXT_ENCODER_DEVICE': text_device, 'TEXT_ENCODER_MODE': 'local', 'LOCAL_CACHE': 'true',
+                    'CHECKPOINT_DIR': str(self.data/self.config.get('checkpoint_dir','checkpoints/kimodo'))})
+        self.ensure_requested_cuda(output_dir,env)
         elapsed = self.run([self.python, '-m', 'kimodo.scripts.generate', request.text,
                             '--model', self.config.get('model', 'kimodo-soma-rp-v1.1'), '--duration', str(request.duration),
                             '--seed', str(request.seed), '--no-postprocess', '--output', original], output_dir, env=env)
         return {'original_motion_path': original, 'normalized_motion_path': self.export_official(original, output_dir),
                 'rendered_video_path': None, 'inference_time': elapsed, 'checkpoint': self.config.get('model'),
-                'device': 'cuda' if self.cuda_available() else 'cpu', 'metadata': {'postprocess': False, 'text_encoder_device': 'cpu'}}
+                'device': 'cuda' if self.cuda_available() else 'cpu', 'metadata': {'postprocess': False, 'text_encoder_device': text_device}}

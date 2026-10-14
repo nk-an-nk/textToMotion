@@ -75,3 +75,11 @@ GPUの最低VRAMが公式に未記載のモデルでは、推奨環境／論文�
 - ViBES READMEはbody codeを available と記載する一方、docs/3-inference.mdはbody checkpointをplaceholderとしている。JuzeZhang/ViBES は README のみ。Face/Audioの公開と会話body expertの公開を区別した。
 - ViBES-T2M は公式authorが別途公開した research-only の Qwen3-1.7B + HumanML3D/MotionGPT 経路。READMEとcheckpoint自体が示す0.27B expert、GLM expert形式など複数構成が同居しているため相互互換を仮定しない。会話body expertの代用品とは扱わず、今回未実行。
 - AgentHands は既存手動作の選択・制御、grounded pointing、TTS word-boundary同期。任意full-body motion generatorではない。
+
+## 追加: text-to-vrma（2026-10-14）
+
+[Kirakun0328/text-to-vrma](https://github.com/Kirakun0328/text-to-vrma/tree/53c50504d1dc5137d4414b27ae8afaff89a62943) を10番目の比較経路として追加しました。利用者指定によりARDYエンジンを選択し、共有のCore8・CPUテキスト処理・CUDA動作生成を使います。独立した動作モデルではありません。Node.js 20.6以上、公式npm lock、準備済みARDY専用環境が必要です。LLM planner・Jev・追加APIは無効にします。
+
+固定ソース・runtime依存・公式Node関数のimport、VRMAのFK変換とMP4書き出しを確認しました。形式確認には明示した人工fixtureを使い、テキスト推論成功とは数えません。研究室Windows/RTX 5070での実生成は未検証です。VRMA・specを保持し、hips軌跡と階層を共通骨格へ変換します。表情・視線は元VRMAに残り、骨格MP4には含めません。
+
+コードはMIT。ARDY/Llamaと同梱VRoid素材は別規約です。[統合記録](text_to_vrma_integration.json)、[Windows手順](../docs/windows_lab.md)、[ライセンス](licenses.md) を参照してください。

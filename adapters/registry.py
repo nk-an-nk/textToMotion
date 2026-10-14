@@ -9,9 +9,10 @@ from .llm_gesture import LLMGestureAdapter
 from .vibes import VibesAdapter
 from .freetalker import FreeTalkerAdapter
 from .agenthands import AgentHandsAdapter
+from .text_to_vrma import TextToVrmaAdapter
 
 CLASSES = [LanguageOfMotionAdapter, ArdyAdapter, KimodoAdapter, MiburiAdapter, StreamTalkAdapter,
-           LLMGestureAdapter, VibesAdapter, FreeTalkerAdapter, AgentHandsAdapter]
+           LLMGestureAdapter, VibesAdapter, FreeTalkerAdapter, AgentHandsAdapter,TextToVrmaAdapter]
 CATALOG = json.loads((ROOT / 'configs/models.json').read_text())
 
 
@@ -28,6 +29,8 @@ def catalog(data_dir=None):
         state = '未実行'
         if adapter.python.exists() and adapter.implemented:
             state = '環境構築のみ完了'
+        if model['id']=='text_to_vrma' and (adapter.repo/'node_modules/three/package.json').is_file():
+            state='環境構築のみ完了'
         if adapter.needs_cuda and not adapter.cuda_available() or model['id'] in ('vibes', 'xrblocks'):
             state = '利用不可'
         results.append({**model, 'execution_status': state, 'can_generate': not blockers,

@@ -1,0 +1,12 @@
+[
+  {"id":"hello","group":"short","input_text":"こんにちは","model_text":"Hello.","duration":3,"seed":0},
+  {"id":"thanks","group":"short","input_text":"ありがとう","model_text":"Thank you.","duration":3,"seed":0},
+  {"id":"sorry","group":"short","input_text":"ごめんなさい","model_text":"I'm sorry.","duration":3,"seed":0},
+  {"id":"meet","group":"short","input_text":"はじめまして","model_text":"Nice to meet you.","duration":3,"seed":0},
+  {"id":"bye","group":"short","input_text":"また会いましょう","model_text":"See you later.","duration":3,"seed":0},
+  {"id":"idea","group":"medium","input_text":"今日は新しい研究のアイデアを思いつきました。みなさんの意見を聞かせてください。","model_text":"I came up with a new research idea today. I'd like to hear what you think.","duration":6,"seed":0},
+  {"id":"explain","group":"medium","input_text":"説明が少し分かりにくかったかもしれません。もう一度、順番に説明します。","model_text":"My explanation may have been a little unclear. Let me go through it again, step by step.","duration":6,"seed":0},
+  {"id":"help","group":"medium","input_text":"手伝ってくれてありがとうございます。おかげで予定より早く終わりました。","model_text":"Thank you for helping me. Because of your support, we finished earlier than expected.","duration":6,"seed":0},
+  {"id":"proposal","group":"medium","input_text":"その提案は面白いと思います。ただ、実行する前にもう少し確認したいことがあります。","model_text":"I think that's an interesting proposal. There are a few things I'd like to check before we proceed.","duration":6,"seed":0},
+  {"id":"meeting","group":"medium","input_text":"明日の打ち合わせは午後三時からです。資料を確認してから参加してください。","model_text":"Tomorrow's meeting starts at three in the afternoon. Please review the materials before joining.","duration":6,"seed":0}
+]

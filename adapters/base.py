@@ -104,6 +104,13 @@ class ModelAdapter:
         self.preflight(request)
         raise UnavailableError('実行アダプター未実装。')
 
+    def ensure_requested_cuda(self, output_dir, env):
+        if self.config.get('require_cuda',False):
+            self.run([self.python,'-c',
+                      'import torch; assert torch.cuda.is_available(), "CUDA is unavailable; no CPU fallback"; '
+                      'x=torch.ones((32,32),device="cuda"); y=x@x; torch.cuda.synchronize(); '
+                      'assert torch.isfinite(y).all()'],output_dir,env=env)
+
     def export_official(self, original, output_dir):
         normalized = Path(output_dir) / 'motion.json'
         self.run([self.python, settings.ROOT / 'scripts/export_official.py', '--family', self.id,

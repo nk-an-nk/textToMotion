@@ -84,7 +84,7 @@ class JobStore:
         try:
             result = self.adapters[request.model_name].generate(request,directory)
             artifacts = {}
-            for key in ('original_motion_path','normalized_motion_path','rendered_video_path'):
+            for key in ('original_motion_path','normalized_motion_path','rendered_video_path','motion_spec_path'):
                 path = result.get(key)
                 if path:
                     path = Path(path).resolve()
@@ -98,15 +98,18 @@ class JobStore:
                 motion = read_motion(normalized)
                 measurements = metrics(motion)
                 skeleton_type = motion['skeleton_type']
+            hashes={k:digest(directory/v) for k,v in artifacts.items()}
+            skeleton_seconds=time.monotonic()-started
             self.update(identifier,status='succeeded',finished_at=now(),artifacts=artifacts,
-                        inference_time=result.get('inference_time'),time_to_first_result=time.monotonic()-started,
+                        inference_time=result.get('inference_time'),time_to_first_result=skeleton_seconds,
+                        timings={'skeleton_seconds':skeleton_seconds,'mp4_render_seconds':None,'total_seconds':None},
                         checkpoint=result.get('checkpoint'),device=result.get('device'),gpu_peak_memory_bytes=None,
                         skeleton_type=skeleton_type,
                         model_metadata=result.get('metadata',{}),**measurements,
-                        artifact_sha256={k:digest(directory/v) for k,v in artifacts.items()})
+                        artifact_sha256=hashes)
         except Exception as error:
             # Preserve native outputs even if conversion or inference subsequently fails.
-            retained = {p.name:p.name for p in directory.iterdir() if p.suffix.lower() in ('.npz','.bvh','.mp4','.wav')}
+            retained = {p.name:p.name for p in directory.iterdir() if p.suffix.lower() in ('.npz','.bvh','.mp4','.wav','.vrma')}
             self.update(identifier,status='failed',finished_at=now(),error=redact(str(error)),artifacts=retained,
                         time_to_failure=time.monotonic()-started)
 
@@ -135,9 +138,22 @@ class JobStore:
         if not filename:
             raise ValueError('変換済みモーションがないため動画を生成できません。')
         with self.render_lock:
-            target = render_video(read_motion(directory / filename),directory / 'video.mp4',
-                                  directory/'input.wav' if experiment.get('input_audio') else None)
-        self.update(identifier,artifacts={**experiment['artifacts'],'rendered_video_path':target.name})
+            started=time.monotonic()
+            try:
+                target = render_video(read_motion(directory / filename),directory / 'video.mp4',
+                                      directory/'input.wav' if experiment.get('input_audio') else None)
+            except Exception as error:
+                self.update(identifier,render_status='failed',render_error=redact(str(error)))
+                raise
+            render_seconds=time.monotonic()-started
+            skeleton_seconds=experiment.get('timings',{}).get('skeleton_seconds')
+            if skeleton_seconds is None and experiment.get('task_type')!='import':
+                skeleton_seconds=experiment.get('time_to_first_result')
+            timings={'skeleton_seconds':skeleton_seconds,'mp4_render_seconds':render_seconds,
+                     'total_seconds':skeleton_seconds+render_seconds if skeleton_seconds is not None else None}
+            self.update(identifier,artifacts={**experiment['artifacts'],'rendered_video_path':target.name},
+                        timings=timings,render_status='succeeded',render_error=None,
+                        artifact_sha256={**experiment.get('artifact_sha256',{}),'rendered_video_path':digest(target)})
         return target
 
     def close(self):

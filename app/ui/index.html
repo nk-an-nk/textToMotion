@@ -20,6 +20,7 @@
       <details class="model-info" open><summary>モデルの準備状況</summary><p id="model-status"></p><ul id="blockers"></ul><a id="official" target="_blank" rel="noopener">公式リポジトリ ↗</a></details>
       <label for="text" id="text-label">動作の指示</label><textarea id="text" rows="4" placeholder="Raise your right hand and wave for three seconds.">Raise your right hand and wave for three seconds.</textarea>
       <div class="examples"><button data-example="wave">手を振る</button><button data-example="sequence">歩く → お辞儀</button><button data-example="conversation">嬉しい出来事</button></div>
+      <details><summary>ARDY：発話文の試行</summary><div class="examples"><button data-utterance="hello">こんにちは</button><button data-utterance="thanks">ありがとう</button><button data-utterance="sorry">ごめんなさい</button><button data-utterance="meet">はじめまして</button><button data-utterance="bye">また会いましょう</button><button data-utterance="idea">研究のアイデア（中）</button><button data-utterance="explain">もう一度説明（中）</button><button data-utterance="help">手助けへの感謝（中）</button><button data-utterance="proposal">提案を確認（中）</button><button data-utterance="meeting">打ち合わせの案内（中）</button></div><p class="hint">短文は3秒、中程度は6秒の動作を指定した英訳から生成します。会話ジェスチャーへの適合性は未検証です。</p></details>
       <details><summary>日本語入力の英訳</summary><p class="hint">英語モデルには、ここに指定した文章を渡します。自動翻訳は未導入です。元の入力と英訳を両方保存します。</p><label for="translation">モデルへ渡す英訳</label><textarea id="translation" rows="2" placeholder="日本語を入力した場合の英訳"></textarea></details>
       <div id="audio-input" hidden><label for="wav">WAV ファイル</label><input id="wav" type="file" accept=".wav,audio/wav"><p id="audio-info" class="hint">PCM WAV / 推論は20秒以内</p></div>
       <div class="parameters"><div><label for="duration">長さ（秒）</label><input id="duration" type="number" min="0.5" max="20" step="0.5" value="3"></div><div><label for="seed">シード</label><input id="seed" type="number" min="0" max="4294967295" value="0"></div></div>
@@ -35,9 +36,9 @@
       <div class="transport"><div class="transport-buttons"><button id="play" aria-label="再生">▶ 再生</button><button id="pause" aria-label="一時停止">Ⅱ</button><button id="stop" aria-label="停止">■</button></div><output id="time">0.00 / 0.00 s</output><label for="speed">速度</label><select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><input id="timeline" type="range" min="0" max="0" step="0.01" value="0" aria-label="タイムライン"></div>
       <div class="audio-player"><span>同期音声</span><audio id="audio" controls preload="metadata"></audio><span id="sync-note">音声なし</span><label for="sync-wav" class="audio-attach">同期用 WAV を追加</label><input id="sync-wav" type="file" accept=".wav,audio/wav" hidden></div>
       <div id="motion-notice" class="notice" hidden></div>
-      <div class="results-heading"><div><div class="section-label">03 / EXPERIMENTS</div><h2>実験と比較</h2></div><button id="refresh">更新 ↻</button></div>
-      <p class="hint">推論時間は実測値を記録します。意味的一致・自然さは主観評価が必要です。比較表示の位置オフセットは保存データに加えません。</p>
-      <div class="table-wrap"><table><thead><tr><th>表示</th><th>モデル / 出所</th><th>状態</th><th>長さ / FPS</th><th>推論時間</th><th>成果物</th></tr></thead><tbody id="results"><tr><td colspan="6" class="empty-results">実験はまだありません。</td></tr></tbody></table></div>
+      <div class="results-heading"><div><div class="section-label">03 / EXPERIMENTS</div><h2>実験と比較</h2></div><div><a id="timing-csv" href="/api/experiments.csv" download>時間をCSVで取得</a> <button id="refresh">更新 ↻</button></div></div>
+      <p class="hint">骨格まで＝読込・テキスト処理・生成・取得・変換。MP4まで＝骨格まで＋書き出し。待機・操作待ちを除く処理秒です。意味的一致・自然さは主観評価が必要です。</p>
+      <div class="table-wrap"><table><thead><tr><th scope="col">表示</th><th scope="col">モデル / 出所</th><th scope="col">状態</th><th scope="col">長さ / FPS</th><th scope="col">骨格まで</th><th scope="col">MP4まで（合計）</th><th scope="col">成果物</th></tr></thead><tbody id="results"><tr><td colspan="7" class="empty-results">実験はまだありません。</td></tr></tbody></table></div>
       <details id="experiment-details"><summary>選択結果の記録</summary><pre id="metadata">モデル・入力・シード・チェックポイント・出力をここで確認できます。</pre></details>
     </section>
   </main>

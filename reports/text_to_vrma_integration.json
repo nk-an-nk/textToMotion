@@ -1,0 +1,43 @@
+{
+  "repository": "https://github.com/Kirakun0328/text-to-vrma",
+  "commit": "53c50504d1dc5137d4414b27ae8afaff89a62943",
+  "commit_date": "2026-10-12T12:40:30+09:00",
+  "selected_engine": "ardy",
+  "selected_checkpoint": "nvidia/ARDY-Core-RP-20FPS-Horizon8",
+  "independent_motion_model": false,
+  "llm_planner": false,
+  "jev": false,
+  "automatic_translation": false,
+  "source_modified": false,
+  "node_runtime_dependencies": "official npm ci --omit=dev completed; exports import successfully",
+  "text_conditioned_inference": "not_run; requires prepared GPU and Llama access on laboratory PC",
+  "format_conversion_test": {
+    "input": "explicit synthetic fixture, not a generated model result",
+    "status": "passed",
+    "human_bones": 44,
+    "frames": 30,
+    "fps": 30,
+    "duration_seconds": 1,
+    "root_trajectory_preserved": true,
+    "mp4_codec": "h264"
+  },
+  "outputs": [
+    "original.vrma",
+    "original.spec.json",
+    "motion.json",
+    "video.mp4"
+  ],
+  "timing_scope": "Engine startup, text encoding, motion generation, retargeting, VRMA and FK are skeleton_seconds; rendering is mp4_render_seconds.",
+  "native_engine_defaults": {
+    "history_frames": 40,
+    "arm_spread_degrees": 6,
+    "postprocess": true,
+    "cfg": 3.0
+  },
+  "licenses": {
+    "code": "MIT, Copyright 2026 Kiratchi",
+    "weights": "shared ARDY NVIDIA Open Model / separate Llama agreement",
+    "bundled_vrm": "pixiv AvatarSample terms, not copied to primary repository"
+  },
+  "notes": "Expressions and gaze remain in original VRMA but are absent from the common skeleton MP4."
+}

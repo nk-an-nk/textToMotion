@@ -38,6 +38,14 @@ document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener
 }));
 const examples={wave:['Raise your right hand and wave for three seconds.',''],sequence:['Walk forward, stop, and bow.',''],conversation:['今日はとても嬉しいことがあったんです','Something wonderful happened to me today.']};
 document.querySelectorAll('[data-example]').forEach(button=>button.addEventListener('click',()=>{[$('text').value,$('translation').value]=examples[button.dataset.example];}));
+const utterances={};
+document.querySelectorAll('[data-utterance]').forEach(button=>button.addEventListener('click',()=>{
+  const example=utterances[button.dataset.utterance];if(!example)return;
+  document.querySelector('[data-mode="instruction"]').click();$('model').value='ardy';displayModel();
+  [$('text').value,$('translation').value]=[example.input_text,example.model_text];
+  $('duration').value=example.duration;
+  $('seed').value=example.seed;
+}));
 async function uploadAudio(file){
   if(!file)return;message('音声を確認しています…');const form=new FormData();form.append('file',file);
   const result=await api('/api/audio',{method:'POST',body:form});state.audioId=result.audio_id;
@@ -102,8 +110,10 @@ function drawResults(){
     const status=cell(),tag=document.createElement('span');tag.className='result-status '+record.status;tag.textContent={succeeded:record.task_type==='import'?'保存済み':'推論成功',failed:'失敗',running:'推論中',queued:'待機',native_only:'未変換'}[record.status]||record.status;status.append(tag);
     if(record.error){const error=document.createElement('p');error.className='result-error';error.textContent=record.error;status.append(error);}
     cell().textContent=record.duration?`${record.duration.toFixed(2)} s / ${record.fps} fps`:'—';
-    cell().textContent=record.inference_time!=null?`${record.inference_time.toFixed(2)} s`:'未測定';
-    const files=cell();const labels={original_motion_path:'元データ',normalized_motion_path:'モーション JSON',rendered_video_path:'動画 MP4'};
+    const skeleton=record.timings?.skeleton_seconds??(record.task_type==='import'?null:record.time_to_first_result);
+    cell().textContent=skeleton!=null?`${skeleton.toFixed(2)} s`:'未測定';
+    const total=record.timings?.total_seconds;cell().textContent=total!=null?`${total.toFixed(2)} s`:'未測定';
+    const files=cell();const labels={original_motion_path:record.model_id==='text_to_vrma'?'元 VRMA':'元データ',normalized_motion_path:'モーション JSON',rendered_video_path:'動画 MP4',motion_spec_path:'元 spec JSON'};
     for(const [key,filename] of Object.entries(record.artifacts||{})){const link=document.createElement('a');link.textContent=labels[key]||filename;link.href=`/api/experiments/${record.id}/files/${filename}`;link.download='';files.append(link);}
     const meta=document.createElement('a');meta.textContent='実験記録';meta.href=`/api/experiments/${record.id}/files/experiment.json`;meta.download='';files.append(meta);
     if(record.artifacts?.normalized_motion_path&&!record.artifacts.rendered_video_path){const render=document.createElement('button');render.textContent='動画を作成';render.addEventListener('click',async()=>{render.disabled=true;render.textContent='書き出し中…';try{await post(`/api/experiments/${record.id}/render`,{});await refresh();}catch(error){message(error.message);render.disabled=false;render.textContent='動画を作成';}});files.append(render);}
@@ -125,4 +135,4 @@ function tick(now){const delta=(now-previous)/1000;previous=now;
 }
 requestAnimationFrame(tick);
 setInterval(async()=>{if(state.pending.size){try{await refresh();}catch(error){message(error.message);}}},1200);
-try{const [health,models]=await Promise.all([api('/api/health'),api('/api/models')]);state.models=models;populateModels();$('readiness').textContent=`アプリ起動済み · 構成済み ${health.ready_models} モデル`;await refresh();}catch(error){$('readiness').textContent='接続エラー';message(error.message);}
+try{const [health,models,items]=await Promise.all([api('/api/health'),api('/api/models'),api('/api/examples/ardy-utterances')]);for(const item of items)utterances[item.id]=item;state.models=models;populateModels();$('readiness').textContent=`アプリ起動済み · 構成済み ${health.ready_models} モデル`;await refresh();}catch(error){$('readiness').textContent='接続エラー';message(error.message);}
