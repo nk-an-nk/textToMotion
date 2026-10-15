@@ -1,0 +1,41 @@
+[
+  {
+    "mode": "fp32-100",
+    "unit": "teacher",
+    "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+    "frames": 149,
+    "repeats": 3,
+    "bone_ready_seconds": 1.8862561241257936,
+    "generation_seconds": 1.868576676119119,
+    "text_encoding_seconds": 0.09908610302954912,
+    "motion_and_decode_seconds": 1.7694905730895698,
+    "min_bone_ready_seconds": 1.8812875119037926,
+    "max_bone_ready_seconds": 1.9014086439274251
+  },
+  {
+    "mode": "tf32-100",
+    "unit": "teacher",
+    "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+    "frames": 149,
+    "repeats": 3,
+    "bone_ready_seconds": 1.714852110017091,
+    "generation_seconds": 1.6982892309315503,
+    "text_encoding_seconds": 0.09268450899980962,
+    "motion_and_decode_seconds": 1.6054629059508443,
+    "min_bone_ready_seconds": 1.7133592539466918,
+    "max_bone_ready_seconds": 1.718974030110985
+  },
+  {
+    "mode": "tf32-20",
+    "unit": "teacher",
+    "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+    "frames": 149,
+    "repeats": 3,
+    "bone_ready_seconds": 0.434577161911875,
+    "generation_seconds": 0.41751101706176996,
+    "text_encoding_seconds": 0.09122118493542075,
+    "motion_and_decode_seconds": 0.32615094305947423,
+    "min_bone_ready_seconds": 0.4326537661254406,
+    "max_bone_ready_seconds": 0.4347313451580703
+  }
+]

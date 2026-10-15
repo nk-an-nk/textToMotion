@@ -1,0 +1,39 @@
+{
+  "python_tests_passed": 112,
+  "javascript_tests_passed": 22,
+  "real_cuda_measurements": 9,
+  "recorded_warmups": 3,
+  "real_audio_input_dialogues": 2,
+  "verified_lora_tensors": {
+    "mntp": 448,
+    "supervised": 448
+  },
+  "videos": [
+    {
+      "mode": "fp32-100",
+      "video_frames": 366,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "student_and_teacher_pcm_exact_in_timeline": true,
+      "audio_gesture_scheduled_offset_seconds": 0,
+      "front_alignment": 0.9999999999999999,
+      "max_lower_body_rotation_error": 0,
+      "max_lower_body_position_error": 0,
+      "video_sha256": "3f5157bff4f1a160fe35c700e05a2ae2562ec1616881f7d1a8bc7eaaa1371be7"
+    },
+    {
+      "mode": "tf32-20",
+      "video_frames": 353,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "student_and_teacher_pcm_exact_in_timeline": true,
+      "audio_gesture_scheduled_offset_seconds": 0,
+      "front_alignment": 0.9999999999999999,
+      "max_lower_body_rotation_error": 0,
+      "max_lower_body_position_error": 0,
+      "video_sha256": "8f09c029363e437f54e1d2de2aa7eba83d90a98de0520aa277b519064e775e51"
+    }
+  ]
+}

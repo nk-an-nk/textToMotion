@@ -30,7 +30,7 @@ def pcm_input(path):
     return pcm
 
 
-def measure(student_path, output, config):
+def measure(student_path, output, config, *, close_timeout=3):
     if output.exists():
         raise ValueError('Existing conversation results are preserved.')
     pcm = pcm_input(student_path)
@@ -46,7 +46,7 @@ def measure(student_path, output, config):
     began = time.monotonic()
     with connect('wss://api.openai.com/v1/realtime?model=' + config.model,
                  additional_headers={'Authorization': 'Bearer ' + config.api_key},
-                 open_timeout=15, close_timeout=3, max_size=4 * 1024 * 1024) as socket:
+                 open_timeout=15, close_timeout=close_timeout, max_size=4 * 1024 * 1024) as socket:
         socket.send(json.dumps({'type': 'session.update', 'session': session}, ensure_ascii=False))
         while time.monotonic() - began < 60:
             event = json.loads(socket.recv(timeout=max(.1, 60 - (time.monotonic() - began))))

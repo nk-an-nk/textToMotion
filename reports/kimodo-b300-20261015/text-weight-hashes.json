@@ -1,0 +1,91 @@
+{
+  "files": [
+    {
+      "path": "models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2/model-00002-of-00004.safetensors",
+      "bytes": 4999802720,
+      "sha256": "8d4782b4a69ef03845159ce1a15e272aadaaf134dc138d68f616098e8531729c"
+    },
+    {
+      "path": "models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2/model-00001-of-00004.safetensors",
+      "bytes": 4976698672,
+      "sha256": "d8cf9c4d0dd972e1a2131bfe656235ee98221679711a3beef6d46dadf0f20b5c"
+    },
+    {
+      "path": "models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2/model-00003-of-00004.safetensors",
+      "bytes": 4915916176,
+      "sha256": "3acdd690e65c24f42a24581b8467af98bd3ca357444580f8012aacd2bd607921"
+    },
+    {
+      "path": "models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2/model-00004-of-00004.safetensors",
+      "bytes": 1168138808,
+      "sha256": "67e9ad31c8c32abf3a55ee7fc7217b3ecb35fd3c74d98a5bd233e0e4d6964f46"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp/snapshots/31474e395ada192e8ed1586db6be79fb3b70c9c0/adapter_model.safetensors",
+      "bytes": 167829552,
+      "sha256": "de9c8736618a13173c6a1623cdef1b75e86c69317f1073ae82cd516ac36a632d"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp-supervised/snapshots/baa8ebf04a1c2500e61288e7dad65e8ae42601a7/adapter_model.safetensors",
+      "bytes": 167829552,
+      "sha256": "53f8f94ebdf396667ba99dd96e78203edae27bbcdbd1cf5f12b611e1d916b225"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp/snapshots/31474e395ada192e8ed1586db6be79fb3b70c9c0/tokenizer.json",
+      "bytes": 9085671,
+      "sha256": "52b583ee1699c6ca4468f70885bd5f96dd1f7517292362a67581038afc04f4d8"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp/snapshots/31474e395ada192e8ed1586db6be79fb3b70c9c0/tokenizer_config.json",
+      "bytes": 51042,
+      "sha256": "0655c52e874137e4a455228155d982c4ea18419f461a10ceb57054995fec4223"
+    },
+    {
+      "path": "models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2/model.safetensors.index.json",
+      "bytes": 23950,
+      "sha256": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp/snapshots/31474e395ada192e8ed1586db6be79fb3b70c9c0/adapter_config.json",
+      "bytes": 794,
+      "sha256": "1d3bbf14142865885ea8d0dbc1fb261adf4f5d14ddbdc939efb47c4913037813"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp-supervised/snapshots/baa8ebf04a1c2500e61288e7dad65e8ae42601a7/adapter_config.json",
+      "bytes": 794,
+      "sha256": "2a1265e4a7829c16dad38a5175ec8ac41ea1e851654da5044ace2437615a58ba"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp/snapshots/31474e395ada192e8ed1586db6be79fb3b70c9c0/config.json",
+      "bytes": 781,
+      "sha256": "416c570276487324e49dca7c3d79e212b948d9cb2282fa734b1fa8014de041d1"
+    },
+    {
+      "path": "models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2/config.json",
+      "bytes": 654,
+      "sha256": "61f3de03a16ca8046b05dc777bce72717022bc8522152eee61a69072272ef54b"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp/snapshots/31474e395ada192e8ed1586db6be79fb3b70c9c0/special_tokens_map.json",
+      "bytes": 335,
+      "sha256": "849070cae53bd45439e64ce5b1ddd650a66081b1bd47895c5a58939a05055579"
+    },
+    {
+      "path": "models--meta-llama--Meta-Llama-3-8B-Instruct/refs/main",
+      "bytes": 40,
+      "sha256": "d89ec3559b09c96fd422e5f18911438c4ca49165af77daaa2856f9f1bac2456e"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp/refs/main",
+      "bytes": 40,
+      "sha256": "2cebd49301e2baddd410a6fb351ee5618549ddf3c004914b5953c31d767d666a"
+    },
+    {
+      "path": "models--McGill-NLP--LLM2Vec-Meta-Llama-3-8B-Instruct-mntp-supervised/refs/main",
+      "bytes": 40,
+      "sha256": "0ea7ef8870ae924242524ca1327241de7f84d68c016a730b36f6b0cee7f970f5"
+    }
+  ],
+  "elapsed_seconds": 298.05314827799884,
+  "protocol": "Jupyter binary comm buffers; resumed existing cache"
+}

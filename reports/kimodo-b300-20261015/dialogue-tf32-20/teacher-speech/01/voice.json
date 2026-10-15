@@ -1,0 +1,13 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "requested_text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+  "transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+  "duration_seconds": 5.4,
+  "audio_sha256": "aa511fac35087293e53e53403db340afeabf9f5b5ab8ce3b73290ed6ce518165",
+  "generation_wall_seconds": 1.676782558002742,
+  "first_audio_seconds": 0.6853860769988387,
+  "response_done_seconds": 1.676782558002742,
+  "model": "gpt-realtime-2.1",
+  "synthetic_voice": true,
+  "input_transport": "input_audio_buffer.append + commit"
+}

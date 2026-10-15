@@ -1,0 +1,13 @@
+{
+  "schema": "motion-lab/segmented-dialogue-plan-v1",
+  "fps": 30,
+  "blend_ms": 250,
+  "title": "音声入力から教師の返答",
+  "segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "motion_prompt": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう"
+    }
+  ]
+}

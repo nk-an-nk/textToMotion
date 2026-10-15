@@ -1,0 +1,15 @@
+{
+  "started_at_utc": "2026-10-15T04:39:53.008406+00:00",
+  "terminated_at_utc": "2026-10-15T05:10:42.169771+00:00",
+  "deletion_confirmed": true,
+  "termination_reason": "trial finished",
+  "cost_per_hour_usd": 8.99,
+  "elapsed_minutes": 30.81935608333333,
+  "gpu_storage_estimate_usd": 4.623474141316358,
+  "fx_budget_jpy_per_usd": 200,
+  "gpu_storage_estimate_yen": 924.6948282632716,
+  "authorized_budget_yen": 1000,
+  "reserve_fraction": 0.03,
+  "estimate_yen_with_reserve": 952.4356731111698,
+  "realtime_actual_invoice_usd": null
+}

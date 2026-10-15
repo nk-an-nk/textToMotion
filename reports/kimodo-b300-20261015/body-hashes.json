@@ -1,0 +1,52 @@
+[
+  {
+    "file": "LICENSE",
+    "bytes": 10229,
+    "sha256": "11ccdcb47db87ac30b63765b5e5154403026c4fbb52c19919d99d912ec454e19"
+  },
+  {
+    "file": "README.md",
+    "bytes": 12339,
+    "sha256": "6b6fbf38db847e3b47c9defe252597eef6cad1bf4a0729a7cf057934c32400a7"
+  },
+  {
+    "file": "config.yaml",
+    "bytes": 675,
+    "sha256": "905664ad05779b0e28c391b85dc81c9de166418bd5f471ef605f75ab746ce391"
+  },
+  {
+    "file": "model.safetensors",
+    "bytes": 1133185036,
+    "sha256": "8adcdaa459bc58b6942b7c49d39a84dbb95d89f367f3f23bdc681b1e83ccad67"
+  },
+  {
+    "file": "stats/motion/body/mean.npy",
+    "bytes": 3040,
+    "sha256": "d42f35f8bb7ef52fdec66ae29c5cf590bd038f4f1aabd2d560d1d0f78663ed6f"
+  },
+  {
+    "file": "stats/motion/body/std.npy",
+    "bytes": 3040,
+    "sha256": "965bbad497726ef4e6c46b519827e2cbcb29f974214b25718d20a725b82279ed"
+  },
+  {
+    "file": "stats/motion/global_root/mean.npy",
+    "bytes": 168,
+    "sha256": "6c110980f9a0386e57a8c186f8eac7f55dc05bade92f44c4b391450ada598da1"
+  },
+  {
+    "file": "stats/motion/global_root/std.npy",
+    "bytes": 168,
+    "sha256": "fb15aeed7143f5f0754611f0acf5fa5f55d1f6492a49c23e490fc62f7bf11fb0"
+  },
+  {
+    "file": "stats/motion/local_root/mean.npy",
+    "bytes": 160,
+    "sha256": "4c36e8e33d6d51e6c8206ac796a52b7b3a4da7f0dc49ebdbb4f130178e3e9d31"
+  },
+  {
+    "file": "stats/motion/local_root/std.npy",
+    "bytes": 160,
+    "sha256": "5f57b41f51ced7832cffa81702f6e04d8694e16475c184baec6c8be0e98c8dba"
+  }
+]

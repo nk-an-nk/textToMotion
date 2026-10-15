@@ -1,0 +1,20 @@
+{
+  "unit": "teacher",
+  "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+  "mode": "tf32-20",
+  "trial": 0,
+  "warmup": false,
+  "seed": 0,
+  "frames": 149,
+  "fps": 30.0,
+  "duration_seconds": 4.966666666666667,
+  "denoising_steps": 20,
+  "matmul_precision": "high",
+  "text_encoding_seconds": 0.09008120908401906,
+  "generation_seconds": 0.4159650760702789,
+  "motion_and_decode_seconds": 0.3258838669862598,
+  "bone_ready_seconds": 0.4326537661254406,
+  "upper_body_transfer_and_serialization_seconds": 0.016688690055161715,
+  "peak_torch_allocated_mib": 15634.44677734375,
+  "upper_json_sha256": "957986776044f76cbb56c7cd43857c54879119e690692e6ab3e01f9fe6045ac3"
+}
