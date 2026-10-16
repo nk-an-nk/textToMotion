@@ -1,0 +1,21 @@
+{
+  "model": "momask",
+  "profile": "b300",
+  "gpu": "NVIDIA B300 SXM6 AC",
+  "gpu_total_mib": 274113.3125,
+  "torch": "2.8.0+cu129",
+  "cuda": "12.9",
+  "python": "3.12.3",
+  "cpu_threads": 8,
+  "cpu_affinity_count": 8,
+  "torch_allocator_limit_mib": null,
+  "ram_hard_cap_applied": false,
+  "model_load_seconds": 12.939800879918039,
+  "settings": {
+    "time_steps": 18,
+    "cond_scale": 4,
+    "residual_cond_scale": 5,
+    "representation": 263
+  },
+  "source_commit": "94a6636c9c463b7a9414c3401a6f1b67e6c51824"
+}

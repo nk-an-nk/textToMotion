@@ -1,0 +1,46 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "元気なときは、I'm happy! って言ってみてね。",
+  "sample_rate": 24000,
+  "duration_seconds": 3.6,
+  "audio_sha256": "fe662c7b010e8e406d6dc9a64ec251692e716671149adebf8d92a055e24b6a78",
+  "generated_at_utc": "2026-10-14T15:04:23.817819+00:00",
+  "actual_charge_usd": null,
+  "max_output_tokens": 512,
+  "max_audio_seconds": 10,
+  "input_submitted_at_utc": "2026-10-14T15:04:19.582997+00:00",
+  "session_setup_seconds": 0.36289469999974244,
+  "first_audio_seconds": 0.668625966000036,
+  "complete_audio_seconds": 1.226994737000041,
+  "response_done_seconds": 1.2335329850002381,
+  "generation_wall_seconds": 4.597349226000006,
+  "clock_domain": "single_client_monotonic",
+  "response_id": "resp_EYuodKhziirS8wkx7fz9h",
+  "transcript": "元気なときは、I'm happy! って言ってみてね。",
+  "usage": {
+    "total_tokens": 217,
+    "input_tokens": 98,
+    "output_tokens": 119,
+    "input_token_details": {
+      "text_tokens": 98,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 47,
+      "audio_tokens": 72,
+      "reasoning_tokens": 15
+    }
+  }
+}

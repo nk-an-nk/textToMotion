@@ -1,0 +1,29 @@
+Reading /tmp/masked_runtime/weights/remomask2/logs/humanml3d/v2_mtrans_vgate/opt.txt
+Reading /tmp/masked_runtime/weights/remomask2/logs/humanml3d/pretrain_vq/opt.txt
+Loading VQ Model pretrain_vq Completed! 11 0
+latent_dim: 512, ff_size: 1024, nlayers: 8, nheads: 8, dropout: 0.2
+/usr/local/lib/python3.12/dist-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+  warnings.warn(
+Loading CLIP...
+Loading Mask Transformer v2_mtrans_vgate from epoch 309! Value:  0.07288054028207114
+latent_dim: 512, ff_size: 1024, nlayers: 8, nheads: 8, dropout: 0.2
+Loading CLIP...
+Loading Mask Transformer v2_mtrans_vgate from epoch 309! Value:  0.07288054028207114
+Loading z_e retrieval database from /tmp/masked_runtime/weights/remomask2/database_ze
+  Database loaded: 67010 samples, motion dim=1024, text dim=512
+{"id": "01", "repeat": 0, "skeleton_seconds": 0.3918872179929167, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "01", "repeat": 1, "skeleton_seconds": 0.49051368702203035, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "01", "repeat": 2, "skeleton_seconds": 0.4807888420764357, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "02", "repeat": 0, "skeleton_seconds": 0.5133476509945467, "peak_torch_allocated_mib": 1824.88525390625}
+{"id": "02", "repeat": 1, "skeleton_seconds": 0.5046824220335111, "peak_torch_allocated_mib": 1824.88525390625}
+{"id": "02", "repeat": 2, "skeleton_seconds": 0.5036453609354794, "peak_torch_allocated_mib": 1824.88525390625}
+{"id": "03", "repeat": 0, "skeleton_seconds": 0.5049105760408565, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "03", "repeat": 1, "skeleton_seconds": 0.5078502229880542, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "03", "repeat": 2, "skeleton_seconds": 0.49346180504653603, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "04", "repeat": 0, "skeleton_seconds": 0.5036475169472396, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "04", "repeat": 1, "skeleton_seconds": 0.4873741449555382, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "04", "repeat": 2, "skeleton_seconds": 0.433691733982414, "peak_torch_allocated_mib": 1795.8505859375}
+{"id": "05", "repeat": 0, "skeleton_seconds": 0.5090175699442625, "peak_torch_allocated_mib": 1824.88525390625}
+{"id": "05", "repeat": 1, "skeleton_seconds": 0.48669315699953586, "peak_torch_allocated_mib": 1824.88525390625}
+{"id": "05", "repeat": 2, "skeleton_seconds": 0.49376725999172777, "peak_torch_allocated_mib": 1824.88525390625}
+RESIDENT_READY

@@ -1,0 +1,168 @@
+{
+  "schema": "motion-lab/audio-dialogue-video-v1",
+  "model": "molingo",
+  "plan": {
+    "schema": "motion-lab/audio-dialogue-video-plan-v1",
+    "model": "molingo",
+    "fps": 30,
+    "frame_count": 423,
+    "duration_seconds": 14.1,
+    "student_audio_seconds": 1.9,
+    "teacher_start_seconds": 8.1,
+    "teacher_audio_seconds": 5.5,
+    "student_text": "先生、こんにちは。",
+    "teacher_text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+    "measurement": {
+      "schema": "motion-lab/audio-input-dialogue-v1",
+      "model": "molingo",
+      "input_transport": "input_audio_buffer.append + commit",
+      "typed_student_input": false,
+      "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+      "clock_domain": "single_client_monotonic",
+      "student_audio_seconds": 1.9,
+      "student_audio_started_at_utc": "2026-10-16T06:35:28.902373+00:00",
+      "student_audio_ended_at_utc": "2026-10-16T06:35:30.804440+00:00",
+      "student_transcript": "先生、こんにちは。",
+      "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "teacher_audio_seconds": 5.5,
+      "asr_seconds_after_student_end": 0.8986181970103644,
+      "first_teacher_audio_seconds_after_student_end": 0.5774987830081955,
+      "teacher_transcript_seconds_after_student_end": 1.4623471650120337,
+      "response_done_seconds_after_student_end": 1.4624112820019946,
+      "first_teacher_audio_seconds_after_input_start": 2.479564887995366,
+      "events": [
+        {
+          "event": "teacher_first_audio",
+          "seconds_after_student_end": 0.5774987830081955
+        },
+        {
+          "event": "student_transcription_complete",
+          "seconds_after_student_end": 0.8986181970103644
+        },
+        {
+          "event": "teacher_transcript_complete",
+          "seconds_after_student_end": 1.4623471650120337
+        }
+      ],
+      "response_id": "resp_EZVpKPhLLXnKZMlLGWIMr",
+      "usage": {
+        "total_tokens": 256,
+        "input_tokens": 108,
+        "output_tokens": 148,
+        "input_token_details": {
+          "text_tokens": 89,
+          "audio_tokens": 19,
+          "image_tokens": 0,
+          "cached_tokens": 0,
+          "cached_tokens_details": {
+            "text_tokens": 0,
+            "audio_tokens": 0,
+            "image_tokens": 0
+          }
+        },
+        "output_token_details": {
+          "text_tokens": 38,
+          "audio_tokens": 110
+        }
+      },
+      "actual_charge_usd": null,
+      "max_output_tokens": 512,
+      "max_teacher_audio_seconds": 15,
+      "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+      "teacher_sha256": "4fe6412f5e6fb870348b529c3bc647337567f005cc39a4863688c953022e6efa",
+      "profile": "lab_proxy",
+      "avatar_role": "speaker",
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "resident_mode": "FP32 / lab_proxy",
+      "realtime_close_timeout_seconds": 0.1,
+      "generation_dispatch_seconds_after_student_end": 3.1641479269892443,
+      "bone_ready_observed_seconds_after_student_end": 6.174745518015698,
+      "generation_command_observed_seconds": 3.0105975910264533,
+      "completion_poll_interval_seconds": 0,
+      "motion_generation_seconds": 2.6321523785591125,
+      "bone_minus_first_realtime_audio_seconds": 5.597246735007502,
+      "teacher_playback_seconds_after_student_end": 6.174745518015698,
+      "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+      "actual_inference_after_received_teacher_transcript": true,
+      "remote_upload_and_startup_included": false,
+      "input_translation": true,
+      "translated_motion_prompt": "Hello! You look energetic again today! Let's start practicing English conversation.",
+      "translation_model": "gpt-realtime-2.1",
+      "translation_seconds": 1.5874936149921268,
+      "translation_included_in_end_to_end": true,
+      "model_was_resident_before_student_input": true,
+      "input_text_embedding_recomputed": true,
+      "inference_backend": "runpod_resident",
+      "measured_end_to_end": true,
+      "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+    },
+    "motion_file": "motion.json",
+    "motion_scope": "full_body",
+    "avatar_role": "speaker",
+    "motion_sha256": "508f89914ea4dcc637e7bc46cb93f12bc5200b3e34b5bcb758f11e5ffcc35d50",
+    "speech_and_gesture_start_policy": "same_frame_when_buffered_teacher_starts",
+    "caption": "音声入力からの実測を再生 / ライブ録画ではありません",
+    "body_pose": "pretrained_full_body_joints"
+  },
+  "render_wall_seconds": 206.852011401,
+  "live_recording": false,
+  "render_mode": "offline_replay_of_real_measurement",
+  "hardware_webgl": false,
+  "setup": {
+    "avatar": {
+      "metaVersion": "1",
+      "name": "AvatarSample_VRM1.0",
+      "authors": [
+        "pixiv VRoid Project"
+      ],
+      "licenseUrl": "https://vrm.dev/licenses/1.0/",
+      "avatarPermission": "everyone",
+      "allowExcessivelyViolentUsage": false,
+      "allowExcessivelySexualUsage": false,
+      "commercialUsage": "personalNonProfit",
+      "allowPoliticalOrReligiousUsage": false,
+      "allowAntisocialOrHateUsage": false,
+      "creditNotation": "unnecessary",
+      "allowRedistribution": false,
+      "modification": "prohibited"
+    },
+    "webgl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "front_alignment": 0.9999999999999999
+  },
+  "stats": {
+    "maxLip": 1,
+    "maxHeadPitch": 0,
+    "frames": 189,
+    "maxLowerBodyRotationError": 0,
+    "maxLowerBodyPositionError": 0,
+    "maxRawLowerBodyRotationError": 4.2146848510894035e-8
+  },
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "423"
+      },
+      {
+        "codec_type": "audio",
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "331"
+      }
+    ],
+    "format": {
+      "duration": "14.100000"
+    }
+  },
+  "idle_image_update_seconds": 1,
+  "waiting_duration_compressed": false,
+  "audio_gesture_start_offset_seconds": 0,
+  "upper_body_only": true,
+  "presentation_root_policy": "source torso yaw removed; hips and lower body fixed; spine world orientation retained; original learned joints preserved",
+  "video_sha256": "5f358ebe2d4fd13d54e3687971cb4df0392746f1830f65037a0172b1882db9c0",
+  "browser_errors": []
+}

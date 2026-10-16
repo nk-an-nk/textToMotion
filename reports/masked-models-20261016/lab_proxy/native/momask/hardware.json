@@ -1,0 +1,21 @@
+{
+  "model": "momask",
+  "profile": "lab_proxy",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "gpu_total_mib": 24080.875,
+  "torch": "2.8.0+cu129",
+  "cuda": "12.9",
+  "python": "3.12.3",
+  "cpu_threads": 8,
+  "cpu_affinity_count": 8,
+  "torch_allocator_limit_mib": 12227,
+  "ram_hard_cap_applied": false,
+  "model_load_seconds": 8.130896148271859,
+  "settings": {
+    "time_steps": 18,
+    "cond_scale": 4,
+    "residual_cond_scale": 5,
+    "representation": 263
+  },
+  "source_commit": "94a6636c9c463b7a9414c3401a6f1b67e6c51824"
+}

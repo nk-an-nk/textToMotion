@@ -8,11 +8,12 @@ const {spawn,spawnSync}=require('node:child_process');
 const {once}=require('node:events');
 const {hash,loadAssets}=require('./segmented_video_plan.cjs');
 const {browserArgs,isSoftwareRenderer,requireHardware}=require('./webgl_backend.cjs');
-const help='node scripts/export_segmented_dialogue.cjs --manifest manifest.json --avatar avatar.vrm --output combined.mp4 [--base-url http://127.0.0.1:8765] [--chromium PATH] [--renderer software|gpu|auto] [--gpu-backend vulkan|gl] [--reuse-assets]';
+const help='node scripts/export_segmented_dialogue.cjs --manifest manifest.json --avatar avatar.vrm --output combined.mp4 [--base-url http://127.0.0.1:8765] [--chromium PATH] [--renderer software|gpu|auto] [--gpu-backend vulkan|gl] [--reuse-assets] [--upper-body]';
 const args={};
 for(let i=2;i<process.argv.length;i++){
  if(process.argv[i]==='--help'){console.log(help);process.exit(0);}
  if(process.argv[i]==='--reuse-assets'){args['reuse-assets']=true;continue;}
+ if(process.argv[i]==='--upper-body'){args['upper-body']=true;continue;}
  if(!['--manifest','--avatar','--output','--base-url','--chromium','--renderer','--gpu-backend'].includes(process.argv[i])||!process.argv[i+1])throw new Error(help);
  args[process.argv[i].slice(2)]=process.argv[++i];
 }
@@ -50,6 +51,7 @@ async function main(){
    if(data.rendererMode==='gpu'&&(!webgl.unmasked_renderer||/swiftshader|llvmpipe|softpipe|software|basic render|lavapipe/i.test(webgl.unmasked_renderer)))throw new Error('Hardware WebGL is required; software fallback refused.');
    const sink=viewer.vrmSink,avatar=await sink.loadAvatar(decode(data.avatarEncoded).buffer);viewer.resetCamera();viewer.controls.enabled=false;
    sink.vrm.scene.updateMatrixWorld(true);const bounds=new THREE.Box3().setFromObject(sink.vrm.scene),center=bounds.getCenter(new THREE.Vector3()),size=bounds.getSize(new THREE.Vector3());
+   if(data.upperBody){const lower=sink.rest.get('hips').node.getWorldPosition(new THREE.Vector3()).y-.12,upper=Math.max(bounds.max.y,sink.rest.get('head').node.getWorldPosition(new THREE.Vector3()).y+.25);center.y=(lower+upper)/2;size.y=upper-lower;}
    const distance=Math.max(size.y/2/Math.tan(THREE.MathUtils.degToRad(viewer.camera.fov/2)),size.x/2/viewer.camera.aspect/Math.tan(THREE.MathUtils.degToRad(viewer.camera.fov/2)))*1.5;
    viewer.controls.target.copy(center);viewer.camera.position.set(center.x,center.y,center.z+distance);viewer.camera.lookAt(center);viewer.controls.update();
    const anisotropy=Math.min(8,viewer.renderer.capabilities.getMaxAnisotropy());
@@ -59,6 +61,16 @@ async function main(){
    await context.close();
    const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d'),source=viewer.renderer.domElement;
    const stats=manifest.segments.map(unit=>({id:unit.id,maxRMS:0,maxLip:0,rendered_frames:0})),boundaries=[],samples=[];
+   const lowerBodyStats={maxRotationError:0,maxPositionError:0,maxRawRotationError:0},lockedNames=['hips','leftUpperLeg','leftLowerLeg','leftFoot','leftToes','rightUpperLeg','rightLowerLeg','rightFoot','rightToes'];
+   sink.vrm.update(0);sink.vrm.scene.updateMatrixWorld(true);
+   const rawRest=new Map(lockedNames.map(name=>[name,sink.vrm.humanoid.getRawBoneNode(name)?.getWorldQuaternion(new THREE.Quaternion())]));
+   function lockLowerBody(){
+    const spine=sink.rest.get('spine').node;sink.vrm.scene.updateMatrixWorld(true);const world=spine.getWorldQuaternion(new THREE.Quaternion());
+    for(const name of lockedNames){const b=sink.rest.get(name);if(b){b.node.quaternion.copy(b.q);b.node.position.copy(b.p);}}
+    sink.vrm.scene.updateMatrixWorld(true);spine.quaternion.copy(spine.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(world));sink.vrm.update(0);sink.vrm.scene.updateMatrixWorld(true);
+    for(const name of lockedNames){const b=sink.rest.get(name);if(b){lowerBodyStats.maxRotationError=Math.max(lowerBodyStats.maxRotationError,b.node.quaternion.angleTo(b.q));lowerBodyStats.maxPositionError=Math.max(lowerBodyStats.maxPositionError,b.node.position.distanceTo(b.p));}}
+    for(const name of lockedNames){const node=sink.vrm.humanoid.getRawBoneNode(name),q=rawRest.get(name);if(node&&q)lowerBodyStats.maxRawRotationError=Math.max(lowerBodyStats.maxRawRotationError,node.getWorldQuaternion(new THREE.Quaternion()).angleTo(q));}
+   }
    let active=-1,last=-1;
    function textLines(text,x,y,maxWidth){let line='';for(const char of text){if(line&&ctx.measureText(line+char).width>maxWidth){ctx.fillText(line,x,y);line='';y+=36;}line+=char;}ctx.fillText(line,x,y);}
    window.__segmentedFrame=frame=>{
@@ -74,21 +86,23 @@ async function main(){
     sink.elapsed=Math.max(0,frame/fps-1/fps);sink.tick(1/fps,{speaking:manifest.avatar_role!=='listener'&&speaking,lip:rms,offlineTime:motionTime});
     const blendSeconds=Math.min(manifest.blend_ms/1000,unit.frame_count/fps/3);
     if(blendSeconds>0&&clock<blendSeconds){sink.blendFrom(clock/blendSeconds);sink.vrm.update(0);}
+    if(data.upperBody)lockLowerBody();
     if(before){const after=sink.rest.get('hips').node.position.clone();boundaries.push({id:unit.id,frame,speech_start_frame:frame,gesture_start_frame:frame,root_before:before.toArray(),root_after:after.toArray(),root_jump_metres:after.distanceTo(before),blend_seconds:blendSeconds});}
     for(const bone of sink.rest.values())if(![...bone.node.position.toArray(),...bone.node.quaternion.toArray()].every(Number.isFinite))throw new Error('Nonfinite avatar pose.');
     const hips=sink.rest.get('hips');if(hips){hips.node.position.copy(hips.p);sink.vrm.update(0);}
     viewer.draw(0);const lip=sink.vrm.expressionManager?.getValue('aa')||0;stats[index].maxRMS=Math.max(stats[index].maxRMS,rms);stats[index].maxLip=Math.max(stats[index].maxLip,lip);stats[index].rendered_frames++;
     ctx.fillStyle='#edf1ed';ctx.fillRect(0,0,width,height);ctx.drawImage(source,0,header);
     ctx.fillStyle='#162b35';ctx.fillRect(0,0,width,header);ctx.fillStyle='#ffffff';ctx.font='bold 32px "Noto Sans CJK JP",sans-serif';ctx.fillText(manifest.title,32,42);
-    ctx.fillStyle='#d3f2de';ctx.font='22px "Noto Sans CJK JP",sans-serif';ctx.fillText(`${manifest.model} / ${index+1} / ${manifest.segments.length} · 区間ごとの音声＋ジェスチャー · 正面1080p / 30fps`,32,77);
+    ctx.fillStyle='#d3f2de';ctx.font='22px "Noto Sans CJK JP",sans-serif';ctx.fillText(`${manifest.model} / ${index+1} / ${manifest.segments.length} · 区間ごとの音声＋ジェスチャー · 正面1080p / 30fps${data.upperBody?' · 上半身・下半身固定':''} · ${manifest.compute_profile||''}`,32,77);
     ctx.fillStyle='#ffffff';ctx.fillRect(0,height-footer,width,footer);ctx.fillStyle='#162b35';ctx.font='28px "Noto Sans CJK JP",sans-serif';textLines(unit.text,32,height-footer+42,width-64);
+    if(unit.translation?.llm_generated){ctx.font='19px "Noto Sans CJK JP",sans-serif';textLines('英訳入力: '+unit.motion_prompt+' / 骨格生成 '+unit.skeleton_seconds.toFixed(3)+' 秒',32,height-footer+86,width-64);}
     ctx.fillStyle='#687a80';ctx.font='16px "Noto Sans CJK JP",sans-serif';ctx.fillText('Avatar: '+avatar.name+' / '+(avatar.authors||[]).join(', '),32,height-22);ctx.fillText((frame/fps).toFixed(2)+' s',width-140,height-22);
     if(localFrame===0||localFrame%fps===0)samples.push({id:unit.id,frame,unit_seconds:clock,motion_seconds:motionTime,speaking,rms,lip});
     return canvas.toDataURL('image/png').split(',')[1];
    };
-   window.__segmentedStats=()=>({segments:stats,boundaries,samples});
+   window.__segmentedStats=()=>({segments:stats,boundaries,samples,upper_body_only:!!data.upperBody,lower_body:lowerBodyStats});
    return {avatar,webgl,camera:{position:viewer.camera.position.toArray(),target:viewer.controls.target.toArray(),front_alignment:viewer.camera.position.clone().sub(viewer.controls.target).normalize().dot(new THREE.Vector3(0,0,1))},source_canvas:{width:source.width,height:source.height},output_canvas:{width,height},anisotropy};
-  },{avatarEncoded:avatar.toString('base64'),manifest,width,height,fps,rendererMode,units:units.map(({unit,motion,audio})=>({...unit,motion,audioEncoded:audio.toString('base64')}))});
+  },{avatarEncoded:avatar.toString('base64'),manifest,width,height,fps,rendererMode,upperBody:!!args['upper-body'],units:units.map(({unit,motion,audio})=>({...unit,motion,audioEncoded:audio.toString('base64')}))});
   if(rendererMode==='gpu')requireHardware(setup.webgl);
   if(setup.source_canvas.width!==1920||setup.source_canvas.height!==820||setup.camera.front_alignment<.99999)throw new Error('Native canvas or front camera validation failed.');
   fs.mkdirSync(path.dirname(output),{recursive:true});let lastReport=performance.now();
@@ -120,6 +134,7 @@ async function main(){
   fs.writeFileSync(list,renderResults.map((result,index)=>`file '${result.silent.replaceAll('\\','/').replaceAll("'","'\\''")}'\nduration ${units[index].unit.frame_count/fps}\n`).join(''));
   command('ffmpeg',['-hide_banner','-loglevel','error','-n','-f','concat','-safe','0','-i',list,'-i',assets.timelinePath,'-map','0:v:0','-map','1:a:0','-c:v','copy','-c:a','aac','-b:a','192k','-t',String(manifest.duration_seconds),'-movflags','+faststart',output]);
   const media=inspectVideo(output,manifest.frame_count),stats=await page.evaluate(()=>window.__segmentedStats());
+  if(args['upper-body']&&(stats.lower_body.maxRotationError>1e-5||stats.lower_body.maxPositionError>1e-8||stats.lower_body.maxRawRotationError>1e-5))throw new Error('Lower body was not held in its rest pose.');
   if(errors.length||stats.segments.some((unit,index)=>unit.maxRMS<.001||(manifest.avatar_role!=='listener'&&unit.maxLip<.01)||unit.rendered_frames!==units[index].unit.frame_count)||stats.boundaries.some(boundary=>manifest.blend_ms>0&&boundary.root_jump_metres>1e-6))throw new Error('Speech, lip movement, frame coverage or boundary continuity check failed: '+errors.join(';'));
   for(const result of renderResults)delete result.silent;
   const renderSeconds=(performance.now()-began)/1000;

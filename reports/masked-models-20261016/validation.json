@@ -1,0 +1,12 @@
+{
+  "schema": "motion-lab/masked-experiment-validation-v1",
+  "status": "passed",
+  "measured_native_trials": 90,
+  "fresh_audio_dialogues": 6,
+  "main_videos": 12,
+  "single_segment_videos": 30,
+  "llm_english_input_verified": true,
+  "moLingo_unknown_tokens": 0,
+  "actual_rtx5070_measured": false,
+  "quality_score_measured": false
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "model": "momask",
+    "kind": "dialogue",
+    "status": "rendered",
+    "seconds": 167.76553530298406,
+    "video": "reports/masked-models-20261016/b300/dialogue-video/momask/dialogue.mp4"
+  },
+  {
+    "model": "momask",
+    "kind": "common",
+    "status": "rendered",
+    "seconds": 370.42599006701494,
+    "video": "reports/masked-models-20261016/b300/common-video/momask/combined.mp4"
+  },
+  {
+    "model": "remomask2",
+    "kind": "dialogue",
+    "status": "rendered",
+    "seconds": 206.41504072400858,
+    "video": "reports/masked-models-20261016/b300/dialogue-video/remomask2/dialogue.mp4"
+  },
+  {
+    "model": "molingo",
+    "kind": "dialogue",
+    "status": "rendered",
+    "seconds": 306.8156614860054,
+    "video": "reports/masked-models-20261016/b300/dialogue-video/molingo/dialogue.mp4"
+  },
+  {
+    "model": "remomask2",
+    "kind": "common",
+    "status": "rendered",
+    "seconds": 482.77912355802255,
+    "video": "reports/masked-models-20261016/b300/common-video/remomask2/combined.mp4"
+  },
+  {
+    "model": "molingo",
+    "kind": "common",
+    "status": "rendered",
+    "seconds": 253.34352345997468,
+    "video": "reports/masked-models-20261016/b300/common-video/molingo/combined.mp4"
+  }
+]

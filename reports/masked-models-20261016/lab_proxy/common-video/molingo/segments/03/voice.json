@@ -1,0 +1,46 @@
+{
+  "schema": "motion-lab/realtime-speech-v1",
+  "provider": "OpenAI",
+  "api": "Realtime GA WebSocket",
+  "model": "gpt-realtime-2.1",
+  "voice": "marin",
+  "synthetic_voice": true,
+  "requested_text": "まずは英語で挨拶してみよう。",
+  "sample_rate": 24000,
+  "duration_seconds": 2.5,
+  "audio_sha256": "274a6b239a5df0ee912f5572984a37910f81dc2851fb3d0050298260f4da9ae8",
+  "generated_at_utc": "2026-10-14T15:04:14.582890+00:00",
+  "actual_charge_usd": null,
+  "max_output_tokens": 512,
+  "max_audio_seconds": 10,
+  "input_submitted_at_utc": "2026-10-14T15:04:10.149678+00:00",
+  "session_setup_seconds": 0.3555159449997518,
+  "first_audio_seconds": 0.9628790430001573,
+  "complete_audio_seconds": 1.4218523810000079,
+  "response_done_seconds": 1.430917319999935,
+  "generation_wall_seconds": 4.788031985000089,
+  "clock_domain": "single_client_monotonic",
+  "response_id": "resp_EYuoUzvNUsLeepigmmnhm",
+  "transcript": "まずは英語で挨拶してみよう。",
+  "usage": {
+    "total_tokens": 189,
+    "input_tokens": 93,
+    "output_tokens": 96,
+    "input_token_details": {
+      "text_tokens": 93,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 46,
+      "audio_tokens": 50,
+      "reasoning_tokens": 21
+    }
+  }
+}

@@ -14,12 +14,16 @@ from app.segmented_dialogue import assemble_audio, digest, write_json, speech_in
 from app.motion import read_motion
 
 
-def assemble(config, motion_root, speech_root, output, model, listener=False):
+def assemble(config, motion_root, speech_root, output, model, listener=False, allow_llm_translation=False):
     if output.exists():
         raise ValueError('Existing render assets are preserved. Choose a new output directory.')
     plan = json.loads(config.read_text())
     for unit in plan['segments']:
-        if unit['motion_prompt'] != unit['text']:
+        if allow_llm_translation:
+            t=unit.get('translation',{})
+            if not t.get('llm_generated') or t.get('source_text')!=unit['text'] or t.get('english')!=unit['motion_prompt']:
+                raise ValueError('Original utterance and verified LLM translation must match the plan.')
+        elif unit['motion_prompt'] != unit['text']:
             raise ValueError('Comparison input must be the literal utterance for every model.')
     output.mkdir(parents=True)
     manifest = {'schema':'motion-lab/segmented-dialogue-v1','status':'generated','model':model,
@@ -28,12 +32,13 @@ def assemble(config, motion_root, speech_root, output, model, listener=False):
         'fps':30,'blend_ms':250,'new_motion_inference':True,'audio_conditioned_model':False,
         'avatar_role':'listener' if listener else 'speaker','speech_reused':True,
         'speech_and_gesture_start_policy':'same_frame_per_segment','segments':[]}
+    manifest['translation_policy']=plan.get('translation_policy','literal_utterance')
     cursor = 0
     for unit in plan['segments']:
         source = motion_root/unit['id']; voice = speech_root/unit['id']
         receipt = json.loads((source/'motion-generation.json').read_text())
         speech = json.loads((voice/'voice.json').read_text())
-        if receipt['original_text'] != unit['text'] or receipt['motion_prompt'] != unit['text'] or speech['requested_text'] != unit['text']:
+        if receipt['original_text'] != unit['text'] or receipt['motion_prompt'] != unit['motion_prompt'] or speech['requested_text'] != unit['text']:
             raise ValueError('The generated motion and speech have different input text.')
         motion = read_motion(source/'motion.json')
         if motion.get('metadata',{}).get('trained_model_output') is not True or receipt['motion_sha256'] != digest(source/'motion.json'):
@@ -76,6 +81,7 @@ if __name__ == '__main__':
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--model',required=True)
     parser.add_argument('--listener',action='store_true')
+    parser.add_argument('--allow-llm-translation',action='store_true')
     args = parser.parse_args()
-    result = assemble(args.config,args.motion_root,args.speech_root,args.output,args.model,args.listener)
+    result = assemble(args.config,args.motion_root,args.speech_root,args.output,args.model,args.listener,args.allow_llm_translation)
     print(json.dumps({'manifest':str(args.output/'manifest.json'),'frames':result['frame_count']}))

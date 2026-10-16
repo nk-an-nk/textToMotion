@@ -36,8 +36,10 @@ async function main(){
    const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1080;const ctx=canvas.getContext('2d');
    const ac=new AudioContext({sampleRate:24000}),voice=await ac.decodeAudioData(decode(d.audio).buffer);await ac.close();const channel=voice.getChannelData(0);
    const clip=plan.motion_scope==='full_body'?sink.prepareMotion(faceFrontMotion(motion)):null;
-   let playing=false,last=-1;const stats={maxLip:0,maxHeadPitch:0,frames:0,maxLowerBodyRotationError:0,maxLowerBodyPositionError:0};
+   let playing=false,last=-1;const stats={maxLip:0,maxHeadPitch:0,frames:0,maxLowerBodyRotationError:0,maxLowerBodyPositionError:0,maxRawLowerBodyRotationError:0};
    const lockedNames=['hips','leftUpperLeg','leftLowerLeg','leftFoot','leftToes','rightUpperLeg','rightLowerLeg','rightFoot','rightToes'];
+   sink.vrm.update(0);sink.vrm.scene.updateMatrixWorld(true);
+   const rawRest=new Map(lockedNames.map(name=>[name,sink.vrm.humanoid.getRawBoneNode(name)?.getWorldQuaternion(new THREE.Quaternion())]));
    function lockLowerBody(){
     const spine=sink.rest.get('spine').node;
     sink.vrm.scene.updateMatrixWorld(true);
@@ -45,10 +47,11 @@ async function main(){
     for(const name of lockedNames){const b=sink.rest.get(name);if(b){b.node.quaternion.copy(b.q);b.node.position.copy(b.p);}}
     sink.vrm.scene.updateMatrixWorld(true);
     spine.quaternion.copy(spine.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(spineWorld));
-    sink.vrm.scene.updateMatrixWorld(true);
+    sink.vrm.update(0);sink.vrm.scene.updateMatrixWorld(true);
     for(const name of lockedNames){const b=sink.rest.get(name);if(b){
      stats.maxLowerBodyRotationError=Math.max(stats.maxLowerBodyRotationError,b.node.quaternion.angleTo(b.q));
      stats.maxLowerBodyPositionError=Math.max(stats.maxLowerBodyPositionError,b.node.position.distanceTo(b.p));}}
+    for(const name of lockedNames){const node=sink.vrm.humanoid.getRawBoneNode(name),q=rawRest.get(name);if(node&&q)stats.maxRawLowerBodyRotationError=Math.max(stats.maxRawLowerBodyRotationError,node.getWorldQuaternion(new THREE.Quaternion()).angleTo(q));}
    }
    function lines(text,x,y){let s='';for(const c of text){if(ctx.measureText(s+c).width>1850){ctx.fillText(s,x,y);s='';y+=34;}s+=c;}ctx.fillText(s,x,y);}
    function scalar(v){while(Array.isArray(v))v=v[0];return Number(v);}
@@ -83,7 +86,7 @@ async function main(){
     const f=m.first_teacher_audio_seconds_after_student_end,b=m.bone_ready_observed_seconds_after_student_end,a=m.asr_seconds_after_student_end;
     ctx.font='22px "Noto Sans CJK JP",sans-serif';
     if(!lesson){ctx.fillText(`音声認識 ${a.toFixed(2)}s ${relative>=a?'✓':''}  |  Realtime最初の音声 ${f.toFixed(2)}s ${relative>=f?'✓':''}  |  動作完了 ${b.toFixed(2)}s ${relative>=b?'✓':''}`,24,990);
-    ctx.fillText(`教師の発話・動作開始 ${(plan.teacher_start_seconds-plan.student_audio_seconds).toFixed(2)}s / モデル常駐済み・骨格の通信込み / 初音声との差 ${m.bone_minus_first_realtime_audio_seconds.toFixed(2)}s`,24,1023);}
+    ctx.fillText(`発話・動作開始 ${(plan.teacher_start_seconds-plan.student_audio_seconds).toFixed(2)}s / ${m.input_translation?`LLM英訳 ${m.translation_seconds.toFixed(2)}s + `:''}骨格 ${m.motion_generation_seconds.toFixed(2)}s / 初音声との差 ${m.bone_minus_first_realtime_audio_seconds.toFixed(2)}s`,24,1023);}
     else ctx.fillText('学習済みの頭部パラメーターを補間して表示 / 翻訳なし / 聞き手の口は動かしません',24,990);
     ctx.font='16px "Noto Sans CJK JP",sans-serif';ctx.fillText('Avatar: '+avatar.name+' / '+(avatar.authors||[]).join(', ')+' · 生徒音声は録音済み合成音声',24,1062);
     return canvas.toDataURL('image/png').split(',')[1];
@@ -104,7 +107,7 @@ async function main(){
   command('ffmpeg',['-hide_banner','-loglevel','error','-n','-i',silent,'-i',path.join(root,'timeline.wav'),'-map','0:v:0','-map','1:a:0','-c:v','copy','-c:a','aac','-b:a','192k','-t',String(plan.duration_seconds),'-movflags','+faststart',output]);
   const media=JSON.parse(command('ffprobe',['-v','error','-count_frames','-show_entries','stream=codec_type,width,height,r_frame_rate,nb_read_frames:format=duration','-of','json',output]));
   const video=media.streams.find(s=>s.codec_type==='video'),stats=await page.evaluate(()=>window.__dialogueStats());
-  if(video.width!==1920||video.height!==1080||video.r_frame_rate!=='30/1'||Number(video.nb_read_frames)!==plan.frame_count||(!lesson&&stats.maxLip<.01)||errors.length||setup.front_alignment<.99||stats.maxLowerBodyRotationError>1e-5||stats.maxLowerBodyPositionError>1e-8)throw Error('Rendered video validation failed.');
+  if(video.width!==1920||video.height!==1080||video.r_frame_rate!=='30/1'||Number(video.nb_read_frames)!==plan.frame_count||(!lesson&&stats.maxLip<.01)||errors.length||setup.front_alignment<.99||stats.maxLowerBodyRotationError>1e-5||stats.maxLowerBodyPositionError>1e-8||stats.maxRawLowerBodyRotationError>1e-5)throw Error('Rendered video validation failed.');
   const result={schema:'motion-lab/audio-dialogue-video-v1',model:plan.model,plan,render_wall_seconds:(performance.now()-began)/1000,
    live_recording:false,render_mode:'offline_replay_of_real_measurement',hardware_webgl:false,setup,stats,media,
    idle_image_update_seconds:1,waiting_duration_compressed:false,

@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import sys
 import urllib.parse
+import urllib.error
 import urllib.request
 import uuid
 
@@ -77,7 +78,11 @@ class TrialJupyter:
                                                message['content'].get('evalue', '').replace(self.token, '[REDACTED]'))
                         return {'remote_execution': 'ok'}
         finally:
-            self.request('DELETE', '/api/kernels/' + kernel)
+            try:
+                self.request('DELETE', '/api/kernels/' + kernel)
+            except urllib.error.HTTPError as error:
+                if error.code != 404:
+                    raise
 
 
 if __name__ == '__main__':

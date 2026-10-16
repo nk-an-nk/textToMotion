@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "slides": 49,
+  "pdf_pages": 49,
+  "embedded_mp4": 60,
+  "unique_embedded_mp4": 60,
+  "all_original_mp4_hashes_match": true,
+  "missing_text_blocks": [],
+  "out_of_bounds_shapes": [],
+  "new_title_subtitle_overlaps": [],
+  "pptx_mib": 95.9381628036499,
+  "pdf_bytes": 6647034,
+  "powerpoint_desktop_playback_manually_tested": false,
+  "final_cost_table_included": true
+}

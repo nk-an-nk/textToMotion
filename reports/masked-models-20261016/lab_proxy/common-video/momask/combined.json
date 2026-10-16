@@ -1,0 +1,899 @@
+{
+  "schema": "motion-lab/segmented-vrm-video-v1",
+  "recorded_at_utc": "2026-10-16T06:46:42.422Z",
+  "manifest_sha256": "df0e6a2b005558eac014821bf23fca793ba8022df5c0375ff29766e75acc01a9",
+  "renderer": "app/ui/viewer.js + app/ui/motion-sink.js",
+  "render_mode": "offline_fixed_timestep",
+  "fps": 30,
+  "rendered_frames": 389,
+  "skipped_render_frames": 0,
+  "requested_renderer": "software",
+  "hardware_webgl": false,
+  "gpu_backend": "vulkan",
+  "new_motion_inference": true,
+  "generated_assets_reused": false,
+  "live_realtime_session": false,
+  "audio_conditioned_model": false,
+  "speech_and_gesture_start_policy": "same_frame_per_segment",
+  "audio_offset_seconds": 0,
+  "presentation_root_policy": "all source joints rotated to remove torso yaw before retargeting; avatar root anchored; original joints preserved",
+  "timeline_audio_sha256": "81df6db655a9d607d4f1a134eeaab5137d10a50813b0decf55bbdc103ce86a0d",
+  "encoding": {
+    "codec": "H.264",
+    "crf": 16,
+    "audio": "AAC 192k"
+  },
+  "lossy_intermediate": false,
+  "model": "momask",
+  "segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！",
+      "motion_prompt": "Hello!",
+      "audio_seconds": 1.1,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "こんにちは！",
+        "english": "Hello!",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVjxdIe1dhP71IZ4C0h4",
+        "translation_seconds": 1.060539186000824,
+        "usage": {
+          "total_tokens": 141,
+          "input_tokens": 109,
+          "output_tokens": 32,
+          "input_token_details": {
+            "text_tokens": 109,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 32,
+            "audio_tokens": 0,
+            "reasoning_tokens": 26
+          }
+        },
+        "raw_output": "Hello!",
+        "input_submitted_at_utc": "2026-10-16T06:29:57.055057+00:00",
+        "completed_at_utc": "2026-10-16T06:29:58.115635+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      },
+      "motion": "segments/01/motion.json",
+      "motion_receipt": "segments/01/motion-generation.json",
+      "audio": "segments/01/voice.wav",
+      "speech_metadata": "segments/01/voice.json",
+      "motion_sha256": "6ea323def43c51e6692a67719ecadbd56c049a71c2b485b746172cb8c35303b1",
+      "audio_sha256": "81d52a1249b757d63436cbe311f5991931c7a907b8610b1985f5d47f4c5a20f2",
+      "motion_seconds": 2,
+      "frame_count": 33,
+      "start_frame": 0,
+      "end_frame": 33,
+      "speech_start_frame": 0,
+      "gesture_start_frame": 0,
+      "start_seconds": 0,
+      "end_seconds": 1.1,
+      "playback_seconds": 1.1,
+      "playback_speed": 1.8181818181818181,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.790771152999696,
+      "skeleton_seconds": 0.16203132830560207,
+      "input_to_skeleton_seconds": 0.16203132830560207,
+      "input_submitted_at_utc": "2026-10-16T06:30:56.627853+00:00",
+      "skeleton_completed_at_utc": "2026-10-16T06:30:56.789885+00:00",
+      "new_gesture_generated": true,
+      "seed": 0
+    },
+    {
+      "id": "02",
+      "text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "motion_prompt": "Let’s have fun studying English together again today!",
+      "audio_seconds": 3.5,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "今日も一緒に楽しく英語を勉強しましょう！",
+        "english": "Let’s have fun studying English together again today!",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVjyMfG7sSnlOqgu4HXS",
+        "translation_seconds": 1.075488934002351,
+        "usage": {
+          "total_tokens": 153,
+          "input_tokens": 123,
+          "output_tokens": 30,
+          "input_token_details": {
+            "text_tokens": 123,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 30,
+            "audio_tokens": 0,
+            "reasoning_tokens": 16
+          }
+        },
+        "raw_output": "Let’s have fun studying English together again today!",
+        "input_submitted_at_utc": "2026-10-16T06:29:58.116304+00:00",
+        "completed_at_utc": "2026-10-16T06:29:59.191814+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      },
+      "motion": "segments/02/motion.json",
+      "motion_receipt": "segments/02/motion-generation.json",
+      "audio": "segments/02/voice.wav",
+      "speech_metadata": "segments/02/voice.json",
+      "motion_sha256": "fe47e788dee11242c3c4c1dab658aab348be2ba708c823caeea74b9926bae8e7",
+      "audio_sha256": "5270e6f381f41c2c7aa995ef7ecfa13b0780088755fab08ad70115774b296b2f",
+      "motion_seconds": 3.6,
+      "frame_count": 105,
+      "start_frame": 33,
+      "end_frame": 138,
+      "speech_start_frame": 33,
+      "gesture_start_frame": 33,
+      "start_seconds": 1.1,
+      "end_seconds": 4.6,
+      "playback_seconds": 3.5,
+      "playback_speed": 1.0285714285714287,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.828051571999822,
+      "skeleton_seconds": 0.1688169166445732,
+      "input_to_skeleton_seconds": 0.1688169166445732,
+      "input_submitted_at_utc": "2026-10-16T06:30:57.158513+00:00",
+      "skeleton_completed_at_utc": "2026-10-16T06:30:57.327332+00:00",
+      "new_gesture_generated": true,
+      "seed": 0
+    },
+    {
+      "id": "03",
+      "text": "まずは英語で挨拶してみよう。",
+      "motion_prompt": "First, let's try greeting in English.",
+      "audio_seconds": 2.5,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "まずは英語で挨拶してみよう。",
+        "english": "First, let's try greeting in English.",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVjzF5C8dBX6zd9kTKEk",
+        "translation_seconds": 1.2941252710006665,
+        "usage": {
+          "total_tokens": 173,
+          "input_tokens": 120,
+          "output_tokens": 53,
+          "input_token_details": {
+            "text_tokens": 120,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 53,
+            "audio_tokens": 0,
+            "reasoning_tokens": 41
+          }
+        },
+        "raw_output": "First, let's try greeting in English.",
+        "input_submitted_at_utc": "2026-10-16T06:29:59.192284+00:00",
+        "completed_at_utc": "2026-10-16T06:30:00.486427+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      },
+      "motion": "segments/03/motion.json",
+      "motion_receipt": "segments/03/motion-generation.json",
+      "audio": "segments/03/voice.wav",
+      "speech_metadata": "segments/03/voice.json",
+      "motion_sha256": "0a5c256b07454d7112a8bd0b977a1e0c0d02fa89d9d39c5999598a407cdb04eb",
+      "audio_sha256": "274a6b239a5df0ee912f5572984a37910f81dc2851fb3d0050298260f4da9ae8",
+      "motion_seconds": 2.6,
+      "frame_count": 75,
+      "start_frame": 138,
+      "end_frame": 213,
+      "speech_start_frame": 138,
+      "gesture_start_frame": 138,
+      "start_seconds": 4.6,
+      "end_seconds": 7.1,
+      "playback_seconds": 2.5,
+      "playback_speed": 1.04,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.788031985000089,
+      "skeleton_seconds": 0.16501746978610754,
+      "input_to_skeleton_seconds": 0.16501746978610754,
+      "input_submitted_at_utc": "2026-10-16T06:30:57.710323+00:00",
+      "skeleton_completed_at_utc": "2026-10-16T06:30:57.875341+00:00",
+      "new_gesture_generated": true,
+      "seed": 0
+    },
+    {
+      "id": "04",
+      "text": "Hello! How are you today?",
+      "motion_prompt": "Hello! How are you today?",
+      "audio_seconds": 2.25,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "Hello! How are you today?",
+        "english": "Hello! How are you today?",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVk0zFZrmcqmuf8bP9Fc",
+        "translation_seconds": 0.9978291200241074,
+        "usage": {
+          "total_tokens": 142,
+          "input_tokens": 114,
+          "output_tokens": 28,
+          "input_token_details": {
+            "text_tokens": 114,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 28,
+            "audio_tokens": 0,
+            "reasoning_tokens": 17
+          }
+        },
+        "raw_output": "Hello! How are you today?",
+        "input_submitted_at_utc": "2026-10-16T06:30:00.486916+00:00",
+        "completed_at_utc": "2026-10-16T06:30:01.484761+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      },
+      "motion": "segments/04/motion.json",
+      "motion_receipt": "segments/04/motion-generation.json",
+      "audio": "segments/04/voice.wav",
+      "speech_metadata": "segments/04/voice.json",
+      "motion_sha256": "e709faed87be8e009d8e29a7fb49aa7cc2233353023e289db379bb9f56960c5f",
+      "audio_sha256": "2eb2a10602ad658963c3b667c1ba88297b025b365e027c426ddb0acfe288ebcc",
+      "motion_seconds": 2.4,
+      "frame_count": 68,
+      "start_frame": 213,
+      "end_frame": 281,
+      "speech_start_frame": 213,
+      "gesture_start_frame": 213,
+      "start_seconds": 7.1,
+      "end_seconds": 9.366666666666667,
+      "playback_seconds": 2.2666666666666666,
+      "playback_speed": 1.0588235294117647,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.634598751999874,
+      "skeleton_seconds": 0.16781683918088675,
+      "input_to_skeleton_seconds": 0.16781683918088675,
+      "input_submitted_at_utc": "2026-10-16T06:30:58.309768+00:00",
+      "skeleton_completed_at_utc": "2026-10-16T06:30:58.477586+00:00",
+      "new_gesture_generated": true,
+      "seed": 0
+    },
+    {
+      "id": "05",
+      "text": "元気なときは、I'm happy! って言ってみてね。",
+      "motion_prompt": "When you're feeling energetic, try saying, \"I'm happy!\"",
+      "audio_seconds": 3.6,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "元気なときは、I'm happy! って言ってみてね。",
+        "english": "When you're feeling energetic, try saying, \"I'm happy!\"",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVk1hsbYs3gSejZJwNjE",
+        "translation_seconds": 1.4302954650192987,
+        "usage": {
+          "total_tokens": 204,
+          "input_tokens": 125,
+          "output_tokens": 79,
+          "input_token_details": {
+            "text_tokens": 125,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 79,
+            "audio_tokens": 0,
+            "reasoning_tokens": 63
+          }
+        },
+        "raw_output": "When you're feeling energetic, try saying, \"I'm happy!\"",
+        "input_submitted_at_utc": "2026-10-16T06:30:01.485433+00:00",
+        "completed_at_utc": "2026-10-16T06:30:02.915748+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      },
+      "motion": "segments/05/motion.json",
+      "motion_receipt": "segments/05/motion-generation.json",
+      "audio": "segments/05/voice.wav",
+      "speech_metadata": "segments/05/voice.json",
+      "motion_sha256": "83a3ce41690194d2d73f6c8e7275cfe540fe15ae32372e9c5fc0dd3aeeaec957",
+      "audio_sha256": "fe662c7b010e8e406d6dc9a64ec251692e716671149adebf8d92a055e24b6a78",
+      "motion_seconds": 3.6,
+      "frame_count": 108,
+      "start_frame": 281,
+      "end_frame": 389,
+      "speech_start_frame": 281,
+      "gesture_start_frame": 281,
+      "start_seconds": 9.366666666666667,
+      "end_seconds": 12.966666666666667,
+      "playback_seconds": 3.6,
+      "playback_speed": 1,
+      "speech_generation_seconds": 0,
+      "speech_original_generation_seconds": 4.597349226000006,
+      "skeleton_seconds": 0.17224959190934896,
+      "input_to_skeleton_seconds": 0.17224959190934896,
+      "input_submitted_at_utc": "2026-10-16T06:30:58.930266+00:00",
+      "skeleton_completed_at_utc": "2026-10-16T06:30:59.102525+00:00",
+      "new_gesture_generated": true,
+      "seed": 0
+    }
+  ],
+  "segment_videos": [
+    {
+      "id": "01",
+      "video": "segments/01/video.mp4",
+      "video_sha256": "721580735e81d0e91da6d3b6b8a31fdd863c4ca78cfd53be6f3cb4b22814fcda",
+      "render_wall_seconds": 38.487388673,
+      "input_to_skeleton_seconds": 0.16203132830560207,
+      "input_to_mp4_seconds": 621.119,
+      "skeleton_and_mp4_processing_seconds": 38.6494200013056,
+      "mp4_completed_at_utc": "2026-10-16T06:41:17.746Z",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "33"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "26"
+          }
+        ],
+        "format": {
+          "duration": "1.100000",
+          "size": "381065"
+        }
+      }
+    },
+    {
+      "id": "02",
+      "video": "segments/02/video.mp4",
+      "video_sha256": "1035b406ac194594cff90e5fb6282884be0a7d522c4d4cf3d883403d672526c1",
+      "render_wall_seconds": 100.06226116600001,
+      "input_to_skeleton_seconds": 0.1688169166445732,
+      "input_to_mp4_seconds": 721.075,
+      "skeleton_and_mp4_processing_seconds": 100.23107808264459,
+      "mp4_completed_at_utc": "2026-10-16T06:42:58.233Z",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "105"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "83"
+          }
+        ],
+        "format": {
+          "duration": "3.500000",
+          "size": "1190884"
+        }
+      }
+    },
+    {
+      "id": "03",
+      "video": "segments/03/video.mp4",
+      "video_sha256": "0def8d1f259bf3d1d7c0e6bba9f1083b0558c55000ee8a48c0d8622f4fcc4ace",
+      "render_wall_seconds": 63.99855796399998,
+      "input_to_skeleton_seconds": 0.16501746978610754,
+      "input_to_mp4_seconds": 785.393,
+      "skeleton_and_mp4_processing_seconds": 64.1635754337861,
+      "mp4_completed_at_utc": "2026-10-16T06:44:03.103Z",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "75"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "59"
+          }
+        ],
+        "format": {
+          "duration": "2.500000",
+          "size": "889927"
+        }
+      }
+    },
+    {
+      "id": "04",
+      "video": "segments/04/video.mp4",
+      "video_sha256": "0ac2f096242df0e390fc5c0db2d75e7a64bb93768ac1c5133c17ec86991b1cc1",
+      "render_wall_seconds": 59.221993808,
+      "input_to_skeleton_seconds": 0.16781683918088675,
+      "input_to_mp4_seconds": 844.475,
+      "skeleton_and_mp4_processing_seconds": 59.38981064718089,
+      "mp4_completed_at_utc": "2026-10-16T06:45:02.784Z",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "68"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "54"
+          }
+        ],
+        "format": {
+          "duration": "2.267000",
+          "size": "663364"
+        }
+      }
+    },
+    {
+      "id": "05",
+      "video": "segments/05/video.mp4",
+      "video_sha256": "bf1093432a390d46bca29f47a261ea77427a34c511200c0dc9d6ac7cc69a7ee6",
+      "render_wall_seconds": 94.7987474,
+      "input_to_skeleton_seconds": 0.17224959190934896,
+      "input_to_mp4_seconds": 939.316,
+      "skeleton_and_mp4_processing_seconds": 94.97099699190935,
+      "mp4_completed_at_utc": "2026-10-16T06:46:38.246Z",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_read_frames": "108"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "24000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_read_frames": "85"
+          }
+        ],
+        "format": {
+          "duration": "3.600000",
+          "size": "1291643"
+        }
+      }
+    }
+  ],
+  "capture": {
+    "avatar": {
+      "metaVersion": "1",
+      "name": "AvatarSample_VRM1.0",
+      "authors": [
+        "pixiv VRoid Project"
+      ],
+      "licenseUrl": "https://vrm.dev/licenses/1.0/",
+      "avatarPermission": "everyone",
+      "allowExcessivelyViolentUsage": false,
+      "allowExcessivelySexualUsage": false,
+      "commercialUsage": "personalNonProfit",
+      "allowPoliticalOrReligiousUsage": false,
+      "allowAntisocialOrHateUsage": false,
+      "creditNotation": "unnecessary",
+      "allowRedistribution": false,
+      "modification": "prohibited"
+    },
+    "webgl": {
+      "renderer": "WebKit WebGL",
+      "vendor": "WebKit",
+      "unmasked_renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "unmasked_vendor": "Google Inc. (Google)"
+    },
+    "camera": {
+      "position": [
+        0,
+        1.188230037922922,
+        1.7905584888069281
+      ],
+      "target": [
+        0,
+        1.188230037922922,
+        -0.007964728566909052
+      ],
+      "front_alignment": 0.9999999999999999
+    },
+    "source_canvas": {
+      "width": 1920,
+      "height": 820
+    },
+    "output_canvas": {
+      "width": 1920,
+      "height": 1080
+    },
+    "anisotropy": 8,
+    "segments": [
+      {
+        "id": "01",
+        "maxRMS": 0.18640576716074214,
+        "maxLip": 1,
+        "rendered_frames": 33
+      },
+      {
+        "id": "02",
+        "maxRMS": 0.15273282868426907,
+        "maxLip": 1,
+        "rendered_frames": 105
+      },
+      {
+        "id": "03",
+        "maxRMS": 0.13811852544366196,
+        "maxLip": 1,
+        "rendered_frames": 75
+      },
+      {
+        "id": "04",
+        "maxRMS": 0.14385836569257596,
+        "maxLip": 1,
+        "rendered_frames": 68
+      },
+      {
+        "id": "05",
+        "maxRMS": 0.1865938114077324,
+        "maxLip": 1,
+        "rendered_frames": 108
+      }
+    ],
+    "boundaries": [
+      {
+        "id": "01",
+        "frame": 0,
+        "speech_start_frame": 0,
+        "gesture_start_frame": 0,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "02",
+        "frame": 33,
+        "speech_start_frame": 33,
+        "gesture_start_frame": 33,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "03",
+        "frame": 138,
+        "speech_start_frame": 138,
+        "gesture_start_frame": 138,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "04",
+        "frame": 213,
+        "speech_start_frame": 213,
+        "gesture_start_frame": 213,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      },
+      {
+        "id": "05",
+        "frame": 281,
+        "speech_start_frame": 281,
+        "gesture_start_frame": 281,
+        "root_before": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_after": [
+          0,
+          0.8953759,
+          0.00436774362
+        ],
+        "root_jump_metres": 0,
+        "blend_seconds": 0.25
+      }
+    ],
+    "samples": [
+      {
+        "id": "01",
+        "frame": 0,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.017296831471805503,
+        "lip": 0.13837465177444402
+      },
+      {
+        "id": "01",
+        "frame": 30,
+        "unit_seconds": 1,
+        "motion_seconds": 1.828125,
+        "speaking": true,
+        "rms": 0.0007941994762635065,
+        "lip": 0.006353595810108052
+      },
+      {
+        "id": "02",
+        "frame": 33,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.002154910835081429,
+        "lip": 0.01723928668065143
+      },
+      {
+        "id": "02",
+        "frame": 63,
+        "unit_seconds": 1,
+        "motion_seconds": 1.0240384615384615,
+        "speaking": true,
+        "rms": 0.11198437336959498,
+        "lip": 0.8958749869567598
+      },
+      {
+        "id": "02",
+        "frame": 93,
+        "unit_seconds": 2,
+        "motion_seconds": 2.048076923076923,
+        "speaking": true,
+        "rms": 0.03597525391513692,
+        "lip": 0.2878020313210954
+      },
+      {
+        "id": "02",
+        "frame": 123,
+        "unit_seconds": 3,
+        "motion_seconds": 3.072115384615385,
+        "speaking": true,
+        "rms": 0.046871159312144424,
+        "lip": 0.3749692744971554
+      },
+      {
+        "id": "03",
+        "frame": 138,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.00988123625661681,
+        "lip": 0.07904989005293447
+      },
+      {
+        "id": "03",
+        "frame": 168,
+        "unit_seconds": 1,
+        "motion_seconds": 1.033783783783784,
+        "speaking": true,
+        "rms": 0.09937398002961509,
+        "lip": 0.7949918402369207
+      },
+      {
+        "id": "03",
+        "frame": 198,
+        "unit_seconds": 2,
+        "motion_seconds": 2.067567567567568,
+        "speaking": true,
+        "rms": 0.050825643109693404,
+        "lip": 0.40660514487754723
+      },
+      {
+        "id": "04",
+        "frame": 213,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.0017337633154803065,
+        "lip": 0.013870106523842452
+      },
+      {
+        "id": "04",
+        "frame": 243,
+        "unit_seconds": 1,
+        "motion_seconds": 1.0522388059701493,
+        "speaking": true,
+        "rms": 0.0907997151951336,
+        "lip": 0.7263977215610689
+      },
+      {
+        "id": "04",
+        "frame": 273,
+        "unit_seconds": 2,
+        "motion_seconds": 2.1044776119402986,
+        "speaking": true,
+        "rms": 0.001024040921644911,
+        "lip": 0.008192327373159287
+      },
+      {
+        "id": "05",
+        "frame": 281,
+        "unit_seconds": 0,
+        "motion_seconds": 0,
+        "speaking": true,
+        "rms": 0.008821324058686224,
+        "lip": 0.0705705924694898
+      },
+      {
+        "id": "05",
+        "frame": 311,
+        "unit_seconds": 1,
+        "motion_seconds": 0.9953271028037383,
+        "speaking": true,
+        "rms": 0.0009125230886006114,
+        "lip": 0.007300184708804891
+      },
+      {
+        "id": "05",
+        "frame": 341,
+        "unit_seconds": 2,
+        "motion_seconds": 1.9906542056074765,
+        "speaking": true,
+        "rms": 0.05714808761841938,
+        "lip": 0.457184700947355
+      },
+      {
+        "id": "05",
+        "frame": 371,
+        "unit_seconds": 3,
+        "motion_seconds": 2.985981308411215,
+        "speaking": true,
+        "rms": 0.04884464682131637,
+        "lip": 0.39075717457053094
+      }
+    ],
+    "upper_body_only": true,
+    "lower_body": {
+      "maxRotationError": 0,
+      "maxPositionError": 0,
+      "maxRawRotationError": 4.2146848510894035e-8
+    }
+  },
+  "render_wall_seconds": 372.31907971900006,
+  "speech_generation_seconds": 0,
+  "skeleton_seconds": 0.8359321458265185,
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "389"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "24000",
+        "channels": 1,
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "304"
+      }
+    ],
+    "format": {
+      "duration": "12.967000",
+      "size": "4411070"
+    }
+  },
+  "video_sha256": "dea40b678c31e251218486640b948e479c7db714cdbeedd8b680c4f2e136d675",
+  "browser_errors": [],
+  "total_processing_seconds": 373.1550118648266,
+  "combined_mp4_completed_at_utc": "2026-10-16T06:46:42.441Z",
+  "input_to_combined_mp4_seconds": 945.814
+}

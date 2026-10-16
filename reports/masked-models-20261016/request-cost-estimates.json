@@ -1,0 +1,94 @@
+{
+  "pricing_source": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1",
+  "pricing_verified_date": "2026-10-15",
+  "usd_per_million_tokens": {
+    "text_input": 4,
+    "text_output": 24,
+    "audio_input": 32,
+    "audio_output": 64
+  },
+  "jpy_per_usd_assumption": 200,
+  "scope": "Student audio start to bones received GPU time plus actual Realtime and fresh LLM-translation usage; reasoning tokens are already included in text_tokens",
+  "excluded": [
+    "ASR separate billing",
+    "recorded student voice creation",
+    "setup",
+    "idle",
+    "storage",
+    "MP4 rendering"
+  ],
+  "rows": [
+    {
+      "profile": "lab_proxy",
+      "model": "molingo",
+      "gpu_request_window_usd": 0.0019962565308427696,
+      "realtime_voice_estimate_usd": 0.008916,
+      "translation_estimate_usd": 0.002508,
+      "api_subtotal_usd": 0.011424,
+      "request_subtotal_usd": 0.01342025653084277,
+      "request_subtotal_jpy_at_200": 2.684051306168554,
+      "native_generation_only_gpu_usd": 0.0006507265602548918,
+      "actual_invoice_usd": null
+    },
+    {
+      "profile": "lab_proxy",
+      "model": "remomask2",
+      "gpu_request_window_usd": 0.0012860191162616442,
+      "realtime_voice_estimate_usd": 0.009428,
+      "translation_estimate_usd": 0.001164,
+      "api_subtotal_usd": 0.010592,
+      "request_subtotal_usd": 0.011878019116261644,
+      "request_subtotal_jpy_at_200": 2.375603823252329,
+      "native_generation_only_gpu_usd": 7.810610415827897e-05,
+      "actual_invoice_usd": null
+    },
+    {
+      "profile": "lab_proxy",
+      "model": "momask",
+      "gpu_request_window_usd": 0.001294584844619854,
+      "realtime_voice_estimate_usd": 0.009148,
+      "translation_estimate_usd": 0.001452,
+      "api_subtotal_usd": 0.0106,
+      "request_subtotal_usd": 0.011894584844619855,
+      "request_subtotal_jpy_at_200": 2.378916968923971,
+      "native_generation_only_gpu_usd": 5.200093628890399e-05,
+      "actual_invoice_usd": null
+    },
+    {
+      "profile": "b300",
+      "model": "molingo",
+      "gpu_request_window_usd": 0.024113938086986697,
+      "realtime_voice_estimate_usd": 0.008812,
+      "translation_estimate_usd": 0.001932,
+      "api_subtotal_usd": 0.010744,
+      "request_subtotal_usd": 0.0348579380869867,
+      "request_subtotal_jpy_at_200": 6.97158761739734,
+      "native_generation_only_gpu_usd": 0.007607266736671186,
+      "actual_invoice_usd": null
+    },
+    {
+      "profile": "b300",
+      "model": "remomask2",
+      "gpu_request_window_usd": 0.01725796299329084,
+      "realtime_voice_estimate_usd": 0.009092,
+      "translation_estimate_usd": 0.001476,
+      "api_subtotal_usd": 0.010568,
+      "request_subtotal_usd": 0.02782596299329084,
+      "request_subtotal_jpy_at_200": 5.565192598658168,
+      "native_generation_only_gpu_usd": 0.0012975649572740723,
+      "actual_invoice_usd": null
+    },
+    {
+      "profile": "b300",
+      "model": "momask",
+      "gpu_request_window_usd": 0.015276266849583515,
+      "realtime_voice_estimate_usd": 0.008652,
+      "translation_estimate_usd": 0.001524,
+      "api_subtotal_usd": 0.010176,
+      "request_subtotal_usd": 0.025452266849583516,
+      "request_subtotal_jpy_at_200": 5.090453369916704,
+      "native_generation_only_gpu_usd": 0.0007080120500827131,
+      "actual_invoice_usd": null
+    }
+  ]
+}

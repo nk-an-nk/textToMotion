@@ -1,0 +1,21 @@
+Reading /tmp/masked_runtime/weights/molingo/pretrained_model_263/opt.txt
+Reading /tmp/masked_runtime/weights/molingo/sae_l2_4_16_1024_d3_kl_1e-05_zero_cos_0.001/opt.txt
+/usr/local/lib/python3.12/dist-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+{"id": "01", "repeat": 0, "skeleton_seconds": 2.965474475058727, "peak_torch_allocated_mib": 3170.310546875}
+{"id": "01", "repeat": 1, "skeleton_seconds": 3.062866255058907, "peak_torch_allocated_mib": 3170.310546875}
+{"id": "01", "repeat": 2, "skeleton_seconds": 3.0377250680467114, "peak_torch_allocated_mib": 3170.310546875}
+{"id": "02", "repeat": 0, "skeleton_seconds": 2.9539323069620878, "peak_torch_allocated_mib": 3170.34765625}
+{"id": "02", "repeat": 1, "skeleton_seconds": 3.0311732449335977, "peak_torch_allocated_mib": 3170.34765625}
+{"id": "02", "repeat": 2, "skeleton_seconds": 3.0300335159990937, "peak_torch_allocated_mib": 3170.34765625}
+{"id": "03", "repeat": 0, "skeleton_seconds": 3.058399508940056, "peak_torch_allocated_mib": 3170.3291015625}
+{"id": "03", "repeat": 1, "skeleton_seconds": 3.0077235529897735, "peak_torch_allocated_mib": 3170.3291015625}
+{"id": "03", "repeat": 2, "skeleton_seconds": 3.002587790018879, "peak_torch_allocated_mib": 3170.3291015625}
+{"id": "04", "repeat": 0, "skeleton_seconds": 2.9972560480237007, "peak_torch_allocated_mib": 3170.310546875}
+{"id": "04", "repeat": 1, "skeleton_seconds": 3.2070233729900792, "peak_torch_allocated_mib": 3170.310546875}
+{"id": "04", "repeat": 2, "skeleton_seconds": 3.279129395959899, "peak_torch_allocated_mib": 3170.310546875}
+{"id": "05", "repeat": 0, "skeleton_seconds": 3.0627970680361614, "peak_torch_allocated_mib": 3170.34765625}
+{"id": "05", "repeat": 1, "skeleton_seconds": 3.0656652649631724, "peak_torch_allocated_mib": 3170.34765625}
+{"id": "05", "repeat": 2, "skeleton_seconds": 3.0408251530025154, "peak_torch_allocated_mib": 3170.34765625}
+RESIDENT_READY

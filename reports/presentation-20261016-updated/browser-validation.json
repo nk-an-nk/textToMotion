@@ -1,0 +1,450 @@
+{
+  "status": "passed",
+  "transport": "local HTTP",
+  "checks": [
+    {
+      "gallery": "presentation-20261016-updated",
+      "videos": 60,
+      "metadata": [
+        {
+          "source": "media/dialogue-kimodo.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 22.767
+        },
+        {
+          "source": "media/common-kimodo.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/dialogue-ardy.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 194.833333
+        },
+        {
+          "source": "media/common-ardy.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/dialogue-motionlcm.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 26.6
+        },
+        {
+          "source": "media/common-motionlcm.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/dialogue-momask.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 31.067
+        },
+        {
+          "source": "media/common-momask.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/dialogue-mmm.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 31
+        },
+        {
+          "source": "media/common-mmm.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/dialogue-reactmotion.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 26.167
+        },
+        {
+          "source": "media/common-reactmotion.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/dialogue-maai.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 27
+        },
+        {
+          "source": "media/common-maai.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/b300-fp32-100.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.2
+        },
+        {
+          "source": "media/b300-tf32-20.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 11.767
+        },
+        {
+          "source": "media/segmented-english-lesson.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 14.133333
+        },
+        {
+          "source": "media/segmented-english-lesson-ardy.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 14.133333
+        },
+        {
+          "source": "media/masked-lab_proxy-dialogue-molingo.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 14.1
+        },
+        {
+          "source": "media/masked-lab_proxy-common-molingo.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-molingo-01.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 1.1
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-molingo-02.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.5
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-molingo-03.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.5
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-molingo-04.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.267
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-molingo-05.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.6
+        },
+        {
+          "source": "media/masked-lab_proxy-dialogue-remomask2.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 11.033333
+        },
+        {
+          "source": "media/masked-lab_proxy-common-remomask2.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-remomask2-01.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 1.1
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-remomask2-02.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.5
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-remomask2-03.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.5
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-remomask2-04.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.267
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-remomask2-05.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.6
+        },
+        {
+          "source": "media/masked-lab_proxy-dialogue-momask.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 11.2
+        },
+        {
+          "source": "media/masked-lab_proxy-common-momask.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-momask-01.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 1.1
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-momask-02.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.5
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-momask-03.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.5
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-momask-04.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.267
+        },
+        {
+          "source": "media/masked-lab_proxy-segment-momask-05.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.6
+        },
+        {
+          "source": "media/masked-b300-dialogue-molingo.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 15.133333
+        },
+        {
+          "source": "media/masked-b300-common-molingo.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/masked-b300-segment-molingo-01.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 1.1
+        },
+        {
+          "source": "media/masked-b300-segment-molingo-02.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.5
+        },
+        {
+          "source": "media/masked-b300-segment-molingo-03.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.5
+        },
+        {
+          "source": "media/masked-b300-segment-molingo-04.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.267
+        },
+        {
+          "source": "media/masked-b300-segment-molingo-05.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.6
+        },
+        {
+          "source": "media/masked-b300-dialogue-remomask2.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.6
+        },
+        {
+          "source": "media/masked-b300-common-remomask2.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/masked-b300-segment-remomask2-01.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 1.1
+        },
+        {
+          "source": "media/masked-b300-segment-remomask2-02.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.5
+        },
+        {
+          "source": "media/masked-b300-segment-remomask2-03.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.5
+        },
+        {
+          "source": "media/masked-b300-segment-remomask2-04.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.267
+        },
+        {
+          "source": "media/masked-b300-segment-remomask2-05.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.6
+        },
+        {
+          "source": "media/masked-b300-dialogue-momask.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 11.567
+        },
+        {
+          "source": "media/masked-b300-common-momask.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "media/masked-b300-segment-momask-01.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 1.1
+        },
+        {
+          "source": "media/masked-b300-segment-momask-02.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.5
+        },
+        {
+          "source": "media/masked-b300-segment-momask-03.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.5
+        },
+        {
+          "source": "media/masked-b300-segment-momask-04.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 2.267
+        },
+        {
+          "source": "media/masked-b300-segment-momask-05.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 3.6
+        }
+      ]
+    },
+    {
+      "gallery": "masked-models-20261016",
+      "videos": 12,
+      "metadata": [
+        {
+          "source": "lab_proxy/common-video/molingo/combined.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "lab_proxy/dialogue-video/molingo/dialogue.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 14.1
+        },
+        {
+          "source": "lab_proxy/common-video/remomask2/combined.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "lab_proxy/dialogue-video/remomask2/dialogue.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 11.033333
+        },
+        {
+          "source": "lab_proxy/common-video/momask/combined.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "lab_proxy/dialogue-video/momask/dialogue.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 11.2
+        },
+        {
+          "source": "b300/common-video/molingo/combined.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "b300/dialogue-video/molingo/dialogue.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 15.133333
+        },
+        {
+          "source": "b300/common-video/remomask2/combined.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "b300/dialogue-video/remomask2/dialogue.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.6
+        },
+        {
+          "source": "b300/common-video/momask/combined.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 12.967
+        },
+        {
+          "source": "b300/dialogue-video/momask/dialogue.mp4",
+          "width": 1920,
+          "height": 1080,
+          "duration": 11.567
+        }
+      ]
+    }
+  ]
+}

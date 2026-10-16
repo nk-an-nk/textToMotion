@@ -1,0 +1,14 @@
+{
+  "schema": "motion-lab/segmented-dialogue-v1",
+  "status": "generated",
+  "new_motion_inference": false,
+  "segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "audio": "01/voice.wav",
+      "speech_metadata": "01/voice.json",
+      "audio_sha256": "733905b9ac6c5855885bf498d7a794d52ef2245c7aee4ae1287e4f3397a41ba4"
+    }
+  ]
+}

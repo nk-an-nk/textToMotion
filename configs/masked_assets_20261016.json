@@ -1,0 +1,185 @@
+{
+  "sources": [
+    [
+      "molingo",
+      "https://github.com/hynann/MoLingo.git",
+      "52e3b4c309256ce1bb29c8c038fe34b88682db08"
+    ],
+    [
+      "remomask2",
+      "https://github.com/AIGeeksGroup/ReMoMask-2.git",
+      "48abb7a65ee6e53296d788329e49374327e423f3"
+    ],
+    [
+      "momask",
+      "https://github.com/EricGuo5513/momask-codes.git",
+      "94a6636c9c463b7a9414c3401a6f1b67e6c51824"
+    ]
+  ],
+  "remomask_files": [
+    {
+      "type": "file",
+      "oid": "a6344aac8c09253b3b630fb776ae94478aa0275b",
+      "size": 1519,
+      "path": ".gitattributes"
+    },
+    {
+      "type": "file",
+      "oid": "b257d0fc999ec1910d05639eab0ab56ed22b34aa",
+      "size": 1075,
+      "path": "README.md"
+    },
+    {
+      "type": "file",
+      "oid": "9a5b3ffdb2feda4326261f29f288da8624893a8b",
+      "size": 240432008,
+      "lfs": {
+        "oid": "85793c088f56a41d867ae0605ffeb56a6d0668f88928169dea7346bf4a4c831d",
+        "size": 240432008,
+        "pointerSize": 134
+      },
+      "xetHash": "1571e43c9e8572d61cc492f923e70db4ea55f16d6cf0fffe3dfe46ece2f98035",
+      "path": "all_captions.npy"
+    },
+    {
+      "type": "file",
+      "oid": "d45eef82f6d08affd8a6a21111b86a4d228bcc2e",
+      "size": 274473088,
+      "lfs": {
+        "oid": "2038efb74aec708418647545917f8d911f0432b98333c0ff1bdf8facb894cfcb",
+        "size": 274473088,
+        "pointerSize": 134
+      },
+      "xetHash": "39927b9afc451ec3ba3aac9cfbfa0d59d80932983633d960645da9780ed43e91",
+      "path": "encoded_motions.npy"
+    },
+    {
+      "type": "file",
+      "oid": "c8d76c8b6d644c614249d72ee5a19bea3fee6dda",
+      "size": 137236608,
+      "lfs": {
+        "oid": "3bcb7236ae7debbf87a861c22cf967f7f7445ce07004863c6c9a640ecc5b93d8",
+        "size": 137236608,
+        "pointerSize": 134
+      },
+      "xetHash": "ac37fa44462438b2a9f0f69f0cf3259e9351b515b8ff205c6d21381c98e71033",
+      "path": "encoded_texts_clip.npy"
+    },
+    {
+      "type": "file",
+      "oid": "76e05c7481d6250d6f965c0e55ab2fac806ee0e7",
+      "size": 2232,
+      "lfs": {
+        "oid": "d70b13c5ff0e2d7d8510fd3cc70859c526ebe048765ab33b4f95f98f5ecbfcbe",
+        "size": 2232,
+        "pointerSize": 129
+      },
+      "xetHash": "ea401aa1f3b87329d797075adec2113170b33ef4ee15c3a80cf7400d9bcc3664",
+      "path": "mean.npy"
+    },
+    {
+      "type": "file",
+      "oid": "00607b35399d1663142fded20ca304cfebf9e05e",
+      "size": 894,
+      "path": "model_opt.txt"
+    },
+    {
+      "type": "file",
+      "oid": "a8c8d4913b9d1b3e44be7158a599da53ab883193",
+      "size": 2412488,
+      "lfs": {
+        "oid": "1b8f7f45dfbaffb0ff83c5b6961a5332a2d714118d3c4156252c0f23f63e48c6",
+        "size": 2412488,
+        "pointerSize": 132
+      },
+      "xetHash": "865eb36fcf6288c4636881ecc451248a5119c07406eac6622918a8c41380f846",
+      "path": "motion_ids.npy"
+    },
+    {
+      "type": "file",
+      "oid": "cb7774291168a224a17e5d390c82ce3bbcd04edf",
+      "size": 344691218,
+      "lfs": {
+        "oid": "7412fab178c5e863f292fdb0b39d322f86656540f617ed03f4eb8f1bf7b7d422",
+        "size": 344691218,
+        "pointerSize": 134
+      },
+      "xetHash": "2f9ac60da93d1ca50f8e61f7e5af3f0a3aae39bf85c56bbcc39da480166f1309",
+      "path": "net_best_fid_ep0309.tar"
+    },
+    {
+      "type": "file",
+      "oid": "7e16d9a1983d1afe2e8335999689ac13b7ab1ab1",
+      "size": 6302216,
+      "lfs": {
+        "oid": "1aaab3bc7254d967a9a1bb6719208eb8afc20099fa083e5e2cdad93c10595d43",
+        "size": 6302216,
+        "pointerSize": 132
+      },
+      "xetHash": "84a4e61c8e2f120d69f9d6e80ceb103c8eff133915c383785a9a7b14c0991245",
+      "path": "query_projector.pt"
+    },
+    {
+      "type": "file",
+      "oid": "cdfc2cbc067681430b602d8abee528134856edc3",
+      "size": 2232,
+      "lfs": {
+        "oid": "fcd6fdfe3f068c23fabfe6587119fb8799a17d405e28508dc3d1a8f2d58a0119",
+        "size": 2232,
+        "pointerSize": 129
+      },
+      "xetHash": "095ab41cb2a3f2683e4ecc3beba690f94bbf4935003e48912bbeddcb84198610",
+      "path": "std.npy"
+    },
+    {
+      "type": "file",
+      "oid": "e1ee5ed04329ded35e3d0070caa78103517cb324",
+      "size": 467921538,
+      "lfs": {
+        "oid": "b186fd346e8bcb84cdbfc2f2c78a9ea3f67c92389050c178325897de6b5de767",
+        "size": 467921538,
+        "pointerSize": 134
+      },
+      "xetHash": "bbfce56569209944631b118a91671d7ea54b6c89add0a9f4137858bf75940234",
+      "path": "vq.tar"
+    },
+    {
+      "type": "file",
+      "oid": "ef7672d693474f143eaaa93ddf51d42c543ce718",
+      "size": 737,
+      "path": "vq_opt.txt"
+    }
+  ],
+  "momask_archive_sha256": "3054398e7d90487d82a4dcf7e828de87b19a4836f937c021674abc1f2005cef2",
+  "molingo_archives": [
+    {
+      "name": "sae263.zip",
+      "url": "https://nc.mlcloud.uni-tuebingen.de/index.php/s/2kdZCFrbJSHgFoy/download/sae_l2_4_16_1024_d3_kl_1e-05_zero_cos_0.001.zip",
+      "bytes": 270380958,
+      "sha256": "5580e0e388a820d849e68ebf2c81ce6275c9d2f16e038ed8811463ce38039d33"
+    },
+    {
+      "name": "model263.zip",
+      "url": "https://nc.mlcloud.uni-tuebingen.de/index.php/s/J4Fcqmq6agD4HaX/download/pretrained_model_263.zip",
+      "bytes": 5465728277,
+      "sha256": "da8cff26d18f675793e6823805b1c82c19ed6ba349fac87998b705f70d56ee62"
+    }
+  ],
+  "molingo_normalization": {
+    "source": "Original HumanML3D dataset statistics preserved in the previously verified MotionLCM checkpoint bundle",
+    "archive_member_directory": "checkpoints/motionlcm/datasets/humanml3d",
+    "sha256": {
+      "Std.npy": "a6af2b3575a5dcd6a18aa98a258f22e54cc70f784afdaa5404f67bbf83a7853a",
+      "Mean.npy": "0bdb5ba69a3a9e34d71990db15bc535ebc024c8d95ddb5574196f96058faa7d3"
+    }
+  },
+  "t5_tokenizer": {
+    "repository": "google-t5/t5-large",
+    "revision": "150ebc2c4b72291e770f58e6057481c8d2ed331a",
+    "sha256": {
+      "tokenizer.json": "d2acde0d8d71dd30a711834b07781b9c89feaac33fd332f60507699282740066",
+      "spiece.model": "d60acb128cf7b7f2536e8f38a5b18a05535c9e14c7a355904270e15b0945ea86",
+      "config.json": "3ae9083d31e82430ac5ffaf87af48e4a39758c8911d33837b0d01d423fc50eeb"
+    }
+  }
+}

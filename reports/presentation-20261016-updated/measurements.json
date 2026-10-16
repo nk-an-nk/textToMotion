@@ -1,0 +1,1528 @@
+{
+  "phase1": {
+    "date_jst": "2026-10-16",
+    "common_five_sentences": {
+      "kimodo": {
+        "model": "kimodo",
+        "segments": "5",
+        "generation_processing_seconds_sum": "51.40860728199914",
+        "generation_processing_seconds_min": "9.886636377999821",
+        "generation_processing_seconds_max": "10.762094119999801",
+        "model_load_seconds": "",
+        "peak_torch_allocated_mib": "",
+        "render_seconds": "156.043155087",
+        "active_generation_plus_render_seconds": "207.45176236899914",
+        "input_to_mp4_seconds_utc_including_waits": "5778.889",
+        "role": "speaker",
+        "gpu": "official_online_service"
+      },
+      "ardy": {
+        "model": "ardy",
+        "segments": "5",
+        "generation_processing_seconds_sum": "38.491712341069615",
+        "generation_processing_seconds_min": "7.184067784895888",
+        "generation_processing_seconds_max": "8.877659548152224",
+        "model_load_seconds": "15.682806961005554",
+        "peak_torch_allocated_mib": "885.890625",
+        "render_seconds": "160.159340735",
+        "active_generation_plus_render_seconds": "198.65105307606962",
+        "input_to_mp4_seconds_utc_including_waits": "3011.944",
+        "role": "speaker",
+        "gpu": "RTX4090 / allocator12227MiB"
+      },
+      "motionlcm": {
+        "model": "motionlcm",
+        "segments": "5",
+        "generation_processing_seconds_sum": "0.5695334908086807",
+        "generation_processing_seconds_min": "0.03716623899526894",
+        "generation_processing_seconds_max": "0.41412234702147543",
+        "model_load_seconds": "6.015579133061692",
+        "peak_torch_allocated_mib": "1475.990234375",
+        "render_seconds": "154.360770522",
+        "active_generation_plus_render_seconds": "154.93030401280868",
+        "input_to_mp4_seconds_utc_including_waits": "4410.337",
+        "role": "speaker",
+        "gpu": "RTX4090 / allocator12227MiB"
+      },
+      "momask": {
+        "model": "momask",
+        "segments": "5",
+        "generation_processing_seconds_sum": "1.5116955635603517",
+        "generation_processing_seconds_min": "0.19560978398658335",
+        "generation_processing_seconds_max": "0.70468571013771",
+        "model_load_seconds": "14.804494129028171",
+        "peak_torch_allocated_mib": "908.5322265625",
+        "render_seconds": "154.807420257",
+        "active_generation_plus_render_seconds": "156.31911582056034",
+        "input_to_mp4_seconds_utc_including_waits": "5775.383",
+        "role": "speaker",
+        "gpu": "RTX4090 / allocator12227MiB"
+      },
+      "mmm": {
+        "model": "mmm",
+        "segments": "5",
+        "generation_processing_seconds_sum": "0.7573095315601677",
+        "generation_processing_seconds_min": "0.038116682786494493",
+        "generation_processing_seconds_max": "0.5266737218480557",
+        "model_load_seconds": "9.40253134816885",
+        "peak_torch_allocated_mib": "1336.22119140625",
+        "render_seconds": "156.471073767",
+        "active_generation_plus_render_seconds": "157.22838329856017",
+        "input_to_mp4_seconds_utc_including_waits": "5769.555",
+        "role": "speaker",
+        "gpu": "RTX4090 / allocator12227MiB"
+      },
+      "reactmotion": {
+        "model": "reactmotion",
+        "segments": "5",
+        "generation_processing_seconds_sum": "2.596724117640406",
+        "generation_processing_seconds_min": "0.27972916699945927",
+        "generation_processing_seconds_max": "0.8372735357843339",
+        "model_load_seconds": "5.84287734515965",
+        "peak_torch_allocated_mib": "996.86181640625",
+        "render_seconds": "238.62099804599998",
+        "active_generation_plus_render_seconds": "241.2177221636404",
+        "input_to_mp4_seconds_utc_including_waits": "3568.168",
+        "role": "listener_full_body",
+        "gpu": "RTX4090 / allocator12227MiB"
+      },
+      "maai": {
+        "model": "maai",
+        "segments": "5",
+        "generation_processing_seconds_sum": "8.062569988891482",
+        "generation_processing_seconds_min": "1.2157336550299078",
+        "generation_processing_seconds_max": "2.062469895929098",
+        "model_load_seconds": "11.560222079977393",
+        "peak_torch_allocated_mib": "838.81396484375",
+        "render_seconds": "174.884944311",
+        "active_generation_plus_render_seconds": "182.94751429989148",
+        "input_to_mp4_seconds_utc_including_waits": "",
+        "role": "listener_head",
+        "gpu": "RTX4090 / allocator12227MiB"
+      }
+    },
+    "audio_input_comparison": {
+      "kimodo": {
+        "model": "kimodo",
+        "avatar_role": "speaker",
+        "asr_seconds_after_student_end": "0.5452892560006148",
+        "first_teacher_audio_seconds_after_student_end": "0.8111795160002657",
+        "teacher_transcript_seconds_after_student_end": "1.593550931000209",
+        "bone_ready_observed_seconds_after_student_end": "15.394948552000642",
+        "motion_generation_seconds": "10.56147972799954",
+        "cold_model_load_seconds": "",
+        "bone_minus_first_realtime_audio_seconds": "14.583769036000376",
+        "teacher_playback_seconds_after_student_end": "15.394948552000642",
+        "completion_poll_interval_seconds": "0"
+      },
+      "ardy": {
+        "model": "ardy",
+        "avatar_role": "speaker",
+        "asr_seconds_after_student_end": "0.5272509639999043",
+        "first_teacher_audio_seconds_after_student_end": "0.5675416939993738",
+        "teacher_transcript_seconds_after_student_end": "1.5417353789998742",
+        "bone_ready_observed_seconds_after_student_end": "187.65984962099992",
+        "motion_generation_seconds": "19.3227670621809",
+        "cold_model_load_seconds": "16.578132692025974",
+        "bone_minus_first_realtime_audio_seconds": "187.09230792700055",
+        "teacher_playback_seconds_after_student_end": "187.65984962099992",
+        "completion_poll_interval_seconds": "5"
+      },
+      "motionlcm": {
+        "model": "motionlcm",
+        "avatar_role": "speaker",
+        "asr_seconds_after_student_end": "1.321429812000133",
+        "first_teacher_audio_seconds_after_student_end": "1.0489040580005167",
+        "teacher_transcript_seconds_after_student_end": "1.8488608480001858",
+        "bone_ready_observed_seconds_after_student_end": "19.24151548900045",
+        "motion_generation_seconds": "0.4209381809923798",
+        "cold_model_load_seconds": "6.183417060179636",
+        "bone_minus_first_realtime_audio_seconds": "18.192611430999932",
+        "teacher_playback_seconds_after_student_end": "19.24151548900045",
+        "completion_poll_interval_seconds": "5"
+      },
+      "momask": {
+        "model": "momask",
+        "avatar_role": "speaker",
+        "asr_seconds_after_student_end": "1.987388712000211",
+        "first_teacher_audio_seconds_after_student_end": "0.8236153850002665",
+        "teacher_transcript_seconds_after_student_end": "1.6578971180006192",
+        "bone_ready_observed_seconds_after_student_end": "24.08233333699991",
+        "motion_generation_seconds": "0.7069082299713045",
+        "cold_model_load_seconds": "9.580388927133754",
+        "bone_minus_first_realtime_audio_seconds": "23.258717951999643",
+        "teacher_playback_seconds_after_student_end": "24.08233333699991",
+        "completion_poll_interval_seconds": "5"
+      },
+      "mmm": {
+        "model": "mmm",
+        "avatar_role": "speaker",
+        "asr_seconds_after_student_end": "0.7853827950002596",
+        "first_teacher_audio_seconds_after_student_end": "0.8800667750001594",
+        "teacher_transcript_seconds_after_student_end": "1.8262736840006255",
+        "bone_ready_observed_seconds_after_student_end": "23.827746406000188",
+        "motion_generation_seconds": "0.548299022950232",
+        "cold_model_load_seconds": "9.2914644558914",
+        "bone_minus_first_realtime_audio_seconds": "22.947679631000028",
+        "teacher_playback_seconds_after_student_end": "23.827746406000188",
+        "completion_poll_interval_seconds": "5"
+      },
+      "reactmotion": {
+        "model": "reactmotion",
+        "avatar_role": "listener",
+        "asr_seconds_after_student_end": "0.5707155889995192",
+        "first_teacher_audio_seconds_after_student_end": "1.218033332000232",
+        "teacher_transcript_seconds_after_student_end": "2.1287419849995786",
+        "bone_ready_observed_seconds_after_student_end": "18.998212052999406",
+        "motion_generation_seconds": "1.0002060639671981",
+        "cold_model_load_seconds": "6.592159913154319",
+        "bone_minus_first_realtime_audio_seconds": "17.780178720999174",
+        "teacher_playback_seconds_after_student_end": "18.998212052999406",
+        "completion_poll_interval_seconds": "5"
+      },
+      "maai": {
+        "model": "maai",
+        "avatar_role": "listener",
+        "asr_seconds_after_student_end": "0.5114293940005155",
+        "first_teacher_audio_seconds_after_student_end": "0.7729518100004498",
+        "teacher_transcript_seconds_after_student_end": "1.7395361179997053",
+        "bone_ready_observed_seconds_after_student_end": "19.606138066999847",
+        "motion_generation_seconds": "1.6035857489332557",
+        "cold_model_load_seconds": "5.805266130017117",
+        "bone_minus_first_realtime_audio_seconds": "18.833186256999397",
+        "teacher_playback_seconds_after_student_end": "19.606138066999847",
+        "completion_poll_interval_seconds": "5"
+      }
+    },
+    "warm_four_distinct_segments": {
+      "motionlcm": {
+        "first": 0.41412234702147543,
+        "median": 0.03885373589582741,
+        "minimum": 0.03716623899526894,
+        "maximum": 0.04053743300028145,
+        "frames": [
+          40,
+          72,
+          52,
+          48,
+          72
+        ]
+      },
+      "mmm": {
+        "first": 0.5266737218480557,
+        "median": 0.06077303702477366,
+        "minimum": 0.038116682786494493,
+        "maximum": 0.07097305287607014,
+        "frames": [
+          40,
+          72,
+          52,
+          48,
+          72
+        ]
+      },
+      "momask": {
+        "first": 0.70468571013771,
+        "median": 0.20235865213908255,
+        "minimum": 0.19560978398658335,
+        "maximum": 0.2066827651578933,
+        "frames": [
+          40,
+          72,
+          52,
+          48,
+          72
+        ]
+      }
+    },
+    "b300_native_benchmark": [
+      {
+        "mode": "fp32-100",
+        "unit": "teacher",
+        "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "frames": 149,
+        "repeats": 3,
+        "bone_ready_seconds": 1.8862561241257936,
+        "generation_seconds": 1.868576676119119,
+        "text_encoding_seconds": 0.09908610302954912,
+        "motion_and_decode_seconds": 1.7694905730895698,
+        "min_bone_ready_seconds": 1.8812875119037926,
+        "max_bone_ready_seconds": 1.9014086439274251
+      },
+      {
+        "mode": "tf32-100",
+        "unit": "teacher",
+        "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "frames": 149,
+        "repeats": 3,
+        "bone_ready_seconds": 1.714852110017091,
+        "generation_seconds": 1.6982892309315503,
+        "text_encoding_seconds": 0.09268450899980962,
+        "motion_and_decode_seconds": 1.6054629059508443,
+        "min_bone_ready_seconds": 1.7133592539466918,
+        "max_bone_ready_seconds": 1.718974030110985
+      },
+      {
+        "mode": "tf32-20",
+        "unit": "teacher",
+        "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "frames": 149,
+        "repeats": 3,
+        "bone_ready_seconds": 0.434577161911875,
+        "generation_seconds": 0.41751101706176996,
+        "text_encoding_seconds": 0.09122118493542075,
+        "motion_and_decode_seconds": 0.32615094305947423,
+        "min_bone_ready_seconds": 0.4326537661254406,
+        "max_bone_ready_seconds": 0.4347313451580703
+      }
+    ],
+    "b300_live": {
+      "fp32-100": {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "kimodo",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-15T05:09:18.620205+00:00",
+        "student_audio_ended_at_utc": "2026-10-15T05:09:20.520283+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 4.8,
+        "asr_seconds_after_student_end": 0.5319832469976973,
+        "first_teacher_audio_seconds_after_student_end": 0.6025959449980292,
+        "teacher_transcript_seconds_after_student_end": 1.4009800080020796,
+        "response_done_seconds_after_student_end": 1.404708373003814,
+        "first_teacher_audio_seconds_after_input_start": 2.5026736250001704,
+        "events": [
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.5319832469976973
+          },
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.6025959449980292
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.4009800080020796
+          }
+        ],
+        "response_id": "resp_EZ80OgkwTO0rFGlEQ28YS",
+        "usage": {
+          "total_tokens": 242,
+          "input_tokens": 108,
+          "output_tokens": 134,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 38,
+            "audio_tokens": 96
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "f09fe643243272ec8f2c1f19996c591c222610ccadcfc97290dbeb2952fee3ef",
+        "avatar_role": "speaker",
+        "resident_mode": "fp32-100",
+        "gpu_name": "B300",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 1.4157787619988085,
+        "bone_ready_observed_seconds_after_student_end": 4.972463438003615,
+        "generation_command_observed_seconds": 3.5566846760048065,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 1.9327822821214795,
+        "bone_minus_first_realtime_audio_seconds": 4.369867493005586,
+        "teacher_playback_seconds_after_student_end": 4.972463438003615,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "measurement_scope": "audio_input_to_received_upper_body_skeleton_single_client_monotonic",
+        "remote_upload_and_startup_included": false,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true
+      },
+      "tf32-20": {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "kimodo",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-15T05:08:56.288275+00:00",
+        "student_audio_ended_at_utc": "2026-10-15T05:08:58.188688+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 5.4,
+        "asr_seconds_after_student_end": 0.40388598299614387,
+        "first_teacher_audio_seconds_after_student_end": 0.6853860769988387,
+        "teacher_transcript_seconds_after_student_end": 1.6733763149968581,
+        "response_done_seconds_after_student_end": 1.676782558002742,
+        "first_teacher_audio_seconds_after_input_start": 2.5857975399994757,
+        "events": [
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.40388598299614387
+          },
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.6853860769988387
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.6733763149968581
+          }
+        ],
+        "response_id": "resp_EZ802EWjh8Aoi3SLqFxmq",
+        "usage": {
+          "total_tokens": 277,
+          "input_tokens": 108,
+          "output_tokens": 169,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 61,
+            "audio_tokens": 108,
+            "reasoning_tokens": 23
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "aa511fac35087293e53e53403db340afeabf9f5b5ab8ce3b73290ed6ce518165",
+        "avatar_role": "speaker",
+        "resident_mode": "tf32-20",
+        "gpu_name": "B300",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 1.7829773580015171,
+        "bone_ready_observed_seconds_after_student_end": 3.936996395997994,
+        "generation_command_observed_seconds": 2.154019037996477,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 0.4962373850867152,
+        "bone_minus_first_realtime_audio_seconds": 3.2516103189991554,
+        "teacher_playback_seconds_after_student_end": 3.936996395997994,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "measurement_scope": "audio_input_to_received_upper_body_skeleton_single_client_monotonic",
+        "remote_upload_and_startup_included": false,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true
+      }
+    },
+    "b300_cost_estimates": {
+      "fp32-100": {
+        "gpu_usd_per_hour": 8.99,
+        "jpy_per_usd": 200,
+        "request_window_seconds": 6.872541118005756,
+        "gpu_yen": 3.432452480603986,
+        "realtime_usage_estimate_usd": 0.00802,
+        "realtime_yen": 1.6039999999999999,
+        "subtotal_yen": 5.036452480603986,
+        "excluded": [
+          "transcription",
+          "startup",
+          "idle time",
+          "storage",
+          "video export"
+        ],
+        "actual_invoice_usd": null
+      },
+      "tf32-20": {
+        "gpu_usd_per_hour": 8.99,
+        "jpy_per_usd": 200,
+        "request_window_seconds": 5.837407858998631,
+        "gpu_yen": 2.9154609251332055,
+        "realtime_usage_estimate_usd": 0.00934,
+        "realtime_yen": 1.8679999999999999,
+        "subtotal_yen": 4.783460925133205,
+        "excluded": [
+          "transcription",
+          "startup",
+          "idle time",
+          "storage",
+          "video export"
+        ],
+        "actual_invoice_usd": null
+      }
+    },
+    "pricing_source": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1",
+    "pricing_verified_date": "2026-10-15",
+    "pricing_usd_per_million": {
+      "text_input": 4,
+      "text_output": 24,
+      "audio_input": 32,
+      "audio_output": 64
+    }
+  },
+  "phase2": {
+    "schema": "motion-lab/masked-model-comparison-v1",
+    "generated_at_utc": "2026-10-16T07:12:56.201494+00:00",
+    "summary": [
+      {
+        "profile": "lab_proxy",
+        "model": "molingo",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "trials": 15,
+        "generation_median_seconds": 2.217139164917171,
+        "generation_min_seconds": 2.057141589000821,
+        "generation_max_seconds": 2.793727266602218,
+        "cold_model_load_seconds": 9.444612987339497,
+        "peak_vram_mib": 3170.34765625,
+        "peak_process_ram_mib": 5099.93359375,
+        "cpu_threads": 8,
+        "realtime_first_audio_seconds": 0.5774987830081955,
+        "dialogue_llm_translation_seconds": 1.5874936149921268,
+        "dialogue_native_generation_seconds": 2.6321523785591125,
+        "dialogue_bones_after_student_end_seconds": 6.174745518015698,
+        "dialogue_gap_from_realtime_seconds": 5.597246735007502,
+        "source_dialogue_max_torso_tilt_degrees": 7.908672483852993,
+        "gpu_hourly_usd": 0.89,
+        "native_generation_only_estimated_usd_per_request": 0.0005481260713267451,
+        "actual_lab_pc_measured": false,
+        "full_body_inference_upper_body_display": true
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "remomask2",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "trials": 15,
+        "generation_median_seconds": 0.2773621967062354,
+        "generation_min_seconds": 0.2730200868099928,
+        "generation_max_seconds": 0.2828297661617398,
+        "cold_model_load_seconds": 6.759059126488864,
+        "peak_vram_mib": 1795.8505859375,
+        "peak_process_ram_mib": 2751.203125,
+        "cpu_threads": 8,
+        "realtime_first_audio_seconds": 0.7100471270096023,
+        "dialogue_llm_translation_seconds": 0.935666326986393,
+        "dialogue_native_generation_seconds": 0.31593480333685875,
+        "dialogue_bones_after_student_end_seconds": 3.301875077013392,
+        "dialogue_gap_from_realtime_seconds": 2.5918279500037897,
+        "source_dialogue_max_torso_tilt_degrees": 23.528898974471762,
+        "gpu_hourly_usd": 0.89,
+        "native_generation_only_estimated_usd_per_request": 6.857009863015265e-05,
+        "actual_lab_pc_measured": false,
+        "full_body_inference_upper_body_display": true
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "momask",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "trials": 15,
+        "generation_median_seconds": 0.16775988973677158,
+        "generation_min_seconds": 0.16203132830560207,
+        "generation_max_seconds": 0.17249333392828703,
+        "cold_model_load_seconds": 8.130896148271859,
+        "peak_vram_mib": 906.85693359375,
+        "peak_process_ram_mib": 2769.59375,
+        "cpu_threads": 8,
+        "realtime_first_audio_seconds": 0.6262172590068076,
+        "dialogue_llm_translation_seconds": 1.16696731702541,
+        "dialogue_native_generation_seconds": 0.2103408658877015,
+        "dialogue_bones_after_student_end_seconds": 3.336522967001656,
+        "dialogue_gap_from_realtime_seconds": 2.7103057079948485,
+        "source_dialogue_max_torso_tilt_degrees": 96.13919723456785,
+        "gpu_hourly_usd": 0.89,
+        "native_generation_only_estimated_usd_per_request": 4.1473972740479645e-05,
+        "actual_lab_pc_measured": false,
+        "full_body_inference_upper_body_display": true
+      },
+      {
+        "profile": "b300",
+        "model": "molingo",
+        "gpu": "NVIDIA B300 SXM6 AC",
+        "trials": 15,
+        "generation_median_seconds": 3.0377250680467114,
+        "generation_min_seconds": 2.9539323069620878,
+        "generation_max_seconds": 3.279129395959899,
+        "cold_model_load_seconds": 15.198201953084208,
+        "peak_vram_mib": 3170.34765625,
+        "peak_process_ram_mib": 5217.90625,
+        "cpu_threads": 8,
+        "realtime_first_audio_seconds": 0.8931485709908884,
+        "dialogue_llm_translation_seconds": 1.4993378589861095,
+        "dialogue_native_generation_seconds": 3.046291462960653,
+        "dialogue_bones_after_student_end_seconds": 7.756304461974651,
+        "dialogue_gap_from_realtime_seconds": 6.863155890983762,
+        "source_dialogue_max_torso_tilt_degrees": 3.63898535285286,
+        "gpu_hourly_usd": 8.99,
+        "native_generation_only_estimated_usd_per_request": 0.00758587454492776,
+        "actual_lab_pc_measured": false,
+        "full_body_inference_upper_body_display": true
+      },
+      {
+        "profile": "b300",
+        "model": "remomask2",
+        "gpu": "NVIDIA B300 SXM6 AC",
+        "trials": 15,
+        "generation_median_seconds": 0.49376725999172777,
+        "generation_min_seconds": 0.3918872179929167,
+        "generation_max_seconds": 0.5133476509945467,
+        "cold_model_load_seconds": 11.619963730103336,
+        "peak_vram_mib": 1824.88525390625,
+        "peak_process_ram_mib": 2835.9140625,
+        "cpu_threads": 8,
+        "realtime_first_audio_seconds": 0.8992927400104236,
+        "dialogue_llm_translation_seconds": 1.4369670540036168,
+        "dialogue_native_generation_seconds": 0.5196033199317753,
+        "dialogue_bones_after_student_end_seconds": 5.010863935021916,
+        "dialogue_gap_from_realtime_seconds": 4.111571195011493,
+        "source_dialogue_max_torso_tilt_degrees": 15.169797296790508,
+        "gpu_hourly_usd": 8.99,
+        "native_generation_only_estimated_usd_per_request": 0.0012330465742571202,
+        "actual_lab_pc_measured": false,
+        "full_body_inference_upper_body_display": true
+      },
+      {
+        "profile": "b300",
+        "model": "momask",
+        "gpu": "NVIDIA B300 SXM6 AC",
+        "trials": 15,
+        "generation_median_seconds": 0.2998047120636329,
+        "generation_min_seconds": 0.21328025602269918,
+        "generation_max_seconds": 0.34127594297751784,
+        "cold_model_load_seconds": 12.939800879918039,
+        "peak_vram_mib": 906.85693359375,
+        "peak_process_ram_mib": 2746.74609375,
+        "cpu_threads": 8,
+        "realtime_first_audio_seconds": 0.8134798780083656,
+        "dialogue_llm_translation_seconds": 1.1120975749799982,
+        "dialogue_native_generation_seconds": 0.2835198420798406,
+        "dialogue_bones_after_student_end_seconds": 4.217303743993398,
+        "dialogue_gap_from_realtime_seconds": 3.403823865985032,
+        "source_dialogue_max_torso_tilt_degrees": 152.20189713351206,
+        "gpu_hourly_usd": 8.99,
+        "native_generation_only_estimated_usd_per_request": 0.0007486789892922389,
+        "actual_lab_pc_measured": false,
+        "full_body_inference_upper_body_display": true
+      }
+    ],
+    "machines": [
+      {
+        "profile": "lab_proxy",
+        "cpu": "AMD EPYC 75F3 32-Core Processor",
+        "allocated_vcpu": 16,
+        "allocated_ram_gb": 62,
+        "nvidia_smi": "NVIDIA GeForce RTX 4090, 580.159.04, 24564 MiB, 450.00 W",
+        "image": "runpod/pytorch:1.4.0-cu1290-torch280-ubuntu2404",
+        "gpu_hourly_usd": 0.89
+      },
+      {
+        "profile": "b300",
+        "cpu": "Intel(R) Xeon(R) 6740E",
+        "allocated_vcpu": 24,
+        "allocated_ram_gb": 251,
+        "nvidia_smi": "NVIDIA B300 SXM6 AC, 580.173.02, 275040 MiB, 1100.00 W",
+        "image": "runpod/pytorch:1.4.0-cu1290-torch280-ubuntu2404",
+        "gpu_hourly_usd": 8.99
+      }
+    ],
+    "hardware": [
+      {
+        "model": "molingo",
+        "profile": "lab_proxy",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "gpu_total_mib": 24080.875,
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "python": "3.12.3",
+        "cpu_threads": 8,
+        "cpu_affinity_count": 8,
+        "torch_allocator_limit_mib": 12227,
+        "ram_hard_cap_applied": false,
+        "model_load_seconds": 9.444612987339497,
+        "settings": {
+          "rectified_flow_steps": 32,
+          "acc_ratio": 3,
+          "cfg": 5.5,
+          "cfg_schedule": "constant",
+          "representation": 263,
+          "official_ema": true,
+          "strict_full_state_load": true,
+          "duplicate_t5_download_avoided": true,
+          "text_features_cached": false
+        },
+        "source_commit": "52e3b4c309256ce1bb29c8c038fe34b88682db08"
+      },
+      {
+        "model": "remomask2",
+        "profile": "lab_proxy",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "gpu_total_mib": 24080.875,
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "python": "3.12.3",
+        "cpu_threads": 8,
+        "cpu_affinity_count": 8,
+        "torch_allocator_limit_mib": 12227,
+        "ram_hard_cap_applied": false,
+        "model_load_seconds": 6.759059126488864,
+        "settings": {
+          "time_steps": 10,
+          "cond_scale": 4,
+          "retrieval_topk": 1,
+          "retrieval_pool": 10,
+          "retr_cfgmix_w": 0.75,
+          "rt_in_value": true,
+          "retr_vgate": true,
+          "representation": 263
+        },
+        "source_commit": "48abb7a65ee6e53296d788329e49374327e423f3"
+      },
+      {
+        "model": "momask",
+        "profile": "lab_proxy",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "gpu_total_mib": 24080.875,
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "python": "3.12.3",
+        "cpu_threads": 8,
+        "cpu_affinity_count": 8,
+        "torch_allocator_limit_mib": 12227,
+        "ram_hard_cap_applied": false,
+        "model_load_seconds": 8.130896148271859,
+        "settings": {
+          "time_steps": 18,
+          "cond_scale": 4,
+          "residual_cond_scale": 5,
+          "representation": 263
+        },
+        "source_commit": "94a6636c9c463b7a9414c3401a6f1b67e6c51824"
+      },
+      {
+        "model": "molingo",
+        "profile": "b300",
+        "gpu": "NVIDIA B300 SXM6 AC",
+        "gpu_total_mib": 274113.3125,
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "python": "3.12.3",
+        "cpu_threads": 8,
+        "cpu_affinity_count": 8,
+        "torch_allocator_limit_mib": null,
+        "ram_hard_cap_applied": false,
+        "model_load_seconds": 15.198201953084208,
+        "settings": {
+          "rectified_flow_steps": 32,
+          "acc_ratio": 3,
+          "cfg": 5.5,
+          "cfg_schedule": "constant",
+          "representation": 263,
+          "official_ema": true,
+          "strict_full_state_load": true,
+          "duplicate_t5_download_avoided": true,
+          "text_features_cached": false
+        },
+        "source_commit": "52e3b4c309256ce1bb29c8c038fe34b88682db08"
+      },
+      {
+        "model": "remomask2",
+        "profile": "b300",
+        "gpu": "NVIDIA B300 SXM6 AC",
+        "gpu_total_mib": 274113.3125,
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "python": "3.12.3",
+        "cpu_threads": 8,
+        "cpu_affinity_count": 8,
+        "torch_allocator_limit_mib": null,
+        "ram_hard_cap_applied": false,
+        "model_load_seconds": 11.619963730103336,
+        "settings": {
+          "time_steps": 10,
+          "cond_scale": 4,
+          "retrieval_topk": 1,
+          "retrieval_pool": 10,
+          "retr_cfgmix_w": 0.75,
+          "rt_in_value": true,
+          "retr_vgate": true,
+          "representation": 263
+        },
+        "source_commit": "48abb7a65ee6e53296d788329e49374327e423f3"
+      },
+      {
+        "model": "momask",
+        "profile": "b300",
+        "gpu": "NVIDIA B300 SXM6 AC",
+        "gpu_total_mib": 274113.3125,
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "python": "3.12.3",
+        "cpu_threads": 8,
+        "cpu_affinity_count": 8,
+        "torch_allocator_limit_mib": null,
+        "ram_hard_cap_applied": false,
+        "model_load_seconds": 12.939800879918039,
+        "settings": {
+          "time_steps": 18,
+          "cond_scale": 4,
+          "residual_cond_scale": 5,
+          "representation": 263
+        },
+        "source_commit": "94a6636c9c463b7a9414c3401a6f1b67e6c51824"
+      }
+    ],
+    "dialogues": [
+      {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "molingo",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-16T06:35:28.902373+00:00",
+        "student_audio_ended_at_utc": "2026-10-16T06:35:30.804440+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 5.5,
+        "asr_seconds_after_student_end": 0.8986181970103644,
+        "first_teacher_audio_seconds_after_student_end": 0.5774987830081955,
+        "teacher_transcript_seconds_after_student_end": 1.4623471650120337,
+        "response_done_seconds_after_student_end": 1.4624112820019946,
+        "first_teacher_audio_seconds_after_input_start": 2.479564887995366,
+        "events": [
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.5774987830081955
+          },
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.8986181970103644
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.4623471650120337
+          }
+        ],
+        "response_id": "resp_EZVpKPhLLXnKZMlLGWIMr",
+        "usage": {
+          "total_tokens": 256,
+          "input_tokens": 108,
+          "output_tokens": 148,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 38,
+            "audio_tokens": 110
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "4fe6412f5e6fb870348b529c3bc647337567f005cc39a4863688c953022e6efa",
+        "profile": "lab_proxy",
+        "avatar_role": "speaker",
+        "gpu_name": "NVIDIA GeForce RTX 4090",
+        "resident_mode": "FP32 / lab_proxy",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 3.1641479269892443,
+        "bone_ready_observed_seconds_after_student_end": 6.174745518015698,
+        "generation_command_observed_seconds": 3.0105975910264533,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 2.6321523785591125,
+        "bone_minus_first_realtime_audio_seconds": 5.597246735007502,
+        "teacher_playback_seconds_after_student_end": 6.174745518015698,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "remote_upload_and_startup_included": false,
+        "input_translation": true,
+        "translated_motion_prompt": "Hello! You look energetic again today! Let's start practicing English conversation.",
+        "translation_model": "gpt-realtime-2.1",
+        "translation_seconds": 1.5874936149921268,
+        "translation_included_in_end_to_end": true,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true,
+        "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+      },
+      {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "remomask2",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-16T06:33:00.601231+00:00",
+        "student_audio_ended_at_utc": "2026-10-16T06:33:02.503147+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 5.3,
+        "asr_seconds_after_student_end": 0.6331359989999328,
+        "first_teacher_audio_seconds_after_student_end": 0.7100471270096023,
+        "teacher_transcript_seconds_after_student_end": 1.5941797989944462,
+        "response_done_seconds_after_student_end": 1.598178691987414,
+        "first_teacher_audio_seconds_after_input_start": 2.6119626029976644,
+        "events": [
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.6331359989999328
+          },
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.7100471270096023
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.5941797989944462
+          }
+        ],
+        "response_id": "resp_EZVmwnatUZ2Z7nDXpgidA",
+        "usage": {
+          "total_tokens": 284,
+          "input_tokens": 108,
+          "output_tokens": 176,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 70,
+            "audio_tokens": 106,
+            "reasoning_tokens": 32
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "733905b9ac6c5855885bf498d7a794d52ef2245c7aee4ae1287e4f3397a41ba4",
+        "profile": "lab_proxy",
+        "avatar_role": "speaker",
+        "gpu_name": "NVIDIA GeForce RTX 4090",
+        "resident_mode": "FP32 / lab_proxy",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 2.6429713369871024,
+        "bone_ready_observed_seconds_after_student_end": 3.301875077013392,
+        "generation_command_observed_seconds": 0.6589037400262896,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 0.31593480333685875,
+        "bone_minus_first_realtime_audio_seconds": 2.5918279500037897,
+        "teacher_playback_seconds_after_student_end": 3.301875077013392,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "remote_upload_and_startup_included": false,
+        "input_translation": true,
+        "translated_motion_prompt": "Hello! You look energetic again today! Let's start practicing English conversation.",
+        "translation_model": "gpt-realtime-2.1",
+        "translation_seconds": 0.935666326986393,
+        "translation_included_in_end_to_end": true,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true,
+        "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+      },
+      {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "momask",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-16T06:31:26.559879+00:00",
+        "student_audio_ended_at_utc": "2026-10-16T06:31:28.459962+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 5.4,
+        "asr_seconds_after_student_end": 0.5155459239904303,
+        "first_teacher_audio_seconds_after_student_end": 0.6262172590068076,
+        "teacher_transcript_seconds_after_student_end": 1.5017088559980039,
+        "response_done_seconds_after_student_end": 1.505838176002726,
+        "first_teacher_audio_seconds_after_input_start": 2.526299638004275,
+        "events": [
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.5155459239904303
+          },
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.6262172590068076
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.5017088559980039
+          }
+        ],
+        "response_id": "resp_EZVlQTDbTEu6MSOMpb45h",
+        "usage": {
+          "total_tokens": 269,
+          "input_tokens": 108,
+          "output_tokens": 161,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 53,
+            "audio_tokens": 108,
+            "reasoning_tokens": 15
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "a57ea28dce8e9256c33c5fafae95d7e163037c5a8757d3f8cd3476e338033bd1",
+        "profile": "lab_proxy",
+        "avatar_role": "speaker",
+        "gpu_name": "NVIDIA GeForce RTX 4090",
+        "resident_mode": "FP32 / lab_proxy",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 2.7791486810019705,
+        "bone_ready_observed_seconds_after_student_end": 3.336522967001656,
+        "generation_command_observed_seconds": 0.5573742859996855,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 0.2103408658877015,
+        "bone_minus_first_realtime_audio_seconds": 2.7103057079948485,
+        "teacher_playback_seconds_after_student_end": 3.336522967001656,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "remote_upload_and_startup_included": false,
+        "input_translation": true,
+        "translated_motion_prompt": "Hello! You look energetic today too! Let's start practicing English conversation.",
+        "translation_model": "gpt-realtime-2.1",
+        "translation_seconds": 1.16696731702541,
+        "translation_included_in_end_to_end": true,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true,
+        "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+      },
+      {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "molingo",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-16T07:02:14.992960+00:00",
+        "student_audio_ended_at_utc": "2026-10-16T07:02:16.893096+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 4.95,
+        "asr_seconds_after_student_end": 0.5796090489893686,
+        "first_teacher_audio_seconds_after_student_end": 0.8931485709908884,
+        "teacher_transcript_seconds_after_student_end": 1.744272956973873,
+        "response_done_seconds_after_student_end": 1.7505301229830366,
+        "first_teacher_audio_seconds_after_input_start": 2.7932852559897583,
+        "events": [
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.5796090489893686
+          },
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.8931485709908884
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.744272956973873
+          }
+        ],
+        "response_id": "resp_EZWFEDFhD1mOaUXNMzYqf",
+        "usage": {
+          "total_tokens": 270,
+          "input_tokens": 108,
+          "output_tokens": 162,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 63,
+            "audio_tokens": 99,
+            "reasoning_tokens": 25
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "175162933b965070bb810c0e053dc37efd54bc9911d0fe2a6ca77c463d370737",
+        "profile": "b300",
+        "avatar_role": "speaker",
+        "gpu_name": "NVIDIA B300 SXM6 AC",
+        "resident_mode": "FP32 / b300",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 3.3591643079998903,
+        "bone_ready_observed_seconds_after_student_end": 7.756304461974651,
+        "generation_command_observed_seconds": 4.39714015397476,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 3.046291462960653,
+        "bone_minus_first_realtime_audio_seconds": 6.863155890983762,
+        "teacher_playback_seconds_after_student_end": 7.756304461974651,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "remote_upload_and_startup_included": false,
+        "input_translation": true,
+        "translated_motion_prompt": "Hello! You look energetic today too! Let's start practicing English conversation.",
+        "translation_model": "gpt-realtime-2.1",
+        "translation_seconds": 1.4993378589861095,
+        "translation_included_in_end_to_end": true,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true,
+        "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+      },
+      {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "remomask2",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-16T06:58:10.332911+00:00",
+        "student_audio_ended_at_utc": "2026-10-16T06:58:12.233941+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 5.15,
+        "asr_seconds_after_student_end": 0.7636764680210035,
+        "first_teacher_audio_seconds_after_student_end": 0.8992927400104236,
+        "teacher_transcript_seconds_after_student_end": 1.7430705260194372,
+        "response_done_seconds_after_student_end": 1.7514811610162724,
+        "first_teacher_audio_seconds_after_input_start": 2.8003217029909138,
+        "events": [
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.7636764680210035
+          },
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.8992927400104236
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.7430705260194372
+          }
+        ],
+        "response_id": "resp_EZWBIGkYhJ0DXdOWUlcsF",
+        "usage": {
+          "total_tokens": 275,
+          "input_tokens": 108,
+          "output_tokens": 167,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 64,
+            "audio_tokens": 103,
+            "reasoning_tokens": 26
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "620ed2afa58497eb0016c18b332cb9c5fa17991997de02a82c06199f2aabf345",
+        "profile": "b300",
+        "avatar_role": "speaker",
+        "gpu_name": "NVIDIA B300 SXM6 AC",
+        "resident_mode": "FP32 / b300",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 3.300644265022129,
+        "bone_ready_observed_seconds_after_student_end": 5.010863935021916,
+        "generation_command_observed_seconds": 1.7102196699997876,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 0.5196033199317753,
+        "bone_minus_first_realtime_audio_seconds": 4.111571195011493,
+        "teacher_playback_seconds_after_student_end": 5.010863935021916,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "remote_upload_and_startup_included": false,
+        "input_translation": true,
+        "translated_motion_prompt": "Hello! You look energetic again today! Let’s start practicing English conversation.",
+        "translation_model": "gpt-realtime-2.1",
+        "translation_seconds": 1.4369670540036168,
+        "translation_included_in_end_to_end": true,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true,
+        "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+      },
+      {
+        "schema": "motion-lab/audio-input-dialogue-v1",
+        "model": "momask",
+        "input_transport": "input_audio_buffer.append + commit",
+        "typed_student_input": false,
+        "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+        "clock_domain": "single_client_monotonic",
+        "student_audio_seconds": 1.9,
+        "student_audio_started_at_utc": "2026-10-16T06:54:30.495962+00:00",
+        "student_audio_ended_at_utc": "2026-10-16T06:54:32.396301+00:00",
+        "student_transcript": "先生、こんにちは。",
+        "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+        "teacher_audio_seconds": 4.9,
+        "asr_seconds_after_student_end": 0.5372773830022197,
+        "first_teacher_audio_seconds_after_student_end": 0.8134798780083656,
+        "teacher_transcript_seconds_after_student_end": 1.695601560990326,
+        "response_done_seconds_after_student_end": 1.704907239007298,
+        "first_teacher_audio_seconds_after_input_start": 2.713818661024561,
+        "events": [
+          {
+            "event": "student_transcription_complete",
+            "seconds_after_student_end": 0.5372773830022197
+          },
+          {
+            "event": "teacher_first_audio",
+            "seconds_after_student_end": 0.8134798780083656
+          },
+          {
+            "event": "teacher_transcript_complete",
+            "seconds_after_student_end": 1.695601560990326
+          }
+        ],
+        "response_id": "resp_EZW7kduAKkaBKy9IP2Qcu",
+        "usage": {
+          "total_tokens": 265,
+          "input_tokens": 108,
+          "output_tokens": 157,
+          "input_token_details": {
+            "text_tokens": 89,
+            "audio_tokens": 19,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 59,
+            "audio_tokens": 98,
+            "reasoning_tokens": 21
+          }
+        },
+        "actual_charge_usd": null,
+        "max_output_tokens": 512,
+        "max_teacher_audio_seconds": 15,
+        "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+        "teacher_sha256": "245f52074907de204fcfffb479caaa5d14a1330732735501e233be0035a9069e",
+        "profile": "b300",
+        "avatar_role": "speaker",
+        "gpu_name": "NVIDIA B300 SXM6 AC",
+        "resident_mode": "FP32 / b300",
+        "realtime_close_timeout_seconds": 0.1,
+        "generation_dispatch_seconds_after_student_end": 2.932334462995641,
+        "bone_ready_observed_seconds_after_student_end": 4.217303743993398,
+        "generation_command_observed_seconds": 1.2849692809977569,
+        "completion_poll_interval_seconds": 0,
+        "motion_generation_seconds": 0.2835198420798406,
+        "bone_minus_first_realtime_audio_seconds": 3.403823865985032,
+        "teacher_playback_seconds_after_student_end": 4.217303743993398,
+        "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+        "actual_inference_after_received_teacher_transcript": true,
+        "remote_upload_and_startup_included": false,
+        "input_translation": true,
+        "translated_motion_prompt": "Hello! You look full of energy today! Let’s start practicing English conversation.",
+        "translation_model": "gpt-realtime-2.1",
+        "translation_seconds": 1.1120975749799982,
+        "translation_included_in_end_to_end": true,
+        "model_was_resident_before_student_input": true,
+        "input_text_embedding_recomputed": true,
+        "inference_backend": "runpod_resident",
+        "measured_end_to_end": true,
+        "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+      }
+    ],
+    "videos": [
+      {
+        "profile": "lab_proxy",
+        "model": "molingo",
+        "kind": "common",
+        "video": "lab_proxy/common-video/molingo/combined.mp4",
+        "sha256": "b919ddb353a22f43ec48223116c6c75ce670ec75230894e4b0b8a3ddd5fbe01c",
+        "render_seconds": 260.037835196,
+        "duration_seconds": "12.967000"
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "molingo",
+        "kind": "dialogue",
+        "video": "lab_proxy/dialogue-video/molingo/dialogue.mp4",
+        "sha256": "5f358ebe2d4fd13d54e3687971cb4df0392746f1830f65037a0172b1882db9c0",
+        "render_seconds": 206.852011401,
+        "duration_seconds": 14.1
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "remomask2",
+        "kind": "common",
+        "video": "lab_proxy/common-video/remomask2/combined.mp4",
+        "sha256": "770e30202f90301072b90bedb76239a0fb4d2b234736911618129b86bd981583",
+        "render_seconds": 369.988156741,
+        "duration_seconds": "12.967000"
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "remomask2",
+        "kind": "dialogue",
+        "video": "lab_proxy/dialogue-video/remomask2/dialogue.mp4",
+        "sha256": "0e81036a53732f1e94a766bad6c26c8f3a7ed663b64aec1a11079df96974703f",
+        "render_seconds": 174.97907930899999,
+        "duration_seconds": 11.033333333333333
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "momask",
+        "kind": "common",
+        "video": "lab_proxy/common-video/momask/combined.mp4",
+        "sha256": "dea40b678c31e251218486640b948e479c7db714cdbeedd8b680c4f2e136d675",
+        "render_seconds": 372.31907971900006,
+        "duration_seconds": "12.967000"
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "momask",
+        "kind": "dialogue",
+        "video": "lab_proxy/dialogue-video/momask/dialogue.mp4",
+        "sha256": "9d9883d1041d41bf8ce564e301594943102fd997236f52afa0b7b28cb5366fdf",
+        "render_seconds": 206.358292963,
+        "duration_seconds": 11.2
+      },
+      {
+        "profile": "b300",
+        "model": "molingo",
+        "kind": "common",
+        "video": "b300/common-video/molingo/combined.mp4",
+        "sha256": "eb9d74e012a094a612c273e5ec241fdfed037b91da164c0d2914cc8ab979a092",
+        "render_seconds": 250.413567138,
+        "duration_seconds": "12.967000"
+      },
+      {
+        "profile": "b300",
+        "model": "molingo",
+        "kind": "dialogue",
+        "video": "b300/dialogue-video/molingo/dialogue.mp4",
+        "sha256": "dbfeb0d4078c1625724834ba84b4dcab8adfbd04e60a94fd2856f77f701ecd45",
+        "render_seconds": 298.059617643,
+        "duration_seconds": 15.133333333333333
+      },
+      {
+        "profile": "b300",
+        "model": "remomask2",
+        "kind": "common",
+        "video": "b300/common-video/remomask2/combined.mp4",
+        "sha256": "4a112a7f510cebfb0b56065927248c9d0221cc9028b25a38878a8515ada3c4f6",
+        "render_seconds": 479.806128233,
+        "duration_seconds": "12.967000"
+      },
+      {
+        "profile": "b300",
+        "model": "remomask2",
+        "kind": "dialogue",
+        "video": "b300/dialogue-video/remomask2/dialogue.mp4",
+        "sha256": "d12fc46e8effa31a0e1fb5bd8c14966675fee733e5729cae9c82a2ee0e29108c",
+        "render_seconds": 204.702790758,
+        "duration_seconds": 12.6
+      },
+      {
+        "profile": "b300",
+        "model": "momask",
+        "kind": "common",
+        "video": "b300/common-video/momask/combined.mp4",
+        "sha256": "7733fee15cbb77a8ebb9112d008ee97c4f6d82634388934c5a7aa230214ac961",
+        "render_seconds": 368.27681497400005,
+        "duration_seconds": "12.967000"
+      },
+      {
+        "profile": "b300",
+        "model": "momask",
+        "kind": "dialogue",
+        "video": "b300/dialogue-video/momask/dialogue.mp4",
+        "sha256": "b710106c42436a679428ea9fd86345353296237fb76f467b97fde1ecd9112bf0",
+        "render_seconds": 166.445379236,
+        "duration_seconds": 11.566666666666666
+      }
+    ],
+    "retained_pods": [
+      {
+        "pod_id": "tinrkdtvq2bme2",
+        "profile": "lab_proxy",
+        "stop_confirmed": true,
+        "stopped_at_utc": "2026-10-16T06:37:31.333298+00:00",
+        "retention_until_utc": "2026-10-17T06:37:31.333278+00:00",
+        "volume_gb": 40,
+        "cost_per_hour_usd": 0.89
+      },
+      {
+        "pod_id": "9j8ej45smouv7m",
+        "profile": "b300",
+        "stop_confirmed": true,
+        "stopped_at_utc": "2026-10-16T07:04:22.794824+00:00",
+        "retention_until_utc": "2026-10-17T07:04:22.794798+00:00",
+        "volume_gb": 40,
+        "cost_per_hour_usd": 8.99
+      }
+    ]
+  },
+  "phase2_cost_estimates": {
+    "pricing_source": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1",
+    "pricing_verified_date": "2026-10-15",
+    "usd_per_million_tokens": {
+      "text_input": 4,
+      "text_output": 24,
+      "audio_input": 32,
+      "audio_output": 64
+    },
+    "jpy_per_usd_assumption": 200,
+    "scope": "Student audio start to bones received GPU time plus actual Realtime and fresh LLM-translation usage; reasoning tokens are already included in text_tokens",
+    "excluded": [
+      "ASR separate billing",
+      "recorded student voice creation",
+      "setup",
+      "idle",
+      "storage",
+      "MP4 rendering"
+    ],
+    "rows": [
+      {
+        "profile": "lab_proxy",
+        "model": "molingo",
+        "gpu_request_window_usd": 0.0019962565308427696,
+        "realtime_voice_estimate_usd": 0.008916,
+        "translation_estimate_usd": 0.002508,
+        "api_subtotal_usd": 0.011424,
+        "request_subtotal_usd": 0.01342025653084277,
+        "request_subtotal_jpy_at_200": 2.684051306168554,
+        "native_generation_only_gpu_usd": 0.0006507265602548918,
+        "actual_invoice_usd": null
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "remomask2",
+        "gpu_request_window_usd": 0.0012860191162616442,
+        "realtime_voice_estimate_usd": 0.009428,
+        "translation_estimate_usd": 0.001164,
+        "api_subtotal_usd": 0.010592,
+        "request_subtotal_usd": 0.011878019116261644,
+        "request_subtotal_jpy_at_200": 2.375603823252329,
+        "native_generation_only_gpu_usd": 7.810610415827897e-05,
+        "actual_invoice_usd": null
+      },
+      {
+        "profile": "lab_proxy",
+        "model": "momask",
+        "gpu_request_window_usd": 0.001294584844619854,
+        "realtime_voice_estimate_usd": 0.009148,
+        "translation_estimate_usd": 0.001452,
+        "api_subtotal_usd": 0.0106,
+        "request_subtotal_usd": 0.011894584844619855,
+        "request_subtotal_jpy_at_200": 2.378916968923971,
+        "native_generation_only_gpu_usd": 5.200093628890399e-05,
+        "actual_invoice_usd": null
+      },
+      {
+        "profile": "b300",
+        "model": "molingo",
+        "gpu_request_window_usd": 0.024113938086986697,
+        "realtime_voice_estimate_usd": 0.008812,
+        "translation_estimate_usd": 0.001932,
+        "api_subtotal_usd": 0.010744,
+        "request_subtotal_usd": 0.0348579380869867,
+        "request_subtotal_jpy_at_200": 6.97158761739734,
+        "native_generation_only_gpu_usd": 0.007607266736671186,
+        "actual_invoice_usd": null
+      },
+      {
+        "profile": "b300",
+        "model": "remomask2",
+        "gpu_request_window_usd": 0.01725796299329084,
+        "realtime_voice_estimate_usd": 0.009092,
+        "translation_estimate_usd": 0.001476,
+        "api_subtotal_usd": 0.010568,
+        "request_subtotal_usd": 0.02782596299329084,
+        "request_subtotal_jpy_at_200": 5.565192598658168,
+        "native_generation_only_gpu_usd": 0.0012975649572740723,
+        "actual_invoice_usd": null
+      },
+      {
+        "profile": "b300",
+        "model": "momask",
+        "gpu_request_window_usd": 0.015276266849583515,
+        "realtime_voice_estimate_usd": 0.008652,
+        "translation_estimate_usd": 0.001524,
+        "api_subtotal_usd": 0.010176,
+        "request_subtotal_usd": 0.025452266849583516,
+        "request_subtotal_jpy_at_200": 5.090453369916704,
+        "native_generation_only_gpu_usd": 0.0007080120500827131,
+        "actual_invoice_usd": null
+      }
+    ]
+  }
+}

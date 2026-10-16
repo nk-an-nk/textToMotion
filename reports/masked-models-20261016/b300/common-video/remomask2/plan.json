@@ -1,0 +1,252 @@
+{
+  "schema": "motion-lab/segmented-dialogue-plan-v1",
+  "title": "英語学習 / 文ごとの発話とジェスチャー",
+  "fps": 30,
+  "blend_ms": 250,
+  "segments": [
+    {
+      "id": "01",
+      "text": "こんにちは！",
+      "motion_prompt": "Hello!",
+      "audio_seconds": 1.1,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "こんにちは！",
+        "english": "Hello!",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVjxdIe1dhP71IZ4C0h4",
+        "translation_seconds": 1.060539186000824,
+        "usage": {
+          "total_tokens": 141,
+          "input_tokens": 109,
+          "output_tokens": 32,
+          "input_token_details": {
+            "text_tokens": 109,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 32,
+            "audio_tokens": 0,
+            "reasoning_tokens": 26
+          }
+        },
+        "raw_output": "Hello!",
+        "input_submitted_at_utc": "2026-10-16T06:29:57.055057+00:00",
+        "completed_at_utc": "2026-10-16T06:29:58.115635+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      }
+    },
+    {
+      "id": "02",
+      "text": "今日も一緒に楽しく英語を勉強しましょう！",
+      "motion_prompt": "Let’s have fun studying English together again today!",
+      "audio_seconds": 3.5,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "今日も一緒に楽しく英語を勉強しましょう！",
+        "english": "Let’s have fun studying English together again today!",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVjyMfG7sSnlOqgu4HXS",
+        "translation_seconds": 1.075488934002351,
+        "usage": {
+          "total_tokens": 153,
+          "input_tokens": 123,
+          "output_tokens": 30,
+          "input_token_details": {
+            "text_tokens": 123,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 30,
+            "audio_tokens": 0,
+            "reasoning_tokens": 16
+          }
+        },
+        "raw_output": "Let’s have fun studying English together again today!",
+        "input_submitted_at_utc": "2026-10-16T06:29:58.116304+00:00",
+        "completed_at_utc": "2026-10-16T06:29:59.191814+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      }
+    },
+    {
+      "id": "03",
+      "text": "まずは英語で挨拶してみよう。",
+      "motion_prompt": "First, let's try greeting in English.",
+      "audio_seconds": 2.5,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "まずは英語で挨拶してみよう。",
+        "english": "First, let's try greeting in English.",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVjzF5C8dBX6zd9kTKEk",
+        "translation_seconds": 1.2941252710006665,
+        "usage": {
+          "total_tokens": 173,
+          "input_tokens": 120,
+          "output_tokens": 53,
+          "input_token_details": {
+            "text_tokens": 120,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 53,
+            "audio_tokens": 0,
+            "reasoning_tokens": 41
+          }
+        },
+        "raw_output": "First, let's try greeting in English.",
+        "input_submitted_at_utc": "2026-10-16T06:29:59.192284+00:00",
+        "completed_at_utc": "2026-10-16T06:30:00.486427+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      }
+    },
+    {
+      "id": "04",
+      "text": "Hello! How are you today?",
+      "motion_prompt": "Hello! How are you today?",
+      "audio_seconds": 2.25,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "Hello! How are you today?",
+        "english": "Hello! How are you today?",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVk0zFZrmcqmuf8bP9Fc",
+        "translation_seconds": 0.9978291200241074,
+        "usage": {
+          "total_tokens": 142,
+          "input_tokens": 114,
+          "output_tokens": 28,
+          "input_token_details": {
+            "text_tokens": 114,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 28,
+            "audio_tokens": 0,
+            "reasoning_tokens": 17
+          }
+        },
+        "raw_output": "Hello! How are you today?",
+        "input_submitted_at_utc": "2026-10-16T06:30:00.486916+00:00",
+        "completed_at_utc": "2026-10-16T06:30:01.484761+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      }
+    },
+    {
+      "id": "05",
+      "text": "元気なときは、I'm happy! って言ってみてね。",
+      "motion_prompt": "When you're feeling energetic, try saying, \"I'm happy!\"",
+      "audio_seconds": 3.6,
+      "translation": {
+        "schema": "motion-lab/llm-translation-v1",
+        "source_text": "元気なときは、I'm happy! って言ってみてね。",
+        "english": "When you're feeling energetic, try saying, \"I'm happy!\"",
+        "llm_generated": true,
+        "provider": "OpenAI Realtime API / text output",
+        "model": "gpt-realtime-2.1",
+        "response_id": "resp_EZVk1hsbYs3gSejZJwNjE",
+        "translation_seconds": 1.4302954650192987,
+        "usage": {
+          "total_tokens": 204,
+          "input_tokens": 125,
+          "output_tokens": 79,
+          "input_token_details": {
+            "text_tokens": 125,
+            "audio_tokens": 0,
+            "image_tokens": 0,
+            "cached_tokens": 0,
+            "cached_tokens_details": {
+              "text_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0
+            }
+          },
+          "output_token_details": {
+            "text_tokens": 79,
+            "audio_tokens": 0,
+            "reasoning_tokens": 63
+          }
+        },
+        "raw_output": "When you're feeling energetic, try saying, \"I'm happy!\"",
+        "input_submitted_at_utc": "2026-10-16T06:30:01.485433+00:00",
+        "completed_at_utc": "2026-10-16T06:30:02.915748+00:00",
+        "policy": "faithful English utterance; no action-instruction substitution",
+        "actual_charge_usd": null
+      }
+    }
+  ],
+  "comparison_input_policy": "Original utterance preserved for speech; shared LLM English translation supplied to every motion model",
+  "repeats": 3,
+  "models": [
+    "molingo",
+    "remomask2",
+    "momask"
+  ],
+  "profiles": [
+    "lab_proxy",
+    "b300"
+  ],
+  "model_variants": {
+    "molingo": "official HumanML3D-263 / EMA / 32 RF steps / acceleration 3 / CFG 5.5",
+    "remomask2": "official 0309 / retrieval k1 pool10 / 10 steps / CFG4",
+    "momask": "official masked18 CFG4 plus residual CFG5"
+  },
+  "lab_reference": {
+    "cpu": "Ryzen 7 5700X",
+    "gpu": "RTX 5070 12GB",
+    "ram_gb": 32,
+    "os": "Windows",
+    "actual_lab_pc_measured": false
+  },
+  "lab_proxy": {
+    "gpu": "RTX 4090 24GB",
+    "torch_allocator_limit_mib": 12227,
+    "cpu_threads": 8,
+    "cpu_affinity": 8,
+    "ram_hard_cap": false
+  },
+  "motion_precision": "Motion backbone FP32; official CLIP FP16 path retained for MoMask/ReMoMask-2; MoLingo T5 FP32; TF32 disabled in both profiles",
+  "retention_policy": "Stop own Pods, retain persistent environment data for 24h, then cleanup",
+  "speech_source": "Original real Realtime-generated five clips reused; English LLM translation only for motion conditioning",
+  "translation_policy": "llm_english_shared_across_models"
+}

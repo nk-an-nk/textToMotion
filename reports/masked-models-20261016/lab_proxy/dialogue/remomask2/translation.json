@@ -1,0 +1,36 @@
+{
+  "schema": "motion-lab/llm-translation-v1",
+  "source_text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+  "english": "Hello! You look energetic again today! Let's start practicing English conversation.",
+  "llm_generated": true,
+  "provider": "OpenAI Realtime API / text output",
+  "model": "gpt-realtime-2.1",
+  "response_id": "resp_EZVmywYSoOtl8Va7GvSrI",
+  "translation_seconds": 0.935666326986393,
+  "usage": {
+    "total_tokens": 156,
+    "input_tokens": 129,
+    "output_tokens": 27,
+    "input_token_details": {
+      "text_tokens": 129,
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "cached_tokens": 0,
+      "cached_tokens_details": {
+        "text_tokens": 0,
+        "audio_tokens": 0,
+        "image_tokens": 0
+      }
+    },
+    "output_token_details": {
+      "text_tokens": 27,
+      "audio_tokens": 0,
+      "reasoning_tokens": 9
+    }
+  },
+  "raw_output": "Hello! You look energetic again today! Let's start practicing English conversation.",
+  "input_submitted_at_utc": "2026-10-16T06:33:04.210094+00:00",
+  "completed_at_utc": "2026-10-16T06:33:05.145780+00:00",
+  "policy": "faithful English utterance; no action-instruction substitution",
+  "actual_charge_usd": null
+}

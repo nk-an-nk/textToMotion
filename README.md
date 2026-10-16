@@ -2,7 +2,9 @@
 
 公開モデルの3D人体動作を生成し、ブラウザで再生・比較・保存する Python 研究アプリです。
 
-**[実験報告スライド（全30枚・デモ動画18本を埋め込み）](reports/presentation-20261016/textToMotion_experiment_report_20261016.pptx)**を追加しました。7モデル比較、Kimodo / B300の生成時間、Realtimeとの差、GPU仕様・費用をまとめています。[閲覧用PDF](reports/presentation-20261016/textToMotion_experiment_report_20261016.pdf)・[動画と発表者ノートを含む一式ZIP](reports/textToMotion_report_20261016.zip)・[資料の使い方](reports/presentation-20261016/README.md)も利用できます。
+**[MoLingo・ReMoMask-2・MoMaskの追加実験](reports/masked-models-20261016/README.md)**：LLMで発話を英訳してから、共通5区間と生徒→先生の音声会話を2環境で検証しました。[全12本のデモ一覧](reports/masked-models-20261016/index.html)・[生成時間とRealtimeとの差のCSV](reports/masked-models-20261016/summary.csv)・[再現手順](docs/masked_models.md)。研究室側の代替はRTX 4090 / PyTorch VRAM上限12GB / CPU8で、RTX 5070実機の測定ではありません。
+
+**[報告用PowerPoint更新版（49枚・全60本の動画を埋め込み）](reports/presentation-20261016-updated/textToMotion_experiment_report_20261016_updated.pptx)**：従来30枚に、MoLingo・ReMoMask-2・MoMaskの英訳入力・2GPU比較を追加しました。[閲覧用PDF](reports/presentation-20261016-updated/textToMotion_experiment_report_20261016_updated.pdf)・[全動画一覧](reports/presentation-20261016-updated/index.html)・[資料の使い方](reports/presentation-20261016-updated/README.md)。[旧30枚版](reports/presentation-20261016/README.md)も保持しています。
 
 **[B300でKimodoの上半身会話デモを追加](reports/kimodo-b300-20261015/README.md)**しました。[通常100ステップ](reports/kimodo-b300-20261015/video-fp32-100/demo.mp4)と[高速20ステップ](reports/kimodo-b300-20261015/video-tf32-20/demo.mp4)を、実音声入力からの時間表示付きで比較できます。常駐生成の中央値は約1.89秒／0.43秒、Realtime初音声から骨格受信までの実測差は約4.37秒／3.25秒でした。
 

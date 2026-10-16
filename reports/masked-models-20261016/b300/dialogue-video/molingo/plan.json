@@ -1,0 +1,104 @@
+{
+  "schema": "motion-lab/audio-dialogue-video-plan-v1",
+  "model": "molingo",
+  "fps": 30,
+  "frame_count": 454,
+  "duration_seconds": 15.133333333333333,
+  "student_audio_seconds": 1.9,
+  "teacher_start_seconds": 9.666666666666666,
+  "teacher_audio_seconds": 4.95,
+  "student_text": "先生、こんにちは。",
+  "teacher_text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+  "measurement": {
+    "schema": "motion-lab/audio-input-dialogue-v1",
+    "model": "molingo",
+    "input_transport": "input_audio_buffer.append + commit",
+    "typed_student_input": false,
+    "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+    "clock_domain": "single_client_monotonic",
+    "student_audio_seconds": 1.9,
+    "student_audio_started_at_utc": "2026-10-16T07:02:14.992960+00:00",
+    "student_audio_ended_at_utc": "2026-10-16T07:02:16.893096+00:00",
+    "student_transcript": "先生、こんにちは。",
+    "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+    "teacher_audio_seconds": 4.95,
+    "asr_seconds_after_student_end": 0.5796090489893686,
+    "first_teacher_audio_seconds_after_student_end": 0.8931485709908884,
+    "teacher_transcript_seconds_after_student_end": 1.744272956973873,
+    "response_done_seconds_after_student_end": 1.7505301229830366,
+    "first_teacher_audio_seconds_after_input_start": 2.7932852559897583,
+    "events": [
+      {
+        "event": "student_transcription_complete",
+        "seconds_after_student_end": 0.5796090489893686
+      },
+      {
+        "event": "teacher_first_audio",
+        "seconds_after_student_end": 0.8931485709908884
+      },
+      {
+        "event": "teacher_transcript_complete",
+        "seconds_after_student_end": 1.744272956973873
+      }
+    ],
+    "response_id": "resp_EZWFEDFhD1mOaUXNMzYqf",
+    "usage": {
+      "total_tokens": 270,
+      "input_tokens": 108,
+      "output_tokens": 162,
+      "input_token_details": {
+        "text_tokens": 89,
+        "audio_tokens": 19,
+        "image_tokens": 0,
+        "cached_tokens": 0,
+        "cached_tokens_details": {
+          "text_tokens": 0,
+          "audio_tokens": 0,
+          "image_tokens": 0
+        }
+      },
+      "output_token_details": {
+        "text_tokens": 63,
+        "audio_tokens": 99,
+        "reasoning_tokens": 25
+      }
+    },
+    "actual_charge_usd": null,
+    "max_output_tokens": 512,
+    "max_teacher_audio_seconds": 15,
+    "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+    "teacher_sha256": "175162933b965070bb810c0e053dc37efd54bc9911d0fe2a6ca77c463d370737",
+    "profile": "b300",
+    "avatar_role": "speaker",
+    "gpu_name": "NVIDIA B300 SXM6 AC",
+    "resident_mode": "FP32 / b300",
+    "realtime_close_timeout_seconds": 0.1,
+    "generation_dispatch_seconds_after_student_end": 3.3591643079998903,
+    "bone_ready_observed_seconds_after_student_end": 7.756304461974651,
+    "generation_command_observed_seconds": 4.39714015397476,
+    "completion_poll_interval_seconds": 0,
+    "motion_generation_seconds": 3.046291462960653,
+    "bone_minus_first_realtime_audio_seconds": 6.863155890983762,
+    "teacher_playback_seconds_after_student_end": 7.756304461974651,
+    "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+    "actual_inference_after_received_teacher_transcript": true,
+    "remote_upload_and_startup_included": false,
+    "input_translation": true,
+    "translated_motion_prompt": "Hello! You look energetic today too! Let's start practicing English conversation.",
+    "translation_model": "gpt-realtime-2.1",
+    "translation_seconds": 1.4993378589861095,
+    "translation_included_in_end_to_end": true,
+    "model_was_resident_before_student_input": true,
+    "input_text_embedding_recomputed": true,
+    "inference_backend": "runpod_resident",
+    "measured_end_to_end": true,
+    "timing_scope": "one client monotonic clock; audio input to received decoded skeleton"
+  },
+  "motion_file": "motion.json",
+  "motion_scope": "full_body",
+  "avatar_role": "speaker",
+  "motion_sha256": "a97e75e3d9b60cc05712f5c96df3fcd4273b9cc02dfa70487fa0b182d81413e7",
+  "speech_and_gesture_start_policy": "same_frame_when_buffered_teacher_starts",
+  "caption": "音声入力からの実測を再生 / ライブ録画ではありません",
+  "body_pose": "pretrained_full_body_joints"
+}
