@@ -1,0 +1,52 @@
+{
+  "slides": 30,
+  "pdf_pages": 30,
+  "text_coverage_missing": [],
+  "invalid_shape_bounds": [],
+  "embedded_videos": 18,
+  "speaker_notes": 30,
+  "bundled_videos": 18,
+  "media_source_hash_mismatches": [],
+  "pdf_slide13_images": 54,
+  "pdf_media_links": 20,
+  "paid_inference_calls_during_report_creation": 0,
+  "pdf_embedded_fonts": true,
+  "media_codec_validation": 18,
+  "browser_validation": {
+    "title": "Text-to-Motion 実験報告",
+    "heading": "音声対話 × Text-to-Motion × VRM",
+    "videos": 18,
+    "links": [
+      "textToMotion_experiment_report_20261016.pdf",
+      "textToMotion_experiment_report_20261016.pptx",
+      "speaker-notes.md",
+      "media/dialogue-kimodo.mp4",
+      "media/dialogue-ardy.mp4",
+      "media/dialogue-motionlcm.mp4",
+      "media/dialogue-momask.mp4",
+      "media/dialogue-mmm.mp4",
+      "media/dialogue-reactmotion.mp4",
+      "media/dialogue-maai.mp4",
+      "media/common-kimodo.mp4",
+      "media/common-ardy.mp4",
+      "media/common-motionlcm.mp4",
+      "media/common-momask.mp4",
+      "media/common-mmm.mp4",
+      "media/common-reactmotion.mp4",
+      "media/common-maai.mp4",
+      "media/b300-fp32-100.mp4",
+      "media/b300-tf32-20.mp4",
+      "media/segmented-english-lesson.mp4",
+      "media/segmented-english-lesson-ardy.mp4"
+    ],
+    "codec_support": {
+      "h264": "",
+      "aac": ""
+    },
+    "playback_verification": "not performed: bundled Chromium lacks H.264/AAC codecs; all 18 original MP4s separately checked with ffprobe and SHA256",
+    "all_local_link_targets_exist": true
+  },
+  "embedded_video_original_hashes_match": true,
+  "internal_navigation_links": 17,
+  "pdf_internal_navigation_links": 24
+}

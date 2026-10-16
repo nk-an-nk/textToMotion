@@ -1,0 +1,34 @@
+{
+  "title": "Text-to-Motion 実験報告",
+  "heading": "音声対話 × Text-to-Motion × VRM",
+  "videos": 18,
+  "links": [
+    "textToMotion_experiment_report_20261016.pdf",
+    "textToMotion_experiment_report_20261016.pptx",
+    "speaker-notes.md",
+    "media/dialogue-kimodo.mp4",
+    "media/dialogue-ardy.mp4",
+    "media/dialogue-motionlcm.mp4",
+    "media/dialogue-momask.mp4",
+    "media/dialogue-mmm.mp4",
+    "media/dialogue-reactmotion.mp4",
+    "media/dialogue-maai.mp4",
+    "media/common-kimodo.mp4",
+    "media/common-ardy.mp4",
+    "media/common-motionlcm.mp4",
+    "media/common-momask.mp4",
+    "media/common-mmm.mp4",
+    "media/common-reactmotion.mp4",
+    "media/common-maai.mp4",
+    "media/b300-fp32-100.mp4",
+    "media/b300-tf32-20.mp4",
+    "media/segmented-english-lesson.mp4",
+    "media/segmented-english-lesson-ardy.mp4"
+  ],
+  "codec_support": {
+    "h264": "",
+    "aac": ""
+  },
+  "playback_verification": "not performed: bundled Chromium lacks H.264/AAC codecs; all 18 original MP4s separately checked with ffprobe and SHA256",
+  "all_local_link_targets_exist": true
+}

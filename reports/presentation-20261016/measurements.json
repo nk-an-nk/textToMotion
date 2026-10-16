@@ -1,0 +1,481 @@
+{
+  "date_jst": "2026-10-16",
+  "common_five_sentences": {
+    "kimodo": {
+      "model": "kimodo",
+      "segments": "5",
+      "generation_processing_seconds_sum": "51.40860728199914",
+      "generation_processing_seconds_min": "9.886636377999821",
+      "generation_processing_seconds_max": "10.762094119999801",
+      "model_load_seconds": "",
+      "peak_torch_allocated_mib": "",
+      "render_seconds": "156.043155087",
+      "active_generation_plus_render_seconds": "207.45176236899914",
+      "input_to_mp4_seconds_utc_including_waits": "5778.889",
+      "role": "speaker",
+      "gpu": "official_online_service"
+    },
+    "ardy": {
+      "model": "ardy",
+      "segments": "5",
+      "generation_processing_seconds_sum": "38.491712341069615",
+      "generation_processing_seconds_min": "7.184067784895888",
+      "generation_processing_seconds_max": "8.877659548152224",
+      "model_load_seconds": "15.682806961005554",
+      "peak_torch_allocated_mib": "885.890625",
+      "render_seconds": "160.159340735",
+      "active_generation_plus_render_seconds": "198.65105307606962",
+      "input_to_mp4_seconds_utc_including_waits": "3011.944",
+      "role": "speaker",
+      "gpu": "RTX4090 / allocator12227MiB"
+    },
+    "motionlcm": {
+      "model": "motionlcm",
+      "segments": "5",
+      "generation_processing_seconds_sum": "0.5695334908086807",
+      "generation_processing_seconds_min": "0.03716623899526894",
+      "generation_processing_seconds_max": "0.41412234702147543",
+      "model_load_seconds": "6.015579133061692",
+      "peak_torch_allocated_mib": "1475.990234375",
+      "render_seconds": "154.360770522",
+      "active_generation_plus_render_seconds": "154.93030401280868",
+      "input_to_mp4_seconds_utc_including_waits": "4410.337",
+      "role": "speaker",
+      "gpu": "RTX4090 / allocator12227MiB"
+    },
+    "momask": {
+      "model": "momask",
+      "segments": "5",
+      "generation_processing_seconds_sum": "1.5116955635603517",
+      "generation_processing_seconds_min": "0.19560978398658335",
+      "generation_processing_seconds_max": "0.70468571013771",
+      "model_load_seconds": "14.804494129028171",
+      "peak_torch_allocated_mib": "908.5322265625",
+      "render_seconds": "154.807420257",
+      "active_generation_plus_render_seconds": "156.31911582056034",
+      "input_to_mp4_seconds_utc_including_waits": "5775.383",
+      "role": "speaker",
+      "gpu": "RTX4090 / allocator12227MiB"
+    },
+    "mmm": {
+      "model": "mmm",
+      "segments": "5",
+      "generation_processing_seconds_sum": "0.7573095315601677",
+      "generation_processing_seconds_min": "0.038116682786494493",
+      "generation_processing_seconds_max": "0.5266737218480557",
+      "model_load_seconds": "9.40253134816885",
+      "peak_torch_allocated_mib": "1336.22119140625",
+      "render_seconds": "156.471073767",
+      "active_generation_plus_render_seconds": "157.22838329856017",
+      "input_to_mp4_seconds_utc_including_waits": "5769.555",
+      "role": "speaker",
+      "gpu": "RTX4090 / allocator12227MiB"
+    },
+    "reactmotion": {
+      "model": "reactmotion",
+      "segments": "5",
+      "generation_processing_seconds_sum": "2.596724117640406",
+      "generation_processing_seconds_min": "0.27972916699945927",
+      "generation_processing_seconds_max": "0.8372735357843339",
+      "model_load_seconds": "5.84287734515965",
+      "peak_torch_allocated_mib": "996.86181640625",
+      "render_seconds": "238.62099804599998",
+      "active_generation_plus_render_seconds": "241.2177221636404",
+      "input_to_mp4_seconds_utc_including_waits": "3568.168",
+      "role": "listener_full_body",
+      "gpu": "RTX4090 / allocator12227MiB"
+    },
+    "maai": {
+      "model": "maai",
+      "segments": "5",
+      "generation_processing_seconds_sum": "8.062569988891482",
+      "generation_processing_seconds_min": "1.2157336550299078",
+      "generation_processing_seconds_max": "2.062469895929098",
+      "model_load_seconds": "11.560222079977393",
+      "peak_torch_allocated_mib": "838.81396484375",
+      "render_seconds": "174.884944311",
+      "active_generation_plus_render_seconds": "182.94751429989148",
+      "input_to_mp4_seconds_utc_including_waits": "",
+      "role": "listener_head",
+      "gpu": "RTX4090 / allocator12227MiB"
+    }
+  },
+  "audio_input_comparison": {
+    "kimodo": {
+      "model": "kimodo",
+      "avatar_role": "speaker",
+      "asr_seconds_after_student_end": "0.5452892560006148",
+      "first_teacher_audio_seconds_after_student_end": "0.8111795160002657",
+      "teacher_transcript_seconds_after_student_end": "1.593550931000209",
+      "bone_ready_observed_seconds_after_student_end": "15.394948552000642",
+      "motion_generation_seconds": "10.56147972799954",
+      "cold_model_load_seconds": "",
+      "bone_minus_first_realtime_audio_seconds": "14.583769036000376",
+      "teacher_playback_seconds_after_student_end": "15.394948552000642",
+      "completion_poll_interval_seconds": "0"
+    },
+    "ardy": {
+      "model": "ardy",
+      "avatar_role": "speaker",
+      "asr_seconds_after_student_end": "0.5272509639999043",
+      "first_teacher_audio_seconds_after_student_end": "0.5675416939993738",
+      "teacher_transcript_seconds_after_student_end": "1.5417353789998742",
+      "bone_ready_observed_seconds_after_student_end": "187.65984962099992",
+      "motion_generation_seconds": "19.3227670621809",
+      "cold_model_load_seconds": "16.578132692025974",
+      "bone_minus_first_realtime_audio_seconds": "187.09230792700055",
+      "teacher_playback_seconds_after_student_end": "187.65984962099992",
+      "completion_poll_interval_seconds": "5"
+    },
+    "motionlcm": {
+      "model": "motionlcm",
+      "avatar_role": "speaker",
+      "asr_seconds_after_student_end": "1.321429812000133",
+      "first_teacher_audio_seconds_after_student_end": "1.0489040580005167",
+      "teacher_transcript_seconds_after_student_end": "1.8488608480001858",
+      "bone_ready_observed_seconds_after_student_end": "19.24151548900045",
+      "motion_generation_seconds": "0.4209381809923798",
+      "cold_model_load_seconds": "6.183417060179636",
+      "bone_minus_first_realtime_audio_seconds": "18.192611430999932",
+      "teacher_playback_seconds_after_student_end": "19.24151548900045",
+      "completion_poll_interval_seconds": "5"
+    },
+    "momask": {
+      "model": "momask",
+      "avatar_role": "speaker",
+      "asr_seconds_after_student_end": "1.987388712000211",
+      "first_teacher_audio_seconds_after_student_end": "0.8236153850002665",
+      "teacher_transcript_seconds_after_student_end": "1.6578971180006192",
+      "bone_ready_observed_seconds_after_student_end": "24.08233333699991",
+      "motion_generation_seconds": "0.7069082299713045",
+      "cold_model_load_seconds": "9.580388927133754",
+      "bone_minus_first_realtime_audio_seconds": "23.258717951999643",
+      "teacher_playback_seconds_after_student_end": "24.08233333699991",
+      "completion_poll_interval_seconds": "5"
+    },
+    "mmm": {
+      "model": "mmm",
+      "avatar_role": "speaker",
+      "asr_seconds_after_student_end": "0.7853827950002596",
+      "first_teacher_audio_seconds_after_student_end": "0.8800667750001594",
+      "teacher_transcript_seconds_after_student_end": "1.8262736840006255",
+      "bone_ready_observed_seconds_after_student_end": "23.827746406000188",
+      "motion_generation_seconds": "0.548299022950232",
+      "cold_model_load_seconds": "9.2914644558914",
+      "bone_minus_first_realtime_audio_seconds": "22.947679631000028",
+      "teacher_playback_seconds_after_student_end": "23.827746406000188",
+      "completion_poll_interval_seconds": "5"
+    },
+    "reactmotion": {
+      "model": "reactmotion",
+      "avatar_role": "listener",
+      "asr_seconds_after_student_end": "0.5707155889995192",
+      "first_teacher_audio_seconds_after_student_end": "1.218033332000232",
+      "teacher_transcript_seconds_after_student_end": "2.1287419849995786",
+      "bone_ready_observed_seconds_after_student_end": "18.998212052999406",
+      "motion_generation_seconds": "1.0002060639671981",
+      "cold_model_load_seconds": "6.592159913154319",
+      "bone_minus_first_realtime_audio_seconds": "17.780178720999174",
+      "teacher_playback_seconds_after_student_end": "18.998212052999406",
+      "completion_poll_interval_seconds": "5"
+    },
+    "maai": {
+      "model": "maai",
+      "avatar_role": "listener",
+      "asr_seconds_after_student_end": "0.5114293940005155",
+      "first_teacher_audio_seconds_after_student_end": "0.7729518100004498",
+      "teacher_transcript_seconds_after_student_end": "1.7395361179997053",
+      "bone_ready_observed_seconds_after_student_end": "19.606138066999847",
+      "motion_generation_seconds": "1.6035857489332557",
+      "cold_model_load_seconds": "5.805266130017117",
+      "bone_minus_first_realtime_audio_seconds": "18.833186256999397",
+      "teacher_playback_seconds_after_student_end": "19.606138066999847",
+      "completion_poll_interval_seconds": "5"
+    }
+  },
+  "warm_four_distinct_segments": {
+    "motionlcm": {
+      "first": 0.41412234702147543,
+      "median": 0.03885373589582741,
+      "minimum": 0.03716623899526894,
+      "maximum": 0.04053743300028145,
+      "frames": [
+        40,
+        72,
+        52,
+        48,
+        72
+      ]
+    },
+    "mmm": {
+      "first": 0.5266737218480557,
+      "median": 0.06077303702477366,
+      "minimum": 0.038116682786494493,
+      "maximum": 0.07097305287607014,
+      "frames": [
+        40,
+        72,
+        52,
+        48,
+        72
+      ]
+    },
+    "momask": {
+      "first": 0.70468571013771,
+      "median": 0.20235865213908255,
+      "minimum": 0.19560978398658335,
+      "maximum": 0.2066827651578933,
+      "frames": [
+        40,
+        72,
+        52,
+        48,
+        72
+      ]
+    }
+  },
+  "b300_native_benchmark": [
+    {
+      "mode": "fp32-100",
+      "unit": "teacher",
+      "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "frames": 149,
+      "repeats": 3,
+      "bone_ready_seconds": 1.8862561241257936,
+      "generation_seconds": 1.868576676119119,
+      "text_encoding_seconds": 0.09908610302954912,
+      "motion_and_decode_seconds": 1.7694905730895698,
+      "min_bone_ready_seconds": 1.8812875119037926,
+      "max_bone_ready_seconds": 1.9014086439274251
+    },
+    {
+      "mode": "tf32-100",
+      "unit": "teacher",
+      "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "frames": 149,
+      "repeats": 3,
+      "bone_ready_seconds": 1.714852110017091,
+      "generation_seconds": 1.6982892309315503,
+      "text_encoding_seconds": 0.09268450899980962,
+      "motion_and_decode_seconds": 1.6054629059508443,
+      "min_bone_ready_seconds": 1.7133592539466918,
+      "max_bone_ready_seconds": 1.718974030110985
+    },
+    {
+      "mode": "tf32-20",
+      "unit": "teacher",
+      "text": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "frames": 149,
+      "repeats": 3,
+      "bone_ready_seconds": 0.434577161911875,
+      "generation_seconds": 0.41751101706176996,
+      "text_encoding_seconds": 0.09122118493542075,
+      "motion_and_decode_seconds": 0.32615094305947423,
+      "min_bone_ready_seconds": 0.4326537661254406,
+      "max_bone_ready_seconds": 0.4347313451580703
+    }
+  ],
+  "b300_live": {
+    "fp32-100": {
+      "schema": "motion-lab/audio-input-dialogue-v1",
+      "model": "kimodo",
+      "input_transport": "input_audio_buffer.append + commit",
+      "typed_student_input": false,
+      "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+      "clock_domain": "single_client_monotonic",
+      "student_audio_seconds": 1.9,
+      "student_audio_started_at_utc": "2026-10-15T05:09:18.620205+00:00",
+      "student_audio_ended_at_utc": "2026-10-15T05:09:20.520283+00:00",
+      "student_transcript": "先生、こんにちは。",
+      "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "teacher_audio_seconds": 4.8,
+      "asr_seconds_after_student_end": 0.5319832469976973,
+      "first_teacher_audio_seconds_after_student_end": 0.6025959449980292,
+      "teacher_transcript_seconds_after_student_end": 1.4009800080020796,
+      "response_done_seconds_after_student_end": 1.404708373003814,
+      "first_teacher_audio_seconds_after_input_start": 2.5026736250001704,
+      "events": [
+        {
+          "event": "student_transcription_complete",
+          "seconds_after_student_end": 0.5319832469976973
+        },
+        {
+          "event": "teacher_first_audio",
+          "seconds_after_student_end": 0.6025959449980292
+        },
+        {
+          "event": "teacher_transcript_complete",
+          "seconds_after_student_end": 1.4009800080020796
+        }
+      ],
+      "response_id": "resp_EZ80OgkwTO0rFGlEQ28YS",
+      "usage": {
+        "total_tokens": 242,
+        "input_tokens": 108,
+        "output_tokens": 134,
+        "input_token_details": {
+          "text_tokens": 89,
+          "audio_tokens": 19,
+          "image_tokens": 0,
+          "cached_tokens": 0,
+          "cached_tokens_details": {
+            "text_tokens": 0,
+            "audio_tokens": 0,
+            "image_tokens": 0
+          }
+        },
+        "output_token_details": {
+          "text_tokens": 38,
+          "audio_tokens": 96
+        }
+      },
+      "actual_charge_usd": null,
+      "max_output_tokens": 512,
+      "max_teacher_audio_seconds": 15,
+      "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+      "teacher_sha256": "f09fe643243272ec8f2c1f19996c591c222610ccadcfc97290dbeb2952fee3ef",
+      "avatar_role": "speaker",
+      "resident_mode": "fp32-100",
+      "gpu_name": "B300",
+      "realtime_close_timeout_seconds": 0.1,
+      "generation_dispatch_seconds_after_student_end": 1.4157787619988085,
+      "bone_ready_observed_seconds_after_student_end": 4.972463438003615,
+      "generation_command_observed_seconds": 3.5566846760048065,
+      "completion_poll_interval_seconds": 0,
+      "motion_generation_seconds": 1.9327822821214795,
+      "bone_minus_first_realtime_audio_seconds": 4.369867493005586,
+      "teacher_playback_seconds_after_student_end": 4.972463438003615,
+      "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+      "actual_inference_after_received_teacher_transcript": true,
+      "measurement_scope": "audio_input_to_received_upper_body_skeleton_single_client_monotonic",
+      "remote_upload_and_startup_included": false,
+      "model_was_resident_before_student_input": true,
+      "input_text_embedding_recomputed": true,
+      "inference_backend": "runpod_resident",
+      "measured_end_to_end": true
+    },
+    "tf32-20": {
+      "schema": "motion-lab/audio-input-dialogue-v1",
+      "model": "kimodo",
+      "input_transport": "input_audio_buffer.append + commit",
+      "typed_student_input": false,
+      "input_source": "prerecorded_synthetic_voice_replayed_at_recorded_rate",
+      "clock_domain": "single_client_monotonic",
+      "student_audio_seconds": 1.9,
+      "student_audio_started_at_utc": "2026-10-15T05:08:56.288275+00:00",
+      "student_audio_ended_at_utc": "2026-10-15T05:08:58.188688+00:00",
+      "student_transcript": "先生、こんにちは。",
+      "teacher_transcript": "こんにちは！今日も元気そうだね！英会話の練習を始めましょう",
+      "teacher_audio_seconds": 5.4,
+      "asr_seconds_after_student_end": 0.40388598299614387,
+      "first_teacher_audio_seconds_after_student_end": 0.6853860769988387,
+      "teacher_transcript_seconds_after_student_end": 1.6733763149968581,
+      "response_done_seconds_after_student_end": 1.676782558002742,
+      "first_teacher_audio_seconds_after_input_start": 2.5857975399994757,
+      "events": [
+        {
+          "event": "student_transcription_complete",
+          "seconds_after_student_end": 0.40388598299614387
+        },
+        {
+          "event": "teacher_first_audio",
+          "seconds_after_student_end": 0.6853860769988387
+        },
+        {
+          "event": "teacher_transcript_complete",
+          "seconds_after_student_end": 1.6733763149968581
+        }
+      ],
+      "response_id": "resp_EZ802EWjh8Aoi3SLqFxmq",
+      "usage": {
+        "total_tokens": 277,
+        "input_tokens": 108,
+        "output_tokens": 169,
+        "input_token_details": {
+          "text_tokens": 89,
+          "audio_tokens": 19,
+          "image_tokens": 0,
+          "cached_tokens": 0,
+          "cached_tokens_details": {
+            "text_tokens": 0,
+            "audio_tokens": 0,
+            "image_tokens": 0
+          }
+        },
+        "output_token_details": {
+          "text_tokens": 61,
+          "audio_tokens": 108,
+          "reasoning_tokens": 23
+        }
+      },
+      "actual_charge_usd": null,
+      "max_output_tokens": 512,
+      "max_teacher_audio_seconds": 15,
+      "student_sha256": "6ce1685d670303807818d7cc5d8d9f1fce80a2700802fd09d5d10ef5c632f85f",
+      "teacher_sha256": "aa511fac35087293e53e53403db340afeabf9f5b5ab8ce3b73290ed6ce518165",
+      "avatar_role": "speaker",
+      "resident_mode": "tf32-20",
+      "gpu_name": "B300",
+      "realtime_close_timeout_seconds": 0.1,
+      "generation_dispatch_seconds_after_student_end": 1.7829773580015171,
+      "bone_ready_observed_seconds_after_student_end": 3.936996395997994,
+      "generation_command_observed_seconds": 2.154019037996477,
+      "completion_poll_interval_seconds": 0,
+      "motion_generation_seconds": 0.4962373850867152,
+      "bone_minus_first_realtime_audio_seconds": 3.2516103189991554,
+      "teacher_playback_seconds_after_student_end": 3.936996395997994,
+      "playback_policy": "buffer_teacher_voice_until_trained_motion_received",
+      "actual_inference_after_received_teacher_transcript": true,
+      "measurement_scope": "audio_input_to_received_upper_body_skeleton_single_client_monotonic",
+      "remote_upload_and_startup_included": false,
+      "model_was_resident_before_student_input": true,
+      "input_text_embedding_recomputed": true,
+      "inference_backend": "runpod_resident",
+      "measured_end_to_end": true
+    }
+  },
+  "b300_cost_estimates": {
+    "fp32-100": {
+      "gpu_usd_per_hour": 8.99,
+      "jpy_per_usd": 200,
+      "request_window_seconds": 6.872541118005756,
+      "gpu_yen": 3.432452480603986,
+      "realtime_usage_estimate_usd": 0.00802,
+      "realtime_yen": 1.6039999999999999,
+      "subtotal_yen": 5.036452480603986,
+      "excluded": [
+        "transcription",
+        "startup",
+        "idle time",
+        "storage",
+        "video export"
+      ],
+      "actual_invoice_usd": null
+    },
+    "tf32-20": {
+      "gpu_usd_per_hour": 8.99,
+      "jpy_per_usd": 200,
+      "request_window_seconds": 5.837407858998631,
+      "gpu_yen": 2.9154609251332055,
+      "realtime_usage_estimate_usd": 0.00934,
+      "realtime_yen": 1.8679999999999999,
+      "subtotal_yen": 4.783460925133205,
+      "excluded": [
+        "transcription",
+        "startup",
+        "idle time",
+        "storage",
+        "video export"
+      ],
+      "actual_invoice_usd": null
+    }
+  },
+  "pricing_source": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1",
+  "pricing_verified_date": "2026-10-15",
+  "pricing_usd_per_million": {
+    "text_input": 4,
+    "text_output": 24,
+    "audio_input": 32,
+    "audio_output": 64
+  }
+}

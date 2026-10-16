@@ -1,0 +1,128 @@
+[
+  {
+    "id": "dialogue-kimodo",
+    "name": "Kimodo",
+    "group": "dialogue",
+    "path": "media/dialogue-kimodo.mp4",
+    "source": "reports/model-comparison/runpod-20261014/audio-input-dialogue/kimodo/demo.mp4"
+  },
+  {
+    "id": "common-kimodo",
+    "name": "Kimodo",
+    "group": "common",
+    "path": "media/common-kimodo.mp4",
+    "source": "reports/model-comparison/runpod-20261014/common/kimodo/combined.mp4"
+  },
+  {
+    "id": "dialogue-ardy",
+    "name": "ARDY",
+    "group": "dialogue",
+    "path": "media/dialogue-ardy.mp4",
+    "source": "reports/model-comparison/runpod-20261014/audio-input-dialogue/ardy/demo.mp4"
+  },
+  {
+    "id": "common-ardy",
+    "name": "ARDY",
+    "group": "common",
+    "path": "media/common-ardy.mp4",
+    "source": "reports/model-comparison/runpod-20261014/common/ardy/combined.mp4"
+  },
+  {
+    "id": "dialogue-motionlcm",
+    "name": "MotionLCM",
+    "group": "dialogue",
+    "path": "media/dialogue-motionlcm.mp4",
+    "source": "reports/model-comparison/runpod-20261014/audio-input-dialogue/motionlcm/demo.mp4"
+  },
+  {
+    "id": "common-motionlcm",
+    "name": "MotionLCM",
+    "group": "common",
+    "path": "media/common-motionlcm.mp4",
+    "source": "reports/model-comparison/runpod-20261014/common/motionlcm/combined.mp4"
+  },
+  {
+    "id": "dialogue-momask",
+    "name": "MoMask",
+    "group": "dialogue",
+    "path": "media/dialogue-momask.mp4",
+    "source": "reports/model-comparison/runpod-20261014/audio-input-dialogue/momask/demo.mp4"
+  },
+  {
+    "id": "common-momask",
+    "name": "MoMask",
+    "group": "common",
+    "path": "media/common-momask.mp4",
+    "source": "reports/model-comparison/runpod-20261014/common/momask/combined.mp4"
+  },
+  {
+    "id": "dialogue-mmm",
+    "name": "MMM",
+    "group": "dialogue",
+    "path": "media/dialogue-mmm.mp4",
+    "source": "reports/model-comparison/runpod-20261014/audio-input-dialogue/mmm/demo.mp4"
+  },
+  {
+    "id": "common-mmm",
+    "name": "MMM",
+    "group": "common",
+    "path": "media/common-mmm.mp4",
+    "source": "reports/model-comparison/runpod-20261014/common/mmm/combined.mp4"
+  },
+  {
+    "id": "dialogue-reactmotion",
+    "name": "ReactMotion",
+    "group": "dialogue",
+    "path": "media/dialogue-reactmotion.mp4",
+    "source": "reports/model-comparison/runpod-20261014/audio-input-dialogue/reactmotion/demo.mp4"
+  },
+  {
+    "id": "common-reactmotion",
+    "name": "ReactMotion",
+    "group": "common",
+    "path": "media/common-reactmotion.mp4",
+    "source": "reports/model-comparison/runpod-20261014/common/reactmotion/combined.mp4"
+  },
+  {
+    "id": "dialogue-maai",
+    "name": "MaAI",
+    "group": "dialogue",
+    "path": "media/dialogue-maai.mp4",
+    "source": "reports/model-comparison/runpod-20261014/audio-input-dialogue/maai/demo.mp4"
+  },
+  {
+    "id": "common-maai",
+    "name": "MaAI",
+    "group": "common",
+    "path": "media/common-maai.mp4",
+    "source": "reports/model-comparison/runpod-20261014/common/maai/combined.mp4"
+  },
+  {
+    "id": "b300-fp32-100",
+    "name": "Kimodo B300 fp32-100",
+    "group": "b300",
+    "path": "media/b300-fp32-100.mp4",
+    "source": "reports/kimodo-b300-20261015/video-fp32-100/demo.mp4"
+  },
+  {
+    "id": "b300-tf32-20",
+    "name": "Kimodo B300 tf32-20",
+    "group": "b300",
+    "path": "media/b300-tf32-20.mp4",
+    "source": "reports/kimodo-b300-20261015/video-tf32-20/demo.mp4"
+  },
+  {
+    "id": "segmented-english-lesson",
+    "name": "english-lesson",
+    "group": "segmented",
+    "path": "media/segmented-english-lesson.mp4",
+    "source": "reports/segmented/english-lesson/combined.mp4"
+  },
+  {
+    "id": "segmented-english-lesson-ardy",
+    "name": "english-lesson-ardy",
+    "group": "segmented",
+    "path": "media/segmented-english-lesson-ardy.mp4",
+    "source": "reports/segmented/english-lesson-ardy/combined.mp4"
+  }
+]

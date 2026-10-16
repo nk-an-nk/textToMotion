@@ -1,0 +1,110 @@
+[
+  {
+    "id": "b300-fp32-100",
+    "slide": 13,
+    "path": "media/b300-fp32-100.mp4",
+    "sha256": "3f5157bff4f1a160fe35c700e05a2ae2562ec1616881f7d1a8bc7eaaa1371be7"
+  },
+  {
+    "id": "b300-tf32-20",
+    "slide": 13,
+    "path": "media/b300-tf32-20.mp4",
+    "sha256": "8f09c029363e437f54e1d2de2aa7eba83d90a98de0520aa277b519064e775e51"
+  },
+  {
+    "id": "dialogue-kimodo",
+    "slide": 23,
+    "path": "media/dialogue-kimodo.mp4",
+    "sha256": "09ffe352e831aef52d96fe6a66aad01dc90eb5290b4ea5d2854e1fb05ba6fc21"
+  },
+  {
+    "id": "common-kimodo",
+    "slide": 23,
+    "path": "media/common-kimodo.mp4",
+    "sha256": "31bbd27283cca49058593b7046b697b06eafd92475fdeb59a696ce1554357e10"
+  },
+  {
+    "id": "dialogue-ardy",
+    "slide": 24,
+    "path": "media/dialogue-ardy.mp4",
+    "sha256": "e6f04f68baee4e23bd1277dd14febe4e6e138a03440d91d48d728b5c645c7d08"
+  },
+  {
+    "id": "common-ardy",
+    "slide": 24,
+    "path": "media/common-ardy.mp4",
+    "sha256": "f6d407400fc806db6bb5c0e8bf2e31ee907ad653a9ecb060bb2c825baa1c8dc9"
+  },
+  {
+    "id": "dialogue-motionlcm",
+    "slide": 25,
+    "path": "media/dialogue-motionlcm.mp4",
+    "sha256": "20644f022bb362daba30762103c56e8b6dedd617532f2bf0cd3a304bf44dd965"
+  },
+  {
+    "id": "common-motionlcm",
+    "slide": 25,
+    "path": "media/common-motionlcm.mp4",
+    "sha256": "3ee5b83ca982afdbf2d96351201b0cacee1954b9955b23dc12f9d07132c26adb"
+  },
+  {
+    "id": "dialogue-momask",
+    "slide": 26,
+    "path": "media/dialogue-momask.mp4",
+    "sha256": "6382cbe69be939cc341e02525f42b2c6f629e70c295662c4c9f8fcfba752a85e"
+  },
+  {
+    "id": "common-momask",
+    "slide": 26,
+    "path": "media/common-momask.mp4",
+    "sha256": "b0ad20bc34b14cf659af438d2c807c2b63abe2e98e92d4f8a446a06adf6c5a40"
+  },
+  {
+    "id": "dialogue-mmm",
+    "slide": 27,
+    "path": "media/dialogue-mmm.mp4",
+    "sha256": "3f872c0880a8e74e09203e5278638484a177ff2cc89727dcdff6fd2d99e64faa"
+  },
+  {
+    "id": "common-mmm",
+    "slide": 27,
+    "path": "media/common-mmm.mp4",
+    "sha256": "33cde1cc46c477b1b401c07f9bc43ca19f11724cc85453b51230d3a15bf90530"
+  },
+  {
+    "id": "dialogue-reactmotion",
+    "slide": 28,
+    "path": "media/dialogue-reactmotion.mp4",
+    "sha256": "d669c2229cf4eae9e5524cf6a2b58e7e43adfc78245ae1711e7a1ca31e0e60f7"
+  },
+  {
+    "id": "common-reactmotion",
+    "slide": 28,
+    "path": "media/common-reactmotion.mp4",
+    "sha256": "6e5a5a32cce5124b1e8166480de62c3e33b1a2d905dbbae00c750af07aca4c3b"
+  },
+  {
+    "id": "dialogue-maai",
+    "slide": 29,
+    "path": "media/dialogue-maai.mp4",
+    "sha256": "3951684f2bb9d0c7ce5ba7725bfb239524b55297fc52203bf57c8bc732111f14"
+  },
+  {
+    "id": "common-maai",
+    "slide": 29,
+    "path": "media/common-maai.mp4",
+    "sha256": "fcc04e3a0bfc6d467f9f42941e19871fd689ec656fdc457bd1d07069a9540d2a"
+  },
+  {
+    "id": "segmented-english-lesson",
+    "slide": 30,
+    "path": "media/segmented-english-lesson.mp4",
+    "sha256": "2046a9f39426bc85e0cfd60ed74f3162d726e643a11a4c6065b786c5724d838a"
+  },
+  {
+    "id": "segmented-english-lesson-ardy",
+    "slide": 30,
+    "path": "media/segmented-english-lesson-ardy.mp4",
+    "sha256": "dfac549a0c00575a92113fa838270a5e8d5f07658e1554db86f40ce1b5ada345"
+  }
+]

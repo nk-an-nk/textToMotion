@@ -1,0 +1,254 @@
+[
+  {
+    "path": "media/b300-fp32-100.mp4",
+    "duration": 12.2,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/b300-tf32-20.mp4",
+    "duration": 11.767,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/common-ardy.mp4",
+    "duration": 12.967,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/common-kimodo.mp4",
+    "duration": 12.967,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/common-maai.mp4",
+    "duration": 12.967,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/common-mmm.mp4",
+    "duration": 12.967,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/common-momask.mp4",
+    "duration": 12.967,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/common-motionlcm.mp4",
+    "duration": 12.967,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/common-reactmotion.mp4",
+    "duration": 12.967,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/dialogue-ardy.mp4",
+    "duration": 194.833333,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/dialogue-kimodo.mp4",
+    "duration": 22.767,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/dialogue-maai.mp4",
+    "duration": 27.0,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/dialogue-mmm.mp4",
+    "duration": 31.0,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/dialogue-momask.mp4",
+    "duration": 31.067,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/dialogue-motionlcm.mp4",
+    "duration": 26.6,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/dialogue-reactmotion.mp4",
+    "duration": 26.167,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/segmented-english-lesson-ardy.mp4",
+    "duration": 14.133333,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  },
+  {
+    "path": "media/segmented-english-lesson.mp4",
+    "duration": 14.133333,
+    "video": {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    "audio": {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  }
+]

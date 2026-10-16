@@ -2,6 +2,8 @@
 
 公開モデルの3D人体動作を生成し、ブラウザで再生・比較・保存する Python 研究アプリです。
 
+**[実験報告スライド（全30枚・デモ動画18本を埋め込み）](reports/presentation-20261016/textToMotion_experiment_report_20261016.pptx)**を追加しました。7モデル比較、Kimodo / B300の生成時間、Realtimeとの差、GPU仕様・費用をまとめています。[閲覧用PDF](reports/presentation-20261016/textToMotion_experiment_report_20261016.pdf)・[動画と発表者ノートを含む一式ZIP](reports/textToMotion_report_20261016.zip)・[資料の使い方](reports/presentation-20261016/README.md)も利用できます。
+
 **[B300でKimodoの上半身会話デモを追加](reports/kimodo-b300-20261015/README.md)**しました。[通常100ステップ](reports/kimodo-b300-20261015/video-fp32-100/demo.mp4)と[高速20ステップ](reports/kimodo-b300-20261015/video-tf32-20/demo.mp4)を、実音声入力からの時間表示付きで比較できます。常駐生成の中央値は約1.89秒／0.43秒、Realtime初音声から骨格受信までの実測差は約4.37秒／3.25秒でした。
 
 **[音声入力から7モデルを比較](docs/audio_input_comparison.md)**しました。生徒の「先生、こんにちは！」をRealtimeへ音声で送り、教師の返答から新規生成する時間を計測しています。Kimodo、ARDY、MotionLCM、MoMask、MMM、ReactMotion、MaAIの正面1080p動画・CSVは[検証結果](reports/model-comparison/runpod-20261014/README.md)にまとめています。
