@@ -33,11 +33,16 @@
     }
   },
   "forwardPorts": [
-    8000
+    8000,
+    6080
   ],
   "portsAttributes": {
     "8000": {
       "label": "Kebbi FastAPI",
+      "onAutoForward": "notify"
+    },
+    "6080": {
+      "label": "Android browser screen (private)",
       "onAutoForward": "notify"
     }
   }

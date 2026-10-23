@@ -29,6 +29,9 @@ Android Studioで `android-app` を開き、Build Variantを `mockDebug` にし�
 アプリの「設定」でバックエンドURLを指定し、テキストを入力して「テキストで会話」を押します。
 `greet → mock_wave` などはモック専用IDで、実機IDではありません。
 
+ブラウザでAndroid画面を操作する場合は、[CodespacesのAndroid画面起動手順](docs/cloud-android.md)を参照してください。
+MacへのSDK・エミュレータのインストールは不要です。
+
 ## 構成
 
 - `android-app/core`: Android非依存の会話状態管理・同期制御・契約検証・HTTPクライアント・モック
