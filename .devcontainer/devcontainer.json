@@ -31,5 +31,14 @@
         "vscjava.vscode-gradle"
       ]
     }
+  },
+  "forwardPorts": [
+    8000
+  ],
+  "portsAttributes": {
+    "8000": {
+      "label": "Kebbi FastAPI",
+      "onAutoForward": "notify"
+    }
   }
 }

@@ -1,0 +1,498 @@
+package jp.ojimalab.kebbi;
+
+import static jp.ojimalab.kebbi.core.RuntimePorts.*;
+
+import android.Manifest;
+import android.app.*;
+import android.content.*;
+import android.content.pm.PackageManager;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.view.*;
+import android.widget.*;
+import java.io.*;
+import java.util.*;
+import jp.ojimalab.kebbi.core.*;
+
+public final class MainActivity extends Activity {
+  private final AndroidScheduler scheduler = new AndroidScheduler();
+  private SharedPreferences prefs;
+  private JsonTrace trace;
+  private ApiClient api;
+  private RobotAdapter robot;
+  private ConversationController controller;
+  private MotionRegistry registry;
+  private LinearLayout root;
+  private TextView sdkStatus, backendStatus, stateStatus, userText, replyText, selection, errorText;
+  private EditText input;
+  private Spinner testGesture;
+  private Button listen, asrOnly, send, tts, combined, motionButton;
+  private long engine;
+  private boolean active;
+  private String lastContent = "";
+  private ArrayAdapter<String> adminNames;
+  private List<String> lastNames = new ArrayList<>();
+
+  private int dp(int n) {
+    return (int) (n * getResources().getDisplayMetrics().density);
+  }
+
+  @Override
+  public void onCreate(Bundle saved) {
+    super.onCreate(saved);
+    prefs = getSharedPreferences("kebbi", MODE_PRIVATE);
+    trace = new JsonTrace(this, prefs);
+    buildUi();
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    active = true;
+    startEngine();
+  }
+
+  @Override
+  protected void onStop() {
+    active = false;
+    endEngine();
+    super.onStop();
+  }
+
+  private void endEngine() {
+    engine++;
+    if (controller != null) controller.close();
+    if (api != null) api.close();
+    controller = null;
+    api = null;
+    robot = null;
+  }
+
+  private String loadMapping() {
+    String stored = prefs.getString("mapping", null);
+    if (stored != null) return stored;
+    try (InputStream in = getAssets().open("gesture_mapping.json");
+        ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+      byte[] b = new byte[2048];
+      int n;
+      while ((n = in.read(b)) != -1) out.write(b, 0, n);
+      return out.toString("UTF-8");
+    } catch (IOException e) {
+      return "{}";
+    }
+  }
+
+  private void startEngine() {
+    if (!active || controller != null) return;
+    long current = ++engine;
+    try {
+      registry = MotionRegistry.parse(loadMapping());
+    } catch (RuntimeException error) {
+      registry = new MotionRegistry();
+      errorText.setText("モーション設定が不正です。管理画面で設定し直してください。");
+    }
+    try {
+      api =
+          new ApiClient(
+              prefs.getString("url", "http://10.0.2.2:8000"), prefs.getString("token", ""));
+    } catch (RuntimeException error) {
+      errorText.setText("API URLが不正です。設定を修正してください。");
+      return;
+    }
+    robot = RobotFactory.create(this, scheduler);
+    robot.configureMock("Hello, Kebbi!", prefs.getString("mock_fault", "none"));
+    controller =
+        new ConversationController(
+            robot,
+            api,
+            scheduler,
+            trace,
+            s -> {
+              if (current == engine && active) render(s);
+            },
+            registry);
+    controller.settings(prefs.getString("language", "en"), prefs.getBoolean("motion", true));
+    controller.connect();
+    health();
+  }
+
+  private TextView label(LinearLayout parent, String text, int size) {
+    TextView v = new TextView(this);
+    v.setText(text);
+    v.setTextSize(size);
+    v.setPadding(0, dp(5), 0, dp(5));
+    parent.addView(v);
+    return v;
+  }
+
+  private EditText edit(LinearLayout parent, String hint, String value) {
+    EditText e = new EditText(this);
+    e.setHint(hint);
+    e.setText(value);
+    e.setTextSize(16);
+    parent.addView(e, new LinearLayout.LayoutParams(-1, -2));
+    return e;
+  }
+
+  private Button button(LinearLayout parent, String text, Runnable action) {
+    Button b = new Button(this);
+    b.setText(text);
+    b.setAllCaps(false);
+    parent.addView(b, new LinearLayout.LayoutParams(-1, -2));
+    b.setOnClickListener(v -> action.run());
+    return b;
+  }
+
+  private Spinner spinner(LinearLayout parent, List<String> choices) {
+    Spinner s = new Spinner(this);
+    ArrayAdapter<String> a =
+        new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, choices);
+    s.setAdapter(a);
+    parent.addView(s);
+    return s;
+  }
+
+  private CheckBox check(LinearLayout parent, String text, boolean value) {
+    CheckBox c = new CheckBox(this);
+    c.setText(text);
+    c.setChecked(value);
+    parent.addView(c);
+    return c;
+  }
+
+  private LinearLayout panel() {
+    LinearLayout p = new LinearLayout(this);
+    p.setOrientation(LinearLayout.VERTICAL);
+    p.setPadding(dp(18), dp(12), dp(18), dp(16));
+    return p;
+  }
+
+  private ScrollView scroll(LinearLayout p) {
+    ScrollView scroll = new ScrollView(this);
+    scroll.addView(p);
+    return scroll;
+  }
+
+  private void buildUi() {
+    root = panel();
+    setContentView(scroll(root));
+    label(root, "Kebbi Conversation · " + (RobotFactory.REAL ? "実機モード" : "モックモード"), 24)
+        .setTypeface(null, Typeface.BOLD);
+    sdkStatus = label(root, "SDK: 接続待ち", 16);
+    backendStatus = label(root, "バックエンド: 確認中", 16);
+    stateStatus = label(root, "状態: IDLE", 18);
+    errorText = label(root, "", 15);
+    errorText.setTextColor(0xffa02020);
+    listen = button(root, "音声認識 → 会話", () -> startAsr(false));
+    listen.setId(1001);
+    button(
+        root,
+        "停止",
+        () -> {
+          if (controller != null) controller.stop();
+        });
+    input = edit(root, "手動入力 / モックASRの発話", "");
+    input.setId(1002);
+    send =
+        button(
+            root,
+            "テキストで会話",
+            () -> {
+              if (controller != null) controller.submit(input.getText().toString());
+            });
+    send.setId(1003);
+    userText = label(root, "認識した発話: —", 17);
+    userText.setId(1004);
+    replyText = label(root, "Kebbiの応答: —", 19);
+    replyText.setId(1005);
+    selection = label(root, "ジェスチャー: none / モーション: なし", 16);
+    selection.setId(1006);
+    label(root, "機能別テスト", 20);
+    testGesture =
+        spinner(
+            root,
+            Arrays.asList(
+                "greet",
+                "acknowledge",
+                "praise",
+                "surprise",
+                "explain",
+                "think",
+                "question",
+                "none"));
+    tts = button(root, "TTSのみ", () -> test(false));
+    combined = button(root, "TTS + ジェスチャー", () -> test(true));
+    asrOnly = button(root, "ASRのみ", () -> startAsr(true));
+    motionButton = button(root, "モーション管理・単独再生", this::showMotions);
+    button(root, "設定", this::settings);
+    button(
+        root,
+        "接続を確認 / SDK再接続",
+        () -> {
+          if (controller != null && controller.state() == State.IDLE) controller.connect();
+          else if (controller == null) startEngine();
+          health();
+        });
+    button(
+        root,
+        "新しい会話（履歴を破棄）",
+        () -> {
+          if (controller != null) controller.newSession();
+        });
+    button(
+        root,
+        "JSONイベント・所要時間",
+        () -> {
+          TextView text = label(panel(), "", 13);
+          text.setText(trace.text().isEmpty() ? "イベントはまだありません。" : trace.text());
+          text.setTextIsSelectable(true);
+          new AlertDialog.Builder(this)
+              .setTitle("JSON Lines（直近100件）")
+              .setView(scroll((LinearLayout) text.getParent()))
+              .setPositiveButton("閉じる", null)
+              .show();
+        });
+    button(
+        root,
+        "端末内ログを消去",
+        () ->
+            new AlertDialog.Builder(this)
+                .setMessage("このアプリの保存ログを消去しますか？")
+                .setNegativeButton("キャンセル", null)
+                .setPositiveButton("消去", (d, w) -> trace.clear())
+                .show());
+    label(
+        root,
+        RobotFactory.REAL ? "実機のモーション一覧で確認したIDだけを割り当ててください。" : "mock_から始まる動作はテスト用です。実機IDではありません。",
+        14);
+  }
+
+  private void render(Snapshot s) {
+    sdkStatus.setText(
+        "SDK: "
+            + (s.connected ? "接続済み" : "接続待ち / 再接続が必要")
+            + (RobotFactory.REAL ? "" : " (MockRobotAdapter)"));
+    stateStatus.setText("状態: " + s.state + " / TTS完了=" + s.ttsDone + " / Motion完了=" + s.motionDone);
+    stateStatus.setId(1007);
+    userText.setText("認識した発話: " + s.text);
+    replyText.setText("Kebbiの応答: " + s.speech);
+    selection.setText(
+        "ジェスチャー: " + s.gesture + " / モーション: " + (s.motion.isEmpty() ? "なし" : s.motion));
+    errorText.setText(s.message);
+    boolean idle = s.connected && s.state == State.IDLE;
+    for (Button b : Arrays.asList(listen, asrOnly, send, tts, combined, motionButton))
+      b.setEnabled(idle);
+    if (!s.speech.isEmpty() && !s.turnId.equals(lastContent)) {
+      lastContent = s.turnId;
+      trace.content(s.turnId, s.text, s.speech);
+    }
+    if (adminNames != null && controller != null) {
+      List<String> names = new ArrayList<>(controller.motions());
+      if (!names.equals(lastNames)) {
+        lastNames = names;
+        adminNames.clear();
+        adminNames.addAll(names);
+        adminNames.notifyDataSetChanged();
+      }
+    }
+  }
+
+  private void health() {
+    if (api == null) return;
+    long current = engine;
+    backendStatus.setText("バックエンド: 確認中");
+    api.health(
+        status ->
+            scheduler.execute(
+                () -> {
+                  if (current == engine && active) backendStatus.setText("バックエンド: " + status);
+                }));
+  }
+
+  private void startAsr(boolean only) {
+    if (controller == null) return;
+    if (RobotFactory.REAL
+        && checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED) {
+      pendingAsrOnly = only;
+      requestPermissions(new String[] {Manifest.permission.RECORD_AUDIO}, 7);
+      return;
+    }
+    robot.configureMock(
+        input.getText().toString().isEmpty() ? "Hello, Kebbi!" : input.getText().toString(),
+        prefs.getString("mock_fault", "none"));
+    controller.listen(only);
+  }
+
+  private boolean pendingAsrOnly;
+
+  @Override
+  public void onRequestPermissionsResult(int request, String[] permissions, int[] grants) {
+    super.onRequestPermissionsResult(request, permissions, grants);
+    if (request == 7 && grants.length > 0 && grants[0] == PackageManager.PERMISSION_GRANTED)
+      startAsr(pendingAsrOnly);
+    else errorText.setText("マイク権限が必要です。");
+  }
+
+  private void test(boolean both) {
+    if (controller == null) return;
+    robot.configureMock("Hello, Kebbi!", prefs.getString("mock_fault", "none"));
+    controller.testSpeech(
+        input.getText().toString(), Gesture.safe(testGesture.getSelectedItem().toString()), both);
+  }
+
+  private void settings() {
+    if (controller != null && controller.state() != State.IDLE) controller.stop();
+    LinearLayout p = panel();
+    label(p, "接続と言語", 19);
+    EditText url = edit(p, "バックエンドURL", prefs.getString("url", "http://10.0.2.2:8000"));
+    EditText token = edit(p, "バックエンドの共有トークン（任意）", prefs.getString("token", ""));
+    token.setTransformationMethod(PasswordTransformationMethod.getInstance());
+    label(p, "LLMのAPIキーはこの画面に入力しません。サーバーの環境変数で管理します。", 14);
+    Spinner lang = spinner(p, Arrays.asList("en", "ja"));
+    lang.setSelection(prefs.getString("language", "en").equals("ja") ? 1 : 0);
+    CheckBox motion = check(p, "ジェスチャーモーションを有効化", prefs.getBoolean("motion", true));
+    label(p, "音声認識モード: ボタン開始（MVP）", 15);
+    CheckBox log = check(p, "メタデータ・時間のJSONログ", prefs.getBoolean("log", true));
+    CheckBox persist = check(p, "JSONLをアプリ専用領域へ保存", prefs.getBoolean("persist", false));
+    CheckBox content = check(p, "会話本文も記録する（明示的に有効にした場合のみ）", prefs.getBoolean("content", false));
+    label(p, "モックの障害シミュレーション", 16);
+    List<String> faults =
+        Arrays.asList(
+            "none",
+            "asr_error",
+            "asr_timeout",
+            "tts_error",
+            "tts_timeout",
+            "motion_error",
+            "motion_timeout");
+    Spinner fault = spinner(p, faults);
+    fault.setSelection(Math.max(0, faults.indexOf(prefs.getString("mock_fault", "none"))));
+    fault.setEnabled(!RobotFactory.REAL);
+    AlertDialog d =
+        new AlertDialog.Builder(this)
+            .setTitle("設定")
+            .setView(scroll(p))
+            .setNegativeButton("キャンセル", null)
+            .setPositiveButton("保存", null)
+            .create();
+    d.setOnShowListener(
+        ignored ->
+            d.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setOnClickListener(
+                    v -> {
+                      String newUrl = url.getText().toString().trim();
+                      try {
+                        new ApiClient(newUrl, "").close();
+                      } catch (RuntimeException e) {
+                        url.setError("http(s)のURLを指定してください");
+                        return;
+                      }
+                      endEngine();
+                      prefs
+                          .edit()
+                          .putString("url", newUrl)
+                          .putString("token", token.getText().toString())
+                          .putString("language", lang.getSelectedItem().toString())
+                          .putBoolean("motion", motion.isChecked())
+                          .putBoolean("log", log.isChecked())
+                          .putBoolean("persist", persist.isChecked())
+                          .putBoolean("content", content.isChecked())
+                          .putString("mock_fault", fault.getSelectedItem().toString())
+                          .apply();
+                      startEngine();
+                      d.dismiss();
+                    }));
+    d.show();
+  }
+
+  private void showMotions() {
+    if (controller == null) return;
+    LinearLayout p = panel();
+    label(p, "一覧は接続先のSDK / モックから取得しています。", 15);
+    lastNames = new ArrayList<>(controller.motions());
+    Spinner ids = new Spinner(this);
+    adminNames =
+        new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<>(lastNames));
+    ids.setAdapter(adminNames);
+    p.addView(ids);
+    List<String> categories = new ArrayList<>();
+    for (Gesture g : Gesture.values()) if (g != Gesture.none) categories.add(g.name());
+    Spinner category = spinner(p, categories);
+    CheckBox enabled = check(p, "この割り当てを有効化", true), mp4 = check(p, "モーションのMP4表示", false);
+    EditText duration = edit(p, "動作時間 ms（参考メタデータ）", "4000"),
+        cooldown = edit(p, "クールダウン ms", "5000"),
+        scene = edit(p, "推奨する場面", "");
+    duration.setInputType(InputType.TYPE_CLASS_NUMBER);
+    cooldown.setInputType(InputType.TYPE_CLASS_NUMBER);
+    TextView summary = label(p, "", 13);
+    summary.setText(registry.json());
+    button(p, "一覧を再取得", () -> robot.refreshMotions());
+    button(
+        p,
+        "選択した動作を単独再生",
+        () -> {
+          if (ids.getSelectedItem() != null) {
+            robot.configureMock("", prefs.getString("mock_fault", "none"));
+            controller.testMotion(ids.getSelectedItem().toString());
+          }
+        });
+    button(
+        p,
+        "この割り当てを読み込む",
+        () -> {
+          if (ids.getSelectedItem() == null) return;
+          String id = ids.getSelectedItem().toString();
+          for (Motion m : registry.entries(Gesture.safe(category.getSelectedItem().toString())))
+            if (m.id.equals(id)) {
+              enabled.setChecked(m.enabled);
+              mp4.setChecked(m.showMp4);
+              duration.setText(Long.toString(m.durationMs));
+              cooldown.setText(Long.toString(m.cooldownMs));
+              scene.setText(m.scene);
+            }
+        });
+    button(
+        p,
+        "割り当てを保存 / 更新",
+        () -> {
+          if (ids.getSelectedItem() == null) return;
+          try {
+            Motion m = new Motion(ids.getSelectedItem().toString());
+            m.durationMs = Long.parseLong(duration.getText().toString());
+            m.cooldownMs = Long.parseLong(cooldown.getText().toString());
+            m.showMp4 = mp4.isChecked();
+            m.enabled = enabled.isChecked();
+            m.scene = scene.getText().toString();
+            registry.assign(Gesture.safe(category.getSelectedItem().toString()), m);
+            prefs.edit().putString("mapping", registry.json()).apply();
+            summary.setText(registry.json());
+          } catch (RuntimeException e) {
+            cooldown.setError("時間設定の範囲を確認してください");
+          }
+        });
+    button(
+        p,
+        "選択カテゴリから割り当てを削除",
+        () -> {
+          if (ids.getSelectedItem() != null) {
+            registry.remove(
+                Gesture.safe(category.getSelectedItem().toString()),
+                ids.getSelectedItem().toString());
+            prefs.edit().putString("mapping", registry.json()).apply();
+            summary.setText(registry.json());
+          }
+        });
+    AlertDialog d =
+        new AlertDialog.Builder(this)
+            .setTitle("モーション管理")
+            .setView(scroll(p))
+            .setPositiveButton("閉じる", null)
+            .create();
+    d.setOnDismissListener(ignored -> adminNames = null);
+    d.show();
+  }
+}

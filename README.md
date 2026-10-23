@@ -1,7 +1,8 @@
 # NUWA Robot SDK 開発環境
 
 GitHub CodespacesでNUWA Robot SDKを利用するための開発環境です。
-アプリケーションコードは含めていません。text to motionのアプリへの組み込みも行いません。
+Java Android＋FastAPIの会話アプリは `kebbi-conversation/` にあります。
+Text-to-Motionによる新しい動作生成は行わず、既存モーションを選択します。
 NUWA Developerへの登録・ログインは不要です（メーカー回答に基づく）。
 
 ## 起動する
@@ -54,7 +55,7 @@ AARだけを再取得・確認する場合は `bash scripts/download-nuwa-sdk.sh
 ## 開発と実機確認
 
 NUWA SDKはAndroid向けのAARです。PythonやNode.jsから直接importするライブラリではありません。
-今後Androidプロジェクトを作る際は、このAARをアプリの `libs` に配置してGradle依存関係に追加します。
+`kebbi-conversation/android-app` のreal flavorは、このAARを参照するよう設定済みです。
 AGP 8.6.1を選ぶ場合は、この環境のGradle 8.7・JDK 17・API 35で構成できます。
 公式サンプルは古いGradle構成を含むため、コピーするだけでこの環境でビルドできるとは限りません。
 
@@ -73,3 +74,8 @@ Codespacesでは編集やAPKのビルドを行い、Kebbi実機へのインス�
 - [公式サンプル](https://github.com/nuwarobotics/NuwaSDKExample)
 - [Android開発ツール](https://developer.android.com/studio#command-tools)
 - [AGP 8.6の互換性](https://developer.android.com/build/releases/agp-8-6-0-release-notes)
+
+## 会話・ジェスチャーアプリ
+
+Java Android＋FastAPIの実装は [kebbi-conversation](kebbi-conversation/README.md) にあります。
+SDKなしのmockDebugと、SDKを組み込むrealDebugを分離しています。

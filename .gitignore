@@ -15,3 +15,7 @@ build/
 local.properties
 sdk/nuwa/*.aar
 sdk/nuwa/.download.*
+
+.pytest_cache/
+kebbi-conversation/android-app/app/libs/*.aar
+*.jsonl

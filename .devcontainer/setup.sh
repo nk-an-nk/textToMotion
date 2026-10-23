@@ -37,3 +37,6 @@ sdkmanager --sdk_root="$ANDROID_HOME" \
 
 bash "$project_root/scripts/download-nuwa-sdk.sh"
 bash "$project_root/scripts/check-environment.sh"
+
+# Application development dependencies (mock mode requires no external API key).
+bash "$project_root/kebbi-conversation/scripts/setup.sh"

@@ -1,0 +1,6 @@
+{
+ "greet":[{"id":"mock_wave","durationMs":1000,"cooldownMs":5000,"enabled":true}],
+ "acknowledge":[{"id":"mock_nod","durationMs":1000,"cooldownMs":5000,"enabled":true}],
+ "praise":[{"id":"mock_praise","durationMs":1000,"cooldownMs":5000,"enabled":true}],
+ "surprise":[],"explain":[],"think":[],"question":[],"none":[]
+}

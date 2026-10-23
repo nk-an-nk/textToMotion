@@ -1,0 +1,121 @@
+import asyncio
+import json
+import logging
+from uuid import uuid4
+import httpx
+import pytest
+from fastapi.testclient import TestClient
+from app.main import create_app
+from app.settings import Settings
+from app.models import Reply
+from app.sessions import Sessions, CapacityError
+
+def request(**extra):
+    return {"session_id":"test-session", "conversation_id":str(uuid4()), "text":"I got 100 points!", "language":"en", **extra}
+
+def test_mock_flow_and_history_and_forget(caplog):
+    app=create_app()
+    with TestClient(app) as client, caplog.at_level(logging.INFO, logger="kebbi.events"):
+        assert client.get("/health").json()=={"status":"ok","provider":"mock"}
+        response=client.post("/api/respond",json=request())
+        assert response.status_code==200
+        assert response.json()=={"speech":"Great job! What did you enjoy learning?","gesture":"praise","language":"en","timing":"speech_start"}
+        assert response.headers['cache-control']=='no-store'
+        assert len(app.state.sessions.entries['test-session'].history)==2
+        assert client.delete('/api/sessions/test-session').status_code==200
+        assert not app.state.sessions.entries
+    assert "I got 100" not in caplog.text
+    assert "Great job" not in caplog.text
+    events=[json.loads(r.message) for r in caplog.records if r.name=='kebbi.events']
+    assert [e['event'] for e in events]==['llm_request_start','llm_response_received']
+    assert events[0]['conversation_id']==events[1]['conversation_id']
+
+@pytest.mark.parametrize('data',[request(text=' '),request(text='a'*1001),request(language='fr'),request(available_gestures=['invented']),request(session_id='../bad'),request(conversation_id='bad')])
+def test_invalid_input_is_sanitized(data):
+    with TestClient(create_app()) as client:
+        r=client.post('/api/respond',json=data)
+        assert r.status_code==422 and r.json()=={'detail':'invalid_request'}
+
+@pytest.mark.parametrize('text,language,gesture',[('Hello Kebbi','en','greet'),('こんにちは','ja','greet'),('What animal?','en','question')])
+def test_mock_language_and_gestures(text,language,gesture):
+    with TestClient(create_app()) as client:
+        r=client.post('/api/respond',json=request(text=text,language=language))
+        assert r.json()['language']==language and r.json()['gesture']==gesture
+
+def test_unavailable_motion_fallback():
+    with TestClient(create_app()) as client:
+        assert client.post('/api/respond',json=request(available_gestures=['none'])).json()['gesture']=='none'
+
+def live_client(handler, **extra):
+    return TestClient(create_app(Settings(provider='openai',api_key='private-secret',model='test-model', **extra),httpx.MockTransport(handler)))
+
+def envelope(content,finish='stop'):
+    return httpx.Response(200,json={'choices':[{'finish_reason':finish,'message':{'content':content}}]})
+
+def test_live_contract_history_and_unknown_label(caplog):
+    captured=[]
+    def handler(req):
+        captured.append(json.loads(req.content))
+        return envelope(json.dumps({'speech':'Hello!','gesture':'invented','language':'en','timing':'speech_start'}))
+    with live_client(handler) as client:
+        for _ in range(2):
+            r=client.post('/api/respond',json=request())
+            assert r.status_code==200 and r.json()['gesture']=='none'
+    assert captured[0]['model']=='test-model'
+    assert captured[0]['store'] is False and captured[0]['response_format']=={'type':'json_object'}
+    assert len(captured[1]['messages'])==4
+    assert 'private-secret' not in caplog.text
+
+@pytest.mark.parametrize('content', ['not json', '{}', json.dumps({'speech':'a'*401,'gesture':'none','language':'en','timing':'speech_start'}),json.dumps({'speech':'ok','gesture':3,'language':'en','timing':'speech_start'})])
+def test_bad_llm_json(content):
+    with live_client(lambda req:envelope(content)) as client:
+        r=client.post('/api/respond',json=request())
+        assert r.status_code==502 and r.json()=={'detail':'invalid_llm_response'}
+
+def test_incomplete_response_is_rejected():
+    with live_client(lambda req:envelope('{}','length')) as client:
+        assert client.post('/api/respond',json=request()).status_code==502
+
+def test_timeout():
+    def fail(req):raise httpx.ReadTimeout('sensitive upstream details')
+    with live_client(fail) as client:
+        r=client.post('/api/respond',json=request())
+        assert r.status_code==504 and 'sensitive' not in r.text
+
+def test_upstream_error_does_not_leak_body():
+    with live_client(lambda req:httpx.Response(401,text='private-secret')) as client:
+        r=client.post('/api/respond',json=request())
+        assert r.status_code==502 and 'private-secret' not in r.text
+
+def test_auth_history_bound_and_eviction():
+    with TestClient(create_app(Settings(backend_token='test-access',history_turns=1,max_sessions=2))) as client:
+        assert client.post('/api/respond',json=request()).status_code==401
+        headers={'Authorization':'Bearer test-access'}
+        for session in ['one','one','two','three']:
+            assert client.post('/api/respond',headers=headers,json=request(session_id=session)).status_code==200
+        entries=client.app.state.sessions.entries
+        assert list(entries)==['two','three']
+        assert all(len(e.history)==2 for e in entries.values())
+
+@pytest.mark.asyncio
+async def test_session_ttl_capacity_and_serialization():
+    now=[0.0];sessions=Sessions(5,1,lambda:now[0])
+    async with sessions.conversation('a') as history:
+        history.append('one')
+        with pytest.raises(CapacityError):
+            async with sessions.conversation('b'):pass
+    now[0]=10
+    async with sessions.conversation('a') as history:
+        assert history==[]
+    order=[]
+    async def turn(n):
+        async with sessions.conversation('a'):
+            order.append(n);await asyncio.sleep(0);order.append(n)
+    await asyncio.gather(turn(1),turn(2))
+    assert order==[1,1,2,2]
+
+def test_disabled_history():
+    app=create_app(Settings(history_turns=0))
+    with TestClient(app) as client:
+        client.post('/api/respond',json=request())
+        assert app.state.sessions.entries['test-session'].history==[]
