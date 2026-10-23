@@ -3,6 +3,10 @@ set -euo pipefail
 
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 : "${ANDROID_HOME:?ANDROID_HOME is not set}"
+python --version
+node --version
+npm --version
+git --version
 java -version
 javac -version
 gradle --version

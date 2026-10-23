@@ -1,20 +1,24 @@
 {
   "name": "NUWA Robot SDK development",
-  "image": "mcr.microsoft.com/devcontainers/universal:6.1.9-noble",
-  "remoteUser": "codespace",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  "remoteUser": "vscode",
   "features": {
     "ghcr.io/devcontainers/features/java:1.8.3": {
       "version": "17",
       "installGradle": true,
       "gradleVersion": "8.7"
+    },
+    "ghcr.io/devcontainers/features/node:2.1.1": {
+      "version": "22",
+      "nodeGypDependencies": false
     }
   },
   "containerEnv": {
-    "ANDROID_HOME": "/home/codespace/android-sdk",
-    "ANDROID_SDK_ROOT": "/home/codespace/android-sdk"
+    "ANDROID_HOME": "/home/vscode/android-sdk",
+    "ANDROID_SDK_ROOT": "/home/vscode/android-sdk"
   },
   "remoteEnv": {
-    "PATH": "${containerEnv:PATH}:/home/codespace/android-sdk/cmdline-tools/19.0/bin:/home/codespace/android-sdk/platform-tools",
+    "PATH": "${containerEnv:PATH}:/home/vscode/android-sdk/cmdline-tools/19.0/bin:/home/vscode/android-sdk/platform-tools",
     "NUWA_SDK_AAR": "${containerWorkspaceFolder}/sdk/nuwa/NuwaSDK-2023-10-11_v2.1.0.08_513b45c_release.aar"
   },
   "postCreateCommand": "bash .devcontainer/setup.sh",

@@ -15,6 +15,8 @@ NUWA Developerへの登録・ログインは不要です（メーカー回答に
 
 ## 用意されるもの
 
+32GBのCodespaceでも展開できるよう、Universalイメージから軽量なPythonイメージへ変更しています。
+
 | 項目 | バージョン・場所 |
 | --- | --- |
 | Java JDK | 17（公式Dev Container Java Feature） |
@@ -24,9 +26,9 @@ NUWA Developerへの登録・ログインは不要です（メーカー回答に
 | Android Build Tools | 34.0.0 |
 | Android Platform Tools | 初期設定時にGoogleから取得する `adb` など |
 | NUWA Robot SDK | メーカー指定の 2.1.0.08 / 2023-10-11 |
-| Python・Node.js | 既存のUniversalイメージに含まれる環境 |
+| Python・Node.js | Python 3.12の公式イメージ + Node.js 22の公式Feature |
 
-Android SDKは `/home/codespace/android-sdk`、NUWA SDK本体は次のパスに配置されます。
+Android SDKは `/home/vscode/android-sdk`、NUWA SDK本体は次のパスに配置されます。
 
 ```text
 sdk/nuwa/NuwaSDK-2023-10-11_v2.1.0.08_513b45c_release.aar
