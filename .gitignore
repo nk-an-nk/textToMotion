@@ -10,3 +10,8 @@ __pycache__/
 node_modules/
 dist/
 build/
+.gradle/
+.idea/
+local.properties
+sdk/nuwa/*.aar
+sdk/nuwa/.download.*

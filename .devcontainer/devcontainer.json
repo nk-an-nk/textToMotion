@@ -1,12 +1,30 @@
 {
-  "name": "textToMotion",
+  "name": "NUWA Robot SDK development",
   "image": "mcr.microsoft.com/devcontainers/universal:6.1.9-noble",
   "remoteUser": "codespace",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1.8.3": {
+      "version": "17",
+      "installGradle": true,
+      "gradleVersion": "8.7"
+    }
+  },
+  "containerEnv": {
+    "ANDROID_HOME": "/home/codespace/android-sdk",
+    "ANDROID_SDK_ROOT": "/home/codespace/android-sdk"
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/codespace/android-sdk/cmdline-tools/19.0/bin:/home/codespace/android-sdk/platform-tools",
+    "NUWA_SDK_AAR": "${containerWorkspaceFolder}/sdk/nuwa/NuwaSDK-2023-10-11_v2.1.0.08_513b45c_release.aar"
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-toolsai.jupyter"
+        "ms-toolsai.jupyter",
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle"
       ]
     }
   }
