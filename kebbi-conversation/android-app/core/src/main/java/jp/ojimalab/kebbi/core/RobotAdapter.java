@@ -29,6 +29,13 @@ public interface RobotAdapter {
 
   void play(long token, Motion motion);
 
+  /** Implementations may prepare a motion and dispatch speech/play together. */
+  default boolean supportsSentenceOutput() { return false; }
+
+  default void outputSentence(long token, Motion motion, String text, String language) {
+    play(token,motion);speak(token,text,language);
+  }
+
   void refreshMotions();
 
   void stopAll();

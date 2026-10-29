@@ -157,3 +157,7 @@ USB経由のADB reverseがロボット側のlocalhostをMac側のlocalhostへ中
 
 メイン画面上部の「会話の言語」でEnglish/日本語を選ぶと、SDKのASR言語（en-US/ja-JP）、LLM要求のlanguage（en/ja）、SDKのTTS言語（ENGLISH/JAPAN）をまとめて切り替えます。変更時は会話履歴をリセットします。設定画面からも選択でき、再起動後も保持します。
 速度履歴にはlanguageを記録し、条件・入力経路・言語別に平均を表示します。古い記録でlanguageがないものは「言語未記録」として混ぜません。
+
+## 一文一動作・継続会話
+
+0.5系からは文ごとの動作を1回のLLM応答で作り、「会話を開始」後は次の聞き取りへ自動復帰します。[文単位出力と継続会話](sentence-conversation.md) を参照してください。

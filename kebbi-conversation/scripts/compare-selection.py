@@ -10,20 +10,22 @@ MODES=[('direct','basic'),('category','expanded'),('category','basic')]
 BASIC=['greet','acknowledge','praise','surprise','explain','think','question','none']
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--mapping',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--url',default='http://127.0.0.1:8000');p.add_argument('--repeats',type=int,default=2);p.add_argument('--language',choices=['en','ja'],default='en');a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--mapping',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--url',default='http://127.0.0.1:8000');p.add_argument('--repeats',type=int,default=2);p.add_argument('--language',choices=['en','ja'],default='en');p.add_argument('--sentence-plan',action='store_true');a=p.parse_args()
     data=json.loads(a.mapping.read_text());mapping=data['mapping'];motions=[{'id':x['id'],'description':x['description']} for x in data['motions']]
     a.output.mkdir(parents=True,exist_ok=True);rows=[]
     def request(mode,profile,case,text,repeat,warmup=False):
         gestures=[g for g,values in mapping.items() if values and (profile=='expanded' or g in BASIC)]+['none']
         body={'session_id':'benchmark-'+uuid.uuid4().hex,'conversation_id':str(uuid.uuid4()),'text':text,'language':a.language,'selection_mode':mode,'gesture_profile':profile,'available_gestures':gestures,'available_motions':motions if mode=='direct' else []}
+
+        if a.sentence_plan:body['sentence_plan']=True
         payload=json.dumps(body,ensure_ascii=False).encode();start=time.perf_counter();reply={}
         try:
             req=Request(a.url.rstrip('/')+'/api/respond',data=payload,headers={'Content-Type':'application/json'})
             with urlopen(req,timeout=30) as r:reply=json.load(r);status=r.status
         except HTTPError as e:status=e.code;reply=json.load(e)
         except (TimeoutError,URLError):status=0;reply={'detail':'client_timeout_or_unavailable'}
-        row={'repeat':repeat,'language':a.language,'case':case,'selection_mode':mode,'gesture_profile':profile,'warmup':warmup,'http_status':status,'elapsed_ms':round((time.perf_counter()-start)*1000,3),'request_bytes':len(payload),'candidate_count':len(motions) if mode=='direct' else len(gestures)-1,'gesture':reply.get('gesture',''),'motion_id':reply.get('motion_id',''),'speech_chars':len(reply.get('speech','')),'error':reply.get('detail','')}
-        rows.append(row);(a.output/'selection-benchmark.json').write_text(json.dumps({'metadata':{'model':data['model'],'language':a.language,'mapping_sha256':data['catalog_sha256'],'sdk_count':len(motions),'repeats':a.repeats,'includes_robot_output':False,'classification_time_excluded':True,'warmup_excluded_from_statistics':True},'rows':rows},ensure_ascii=False,indent=2))
+        row={'repeat':repeat,'language':a.language,'case':case,'selection_mode':mode,'gesture_profile':profile,'warmup':warmup,'http_status':status,'elapsed_ms':round((time.perf_counter()-start)*1000,3),'request_bytes':len(payload),'candidate_count':len(motions) if mode=='direct' else len(gestures)-1,'gesture':reply.get('gesture',''),'motion_id':reply.get('motion_id',''),'speech_chars':len(reply.get('speech','')),'sentence_count':len(reply.get('sentences',[])),'error':reply.get('detail','')}
+        rows.append(row);(a.output/'selection-benchmark.json').write_text(json.dumps({'metadata':{'model':data['model'],'language':a.language,'mapping_sha256':data['catalog_sha256'],'sdk_count':len(motions),'repeats':a.repeats,'includes_robot_output':False,'classification_time_excluded':True,'sentence_plan':a.sentence_plan,'warmup_excluded_from_statistics':True},'rows':rows},ensure_ascii=False,indent=2))
         print(json.dumps(row,ensure_ascii=False),flush=True)
     for mode,profile in MODES:request(mode,profile,'warmup','こんにちは！' if a.language=='ja' else 'Hello Kebbi!',0,True)
     for repeat in range(a.repeats):

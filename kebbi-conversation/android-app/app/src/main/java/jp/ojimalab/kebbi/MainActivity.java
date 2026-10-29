@@ -321,12 +321,12 @@ public final class MainActivity extends Activity {
         "SDK: "
             + (s.connected ? "接続済み" : "接続待ち / 再接続が必要")
             + (RobotFactory.REAL ? "" : " (MockRobotAdapter)"));
-    stateStatus.setText("状態: " + s.state + " / TTS完了=" + s.ttsDone + " / Motion完了=" + s.motionDone
+    stateStatus.setText("状態: " + s.state + (s.state==State.LISTENING ? "（聞き取り中：話しかけてください）" : "") + " / TTS完了=" + s.ttsDone + " / Motion完了=" + s.motionDone
         + (s.continuous ? "\n会話継続中（終了 / 停止で聞き取りを終了）" : "")
         + (s.sentenceCount>0 ? " / 文 " + (s.sentenceIndex+1) + "/" + s.sentenceCount : ""));
     stateStatus.setId(1007);
     userText.setText("認識した発話: " + s.text);
-    replyText.setText("Kebbiの応答: " + s.speech);
+    if (!s.speech.isEmpty() || !s.continuous) replyText.setText("Kebbiの応答: " + s.speech);
     selection.setText(
         "ジェスチャー: " + s.gesture + " / モーション: " + (s.motion.isEmpty() ? "なし" : s.motion));
     errorText.setText(s.message);

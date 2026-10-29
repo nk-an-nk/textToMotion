@@ -61,6 +61,8 @@ public final class MockRobotAdapter implements RobotAdapter {
                   token, motion.id, fault.equals("motion_error") ? "motion_error" : null));
   }
 
+  public boolean supportsSentenceOutput() { return true; }
+
   public void refreshMotions() {
     if (events != null) events.motions(MOTIONS);
   }

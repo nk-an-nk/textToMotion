@@ -56,7 +56,7 @@ def selection_contract(request):
         instructions += ("\nFor this request the output contract REPLACES the flat reply: return only sentences, language, timing. "
             "sentences is an array of 1-6 objects, each with speech, gesture, motion_id. "
             "Each object MUST contain exactly one complete sentence and exactly one motion selection. "
-            "All spoken text together must be at most 400 characters. Prefer 2-3 short sentences. "
+            "All spoken text together must be at most 400 characters. Prefer 1-2 short sentences for fast, natural everyday conversation. "
             "Choose a suitable action for every sentence when candidates exist. "
             "In direct mode prefer distinct IDs for different sentences. No extra LLM calls will select later actions.")
     return instructions + "\n" + json.dumps(context, ensure_ascii=False), schema

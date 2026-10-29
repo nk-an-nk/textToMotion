@@ -8,7 +8,7 @@ flowchart TD
   Controller --> HTTP[ApiClient / HTTP worker]
   HTTP --> API[FastAPI / bounded sessions]
   API --> LLM[Mock または OpenAI互換LLM]
-  LLM --> Reply[speech / gesture または motion_id / language / timing]
+  LLM --> Reply[文ごとの speech / gesture または motion_id]
   Reply --> Controller
   Controller --> Mapping[MotionRegistry: カテゴリ対応表 または ID候補の検証]
   Controller --> TTS[RobotAdapter TTS]
@@ -22,13 +22,13 @@ flowchart TD
 
 `IDLE → LISTENING → PROCESSING → SPEAKING → IDLE`。
 手動入力ではLISTENINGを省略します。ASR単独テストは認識完了でIDLEへ戻ります。
-SPEAKING中はTTSとモーションの完了フラグを別々に保持します。動作なしの場合、初めからモーション完了として扱います。
+SPEAKING中は文ごとの動作開始通知からTTSを始め、文末で長い動作を止めて次の文へ進みます。単独テスト・旧応答ではTTSとモーションの完了フラグを別々に保持します。動作なしの場合、初めからモーション完了として扱います。
 エラーはERRORの通知後に停止・キャンセルしてIDLEへ戻ります。原因コードは画面とJSONログに残ります。
 
 すべての状態変更は同じUIスケジューラーへ集約します。HTTPは専用Executorで実行し、応答はUIへ戻します。
 コアは単調時計と遅延スケジューラーを注入する構造で、時間を進める決定的テストが可能です。
-ASR 15秒、LLM処理25秒、発話・モーション45秒で打ち切り、無期限待機やビジーループはありません。
-同じモーションのクールダウンは全カテゴリを通じて適用します。複数候補は設定順に選びます。
+ASR 15秒、LLM処理25秒、文ごとの発話・モーション45秒、動作開始通知8秒、文間のSDK再接続10秒で打ち切り、無期限待機やビジーループはありません。
+同じモーションのクールダウンは全カテゴリを通じて適用します。同じ返答内の文ごとの再選択は許可します。カテゴリの複数候補は未使用・前回再生が古い順で選びます。
 
 世代番号で停止前のHTTP結果やロボットイベントを無視し、同じ完了・開始イベントは一度だけ受け付けます。
 NUWAのコールバックには処理IDがないため、RealRobotAdapterは完了・停止後にSDKインスタンスを破棄して再接続します。
@@ -58,3 +58,5 @@ metricsにASR・LLM・ターンの時間、発話/モーション開始遅延、
 ## 選択方式
 
 カテゴリ経由（従来7種/拡張15種）と、候補IDをLLMが直接選ぶ方式を要求ごとに選択できます。キーはバックエンドにだけ保持します。条件間の会話履歴は分離し、端末でも条件変更時に新しいセッションを作ります。候補・契約・比較手順は [実験手順](experiments.md) を参照してください。
+
+0.5系の文単位出力と自動聞き取り・停止の仕様は [継続会話](sentence-conversation.md) を参照してください。

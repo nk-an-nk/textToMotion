@@ -352,7 +352,15 @@ public final class ConversationController implements RobotAdapter.Events {
     ttsDone=false;motionDone=pendingMotion==null;ttsStarted=false;motionStarted=false;sentenceSpeechRequested=false;
     state=State.SPEAKING;
     event("sentence_start");publish();deadline(45000,State.SPEAKING);
-    if (pendingMotion==null) requestSentenceSpeech(); else startSentenceMotion();
+    if (pendingMotion==null) requestSentenceSpeech();
+    else if (robot.supportsSentenceOutput()) {
+      sentenceSpeechRequested=true;
+      try {
+        registry.started(pendingMotion,scheduler.now());motionRequests.add(pendingMotion.id);
+        event("motion_request");event("tts_request");
+        robot.outputSentence(token,pendingMotion,currentSentence,language);
+      } catch (RuntimeException error) { fail("sentence_output_error"); }
+    } else startSentenceMotion();
   }
 
   private void requestSentenceSpeech() {
@@ -399,7 +407,7 @@ public final class ConversationController implements RobotAdapter.Events {
 
   private void scheduleSentence() {
     sentenceResume.cancel();long captured=token;
-    sentenceResume=scheduler.later(80,()->{
+    sentenceResume=scheduler.later(robot.supportsSentenceOutput()?10:80,()->{
       if (captured==token && waitingForSentence && ready && !closed && state==State.SPEAKING) startSentence();
     });
   }

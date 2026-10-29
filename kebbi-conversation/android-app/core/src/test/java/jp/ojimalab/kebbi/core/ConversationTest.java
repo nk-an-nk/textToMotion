@@ -561,4 +561,34 @@ public class ConversationTest {
     try { Reply.parse(json.replace("Hello. How are you?","Mismatch"));fail(); }
     catch (IllegalArgumentException expected) {}
   }
+
+  static class FastRobot extends Robot {
+    public boolean supportsSentenceOutput() { return true; }
+  }
+
+  @Test public void fastSentenceDispatchesSpeechWithoutWaitingForMotionStartAndHasShortGap() {
+    FastRobot fast=new FastRobot();
+    registry.assign(Gesture.question,new Motion("other"));
+    ConversationController app=new ConversationController(fast,server,clock,(t,n,f)->{},s->{},registry);
+    app.connect();fast.e.motions(Arrays.asList("mock_wave","other"));
+    app.submit("Hello");server.result.success(twoSentencePlan());
+    assertEquals(1,fast.play);assertEquals(1,fast.speak);
+    long first=fast.token;
+    fast.e.ttsStarted(first);fast.e.ttsDone(first,null);
+    clock.advance(9);assertEquals(1,fast.speak);
+    clock.advance(1);assertEquals(2,fast.speak);assertEquals(2,fast.play);
+    long second=fast.token;
+    fast.e.ttsDone(first,null);assertEquals(State.SPEAKING,app.state());
+    fast.e.ttsStarted(second);fast.e.ttsDone(second,null);
+    assertEquals(State.IDLE,app.state());
+  }
+
+  @Test public void stopCancelsTheShortFastSentenceTransition() {
+    FastRobot fast=new FastRobot();
+    ConversationController app=new ConversationController(fast,server,clock,(t,n,f)->{},s->{},registry);
+    app.connect();app.submit("Hello");server.result.success(twoSentencePlan());
+    fast.e.ttsStarted(fast.token);fast.e.ttsDone(fast.token,null);
+    app.stop();clock.advance(1000);
+    assertEquals(1,fast.speak);assertEquals(State.IDLE,app.state());
+  }
 }

@@ -7,8 +7,8 @@ android {
         minSdk 26
         // NUWA 2.1.0.08 targets older robot services; this is a sideloaded research app.
         targetSdk 28
-        versionCode 9
-        versionName '0.5.1'
+        versionCode 10
+        versionName '0.6.0'
         testInstrumentationRunner 'android.test.InstrumentationTestRunner'
     }
     flavorDimensions += 'robot'
