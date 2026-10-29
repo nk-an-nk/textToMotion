@@ -9,9 +9,8 @@
 実機版APKはGitHub Actionsの「Build Kebbi real APK」から手動ビルドできます。
 成果物 `kebbi-real-debug` をダウンロードして展開します（保持期間1日）。
 Codespacesが起動できない場合も、MacへAndroid SDKやエミュレータを入れずにAPKを用意できます。
-Macは実機へのUSBインストール用のADBのみを使用します。
-
-任意でMac上でもビルドする場合にはJDK 17、compileSdk 35、Build Tools 34.0.0を別途用意します。
+Macは実機へのUSB接続にADBを使用します。Androidのビルド環境はクラウド側に置きます。
+LLM比較実験用の軽量バックエンドだけをMacで一時実行する手順は [実験手順](experiments.md) を参照してください。
 
 ## バックエンド
 
@@ -27,7 +26,7 @@ APIキーなしでは `LLM_PROVIDER=mock` のまま利用します。
 実際のモデルを利用するときはサーバーの `.env` に `LLM_PROVIDER=openai`、`LLM_API_KEY`、`LLM_MODEL`、`LLM_BASE_URL` を設定します。
 ベースURLは `/v1` 等までを指定し、クライアントが `/chat/completions` を付加します。
 モデル名は接続先で利用可能なものを明示指定します。キーやモデルがないlive設定は起動時にエラーになります。
-JSONモード非対応の互換サービスは `LLM_JSON_MODE=false` にし、アプリ側の応答検証を継続します。
+既定では候補をenumにした厳密なJSON Schema出力を使います。Structured Outputs非対応の互換サービスは `LLM_JSON_MODE=false` にし、アプリ側の応答検証を継続します。
 上流への `store:false` を送りますが、サービス側の保持方針を上書きする保証ではありません。
 
 `BACKEND_TOKEN` を指定した場合はアプリの設定に同じ共有トークンを入力してください。LLM APIキーとは別の値です。

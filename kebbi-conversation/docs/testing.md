@@ -8,7 +8,7 @@
 
 - Python: モック/外部互換APIの応答検証、未知カテゴリ、不正入力、上流エラー/タイムアウト、履歴・TTL・容量・直列化、任意の共有トークン、ログの本文・キーレダクション
 - Java: 状態遷移、モーション存在確認、複数候補・有効化・クールダウン、TTS先/モーション先、重複・遅延・停止後の通知、ASR/LLM/再生タイムアウト、SDK切断、TTS失敗、動作失敗時のTTS継続
-- HTTP結合: 実際のFastAPIを一時ポートで起動し、JavaのHTTPクライアント→モックLLM→MockRobotAdapter→両完了→IDLEとmetricsまで確認
+- HTTP結合: 実際のFastAPIを一時ポートで起動し、JavaのHTTPクライアント→モックLLM→MockRobotAdapter→両完了→IDLEとmetricsまで、カテゴリ7種/15種/ID直接選択の3条件で確認
 - APK: mockDebugと、指定時にはrealDebugのビルド
 
 単独で `./gradlew :core:test` だけを実行した場合、HTTP結合テストは接続先がないためskipします。
@@ -56,3 +56,23 @@
 保存設定を明示的に有効にした場合は、debug版から `adb shell run-as jp.ojimalab.kebbi.conversation cat files/events.jsonl` で取得できます。
 mock版はアプリID末尾に `.mock` を追加します。本文なしが初期設定で、ファイルが約5MBを超えると次の書き込みで置き換えます。
 metricsの *_request_* はAPI要求時刻の指標、*_start_notificationはSDKが知らせた開始時刻です。
+
+## LLM選択方式の追加検証（2026-10-29）
+
+ソース `f7d9cf342e045f92be59e4e83f195c9e79e425f9`、アプリ0.2.0。
+[GitHub Actions](https://github.com/nk-an-nk/textToMotion/actions/runs/40826924864)でPython34件、Javaコア・3条件のHTTP結合、mock/real APKビルドが成功しました。
+実機用APK SHA-256は `9a1263825611eacdf1a52bab95887e749259efbc668910e92a2f54762f138b1a`。
+
+Macでは利用者の承諾のもと軽量FastAPIバックエンドだけをlocalhostで一時実行し、ADB reverseでKebbiと接続しました。
+Android SDK・Gradle・エミュレータはMacに導入していません。
+OpenAIの `gpt-4.1-mini-2025-04-14` へ実接続し、合成した英語の挨拶/悲しみの2入力×3条件、計6要求がすべてHTTP200・有効JSONで完了しました。
+バックエンドへのHTTP往復は1001〜1514msでした。小標本の接続試験であり、性能や再現性の評価ではありません。
+
+| 入力例 | カテゴリ7種 | カテゴリ15種 | 直接選択（この接続試験の候補は1件） |
+| --- | --- | --- | --- |
+| Hello Kebbi! | greet | greet | 666_BA_Nodhead |
+| 友達が遊んでくれず悲しい（英語） | acknowledge | empathy | 666_BA_Nodhead |
+
+この6要求はバックエンド単体の接続試験です。実機の分類割り当て数とは別にテスト用カテゴリを提示しており、全カテゴリのロボット動作確認を意味しません。
+APIキーはリポジトリの追跡ファイルとAPK内の全ファイルに含まれないことを検査しました。
+実機での確認は [実機記録](device-verification.md)、条件と候補の準備は [比較実験手順](experiments.md) を参照してください。
