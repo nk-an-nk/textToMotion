@@ -16,12 +16,17 @@ def selection_contract(request):
     direct = request.selection_mode == "direct"
     gestures = ["none"] if direct else request.allowed_gestures
     ids = list(dict.fromkeys(m.id for m in request.available_motions)) if direct else []
+    # Do not truncate a large SDK catalog to fit Structured Outputs enum limits.
+    # The full catalog remains in context and constrain_reply validates membership.
+    motion_schema = {"type": ["string", "null"], "maxLength": 200}
+    if len(ids) <= 996 and (len(ids) <= 250 or sum(map(len, ids)) <= 15000):
+        motion_schema["enum"] = [None, *ids]
     schema = {"type": "object", "additionalProperties": False,
               "properties": {"speech": {"type": "string", "minLength": 1, "maxLength": 400},
                              "gesture": {"type": "string", "enum": gestures},
                              "language": {"type": "string", "enum": [request.language]},
                              "timing": {"type": "string", "enum": ["speech_start"]},
-                             "motion_id": {"type": ["string", "null"], "enum": [None, *ids]}},
+                             "motion_id": motion_schema},
               "required": ["speech", "gesture", "language", "timing", "motion_id"]}
     context = {"selection_mode": request.selection_mode, "language": request.language}
     if direct:
@@ -89,6 +94,8 @@ class Llm:
             except (ValueError, TypeError, KeyError, IndexError, AttributeError) as error:
                 raise LlmError("invalid_llm_response") from error
         if self.settings.provider == "mock" and request.selection_mode == "direct":
-            candidate = next((m for m in request.available_motions if reply.gesture in m.description.lower()), None)
+            hints = {"greet": "wave", "acknowledge": "nod", "praise": "praise"}
+            candidate = next((m for m in request.available_motions if reply.gesture in m.description.lower()
+                              or hints.get(reply.gesture, "__no_match__") in m.id.lower()), None)
             reply = reply.model_copy(update={"motion_id": candidate.id if candidate else None})
         return constrain_reply(reply, request)

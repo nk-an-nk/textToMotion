@@ -395,8 +395,9 @@ public class ConversationTest {
     assertTrue(registry.candidates(c.motions(), 1000).isEmpty());
     assertEquals(1, registry.candidates(c.motions(), 5000).size());
     m.enabled = false;
-    assertTrue(registry.candidates(c.motions(), 5000).isEmpty());
-    assertNull(registry.selectId(m.id, c.motions(), 5000));
+    // Category disable applies to that mapping; direct mode covers every SDK ID.
+    assertNull(registry.select(Gesture.greet, c.motions(), 5000));
+    assertEquals(1, registry.candidates(c.motions(), 5000).size());
   }
 
   @Test public void expandedProfileOffersMoreCategoriesAndDisabledMotionOffersNone() {
@@ -420,5 +421,50 @@ public class ConversationTest {
     assertEquals(0, robot.play);
     Reply r = Reply.parse("{\"speech\":\"Hi\",\"gesture\":\"none\",\"language\":\"en\",\"timing\":\"speech_start\",\"motion_id\":null}");
     assertNull(r.motionId);
+  }
+
+  @Test public void entireSdkCatalogIsOfferedWithoutManualRegistration() {
+    List<String> names = new ArrayList<>();
+    names.add("000_A1_SHand_B2");
+    for (int i = 0; i < 300; i++) names.add("motion_" + i);
+    names.add("sadnessL_Sad");
+    robot.e.motions(names);
+    c.experiment("direct", "basic");
+    c.submit("I am sad");
+    assertEquals(302, server.options.motions.size());
+    assertTrue(server.options.motions.stream().anyMatch(m -> m.id.equals("sadnessL_Sad")));
+    server.result.success(new Reply("I hear you.", Gesture.none, "en", "sadnessL_Sad"));
+    assertEquals(1, robot.play);
+    assertEquals("sadnessL_Sad", snapshot.motion);
+  }
+
+  @Test public void categoryDoesNotTransmitFullCatalogAndLocallyRotatesCandidates() {
+    Motion other = new Motion("other"); registry.assign(Gesture.greet, other);
+    Set<String> available = new HashSet<>(Arrays.asList("mock_wave", "other"));
+    assertEquals("mock_wave", registry.select(Gesture.greet, available, 0).id);
+    registry.started(registry.find("mock_wave"), 0);
+    assertEquals("other", registry.select(Gesture.greet, available, 6000).id);
+    c.submit("Hello");
+    assertTrue(server.options.motions.isEmpty());
+  }
+
+  @Test public void timingDefinitionsAndCancelledAttemptsAreRecordedOnce() {
+    List<Map<String,Object>> recorded = new ArrayList<>();
+    ConversationController app = new ConversationController(robot, server, clock,
+        (t,n,f) -> { if (n.equals("metrics")) recorded.add(new LinkedHashMap<>(f)); },
+        s -> {}, registry);
+    app.connect(); app.listen(false); clock.advance(3000);
+    robot.e.asr(robot.token, "Hello", null); clock.advance(1000); server.reply();
+    clock.advance(200); robot.e.ttsStarted(robot.token);
+    clock.advance(800); robot.e.ttsDone(robot.token, null); robot.e.motionDone(robot.token, "mock_wave", null);
+    assertEquals(1, recorded.size());
+    assertEquals(1000L, recorded.get(0).get("llm_ms"));
+    assertEquals(1200L, recorded.get(0).get("reply_latency_ms"));
+    assertEquals(4200L, recorded.get(0).get("speech_latency_ms"));
+    assertEquals("conversation_voice", recorded.get(0).get("input_mode"));
+    app.submit("again"); clock.advance(500); app.stop(); app.stop(); app.close();
+    assertEquals(2, recorded.size());
+    assertEquals("cancelled", recorded.get(1).get("status"));
+    assertFalse(recorded.get(1).containsKey("reply_latency_ms"));
   }
 }

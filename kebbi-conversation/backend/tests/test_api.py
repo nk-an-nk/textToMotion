@@ -152,7 +152,7 @@ def test_modes_enforce_their_contract(mode,profile,gesture,motion,expected_gestu
     request(selection_mode='execute'),request(gesture_profile='unknown'),
     request(available_motions=[{'id':'x','description':''}]),
     request(available_motions=[{'id':'x','description':'a'*301}]),
-    request(available_motions=[{'id':'x','description':'ok'}]*257),
+    request(available_motions=[{'id':'x','description':'ok'}]*4097),
 ])
 def test_invalid_experiment_settings(data):
     with TestClient(create_app()) as client:
@@ -172,3 +172,27 @@ def test_experiment_histories_are_isolated_and_all_forgotten():
 def test_requested_language_cannot_change_in_reply():
     with live_client(lambda req:envelope(json.dumps({'speech':'Hi','gesture':'none','language':'ja','timing':'speech_start'}))) as client:
         assert client.post('/api/respond',json=request(language='en')).status_code==502
+
+
+def test_large_catalog_is_not_truncated_by_schema_limits():
+    from app.models import Request
+    from app.llm import selection_contract, constrain_reply
+    motions=[{'id':f'motion_{i:04d}','description':'SDK motion name'} for i in range(1200)]
+    req=Request(**request(selection_mode='direct',available_motions=motions))
+    system,schema=selection_contract(req)
+    assert 'motion_1199' in system
+    assert 'enum' not in schema['properties']['motion_id']
+    reply=Reply(speech='Hello',gesture='none',language='en',timing='speech_start',motion_id='motion_1199')
+    assert constrain_reply(reply,req).motion_id=='motion_1199'
+    assert constrain_reply(reply.model_copy(update={'motion_id':'invented'}),req).motion_id is None
+
+
+def test_preclassified_mapping_endpoint(tmp_path):
+    path=tmp_path/'mapping.json'
+    with TestClient(create_app(Settings(motion_mapping_file=str(path)))) as client:
+        assert client.get('/api/motion-mapping').status_code==404
+        body={'mapping':{'greet':[{'id':'sample','scene':'greet'}]}}
+        path.write_text(json.dumps(body))
+        assert client.get('/api/motion-mapping').json()==body
+        path.write_text('invalid')
+        assert client.get('/api/motion-mapping').status_code==404

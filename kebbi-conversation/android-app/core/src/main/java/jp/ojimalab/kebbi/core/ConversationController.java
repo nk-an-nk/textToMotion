@@ -21,6 +21,8 @@ public final class ConversationController implements RobotAdapter.Events {
       motionStarted,
       closed;
   private long token, turnStart;
+  private boolean turnActive;
+  private String inputMode = "";
   private String session = UUID.randomUUID().toString(),
       turn = "",
       text = "",
@@ -125,8 +127,10 @@ public final class ConversationController implements RobotAdapter.Events {
             });
   }
 
-  private boolean begin() {
+  private boolean begin(String kind) {
     if (closed || !ready || state != State.IDLE) return false;
+    turnActive = true;
+    inputMode = kind;
     token++;
     turn = UUID.randomUUID().toString();
     turnStart = scheduler.now();
@@ -145,7 +149,7 @@ public final class ConversationController implements RobotAdapter.Events {
   }
 
   public void listen(boolean only) {
-    if (!begin()) return;
+    if (!begin(only ? "asr_only" : "conversation_voice")) return;
     asrOnly = only;
     state = State.LISTENING;
     publish();
@@ -164,7 +168,7 @@ public final class ConversationController implements RobotAdapter.Events {
       publish();
       return;
     }
-    if (!begin()) return;
+    if (!begin("conversation_text")) return;
     text = input.trim();
     process();
   }
@@ -187,7 +191,7 @@ public final class ConversationController implements RobotAdapter.Events {
     if (gestureProfile.equals("basic")) labels.removeIf(g -> !Gesture.basic(Gesture.safe(g)));
     // Use a mutable copy before filtering even when motion is disabled.
     SelectionOptions options = new SelectionOptions(selectionMode, gestureProfile, labels,
-        motionEnabled ? registry.candidates(available, scheduler.now()) : Collections.emptyList());
+        motionEnabled && selectionMode.equals("direct") ? registry.candidates(available, scheduler.now()) : Collections.emptyList());
     try {
       request =
           backend.respond(
@@ -234,11 +238,11 @@ public final class ConversationController implements RobotAdapter.Events {
 
   public void testSpeech(String input, Gesture g, boolean withMotion) {
     if (input == null || input.trim().isEmpty() || input.length() > 400) return;
-    if (begin()) output(input, withMotion ? g : Gesture.none, language, null);
+    if (begin(withMotion ? "tts_motion" : "tts_only")) output(input, withMotion ? g : Gesture.none, language, null);
   }
 
   public void testMotion(String id) {
-    if (!available.contains(id) || !begin()) return;
+    if (!available.contains(id) || !begin("motion_only")) return;
     Motion m = registry.find(id);
     if (!registry.eligible(m, scheduler.now())) {
       message = "motion_cooldown";
@@ -396,21 +400,7 @@ public final class ConversationController implements RobotAdapter.Events {
   private void finish() {
     timer.cancel();
     event("turn_complete");
-    Map<String, Object> values = new LinkedHashMap<>();
-    values.put("selection_mode", selectionMode);
-    values.put("gesture_profile", gestureProfile);
-    values.put("gesture", gesture.name());
-    values.put("motion_id", motion);
-    values.put("turn_ms", scheduler.now() - turnStart);
-    metric(values, "asr_ms", "asr_start", "asr_complete");
-    metric(values, "llm_ms", "llm_request_start", "llm_response_received");
-    metric(values, "speech_latency_ms", "turn_start", "tts_start_notification");
-    metric(values, "motion_latency_ms", "turn_start", "motion_start_notification");
-    metric(values, "speech_request_latency_ms", "turn_start", "tts_request");
-    metric(values, "motion_request_latency_ms", "turn_start", "motion_request");
-    metric(values, "request_start_difference_ms", "tts_request", "motion_request");
-    metric(values, "start_difference_ms", "tts_start_notification", "motion_start_notification");
-    log.event(turn, "metrics", values);
+    recordMetrics(message.isEmpty() ? "completed" : "partial", message);
     token++;
     state = State.IDLE;
     ttsDone = true;
@@ -424,16 +414,42 @@ public final class ConversationController implements RobotAdapter.Events {
     publish();
   }
 
+  private void recordMetrics(String status, String code) {
+    if (!turnActive) return;
+    turnActive = false;
+    Map<String, Object> values = new LinkedHashMap<>();
+    values.put("status", status);
+    values.put("error_code", code == null ? "" : code);
+    values.put("input_mode", inputMode);
+    values.put("selection_mode", selectionMode);
+    values.put("gesture_profile", gestureProfile);
+    values.put("gesture", gesture.name());
+    values.put("motion_id", motion);
+    values.put("turn_ms", scheduler.now() - turnStart);
+    metric(values, "asr_ms", "asr_start", "asr_complete");
+    metric(values, "llm_ms", "llm_request_start", "llm_response_received");
+    metric(values, "speech_latency_ms", "turn_start", "tts_start_notification");
+    metric(values, "reply_latency_ms", times.containsKey("asr_complete") ? "asr_complete" : "turn_start", "tts_start_notification");
+    metric(values, "motion_latency_ms", "turn_start", "motion_start_notification");
+    metric(values, "speech_request_latency_ms", "turn_start", "tts_request");
+    metric(values, "motion_request_latency_ms", "turn_start", "motion_request");
+    metric(values, "request_start_difference_ms", "tts_request", "motion_request");
+    metric(values, "start_difference_ms", "tts_start_notification", "motion_start_notification");
+    log.event(turn, "metrics", values);
+  }
+
   private void fail(String code) {
     message = code;
     state = State.ERROR;
     event("error");
     log.event(turn, "error_detail", Collections.singletonMap("code", code));
+    recordMetrics("error", code);
     publish();
     stop();
   }
 
   public void stop() {
+    recordMetrics("cancelled", "user_or_lifecycle_stop");
     token++;
     timer.cancel();
     request.cancel();

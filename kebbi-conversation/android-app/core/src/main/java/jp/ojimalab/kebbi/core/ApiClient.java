@@ -50,7 +50,7 @@ public final class ApiClient implements RuntimePorts.Backend, AutoCloseable {
         byte[] buffer = new byte[2048];
         int n;
         while ((n = in.read(buffer)) != -1) {
-          if (out.size() + n > 16384) throw new IOException("response_too_large");
+          if (out.size() + n > (path.equals("/api/motion-mapping") ? 4*1024*1024 : 16384)) throw new IOException("response_too_large");
           out.write(buffer, 0, n);
         }
         return out.toString("UTF-8");
@@ -126,6 +126,17 @@ public final class ApiClient implements RuntimePorts.Backend, AutoCloseable {
           }
           if (!closed) callback.accept(state);
         });
+  }
+
+  public void mapping(Consumer<String> success, Consumer<String> failure) {
+    worker.submit(() -> {
+      try {
+        String body = exchange("/api/motion-mapping", "GET", null, new AtomicReference<>());
+        if (!closed) success.accept(body);
+      } catch (Exception error) {
+        if (!closed) failure.accept("事前分類表: 未取得（手動の対応表を使用）");
+      }
+    });
   }
 
   public void forget(String session) {

@@ -52,7 +52,7 @@ class Request(BaseModel):
     available_gestures: list[str] = Field(default_factory=lambda: list(GESTURES), max_length=16)
     selection_mode: Literal["category", "direct"] = "category"
     gesture_profile: Literal["basic", "expanded"] = "basic"
-    available_motions: list[MotionCandidate] = Field(default_factory=list, max_length=256)
+    available_motions: list[MotionCandidate] = Field(default_factory=list, max_length=4096)
 
     @field_validator("conversation_id")
     @classmethod

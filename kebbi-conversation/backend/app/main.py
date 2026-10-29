@@ -1,6 +1,7 @@
 import json
 import logging
 import secrets
+from pathlib import Path
 import time
 from contextlib import asynccontextmanager
 from uuid import uuid4
@@ -46,6 +47,19 @@ def create_app(settings=None, transport=None):
     @app.get("/health", dependencies=[Depends(authorized)])
     async def health():
         return {"status": "ok", "provider": settings.provider}
+
+    @app.get("/api/motion-mapping", dependencies=[Depends(authorized)])
+    async def motion_mapping():
+        try:
+            path = Path(settings.motion_mapping_file)
+            if not settings.motion_mapping_file or path.stat().st_size > 4*1024*1024:
+                raise ValueError()
+            body = json.loads(path.read_text())
+            if not isinstance(body.get("mapping"), dict):
+                raise ValueError()
+            return body
+        except (OSError, ValueError, TypeError, AttributeError):
+            raise HTTPException(404, detail="motion_mapping_not_ready") from None
 
     @app.post("/api/respond", response_model=Reply, response_model_exclude_none=True, dependencies=[Depends(authorized)])
     async def respond(request: Request, response: Response):

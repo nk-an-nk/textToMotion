@@ -23,6 +23,7 @@ class Settings:
     backend_token: str = ""
     log_enabled: bool = True
     log_content: bool = False
+    motion_mapping_file: str = ""
 
     def __post_init__(self):
         if self.provider not in ("mock", "openai"):
@@ -44,4 +45,5 @@ class Settings:
                    session_ttl=float(os.getenv("SESSION_TTL_SECONDS", "900")),
                    max_sessions=int(os.getenv("MAX_SESSIONS", "128")), history_turns=int(os.getenv("HISTORY_TURNS", "6")),
                    backend_token=os.getenv("BACKEND_TOKEN", ""), log_enabled=flag("LOG_ENABLED", True),
-                   log_content=flag("LOG_CONTENT", False))
+                   log_content=flag("LOG_CONTENT", False),
+                   motion_mapping_file=os.getenv("MOTION_MAPPING_FILE", ""))

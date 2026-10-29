@@ -14,12 +14,18 @@ import android.view.*;
 import android.widget.*;
 import java.io.*;
 import java.util.*;
+import com.google.gson.*;
 import jp.ojimalab.kebbi.core.*;
 
 public final class MainActivity extends Activity {
   private final AndroidScheduler scheduler = new AndroidScheduler();
   private SharedPreferences prefs;
   private JsonTrace trace;
+  private LatencyStore latency;
+  private TextView latencyLatest, mappingStatus;
+  private boolean mappingFetched;
+  private Set<String> lastCatalog = new TreeSet<>();
+  private String pendingCsv;
   private ApiClient api;
   private RobotAdapter robot;
   private ConversationController controller;
@@ -44,6 +50,7 @@ public final class MainActivity extends Activity {
     super.onCreate(saved);
     prefs = getSharedPreferences("kebbi", MODE_PRIVATE);
     trace = new JsonTrace(this, prefs);
+    latency = new LatencyStore(this);
     buildUi();
   }
 
@@ -101,6 +108,7 @@ public final class MainActivity extends Activity {
       errorText.setText("API URLが不正です。設定を修正してください。");
       return;
     }
+    mappingFetched = false;
     robot = RobotFactory.create(this, scheduler);
     robot.configureMock("Hello, Kebbi!", prefs.getString("mock_fault", "none"));
     controller =
@@ -108,7 +116,13 @@ public final class MainActivity extends Activity {
             robot,
             api,
             scheduler,
-            trace,
+            (turn, event, fields) -> {
+              if (event.equals("metrics")) {
+                latency.record(turn, fields);
+                if (latencyLatest != null) latencyLatest.setText(latency.history.latestText() + "\n" + latency.warning);
+              }
+              trace.event(turn, event, fields);
+            },
             s -> {
               if (current == engine && active) render(s);
             },
@@ -201,11 +215,13 @@ public final class MainActivity extends Activity {
     button(root, "LLMに渡す動作候補を確認", () -> {
       if (controller == null) return;
       List<SelectionOptions.Candidate> candidates = registry.candidates(controller.motions(), scheduler.now());
-      StringBuilder text = new StringBuilder("現在の候補: " + candidates.size() + "件\n登録・有効化済みでクールダウン中でない動作（最大256件）\n");
+      StringBuilder text = new StringBuilder("現在の候補: " + candidates.size() + "件 / SDK一覧 " + controller.motions().size() + "件\n①はSDK全動作から選択（クールダウン中を除く）。②は事前分類表から選択。\n");
       for (SelectionOptions.Candidate m : candidates) text.append("\n").append(m.id).append("\n").append(m.description).append("\n");
       TextView body = label(panel(), text.toString(), 16);
       new AlertDialog.Builder(this).setTitle("LLMの直接選択候補").setView(scroll((LinearLayout)body.getParent())).setPositiveButton("閉じる", null).show();
     });
+    mappingStatus = label(root, "② 事前分類表: 確認待ち", 14);
+    button(root, "事前分類表を再取得", () -> { mappingFetched = false; loadPreclassifiedMapping(); });
     listen = button(root, "音声認識 → 会話", () -> startAsr(false));
     listen.setId(1001);
     button(
@@ -230,6 +246,9 @@ public final class MainActivity extends Activity {
     replyText.setId(1005);
     selection = label(root, "ジェスチャー: none / モーション: なし", 16);
     selection.setId(1006);
+    latencyLatest = label(root, latency.history.latestText(), 16);
+    latencyLatest.setId(1008);
+    button(root, "返答速度・履歴 / CSV保存", this::showLatency);
     label(root, "機能別テスト", 20);
     List<String> labels = new ArrayList<>();
     for (Gesture g : Gesture.values()) labels.add(g.name());
@@ -293,6 +312,13 @@ public final class MainActivity extends Activity {
     selection.setText(
         "ジェスチャー: " + s.gesture + " / モーション: " + (s.motion.isEmpty() ? "なし" : s.motion));
     errorText.setText(s.message);
+    if (controller != null && !controller.motions().isEmpty()) {
+      if (!lastCatalog.equals(controller.motions())) {
+        lastCatalog = new TreeSet<>(controller.motions());
+        writeCatalog();
+      }
+      if (!mappingFetched) loadPreclassifiedMapping();
+    }
     experiment.setEnabled(s.state == State.IDLE);
     boolean idle = s.connected && s.state == State.IDLE;
     for (Button b : Arrays.asList(listen, asrOnly, send, tts, combined, motionButton))
@@ -310,6 +336,79 @@ public final class MainActivity extends Activity {
         adminNames.notifyDataSetChanged();
       }
     }
+  }
+
+  private void writeCatalog() {
+    android.util.AtomicFile file = new android.util.AtomicFile(new File(getFilesDir(), "motion-catalog.json"));
+    FileOutputStream out = null;
+    try {
+      out = file.startWrite();
+      out.write(new Gson().toJson(lastCatalog).getBytes(java.nio.charset.StandardCharsets.UTF_8));
+      file.finishWrite(out);
+    } catch (IOException e) { if (out != null) file.failWrite(out); }
+  }
+
+  private void loadPreclassifiedMapping() {
+    if (api == null || controller == null || controller.motions().isEmpty()) return;
+    mappingFetched = true;
+    long current = engine;
+    api.mapping(body -> scheduler.execute(() -> {
+      if (current != engine || !active || controller == null) return;
+      if (controller.state() != State.IDLE) { mappingFetched = false; return; }
+      try {
+        JsonObject response = JsonParser.parseString(body).getAsJsonObject();
+        MotionRegistry replacement = MotionRegistry.parse(response.get("mapping").toString());
+        int count = 0;
+        for (Gesture g : Gesture.values()) for (Motion m : replacement.entries(g)) {
+          if (!controller.motions().contains(m.id)) throw new IllegalArgumentException();
+          count++;
+        }
+        if (count == 0) throw new IllegalArgumentException();
+        registry.replaceMappings(replacement);
+        prefs.edit().putString("mapping", registry.json()).apply();
+        mappingStatus.setText("② 事前分類表: 適用済み / SDK " + controller.motions().size() + "動作（名称に基づく暫定分類）");
+      } catch (RuntimeException e) { mappingStatus.setText("② 事前分類表: 不正な表のため未適用"); }
+    }), message -> scheduler.execute(() -> {
+      if (current == engine && active) mappingStatus.setText("② " + message);
+    }));
+  }
+
+  private void showLatency() {
+    LinearLayout p = panel();
+    label(p, "時間は秒表示。返答開始は、音声では認識結果確定、手動入力では送信からTTS開始通知まで。LLM待ちは通信を含みます。", 15);
+    label(p, "操作→発声はASR待ちを含みます。SDK通知による計測で、音響的な開始の実測ではありません。未計測は—。", 14);
+    label(p, "本文・APIキーを含めず直近200件を自動保存。" + latency.warning, 14);
+    button(p, "CSVに保存", () -> {
+      pendingCsv = "\uFEFF" + latency.history.csv();
+      Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+      intent.addCategory(Intent.CATEGORY_OPENABLE);
+      intent.setType("text/csv");
+      intent.putExtra(Intent.EXTRA_TITLE, "kebbi-latency-" + System.currentTimeMillis() + ".csv");
+      try { startActivityForResult(intent, 11); }
+      catch (ActivityNotFoundException e) { pendingCsv = null; errorText.setText("保存先を選ぶアプリがありません。ADBで履歴JSONを取得できます。"); }
+    });
+    TextView history = label(p, latency.history.historyText(), 15);
+    history.setTextIsSelectable(true);
+    button(p, "速度履歴を消去", () -> new AlertDialog.Builder(this)
+      .setMessage("保存した速度履歴を消去しますか？")
+      .setNegativeButton("キャンセル", null)
+      .setPositiveButton("消去", (d, w) -> {
+        latency.clear(); latencyLatest.setText(latency.history.latestText());
+        history.setText(latency.history.historyText());
+      }).show());
+    new AlertDialog.Builder(this).setTitle("返答速度と履歴").setView(scroll(p)).setPositiveButton("閉じる", null).show();
+  }
+
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode != 11) return;
+    String csv = pendingCsv; pendingCsv = null;
+    if (resultCode != RESULT_OK || data == null || data.getData() == null || csv == null) return;
+    try (OutputStream out = getContentResolver().openOutputStream(data.getData())) {
+      if (out == null) throw new IOException();
+      out.write(csv.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+      Toast.makeText(this, "速度履歴をCSVに保存しました", Toast.LENGTH_LONG).show();
+    } catch (IOException e) { errorText.setText("速度履歴のCSV保存に失敗しました。"); }
   }
 
   private void health() {
@@ -424,7 +523,7 @@ public final class MainActivity extends Activity {
   private void showMotions() {
     if (controller == null) return;
     LinearLayout p = panel();
-    label(p, "一覧は接続先のSDK / モックから取得しています。有効な割り当てを直接選択方式の候補にも使います。", 15);
+    label(p, "一覧はSDKから取得します。①は全一覧、②は事前分類表・この対応表を使います。", 15);
     lastNames = new ArrayList<>(controller.motions());
     Spinner ids = new Spinner(this);
     adminNames =

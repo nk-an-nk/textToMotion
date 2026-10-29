@@ -41,15 +41,26 @@ public final class MotionRegistry {
     map.get(g).add(m);
   }
 
+  public void replaceMappings(MotionRegistry other) {
+    for (Gesture g : Gesture.values()) {
+      map.get(g).clear(); map.get(g).addAll(other.map.get(g));
+    }
+  }
+
   public void remove(Gesture g, String id) {
     map.get(g).removeIf(m -> m.id.equals(id));
   }
 
   public Motion select(Gesture gesture, Set<String> available, long now) {
     if (gesture == Gesture.none) return null;
-    for (Motion m : map.get(gesture))
-      if (m.enabled && available.contains(m.id) && eligible(m, now)) return m;
-    return null;
+    Motion result = null;
+    long oldest = Long.MAX_VALUE;
+    for (Motion m : map.get(gesture)) {
+      if (!m.enabled || !available.contains(m.id) || !eligible(m, now)) continue;
+      long last = played.containsKey(m.id) ? played.get(m.id) : Long.MIN_VALUE;
+      if (result == null || last < oldest) { result = m; oldest = last; }
+    }
+    return result;
   }
 
   public Motion find(String id) {
@@ -66,23 +77,25 @@ public final class MotionRegistry {
     played.put(m.id, now);
   }
 
+  /** Direct selection covers the full SDK catalog, independently of category mappings. */
   public List<SelectionOptions.Candidate> candidates(Set<String> available, long now) {
-    Map<String, SelectionOptions.Candidate> result = new LinkedHashMap<>();
-    for (Gesture g : Gesture.values()) for (Motion m : map.get(g)) {
-      if (m.enabled && available.contains(m.id) && eligible(m, now) && !result.containsKey(m.id)) {
-        if (result.size() >= 256) break;
-        String description = g.name() + (m.scene.isEmpty() ? "" : ": " + m.scene);
-        result.put(m.id, new SelectionOptions.Candidate(m.id, description));
-      }
+    List<SelectionOptions.Candidate> result = new ArrayList<>();
+    for (String id : new TreeSet<>(available)) {
+      Motion m = find(id);
+      if (!m.valid() || !eligible(m, now)) continue;
+      String words = id.replaceAll("([a-z])([A-Z])", "$1 $2").replace('_', ' ');
+      String description = "SDK motion name: " + words;
+      if (!m.scene.isEmpty()) description += "; " + m.scene;
+      if (description.length() > 300) description = description.substring(0, 300);
+      result.add(new SelectionOptions.Candidate(id, description));
     }
-    return new ArrayList<>(result.values());
+    return result;
   }
 
   public Motion selectId(String id, Set<String> available, long now) {
     if (id == null || !available.contains(id)) return null;
-    for (List<Motion> group : map.values()) for (Motion m : group)
-      if (m.id.equals(id) && m.enabled && eligible(m, now)) return m;
-    return null;
+    Motion m = find(id);
+    return m.valid() && eligible(m, now) ? m : null;
   }
 
   public List<String> availableGestures(Set<String> available) {

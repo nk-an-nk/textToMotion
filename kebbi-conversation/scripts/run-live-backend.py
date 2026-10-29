@@ -15,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--key-file', type=Path)
     parser.add_argument('--model', default='gpt-4.1-mini-2025-04-14')
+    parser.add_argument('--motion-mapping', type=Path)
     parser.add_argument('--port', type=int, default=8000)
     args = parser.parse_args()
     key = os.environ.get('LLM_API_KEY', '').strip()
@@ -28,6 +29,8 @@ def main():
     os.environ.update(LLM_PROVIDER='openai', LLM_API_KEY=key, LLM_MODEL=args.model,
                       LLM_BASE_URL='https://api.openai.com/v1', LLM_JSON_MODE='true',
                       LOG_CONTENT='false')
+    if args.motion_mapping:
+        os.environ['MOTION_MAPPING_FILE'] = str(args.motion_mapping.resolve())
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'backend'))
     import uvicorn
     print(f'Kebbi backend: OpenAI / {args.model} / localhost:{args.port}', flush=True)
