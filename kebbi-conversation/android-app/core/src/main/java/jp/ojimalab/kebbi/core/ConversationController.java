@@ -421,6 +421,7 @@ public final class ConversationController implements RobotAdapter.Events {
     values.put("status", status);
     values.put("error_code", code == null ? "" : code);
     values.put("input_mode", inputMode);
+    values.put("language", language);
     values.put("selection_mode", selectionMode);
     values.put("gesture_profile", gestureProfile);
     values.put("gesture", gesture.name());

@@ -58,6 +58,7 @@ public class ConversationTest {
     Events e;
     long token;
     int speak, play, stop;
+    String listenLanguage, speakLanguage;
 
     public void connect(Events e) {
       this.e = e;
@@ -66,12 +67,14 @@ public class ConversationTest {
     }
 
     public void listen(long t, String l) {
+      listenLanguage = l;
       token = t;
     }
 
     public void stopListening() {}
 
     public void speak(long t, String s, String l) {
+      speakLanguage = l;
       token = t;
       speak++;
     }
@@ -474,5 +477,13 @@ public class ConversationTest {
     assertNotNull(registry.select(Gesture.greet,available,0,false));
     assertNull(registry.select(Gesture.greet,available,0,true));
     assertFalse(registry.availableGestures(available,0,true).contains("greet"));
+  }
+
+  @Test public void japaneseSelectionReachesRecognitionAndSpeech() {
+    c.settings("ja", true); c.listen(false);
+    assertEquals("ja", robot.listenLanguage);
+    robot.e.asr(robot.token, "こんにちは", null);
+    server.result.success(new Reply("こんにちは！", Gesture.greet, "ja"));
+    assertEquals("ja", robot.speakLanguage);
   }
 }

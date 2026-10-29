@@ -48,4 +48,15 @@ public class LatencyHistoryTest {
     assertTrue(h.csv().contains("\"\"quoted\"\""));
     h.clear(); assertTrue(h.entries().isEmpty());
   }
+
+  @Test public void languageGroupsAreNotMixed() {
+    LatencyHistory h=new LatencyHistory();
+    Map<String,Object> en=fields("completed","conversation_text",1000);en.put("language","en");
+    Map<String,Object> ja=fields("completed","conversation_text",3000);ja.put("language","ja");
+    h.record(UUID.randomUUID().toString(),en,0);h.record(UUID.randomUUID().toString(),ja,1);
+    assertTrue(h.summaryText().contains("英語"));assertTrue(h.summaryText().contains("日本語"));
+    assertTrue(h.summaryText().contains("1.000秒（n=1）"));assertTrue(h.summaryText().contains("3.000秒（n=1）"));
+    assertEquals("ja",LatencyHistory.parse(h.json()).latest().language);
+    assertTrue(h.csv().contains("input_mode,language,status"));
+  }
 }

@@ -33,7 +33,7 @@ public final class MainActivity extends Activity {
   private LinearLayout root;
   private TextView sdkStatus, backendStatus, stateStatus, userText, replyText, selection, errorText;
   private EditText input;
-  private Spinner testGesture, experiment;
+  private Spinner testGesture, experiment, conversationLanguage;
   private Button listen, asrOnly, send, tts, combined, motionButton;
   private long engine;
   private boolean active;
@@ -128,6 +128,7 @@ public final class MainActivity extends Activity {
             },
             registry);
     controller.settings(prefs.getString("language", "en"), prefs.getBoolean("motion", true));
+    conversationLanguage.setSelection(prefs.getString("language", "en").equals("ja") ? 1 : 0);
     int condition = prefs.getInt("experiment", 0);
     controller.experiment(condition == 2 ? "direct" : "category", condition == 1 ? "expanded" : "basic");
     controller.connect();
@@ -201,6 +202,21 @@ public final class MainActivity extends Activity {
     stateStatus = label(root, "状態: IDLE", 18);
     errorText = label(root, "", 15);
     errorText.setTextColor(0xffa02020);
+    label(root, "会話の言語（音声認識・返答・読み上げ）", 16);
+    conversationLanguage = spinner(root, Arrays.asList("English（英語）", "日本語"));
+    conversationLanguage.setSelection(prefs.getString("language", "en").equals("ja") ? 1 : 0);
+    conversationLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      public void onNothingSelected(AdapterView<?> p) {}
+      public void onItemSelected(AdapterView<?> p, android.view.View v, int position, long id) {
+        String selected = position == 1 ? "ja" : "en";
+        if (selected.equals(prefs.getString("language", "en"))) return;
+        prefs.edit().putString("language", selected).apply();
+        if (controller != null) {
+          controller.newSession();
+          controller.settings(selected, prefs.getBoolean("motion", true));
+        }
+      }
+    });
     label(root, "実験条件（切替時に会話履歴をリセット）", 16);
     experiment = spinner(root, Arrays.asList("② カテゴリ経由・従来7種", "② カテゴリ経由・拡張25種", "① 動作IDをLLMが直接選択"));
     experiment.setSelection(prefs.getInt("experiment", 0));
@@ -320,6 +336,7 @@ public final class MainActivity extends Activity {
       if (!mappingFetched) loadPreclassifiedMapping();
     }
     experiment.setEnabled(s.state == State.IDLE);
+    conversationLanguage.setEnabled(s.state == State.IDLE);
     boolean idle = s.connected && s.state == State.IDLE;
     for (Button b : Arrays.asList(listen, asrOnly, send, tts, combined, motionButton))
       b.setEnabled(idle);
@@ -463,7 +480,7 @@ public final class MainActivity extends Activity {
     EditText token = edit(p, "バックエンドの共有トークン（任意）", prefs.getString("token", ""));
     token.setTransformationMethod(PasswordTransformationMethod.getInstance());
     label(p, "LLMのAPIキーはこの画面に入力しません。サーバーの環境変数で管理します。", 14);
-    Spinner lang = spinner(p, Arrays.asList("en", "ja"));
+    Spinner lang = spinner(p, Arrays.asList("English（英語）", "日本語"));
     lang.setSelection(prefs.getString("language", "en").equals("ja") ? 1 : 0);
     CheckBox motion = check(p, "ジェスチャーモーションを有効化", prefs.getBoolean("motion", true));
     label(p, "音声認識モード: ボタン開始（MVP）", 15);
@@ -507,7 +524,7 @@ public final class MainActivity extends Activity {
                           .edit()
                           .putString("url", newUrl)
                           .putString("token", token.getText().toString())
-                          .putString("language", lang.getSelectedItem().toString())
+                          .putString("language", lang.getSelectedItemPosition() == 1 ? "ja" : "en")
                           .putBoolean("motion", motion.isChecked())
                           .putBoolean("log", log.isChecked())
                           .putBoolean("persist", persist.isChecked())

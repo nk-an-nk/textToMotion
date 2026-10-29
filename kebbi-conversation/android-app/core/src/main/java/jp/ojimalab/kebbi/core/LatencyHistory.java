@@ -12,7 +12,7 @@ public final class LatencyHistory {
   private final LinkedHashMap<String, Entry> rows = new LinkedHashMap<>();
 
   public static final class Entry {
-    public String turnId, mode, profile, input, status, errorCode, motionId;
+    public String turnId, mode, profile, input, language, status, errorCode, motionId;
     public long recordedAt;
     public Map<String, Long> timings = new LinkedHashMap<>();
   }
@@ -25,6 +25,7 @@ public final class LatencyHistory {
     e.mode = allowed(fields.get("selection_mode"), "category", "category", "direct");
     e.profile = allowed(fields.get("gesture_profile"), "basic", "basic", "expanded");
     e.input = allowed(fields.get("input_mode"), "unknown", "conversation_voice", "conversation_text", "asr_only", "tts_only", "tts_motion", "motion_only");
+    e.language = allowed(fields.get("language"), "unknown", "en", "ja");
     e.status = allowed(fields.get("status"), "completed", "completed", "partial", "error", "cancelled");
     e.errorCode = text(fields.get("error_code"), 80);
     e.motionId = text(fields.get("motion_id"), 200);
@@ -63,7 +64,7 @@ public final class LatencyHistory {
         Map<String, Object> fields = new LinkedHashMap<>();
         if (e.timings != null) fields.putAll(e.timings);
         fields.put("selection_mode", e.mode); fields.put("gesture_profile", e.profile);
-        fields.put("input_mode", e.input); fields.put("status", e.status);
+        fields.put("input_mode", e.input); fields.put("language", e.language); fields.put("status", e.status);
         fields.put("error_code", e.errorCode); fields.put("motion_id", e.motionId);
         history.record(e.turnId, fields, e.recordedAt);
       } catch (RuntimeException ignored) { /* Recover other valid records. */ }
@@ -73,7 +74,7 @@ public final class LatencyHistory {
 
   private static String seconds(Long n) { return n == null ? "—" : String.format(Locale.JAPAN, "%.3f秒", n/1000.0); }
   private static String condition(Entry e) { return e.mode.equals("direct") ? "① ID直接" : "② カテゴリ" + (e.profile.equals("expanded") ? "15種" : "7種"); }
-  private static String input(Entry e) { return e.input.equals("conversation_voice") ? "音声会話" : e.input.equals("conversation_text") ? "テキスト会話" : e.input; }
+  private static String input(Entry e) { return (e.input.equals("conversation_voice") ? "音声会話" : e.input.equals("conversation_text") ? "テキスト会話" : e.input) + "・" + ("ja".equals(e.language) ? "日本語" : "en".equals(e.language) ? "英語" : "言語未記録"); }
   private static String time(Entry e) { return new SimpleDateFormat("MM/dd HH:mm:ss", Locale.JAPAN).format(new Date(e.recordedAt)); }
   private static String values(Entry e) {
     return "LLM待ち " + seconds(e.timings.get("llm_ms"))
@@ -128,12 +129,12 @@ public final class LatencyHistory {
   }
 
   public String csv() {
-    StringBuilder out = new StringBuilder("recorded_at_epoch_ms,conversation_id,selection_mode,gesture_profile,input_mode,status,error_code,motion_id");
+    StringBuilder out = new StringBuilder("recorded_at_epoch_ms,conversation_id,selection_mode,gesture_profile,input_mode,language,status,error_code,motion_id");
     for (String key : KEYS) out.append(',').append(key);
     out.append("\r\n");
     for (Entry e : rows.values()) {
       out.append(e.recordedAt);
-      for (String s : Arrays.asList(e.turnId,e.mode,e.profile,e.input,e.status,e.errorCode,e.motionId)) out.append(',').append(csvCell(s));
+      for (String s : Arrays.asList(e.turnId,e.mode,e.profile,e.input,e.language,e.status,e.errorCode,e.motionId)) out.append(',').append(csvCell(s));
       for (String key : KEYS) out.append(',').append(e.timings.containsKey(key)?e.timings.get(key):"");
       out.append("\r\n");
     }

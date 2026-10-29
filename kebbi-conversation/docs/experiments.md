@@ -152,3 +152,8 @@ USB経由のADB reverseがロボット側のlocalhostをMac側のlocalhostへ中
 `compare-selection.py --mapping motion-mapping.json --output 結果ディレクトリ` は、合成した同じ4発話を各条件に2回ずつ、新規セッション・順序を交替させて送ります。3条件の初回はウォームアップとして別記録し、集計から除外します。分類の準備時間も別記録です。純粋なAPI往復の比較で、KebbiのASR/TTS/物理動作を実行するテストではありません。返答文字数、入力サイズ、失敗数も残し、小標本であることを明示します。
 
 画像APIにはアニメーションGIFをそのまま送らず、時系列のPNGフレーム画像として渡します。[OpenAI画像入力仕様](https://developers.openai.com/api/docs/guides/images-vision?api-mode=chat)。
+
+## 日本語/英語の切替
+
+メイン画面上部の「会話の言語」でEnglish/日本語を選ぶと、SDKのASR言語（en-US/ja-JP）、LLM要求のlanguage（en/ja）、SDKのTTS言語（ENGLISH/JAPAN）をまとめて切り替えます。変更時は会話履歴をリセットします。設定画面からも選択でき、再起動後も保持します。
+速度履歴にはlanguageを記録し、条件・入力経路・言語別に平均を表示します。古い記録でlanguageがないものは「言語未記録」として混ぜません。
