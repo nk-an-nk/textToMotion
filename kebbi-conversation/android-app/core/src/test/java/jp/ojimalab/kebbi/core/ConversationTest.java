@@ -496,34 +496,34 @@ public class ConversationTest {
       new Reply.Sentence("How are you?",Gesture.question,null)));
   }
 
-  @Test public void eachSentenceStartsItsOneActionAtTtsStartAndRetiresOldCallbacks() {
+  @Test public void eachSentenceWaitsForMotionStartBeforeSpeechAndRetiresOldCallbacks() {
     registry.assign(Gesture.question,new Motion("other"));
     robot.e.motions(Arrays.asList("mock_wave","other"));
     c.submit("Hello");server.result.success(twoSentencePlan());
     long first=robot.token;
-    assertEquals(1,robot.speak);assertEquals(0,robot.play);
-    robot.e.ttsStarted(first);robot.e.ttsStarted(first);
-    assertEquals(1,robot.play);
+    assertEquals(0,robot.speak);assertEquals(1,robot.play);
+    clock.advance(2300);assertEquals(0,robot.speak);
+    robot.e.motionStarted(first,"mock_wave");robot.e.motionStarted(first,"mock_wave");
+    assertEquals(1,robot.speak);robot.e.ttsStarted(first);
     robot.e.ttsDone(first,null);
     assertEquals(1,robot.stop);assertEquals(1,robot.speak);
     clock.advance(80);
     long second=robot.token;assertNotEquals(first,second);
-    assertEquals(2,robot.speak);assertEquals(1,robot.play);
+    assertEquals(1,robot.speak);assertEquals(2,robot.play);
     robot.e.ttsDone(first,null);robot.e.motionDone(first,"mock_wave",null);
     assertEquals(State.SPEAKING,c.state());
-    robot.e.ttsStarted(second);assertEquals(2,robot.play);
+    robot.e.motionStarted(second,"other");assertEquals(2,robot.speak);robot.e.ttsStarted(second);
     robot.e.ttsDone(second,null);
     assertEquals(State.IDLE,c.state());assertEquals(2,robot.stop);
     assertEquals(2,Collections.frequency(events,"sentence_complete"));
   }
 
-  @Test public void missingTtsStartDoesNotPlayAnActionAfterSpeechEnds() {
+  @Test public void missingMotionStartTimesOutWithoutSpeakingOutOfSync() {
     c.submit("Hello");server.result.success(twoSentencePlan());
-    robot.e.ttsDone(robot.token,null);
-    assertEquals(0,robot.play);
-    clock.advance(80);robot.e.ttsDone(robot.token,null);
-    assertEquals(State.IDLE,c.state());assertEquals(0,robot.play);
-    assertEquals("tts_start_missing_motion_skipped",snapshot.message);
+    assertEquals(1,robot.play);assertEquals(0,robot.speak);
+    clock.advance(8000);
+    assertEquals(State.IDLE,c.state());assertEquals("motion_start_timeout",snapshot.message);
+    assertEquals(0,robot.speak);
   }
 
   @Test public void continuousConversationKeepsSessionAndStopPreventsNextListening() {
@@ -540,7 +540,7 @@ public class ConversationTest {
 
   @Test public void noListeningBetweenSentencesAndSilenceRearmsUntilStop() {
     c.startConversation();robot.e.asr(robot.token,"Hello",null);server.result.success(twoSentencePlan());
-    robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);clock.advance(80);
+    robot.e.motionStarted(robot.token,"mock_wave");robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);clock.advance(80);
     assertEquals(1,robot.listens);assertEquals(State.SPEAKING,c.state());
     robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);
     clock.advance(700);assertEquals(2,robot.listens);assertEquals(State.LISTENING,c.state());
@@ -550,7 +550,7 @@ public class ConversationTest {
 
   @Test public void stopDuringSentenceReconnectCancelsPendingSecondSentence() {
     c.submit("Hello");server.result.success(twoSentencePlan());
-    robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);
+    robot.e.motionStarted(robot.token,"mock_wave");robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);
     c.stop();robot.e.connected(true);clock.advance(20000);
     assertEquals(1,robot.speak);assertEquals(State.IDLE,c.state());
   }
