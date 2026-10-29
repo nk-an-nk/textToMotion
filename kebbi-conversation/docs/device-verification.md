@@ -167,7 +167,7 @@ APIの比較試験と分類資料の根拠は [全動作選択の速度比較](s
 - ソース: d367ea63f4391cac4b0cd4d93187e5b015bd292e
 - [クラウドのテスト・ビルド](https://github.com/nk-an-nk/textToMotion/actions/runs/40836705036): 成功
 - APK SHA-256: `fff98d0c6544e7beafbb2b24a32783cfee76005f04662b90899c776dc5142c64`
-- APIモデル: gpt-4.1-mini-2025-04-14のまま。返答は原則1〜2文。
+- APIモデル: gpt-4.1-mini-2025-04-14のまま。この実機試験時点では原則1〜2文を推奨。その後、この推奨だけを[試験的に解除](response-length-trial.md)。
 - SDKのmotionPrepareで読み込み、準備済みmotionPlay()とTTSを続けて要求。
 - 文ごとの接続更新を省き、音声通知の世代番号で古い文の通知を除外。
 
