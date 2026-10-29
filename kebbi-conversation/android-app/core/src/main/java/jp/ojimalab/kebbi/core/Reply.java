@@ -58,7 +58,7 @@ public final class Reply {
     if (!"speech_start".equals(string(o, "timing")))
       throw new IllegalArgumentException("invalid_timing");
     for (String key : o.keySet())
-      if (!java.util.Arrays.asList("speech", "gesture", "language", "timing", "motion_id", "sentences", "reply_model", "motion_model", "text_generation_ms", "motion_selection_ms").contains(key))
+      if (!java.util.Arrays.asList("speech", "gesture", "language", "timing", "motion_id", "sentences", "reply_model", "motion_model", "text_generation_ms", "motion_selection_ms", "reply_reasoning_effort").contains(key))
         throw new IllegalArgumentException("unexpected_field");
     String id = !o.has("motion_id") || o.get("motion_id").isJsonNull() ? null : string(o, "motion_id");
     List<Sentence> sentences=null;
@@ -85,6 +85,11 @@ public final class Reply {
       double n = value.getAsDouble();
       if (Double.isNaN(n) || Double.isInfinite(n) || n != Math.rint(n) || n < 0 || n > 60000) throw new IllegalArgumentException("invalid_timing");
       generation.put(key, value.getAsLong());
+    }
+    if (o.has("reply_reasoning_effort")) {
+      String effort = string(o, "reply_reasoning_effort");
+      if (!Arrays.asList("none", "low").contains(effort)) throw new IllegalArgumentException("invalid_reasoning_effort");
+      generation.put("reply_reasoning_effort", effort);
     }
     return new Reply(speech, Gesture.safe(gesture), language, id, sentences, generation);
   }

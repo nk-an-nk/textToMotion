@@ -21,7 +21,9 @@ class MotionCandidate(BaseModel):
             raise ValueError("invalid candidate")
         return value.strip()
 Language = Literal["en", "ja"]
-REPLY_MODELS = ("gpt-4.1-mini-2025-04-14", "gpt-4.1-2025-04-14")
+REPLY_MODELS = ("gpt-4.1-mini-2025-04-14", "gpt-4.1-2025-04-14",
+                "gpt-5.4-mini-2026-03-17", "gpt-5.4-2026-03-05", "gpt-6-luna", "gpt-6.1-sol")
+REPLY_EFFORTS = {model: "low" for model in REPLY_MODELS if model.startswith(("gpt-5", "gpt-6"))}
 
 def split_sentences(text):
     """Split Japanese/English end punctuation, preserving decimal numbers and quotes."""
@@ -87,6 +89,7 @@ class Reply(BaseModel):
     sentences: list[Sentence] | None = Field(default=None, min_length=1, max_length=6)
     reply_model: str | None = None
     motion_model: str | None = None
+    reply_reasoning_effort: Literal["none", "low"] | None = None
     text_generation_ms: int | None = Field(default=None, ge=0, le=60000)
     motion_selection_ms: int | None = Field(default=None, ge=0, le=60000)
 
@@ -114,7 +117,14 @@ class Request(BaseModel):
     selection_mode: Literal["category", "direct"] = "category"
     gesture_profile: Literal["basic", "expanded"] = "basic"
     available_motions: list[MotionCandidate] = Field(default_factory=list, max_length=4096)
-    reply_model: Literal["gpt-4.1-mini-2025-04-14", "gpt-4.1-2025-04-14"] | None = None
+    reply_model: str | None = Field(default=None, max_length=100)
+
+    @field_validator("reply_model")
+    @classmethod
+    def valid_reply_model(cls, value):
+        if value is not None and value not in REPLY_MODELS:
+            raise ValueError("unsupported reply model")
+        return value
 
     @field_validator("conversation_id")
     @classmethod

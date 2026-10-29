@@ -7,7 +7,7 @@ import pytest
 from fastapi.testclient import TestClient
 from app.main import create_app
 from app.settings import Settings
-from app.models import Reply
+from app.models import Reply, REPLY_MODELS, REPLY_EFFORTS
 from app.sessions import Sessions, CapacityError
 
 def request(**extra):
@@ -247,7 +247,7 @@ def test_same_session_keeps_multiturn_context_in_sentence_mode():
         {'role':'user','content':'I like pandas'}, {'role':'assistant','content':'What color is your panda?'},
         {'role':'user','content':'Black and white'}]
 
-@pytest.mark.parametrize('model',['gpt-4.1-mini-2025-04-14','gpt-4.1-2025-04-14'])
+@pytest.mark.parametrize('model',REPLY_MODELS)
 @pytest.mark.parametrize('mode',['category','direct'])
 def test_reply_model_only_generates_text_and_fixed_model_selects_motion(model,mode,caplog):
     captured=[]
@@ -271,6 +271,9 @@ def test_reply_model_only_generates_text_and_fixed_model_selects_motion(model,mo
     assert len(captured)==2
     text,motion=captured
     assert text['model']==model and motion['model']=='test-model'
+    assert text.get('reasoning_effort')==REPLY_EFFORTS.get(model)
+    assert 'reasoning_effort' not in motion
+    assert body['reply_reasoning_effort']==REPLY_EFFORTS.get(model,'none')
     assert set(text['response_format']['json_schema']['schema']['properties'])=={'sentences','language'}
     assert 'SECRET_CANDIDATE_DESCRIPTION' not in json.dumps(text)
     assert json.loads(motion['messages'][-1]['content'])=={'sentences':['パンダが好きなんだね。','どんなところが好き？']}

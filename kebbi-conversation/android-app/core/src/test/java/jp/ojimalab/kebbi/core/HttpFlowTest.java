@@ -12,8 +12,9 @@ import org.junit.*;
 public class HttpFlowTest {
   @Test
   public void actualBackendConversationCompletes() throws Exception {
+    List<String> models = new ArrayList<>(SelectionOptions.REPLY_MODELS); models.add(0, "");
     for (String[] condition : Arrays.asList(new String[]{"category", "basic"}, new String[]{"category", "expanded"}, new String[]{"direct", "basic"}))
-      for (String model : Arrays.asList("", SelectionOptions.REPLY_MODELS.get(0), SelectionOptions.REPLY_MODELS.get(1)))
+      for (String model : models)
         complete(condition[0], condition[1], model);
   }
 

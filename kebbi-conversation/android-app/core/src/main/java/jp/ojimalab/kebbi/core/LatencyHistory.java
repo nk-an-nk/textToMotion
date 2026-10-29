@@ -13,7 +13,7 @@ public final class LatencyHistory {
 
   public static final class Entry {
     public String turnId, mode, profile, input, language, status, errorCode, motionId;
-    public String replyModel, motionModel;
+    public String replyModel, motionModel, replyReasoningEffort;
     public long recordedAt;
     public int sentenceCount;
     public List<String> motionIds = new ArrayList<>();
@@ -34,6 +34,7 @@ public final class LatencyHistory {
     e.motionId = text(fields.get("motion_id"), 200);
     e.replyModel = model(fields.get("reply_model"));
     e.motionModel = model(fields.get("motion_model"));
+    e.replyReasoningEffort = allowed(fields.get("reply_reasoning_effort"), "", "none", "low");
     Object count=fields.get("sentence_count");
     if (count instanceof Number) e.sentenceCount=Math.max(0,Math.min(6,((Number)count).intValue()));
     Object ids=fields.get("motion_ids");
@@ -83,6 +84,7 @@ public final class LatencyHistory {
         fields.put("error_code", e.errorCode); fields.put("motion_id", e.motionId);
         fields.put("sentence_count", e.sentenceCount); fields.put("motion_ids", e.motionIds);
         fields.put("reply_model", e.replyModel); fields.put("motion_model", e.motionModel);
+        fields.put("reply_reasoning_effort", e.replyReasoningEffort);
         history.record(e.turnId, fields, e.recordedAt);
       } catch (RuntimeException ignored) { /* Recover other valid records. */ }
     }
@@ -110,7 +112,8 @@ public final class LatencyHistory {
   }
 
   private static String modelCondition(Entry e) {
-    return e.replyModel.isEmpty() ? "従来・一括生成" : "返答 " + e.replyModel + " / 動作 " + (e.motionModel.isEmpty() ? "未計測" : e.motionModel);
+    return e.replyModel.isEmpty() ? "従来・一括生成" : "返答 " + e.replyModel + " / 推論 " + (e.replyReasoningEffort.isEmpty() ? "未記録" : e.replyReasoningEffort)
+        + " / 動作 " + (e.motionModel.isEmpty() ? "未計測" : e.motionModel);
   }
 
   /** Averages never mix input paths, failures or non-conversation diagnostics. */
@@ -153,12 +156,12 @@ public final class LatencyHistory {
   }
 
   public String csv() {
-    StringBuilder out = new StringBuilder("recorded_at_epoch_ms,conversation_id,selection_mode,gesture_profile,input_mode,language,status,error_code,motion_id,sentence_count,motion_ids,reply_model,motion_model");
+    StringBuilder out = new StringBuilder("recorded_at_epoch_ms,conversation_id,selection_mode,gesture_profile,input_mode,language,status,error_code,motion_id,sentence_count,motion_ids,reply_model,motion_model,reply_reasoning_effort");
     for (String key : KEYS) out.append(',').append(key);
     out.append("\r\n");
     for (Entry e : rows.values()) {
       out.append(e.recordedAt);
-      for (String s : Arrays.asList(e.turnId,e.mode,e.profile,e.input,e.language,e.status,e.errorCode,e.motionId,Integer.toString(e.sentenceCount),String.join("|",e.motionIds),e.replyModel,e.motionModel)) out.append(',').append(csvCell(s));
+      for (String s : Arrays.asList(e.turnId,e.mode,e.profile,e.input,e.language,e.status,e.errorCode,e.motionId,Integer.toString(e.sentenceCount),String.join("|",e.motionIds),e.replyModel,e.motionModel,e.replyReasoningEffort)) out.append(',').append(csvCell(s));
       for (String key : KEYS) out.append(',').append(e.timings.containsKey(key)?e.timings.get(key):"");
       out.append("\r\n");
     }

@@ -219,7 +219,8 @@ public final class MainActivity extends Activity {
       }
     });
     label(root, "返答生成モデル（切替時に会話履歴をリセット）", 16);
-    replyModel = spinner(root, Arrays.asList("GPT-4.1 mini（現在・軽量）", "GPT-4.1（比較用・上位）"));
+    replyModel = spinner(root, Arrays.asList("GPT-4.1 mini（現在・軽量）", "GPT-4.1（比較用・上位）",
+        "GPT-5.4 mini", "GPT-5.4", "GPT-6 Luna", "GPT-6.1 Sol"));
     replyModel.setId(1010);
     replyModel.setSelection(Math.max(0, SelectionOptions.REPLY_MODELS.indexOf(prefs.getString("reply_model", SelectionOptions.REPLY_MODELS.get(0)))));
     replyModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -231,7 +232,7 @@ public final class MainActivity extends Activity {
         prefs.edit().putString("reply_model", selected).apply();
       }
     });
-    label(root, "返答文章だけモデルを切替。動作選択は固定モデルを使用します。", 14);
+    label(root, "返答文章だけモデルを切替。動作選択は固定モデル。5・6系は推論lowで比較します。", 14);
     label(root, "実験条件（切替時に会話履歴をリセット）", 16);
     experiment = spinner(root, Arrays.asList("② カテゴリ経由・従来7種", "② カテゴリ経由・拡張25種", "① 動作IDをLLMが直接選択"));
     experiment.setSelection(prefs.getInt("experiment", 0));

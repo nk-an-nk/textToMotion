@@ -2,7 +2,7 @@ import asyncio
 import json
 import time
 import httpx
-from .models import Reply, Sentence, SentencePlan, TextPlan, split_sentences, GESTURE_DESCRIPTIONS
+from .models import Reply, Sentence, SentencePlan, TextPlan, split_sentences, GESTURE_DESCRIPTIONS, REPLY_EFFORTS
 
 CONVERSATION_SYSTEM = """You are Kebbi, a kind, natural conversation partner for children learning English or Japanese.
 Use short, age-appropriate sentences. Respect the child. Continue the recent conversation naturally.
@@ -133,10 +133,12 @@ class Llm:
             return normalize_plan(SentencePlan(sentences=sentences,language=request.language,timing="speech_start"),request)
         return reply
 
-    async def _complete(self, model, system, schema, text, history):
+    async def _complete(self, model, system, schema, text, history, effort=None):
         payload = {"model": model, "store": False,
                    "messages": [{"role": "system", "content": system},
                                 *history, {"role": "user", "content": text}]}
+        if effort is not None:
+            payload["reasoning_effort"] = effort
         if self.settings.json_mode:
             payload["response_format"] = {"type": "json_schema", "json_schema": {"name": "kebbi_reply", "strict": True, "schema": schema}}
         try:
@@ -167,7 +169,7 @@ class Llm:
         if self.settings.provider == "mock":
             reply = await self.respond(request, history)
             return reply.model_copy(update={"reply_model": request.reply_model,
-                "motion_model": "mock", "text_generation_ms": 0, "motion_selection_ms": 0})
+                "motion_model": "mock", "reply_reasoning_effort": REPLY_EFFORTS.get(request.reply_model, "none"), "text_generation_ms": 0, "motion_selection_ms": 0})
         text_schema = {"type": "object", "additionalProperties": False,
             "properties": {"sentences": {"type": "array", "minItems": 1, "maxItems": 6,
                 "items": {"type": "string", "minLength": 1, "maxLength": 400}},
@@ -178,7 +180,8 @@ class Llm:
             "sentences contains 1-6 complete spoken sentences, one per string; total at most 400 characters. "
             "Generate only the conversational reply, without any gesture, motion, category or motor instruction. "
             "Reply in the language specified by the application: " + request.language)
-        raw = await self._complete(request.reply_model, system, text_schema, request.text, history)
+        raw = await self._complete(request.reply_model, system, text_schema, request.text, history,
+                                   effort=REPLY_EFFORTS.get(request.reply_model))
         try:
             text = TextPlan.model_validate_json(raw)
             if text.language != request.language:
@@ -223,5 +226,6 @@ class Llm:
         except (ValueError, TypeError, KeyError) as error:
             raise LlmError("invalid_llm_response") from error
         return reply.model_copy(update={"reply_model": request.reply_model,
-            "motion_model": self.settings.model, "text_generation_ms": text_ms,
+            "motion_model": self.settings.model, "reply_reasoning_effort": REPLY_EFFORTS.get(request.reply_model, "none"),
+            "text_generation_ms": text_ms,
             "motion_selection_ms": round((time.monotonic() - motion_started) * 1000)})
