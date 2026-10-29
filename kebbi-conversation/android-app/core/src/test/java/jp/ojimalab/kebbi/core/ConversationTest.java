@@ -152,6 +152,24 @@ public class ConversationTest {
     assertEquals(1, robot.play);
   }
 
+  @Test public void changingReplyModelResetsSessionAndRejectsChangesMidTurn() {
+    c.replyModel(SelectionOptions.REPLY_MODELS.get(0));
+    c.submit("Hello");
+    assertEquals(SelectionOptions.REPLY_MODELS.get(0),server.options.replyModel);
+    String first=server.sessions.get(0);
+    try { c.replyModel(SelectionOptions.REPLY_MODELS.get(1)); fail("Must stop before switching"); }
+    catch (IllegalStateException expected) {}
+    c.stop();c.replyModel(SelectionOptions.REPLY_MODELS.get(1));c.submit("Hello");
+    assertEquals(SelectionOptions.REPLY_MODELS.get(1),server.options.replyModel);
+    assertNotEquals(first,server.sessions.get(1));
+  }
+
+  @Test public void unexpectedReplyModelDoesNotStartSpeech() {
+    c.replyModel(SelectionOptions.REPLY_MODELS.get(1));c.submit("Hello");server.reply();
+    assertEquals(0,robot.speak);
+    assertTrue(events.contains("error"));
+  }
+
   @Test
   public void ttsThenMotion() {
     output();

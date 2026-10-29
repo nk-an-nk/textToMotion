@@ -13,10 +13,11 @@ public class HttpFlowTest {
   @Test
   public void actualBackendConversationCompletes() throws Exception {
     for (String[] condition : Arrays.asList(new String[]{"category", "basic"}, new String[]{"category", "expanded"}, new String[]{"direct", "basic"}))
-      complete(condition[0], condition[1]);
+      for (String model : Arrays.asList("", SelectionOptions.REPLY_MODELS.get(0), SelectionOptions.REPLY_MODELS.get(1)))
+        complete(condition[0], condition[1], model);
   }
 
-  private void complete(String mode, String profile) throws Exception {
+  private void complete(String mode, String profile, String model) throws Exception {
     String url = System.getenv("KEBBI_TEST_BACKEND");
     Assume.assumeTrue("Run scripts/verify.sh for HTTP integration", url != null);
     ScheduledExecutorService ui = Executors.newSingleThreadScheduledExecutor();
@@ -40,6 +41,7 @@ public class HttpFlowTest {
     CountDownLatch done = new CountDownLatch(1);
     List<String> events = Collections.synchronizedList(new ArrayList<>());
     AtomicReference<Snapshot> latest = new AtomicReference<>();
+    AtomicReference<Map<String,Object>> metrics = new AtomicReference<>();
     try {
       ui.submit(
               () -> {
@@ -50,7 +52,7 @@ public class HttpFlowTest {
                         new MockRobotAdapter(scheduler),
                         backend,
                         scheduler,
-                        (t, n, f) -> events.add(n),
+                        (t, n, f) -> { events.add(n); if (n.equals("metrics")) metrics.set(f); },
                         s -> {
                           latest.set(s);
                           if (s.state == State.IDLE && !s.speech.isEmpty()) done.countDown();
@@ -58,6 +60,7 @@ public class HttpFlowTest {
                         registry);
                 app.set(controller);
                 controller.experiment(mode, profile);
+                if (!model.isEmpty()) controller.replyModel(model);
                 controller.connect();
                 ui.execute(() -> controller.submit("Hello, Kebbi!"));
               })
@@ -78,6 +81,12 @@ public class HttpFlowTest {
       assertEquals(2, Collections.frequency(events,"tts_request"));
       assertEquals(mode.equals("direct") ? Gesture.none : Gesture.greet, s.gesture);
       assertEquals("Hello! Nice to meet you!", s.speech);
+      if (!model.isEmpty()) {
+        assertEquals(model, metrics.get().get("reply_model"));
+        assertEquals("mock", metrics.get().get("motion_model"));
+        assertEquals(0L, metrics.get().get("text_generation_ms"));
+        assertEquals(0L, metrics.get().get("motion_selection_ms"));
+      }
       assertTrue(s.ttsDone && s.motionDone);
       assertTrue(
           events.containsAll(

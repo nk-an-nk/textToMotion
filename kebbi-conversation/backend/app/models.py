@@ -21,6 +21,7 @@ class MotionCandidate(BaseModel):
             raise ValueError("invalid candidate")
         return value.strip()
 Language = Literal["en", "ja"]
+REPLY_MODELS = ("gpt-4.1-mini-2025-04-14", "gpt-4.1-2025-04-14")
 
 def split_sentences(text):
     """Split Japanese/English end punctuation, preserving decimal numbers and quotes."""
@@ -62,6 +63,19 @@ class SentencePlan(BaseModel):
         if sum(len(s.speech) for s in self.sentences)>400:raise ValueError("reply too long")
         return self
 
+class TextPlan(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    sentences: list[str] = Field(min_length=1, max_length=6)
+    language: Language
+
+    @model_validator(mode="after")
+    def bounded(self):
+        parts = [part for sentence in self.sentences for part in split_sentences(sentence)]
+        if not 1 <= len(parts) <= 6 or any(not s.strip() for s in self.sentences) or sum(map(len, parts)) > 400:
+            raise ValueError("invalid text plan")
+        self.sentences = parts
+        return self
+
 class Reply(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
     speech: str = Field(min_length=1, max_length=400)
@@ -71,6 +85,10 @@ class Reply(BaseModel):
     motion_id: str | None = Field(default=None, min_length=1, max_length=200)
 
     sentences: list[Sentence] | None = Field(default=None, min_length=1, max_length=6)
+    reply_model: str | None = None
+    motion_model: str | None = None
+    text_generation_ms: int | None = Field(default=None, ge=0, le=60000)
+    motion_selection_ms: int | None = Field(default=None, ge=0, le=60000)
 
     @field_validator("speech")
     @classmethod
@@ -96,6 +114,7 @@ class Request(BaseModel):
     selection_mode: Literal["category", "direct"] = "category"
     gesture_profile: Literal["basic", "expanded"] = "basic"
     available_motions: list[MotionCandidate] = Field(default_factory=list, max_length=4096)
+    reply_model: Literal["gpt-4.1-mini-2025-04-14", "gpt-4.1-2025-04-14"] | None = None
 
     @field_validator("conversation_id")
     @classmethod
@@ -125,6 +144,8 @@ class Request(BaseModel):
 
     @property
     def history_key(self):
+        if self.reply_model:
+            return f"{self.session_id}:{self.selection_mode}:{self.gesture_profile}:{self.language}:reply:{self.reply_model}"
         if self.selection_mode == "category" and self.gesture_profile == "basic":
             return self.session_id
         return self.session_id + ":" + self.selection_mode + ":" + self.gesture_profile

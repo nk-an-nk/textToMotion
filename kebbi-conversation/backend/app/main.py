@@ -70,15 +70,20 @@ def create_app(settings=None, transport=None):
                 log.info(json.dumps({"conversation_id": turn, "event": name,
                                      "elapsed_ms": round((time.monotonic()-started)*1000, 3), **fields}, ensure_ascii=False))
         event("llm_request_start", selection_mode=request.selection_mode, gesture_profile=request.gesture_profile,
-              provider=settings.provider, model=settings.model, candidates=len(request.available_motions))
+              provider=settings.provider, model=settings.model, reply_model=request.reply_model,
+              candidates=len(request.available_motions))
         try:
             async with sessions.conversation(request.history_key) as history:
-                reply = await app.state.llm.respond(request, list(history))
+                reply = await (app.state.llm.respond_separate(request, list(history)) if request.reply_model
+                               else app.state.llm.respond(request, list(history)))
                 if settings.history_turns:
                     history.extend([{"role": "user", "content": request.text}, {"role": "assistant", "content": reply.speech}])
                     del history[:-2*settings.history_turns]
             event("llm_response_received", gesture=reply.gesture, motion_id=reply.motion_id,
                   selection_mode=request.selection_mode, gesture_profile=request.gesture_profile, sentence_count=len(reply.sentences or []),
+                  **({"reply_model": reply.reply_model, "motion_model": reply.motion_model,
+                      "text_generation_ms": reply.text_generation_ms, "motion_selection_ms": reply.motion_selection_ms}
+                     if reply.reply_model else {}),
                   **({"user_text": request.text, "speech": reply.speech} if settings.log_content else {}))
             response.headers["X-Conversation-Id"] = turn
             response.headers["Cache-Control"] = "no-store"
@@ -92,8 +97,7 @@ def create_app(settings=None, transport=None):
 
     @app.delete("/api/sessions/{session_id}", dependencies=[Depends(authorized)])
     async def forget(session_id: str):
-        keys = [session_id, *(session_id + ":" + mode + ":" + profile
-                for mode in ("category", "direct") for profile in ("basic", "expanded"))]
+        keys = [k for k in sessions.entries if k == session_id or k.startswith(session_id + ":")]
         if any(sessions.entries.get(k) and sessions.entries[k].users for k in keys):
             raise HTTPException(409, detail="session_busy")
         for key in keys:

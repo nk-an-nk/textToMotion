@@ -33,7 +33,7 @@ public final class MainActivity extends Activity {
   private LinearLayout root;
   private TextView sdkStatus, backendStatus, stateStatus, userText, replyText, selection, errorText;
   private EditText input;
-  private Spinner testGesture, experiment, conversationLanguage;
+  private Spinner testGesture, experiment, conversationLanguage, replyModel;
   private Button listen, asrOnly, send, tts, combined, motionButton;
   private long engine;
   private boolean active;
@@ -128,6 +128,7 @@ public final class MainActivity extends Activity {
             },
             registry);
     controller.settings(prefs.getString("language", "en"), prefs.getBoolean("motion", true));
+    controller.replyModel(SelectionOptions.REPLY_MODELS.get(replyModel.getSelectedItemPosition()));
     conversationLanguage.setSelection(prefs.getString("language", "en").equals("ja") ? 1 : 0);
     int condition = prefs.getInt("experiment", 0);
     controller.experiment(condition == 2 ? "direct" : "category", condition == 1 ? "expanded" : "basic");
@@ -217,6 +218,20 @@ public final class MainActivity extends Activity {
         }
       }
     });
+    label(root, "返答生成モデル（切替時に会話履歴をリセット）", 16);
+    replyModel = spinner(root, Arrays.asList("GPT-4.1 mini（現在・軽量）", "GPT-4.1（比較用・上位）"));
+    replyModel.setId(1010);
+    replyModel.setSelection(Math.max(0, SelectionOptions.REPLY_MODELS.indexOf(prefs.getString("reply_model", SelectionOptions.REPLY_MODELS.get(0)))));
+    replyModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      public void onNothingSelected(AdapterView<?> p) {}
+      public void onItemSelected(AdapterView<?> p, android.view.View v, int position, long id) {
+        String selected = SelectionOptions.REPLY_MODELS.get(position);
+        if (selected.equals(prefs.getString("reply_model", SelectionOptions.REPLY_MODELS.get(0)))) return;
+        if (controller != null) controller.replyModel(selected);
+        prefs.edit().putString("reply_model", selected).apply();
+      }
+    });
+    label(root, "返答文章だけモデルを切替。動作選択は固定モデルを使用します。", 14);
     label(root, "実験条件（切替時に会話履歴をリセット）", 16);
     experiment = spinner(root, Arrays.asList("② カテゴリ経由・従来7種", "② カテゴリ経由・拡張25種", "① 動作IDをLLMが直接選択"));
     experiment.setSelection(prefs.getInt("experiment", 0));
@@ -339,6 +354,7 @@ public final class MainActivity extends Activity {
     }
     experiment.setEnabled(s.state == State.IDLE && !s.continuous);
     conversationLanguage.setEnabled(s.state == State.IDLE && !s.continuous);
+    replyModel.setEnabled(s.state == State.IDLE && !s.continuous);
     boolean idle = s.connected && s.state == State.IDLE && !s.continuous;
     for (Button b : Arrays.asList(listen, asrOnly, send, tts, combined, motionButton))
       b.setEnabled(idle);

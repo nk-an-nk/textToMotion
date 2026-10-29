@@ -44,6 +44,15 @@ public final class ConversationController implements RobotAdapter.Events {
   private Gesture gesture = Gesture.none;
   private boolean motionEnabled = true;
   private String selectionMode = "category", gestureProfile = "basic";
+  private String replyModel = "";
+  private final Map<String, Object> generation = new LinkedHashMap<>();
+
+  public void replyModel(String model) {
+    if (!SelectionOptions.REPLY_MODELS.contains(model)) throw new IllegalArgumentException("invalid_reply_model");
+    if (state != State.IDLE || continuous) throw new IllegalStateException("turn_active");
+    if (!replyModel.equals(model)) newSession();
+    replyModel = model;
+  }
 
   public void experiment(String mode, String profile) {
     new SelectionOptions(mode, profile, Collections.emptyList(), Collections.emptyList());
@@ -123,6 +132,7 @@ public final class ConversationController implements RobotAdapter.Events {
     fields.put("elapsed_ms", now - turnStart);
     fields.put("selection_mode", selectionMode);
     fields.put("gesture_profile", gestureProfile);
+    if (!replyModel.isEmpty()) fields.put("reply_model", replyModel);
     if (playingPlan) { fields.put("sentence_index", sentenceIndex+1); fields.put("sentence_count", sentences.size()); }
     if (!motion.isEmpty()) fields.put("motion_id",motion);
     log.event(turn, name, fields);
@@ -156,6 +166,7 @@ public final class ConversationController implements RobotAdapter.Events {
     turn = UUID.randomUUID().toString();
     turnStart = scheduler.now();
     times.clear();
+    generation.clear();
     text = "";
     speech = "";
     motion = "";
@@ -219,14 +230,14 @@ public final class ConversationController implements RobotAdapter.Events {
     state = State.PROCESSING;
     event("llm_request_start");
     publish();
-    deadline(25000, State.PROCESSING);
+    deadline(replyModel.isEmpty() ? 25000 : 47000, State.PROCESSING);
     long current = token;
     List<String> labels = new ArrayList<>(motionEnabled ? registry.availableGestures(available, scheduler.now(), gestureProfile.equals("expanded"))
         : Collections.singletonList("none"));
     if (gestureProfile.equals("basic")) labels.removeIf(g -> !Gesture.basic(Gesture.safe(g)));
     // Use a mutable copy before filtering even when motion is disabled.
     SelectionOptions options = new SelectionOptions(selectionMode, gestureProfile, labels,
-        motionEnabled && selectionMode.equals("direct") ? registry.candidates(available, scheduler.now()) : Collections.emptyList());
+        motionEnabled && selectionMode.equals("direct") ? registry.candidates(available, scheduler.now()) : Collections.emptyList(), replyModel);
     try {
       request =
           backend.respond(
@@ -240,6 +251,10 @@ public final class ConversationController implements RobotAdapter.Events {
                   scheduler.execute(
                       () -> {
                         if (current != token || state != State.PROCESSING) return;
+                        generation.putAll(reply.generation);
+                        if (!options.replyModel.isEmpty() && !options.replyModel.equals(generation.get("reply_model"))) {
+                          fail("reply_model_mismatch"); return;
+                        }
                         event("llm_response_received");
                         if (reply.sentencePlan) { startPlan(reply, options); return; }
                         boolean direct = options.mode.equals("direct");
@@ -571,6 +586,8 @@ public final class ConversationController implements RobotAdapter.Events {
     values.put("motion_ids", new ArrayList<>(motionRequests));
     values.put("selection_mode", selectionMode);
     values.put("gesture_profile", gestureProfile);
+    if (!replyModel.isEmpty()) values.put("reply_model", replyModel);
+    values.putAll(generation);
     values.put("gesture", gesture.name());
     values.put("motion_id", motion);
     values.put("turn_ms", scheduler.now() - turnStart);

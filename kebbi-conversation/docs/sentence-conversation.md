@@ -77,3 +77,7 @@ SDKが再接続し、返答終了後の700ms待機を経て次の認識を始め
 仕様：[メーカーAPIのmotionPrepare/motionPlay](https://developer-docs.nuwarobotics.com/sdk/javadoc/reference/com/nuwarobotics/service/agent/NuwaRobotAPI.html#motionPrepare(java.lang.String))。
 
 0.6の実機2応答では文間119〜189ms、SDKの動作開始通知−TTS開始通知は−10〜0msとなり、利用者から自然さの改善を確認しました。[詳細記録](device-verification.md)。
+
+## 0.7の返答生成モデル比較
+
+画面で返答生成モデルを指定する新方式では、文章生成と動作選択を2回のAPI呼び出しに分けます。選択したモデルが文章だけを生成し、固定モデルが各文の動作をまとめて選択します。旧クライアントの一括生成は継続します。[モデル比較](model-comparison.md)を参照してください。

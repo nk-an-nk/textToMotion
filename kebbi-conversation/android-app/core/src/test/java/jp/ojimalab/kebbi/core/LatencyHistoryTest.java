@@ -4,6 +4,22 @@ import java.util.*;
 import org.junit.Test;
 
 public class LatencyHistoryTest {
+  @Test public void modelComparisonsKeepSeparateAveragesAndRoundTrip() {
+    LatencyHistory h = new LatencyHistory();
+    for (int i=0;i<2;i++) {
+      Map<String,Object> f=fields("completed","conversation_text",2000+i*1000);
+      f.put("reply_model",SelectionOptions.REPLY_MODELS.get(i));
+      f.put("motion_model",SelectionOptions.REPLY_MODELS.get(0));
+      f.put("text_generation_ms",1000L+i*1000);f.put("motion_selection_ms",900L);
+      h.record(UUID.randomUUID().toString(),f,i);
+    }
+    assertTrue(h.summaryText().contains("文章生成 1.000秒（n=1）"));
+    assertTrue(h.summaryText().contains("文章生成 2.000秒（n=1）"));
+    assertTrue(h.latestText().contains("gpt-4.1-2025-04-14"));
+    assertTrue(h.latestText().contains("動作選択 0.900秒"));
+    assertEquals(h.json(),LatencyHistory.parse(h.json()).json());
+    assertTrue(h.csv().contains("reply_model,motion_model"));
+  }
   private Map<String,Object> fields(String status, String input, long llm) {
     Map<String,Object> f = new LinkedHashMap<>();
     f.put("status",status); f.put("input_mode",input); f.put("selection_mode","direct");

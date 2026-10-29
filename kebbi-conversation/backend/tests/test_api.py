@@ -246,3 +246,83 @@ def test_same_session_keeps_multiturn_context_in_sentence_mode():
     assert payloads[1]['messages'][1:]==[
         {'role':'user','content':'I like pandas'}, {'role':'assistant','content':'What color is your panda?'},
         {'role':'user','content':'Black and white'}]
+
+@pytest.mark.parametrize('model',['gpt-4.1-mini-2025-04-14','gpt-4.1-2025-04-14'])
+@pytest.mark.parametrize('mode',['category','direct'])
+def test_reply_model_only_generates_text_and_fixed_model_selects_motion(model,mode,caplog):
+    captured=[]
+    def handler(req):
+        payload=json.loads(req.content);captured.append(payload)
+        if len(captured)==1:
+            return envelope(json.dumps({'sentences':['パンダが好きなんだね。','どんなところが好き？'],'language':'ja'}))
+        return envelope(json.dumps({'selections':[
+            {'gesture':'none' if mode=='direct' else 'acknowledge','motion_id':'known' if mode=='direct' else None},
+            {'gesture':'none' if mode=='direct' else 'question','motion_id':'known' if mode=='direct' else None}]}))
+    with live_client(handler) as client, caplog.at_level(logging.INFO,logger='kebbi.events'):
+        r=client.post('/api/respond',json=request(text='パンダが好き',language='ja',sentence_plan=True,
+            reply_model=model,selection_mode=mode,gesture_profile='expanded',
+            available_motions=[{'id':'known','description':'SECRET_CANDIDATE_DESCRIPTION'}]))
+        assert r.status_code==200,r.text
+        body=r.json()
+        assert body['speech']=='パンダが好きなんだね。どんなところが好き？'
+        assert len(body['sentences'])==2
+        assert body['reply_model']==model and body['motion_model']=='test-model'
+        assert body['text_generation_ms']>=0 and body['motion_selection_ms']>=0
+    assert len(captured)==2
+    text,motion=captured
+    assert text['model']==model and motion['model']=='test-model'
+    assert set(text['response_format']['json_schema']['schema']['properties'])=={'sentences','language'}
+    assert 'SECRET_CANDIDATE_DESCRIPTION' not in json.dumps(text)
+    assert json.loads(motion['messages'][-1]['content'])=={'sentences':['パンダが好きなんだね。','どんなところが好き？']}
+    assert set(motion['response_format']['json_schema']['schema']['properties'])=={'selections'}
+    assert 'パンダ' not in caplog.text and 'private-secret' not in caplog.text
+
+
+def test_reply_model_rejects_unapproved_model_before_upstream():
+    def fail(req):raise AssertionError('Must not call upstream')
+    with live_client(fail) as client:
+        r=client.post('/api/respond',json=request(reply_model='arbitrary-expensive-model'))
+        assert r.status_code==422 and r.json()=={'detail':'invalid_request'}
+
+@pytest.mark.parametrize('bad',['{bad',json.dumps({'selections':[]}),json.dumps({'selections':[{'gesture':'greet','motion_id':None,'speech':'rewritten'}]})])
+def test_motion_stage_failure_does_not_save_history_or_return_rewritten_speech(bad):
+    count=0
+    def handler(req):
+        nonlocal count
+        count+=1
+        return envelope(json.dumps({'sentences':['Hello.'],'language':'en'}) if count==1 else bad)
+    with live_client(handler) as client:
+        r=client.post('/api/respond',json=request(reply_model='gpt-4.1-2025-04-14',sentence_plan=True))
+        assert r.status_code==502
+        assert all(not entry.history for entry in client.app.state.sessions.entries.values())
+
+
+def test_comparison_history_is_isolated_by_model_language_and_deleted_together():
+    models=['gpt-4.1-mini-2025-04-14','gpt-4.1-2025-04-14']
+    with TestClient(create_app()) as client:
+        for model,language in [(models[0],'en'),(models[1],'en'),(models[1],'ja')]:
+            for _ in range(2):
+                r=client.post('/api/respond',json=request(reply_model=model,language=language,sentence_plan=True))
+                assert r.status_code==200
+        assert len(client.app.state.sessions.entries)==3
+        assert all(len(e.history)==4 for e in client.app.state.sessions.entries.values())
+        assert client.post('/api/respond',json=request(session_id='test-session-other')).status_code==200
+        assert client.delete('/api/sessions/test-session').status_code==200
+        assert list(client.app.state.sessions.entries)==['test-session-other']
+
+@pytest.mark.parametrize('textplan',[
+    {'sentences':['x']*7,'language':'en'},
+    {'sentences':['x'*401],'language':'en'},
+    {'sentences':[' '],'language':'en'},
+    {'sentences':['Hello.'],'language':'ja'},
+    {'sentences':['One. Two. Three. Four. Five. Six. Seven.'],'language':'en'},
+])
+def test_separate_text_stage_validates_before_requesting_motion(textplan):
+    captured=[]
+    def handler(req):
+        captured.append(req)
+        assert len(captured)==1
+        return envelope(json.dumps(textplan))
+    with live_client(handler) as client:
+        assert client.post('/api/respond',json=request(reply_model='gpt-4.1-2025-04-14',sentence_plan=True)).status_code==502
+        assert len(captured)==1
