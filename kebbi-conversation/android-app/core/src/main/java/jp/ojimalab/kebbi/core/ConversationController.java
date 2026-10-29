@@ -186,7 +186,7 @@ public final class ConversationController implements RobotAdapter.Events {
     publish();
     deadline(25000, State.PROCESSING);
     long current = token;
-    List<String> labels = new ArrayList<>(motionEnabled ? registry.availableGestures(available, scheduler.now())
+    List<String> labels = new ArrayList<>(motionEnabled ? registry.availableGestures(available, scheduler.now(), gestureProfile.equals("expanded"))
         : Collections.singletonList("none"));
     if (gestureProfile.equals("basic")) labels.removeIf(g -> !Gesture.basic(Gesture.safe(g)));
     // Use a mutable copy before filtering even when motion is disabled.
@@ -265,7 +265,7 @@ public final class ConversationController implements RobotAdapter.Events {
     Motion selected =
         forced != null
             ? forced
-            : (motionEnabled ? registry.select(category, available, scheduler.now()) : null);
+            : (motionEnabled ? registry.select(category, available, scheduler.now(), gestureProfile.equals("expanded")) : null);
     motion = selected == null ? "" : selected.id;
     ttsDone = speech.isEmpty();
     motionDone = selected == null;

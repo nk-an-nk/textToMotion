@@ -56,11 +56,15 @@ public final class MotionRegistry {
   }
 
   public Motion select(Gesture gesture, Set<String> available, long now) {
+    return select(gesture, available, now, false);
+  }
+
+  public Motion select(Gesture gesture, Set<String> available, long now, boolean expanded) {
     if (gesture == Gesture.none) return null;
     Motion result = null;
     long oldest = Long.MAX_VALUE;
     for (Motion m : map.get(gesture)) {
-      if (!m.enabled || !available.contains(m.id) || !eligible(m, now)) continue;
+      if (!m.enabled || (expanded && m.basicOnly) || !available.contains(m.id) || !eligible(m, now)) continue;
       long last = played.containsKey(m.id) ? played.get(m.id) : Long.MIN_VALUE;
       if (result == null || last < oldest) { result = m; oldest = last; }
     }
@@ -111,9 +115,13 @@ public final class MotionRegistry {
   }
 
   public List<String> availableGestures(Set<String> available, long now) {
+    return availableGestures(available, now, false);
+  }
+
+  public List<String> availableGestures(Set<String> available, long now, boolean expanded) {
     List<String> result = new ArrayList<>();
     for (Gesture g : Gesture.values())
-      if (g == Gesture.none || select(g, available, now) != null) result.add(g.name());
+      if (g == Gesture.none || select(g, available, now, expanded) != null) result.add(g.name());
     return result;
   }
 }

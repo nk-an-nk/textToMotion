@@ -104,11 +104,15 @@ def main():
         tasks=[pool.submit(cached,b) for b in batches]
         for i,f in enumerate(as_completed(tasks),1):
             result=f.result();rows.extend(result['rows']);usage.append(result['usage']);print(f'Classified {i}/{len(batches)} batches',flush=True)
+
+    for row in rows:
+        row['description']=re.sub(r'[\x00-\x1f]',' ',row['description']).strip()[:160]
+        if row['evidence']=='name_only':row['confidence']='low';row['review_required']=True
     rows.sort(key=lambda r:r['id']);assert {r['id'] for r in rows}==set(catalog);mapping={g:[] for g in GESTURES};priority={'high':0,'medium':1,'low':2}
     for row in sorted(rows,key=lambda r:(priority[r['confidence']],r['id'])):
         motion={'id':row['id'],'scene':row['description'],'enabled':True,'showMp4':False,'durationMs':4000,'cooldownMs':5000};mapping[row['category']].append(motion)
         coarse=PROJECTION.get(row['category'],row['category'])
-        if coarse!=row['category']:mapping[coarse].append(dict(motion))
+        if coarse!=row['category']:mapping[coarse].append(dict(motion,basicOnly=True))
     result={'format_version':1,'model':a.model,'prompt_version':VERSION,'source':SOURCE,'catalog_sha256':hashlib.sha256(json.dumps(catalog).encode()).hexdigest(),'sdk_count':len(catalog),'gif_count':visual,'name_only_count':len(catalog)-visual,'preparation_elapsed_ms':round((time.perf_counter()-started)*1000),'usage':{k:sum(v.get(k,0) for v in usage) for k in ['prompt_tokens','completion_tokens','total_tokens']},'mapping':mapping,'motions':rows}
     path=a.output/'motion-mapping.json';temp=path.with_suffix('.tmp');temp.write_text(json.dumps(result,ensure_ascii=False,indent=2));temp.replace(path)
     with (a.output/'motion-classification.csv').open('w',newline='',encoding='utf-8-sig') as out:

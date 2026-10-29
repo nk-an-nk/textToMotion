@@ -467,4 +467,12 @@ public class ConversationTest {
     assertEquals("cancelled", recorded.get(1).get("status"));
     assertFalse(recorded.get(1).containsKey("reply_latency_ms"));
   }
+
+  @Test public void expandedTaxonomyExcludesCoarseProfileAliases() {
+    Motion alias=new Motion("other"); alias.basicOnly=true; registry.assign(Gesture.greet,alias);
+    Set<String> available=new HashSet<>(Arrays.asList("other"));
+    assertNotNull(registry.select(Gesture.greet,available,0,false));
+    assertNull(registry.select(Gesture.greet,available,0,true));
+    assertFalse(registry.availableGestures(available,0,true).contains("greet"));
+  }
 }
