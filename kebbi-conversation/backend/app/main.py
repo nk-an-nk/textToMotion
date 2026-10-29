@@ -47,7 +47,7 @@ def create_app(settings=None, transport=None):
     async def health():
         return {"status": "ok", "provider": settings.provider}
 
-    @app.post("/api/respond", response_model=Reply, dependencies=[Depends(authorized)])
+    @app.post("/api/respond", response_model=Reply, response_model_exclude_none=True, dependencies=[Depends(authorized)])
     async def respond(request: Request, response: Response):
         turn = request.conversation_id or str(uuid4())
         started = time.monotonic()
@@ -55,14 +55,16 @@ def create_app(settings=None, transport=None):
             if settings.log_enabled:
                 log.info(json.dumps({"conversation_id": turn, "event": name,
                                      "elapsed_ms": round((time.monotonic()-started)*1000, 3), **fields}, ensure_ascii=False))
-        event("llm_request_start")
+        event("llm_request_start", selection_mode=request.selection_mode, gesture_profile=request.gesture_profile,
+              provider=settings.provider, model=settings.model, candidates=len(request.available_motions))
         try:
-            async with sessions.conversation(request.session_id) as history:
+            async with sessions.conversation(request.history_key) as history:
                 reply = await app.state.llm.respond(request, list(history))
                 if settings.history_turns:
                     history.extend([{"role": "user", "content": request.text}, {"role": "assistant", "content": reply.speech}])
                     del history[:-2*settings.history_turns]
-            event("llm_response_received", gesture=reply.gesture,
+            event("llm_response_received", gesture=reply.gesture, motion_id=reply.motion_id,
+                  selection_mode=request.selection_mode, gesture_profile=request.gesture_profile,
                   **({"user_text": request.text, "speech": reply.speech} if settings.log_content else {}))
             response.headers["X-Conversation-Id"] = turn
             response.headers["Cache-Control"] = "no-store"
@@ -76,8 +78,12 @@ def create_app(settings=None, transport=None):
 
     @app.delete("/api/sessions/{session_id}", dependencies=[Depends(authorized)])
     async def forget(session_id: str):
-        if not sessions.clear(session_id):
+        keys = [session_id, *(session_id + ":" + mode + ":" + profile
+                for mode in ("category", "direct") for profile in ("basic", "expanded"))]
+        if any(sessions.entries.get(k) and sessions.entries[k].users for k in keys):
             raise HTTPException(409, detail="session_busy")
+        for key in keys:
+            sessions.clear(key)
         return {"status": "cleared"}
     return app
 

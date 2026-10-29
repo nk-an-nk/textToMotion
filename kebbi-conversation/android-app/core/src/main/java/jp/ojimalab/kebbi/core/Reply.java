@@ -3,10 +3,17 @@ package jp.ojimalab.kebbi.core;
 import com.google.gson.*;
 
 public final class Reply {
-  public final String speech, language, timing;
+  public final String speech, language, timing, motionId;
   public final Gesture gesture;
 
   public Reply(String speech, Gesture gesture, String language) {
+    this(speech, gesture, language, null);
+  }
+
+  public Reply(String speech, Gesture gesture, String language, String motionId) {
+    if (motionId != null && (motionId.trim().isEmpty() || motionId.length() > 200))
+      throw new IllegalArgumentException("invalid_motion_id");
+    this.motionId = motionId;
     if (speech == null || speech.trim().isEmpty() || speech.length() > 400)
       throw new IllegalArgumentException("invalid_speech");
     if (!"en".equals(language) && !"ja".equals(language))
@@ -25,9 +32,10 @@ public final class Reply {
     if (!"speech_start".equals(string(o, "timing")))
       throw new IllegalArgumentException("invalid_timing");
     for (String key : o.keySet())
-      if (!java.util.Arrays.asList("speech", "gesture", "language", "timing").contains(key))
+      if (!java.util.Arrays.asList("speech", "gesture", "language", "timing", "motion_id").contains(key))
         throw new IllegalArgumentException("unexpected_field");
-    return new Reply(speech, Gesture.safe(gesture), language);
+    String id = !o.has("motion_id") || o.get("motion_id").isJsonNull() ? null : string(o, "motion_id");
+    return new Reply(speech, Gesture.safe(gesture), language, id);
   }
 
   private static String string(JsonObject o, String key) {

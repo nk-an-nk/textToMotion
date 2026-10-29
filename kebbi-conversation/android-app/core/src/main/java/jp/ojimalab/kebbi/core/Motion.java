@@ -15,6 +15,9 @@ public final class Motion {
     return id != null
         && !id.trim().isEmpty()
         && id.length() <= 200
+        && scene != null && scene.length() <= 200
+        && !scene.matches("(?s).*[\\p{Cntrl}].*")
+        && !id.matches("(?s).*[\\p{Cntrl}].*")
         && durationMs >= 0
         && durationMs <= 60000
         && cooldownMs >= 0

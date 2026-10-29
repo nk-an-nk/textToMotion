@@ -8,7 +8,12 @@ public enum Gesture {
   explain,
   think,
   question,
+  joy, empathy, encourage, apologize, farewell, confused, excited, calm,
   none;
+
+  public static boolean basic(Gesture g) {
+    return g.ordinal() <= question.ordinal() || g == none;
+  }
 
   public static Gesture safe(String label) {
     try {

@@ -2,7 +2,24 @@ from typing import Literal
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-GESTURES = ("greet", "acknowledge", "praise", "surprise", "explain", "think", "question", "none")
+BASIC_GESTURES = ("greet", "acknowledge", "praise", "surprise", "explain", "think", "question", "none")
+GESTURES = (*BASIC_GESTURES[:-1], "joy", "empathy", "encourage", "apologize", "farewell", "confused", "excited", "calm", "none")
+GESTURE_DESCRIPTIONS = dict(zip(GESTURES, (
+    "greeting", "acknowledging/listening", "specific praise", "surprise", "explaining",
+    "thinking", "asking a question", "quiet happiness", "empathy/comfort", "encouragement",
+    "apology", "saying goodbye", "gentle confusion", "excitement", "calming/reassuring", "no motion")))
+
+class MotionCandidate(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    id: str = Field(min_length=1, max_length=200)
+    description: str = Field(min_length=1, max_length=300)
+
+    @field_validator("id", "description")
+    @classmethod
+    def clean_candidate(cls, value):
+        if not value.strip() or any(ord(c) < 32 for c in value):
+            raise ValueError("invalid candidate")
+        return value.strip()
 Language = Literal["en", "ja"]
 
 class Reply(BaseModel):
@@ -11,6 +28,7 @@ class Reply(BaseModel):
     gesture: str = Field(min_length=1, max_length=40)
     language: Language
     timing: Literal["speech_start"]
+    motion_id: str | None = Field(default=None, min_length=1, max_length=200)
 
     @field_validator("speech")
     @classmethod
@@ -31,7 +49,10 @@ class Request(BaseModel):
     conversation_id: str | None = None
     text: str = Field(min_length=1, max_length=1000)
     language: Language = "en"
-    available_gestures: list[str] = Field(default_factory=lambda: list(GESTURES), max_length=8)
+    available_gestures: list[str] = Field(default_factory=lambda: list(GESTURES), max_length=16)
+    selection_mode: Literal["category", "direct"] = "category"
+    gesture_profile: Literal["basic", "expanded"] = "basic"
+    available_motions: list[MotionCandidate] = Field(default_factory=list, max_length=256)
 
     @field_validator("conversation_id")
     @classmethod
@@ -53,3 +74,14 @@ class Request(BaseModel):
         if any(g not in GESTURES for g in value):
             raise ValueError("unknown category")
         return list(dict.fromkeys([*value, "none"]))
+
+    @property
+    def allowed_gestures(self):
+        supported = BASIC_GESTURES if self.gesture_profile == "basic" else GESTURES
+        return [g for g in self.available_gestures if g in supported]
+
+    @property
+    def history_key(self):
+        if self.selection_mode == "category" and self.gesture_profile == "basic":
+            return self.session_id
+        return self.session_id + ":" + self.selection_mode + ":" + self.gesture_profile

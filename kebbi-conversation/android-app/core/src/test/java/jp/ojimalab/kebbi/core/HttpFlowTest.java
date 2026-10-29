@@ -12,6 +12,11 @@ import org.junit.*;
 public class HttpFlowTest {
   @Test
   public void actualBackendConversationCompletes() throws Exception {
+    for (String[] condition : Arrays.asList(new String[]{"category", "basic"}, new String[]{"category", "expanded"}, new String[]{"direct", "basic"}))
+      complete(condition[0], condition[1]);
+  }
+
+  private void complete(String mode, String profile) throws Exception {
     String url = System.getenv("KEBBI_TEST_BACKEND");
     Assume.assumeTrue("Run scripts/verify.sh for HTTP integration", url != null);
     ScheduledExecutorService ui = Executors.newSingleThreadScheduledExecutor();
@@ -52,6 +57,7 @@ public class HttpFlowTest {
                         },
                         registry);
                 app.set(controller);
+                controller.experiment(mode, profile);
                 controller.connect();
                 ui.execute(() -> controller.submit("Hello, Kebbi!"));
               })
@@ -68,7 +74,7 @@ public class HttpFlowTest {
       Snapshot s = latest.get();
       assertEquals(State.IDLE, s.state);
       assertEquals("mock_wave", s.motion);
-      assertEquals(Gesture.greet, s.gesture);
+      assertEquals(mode.equals("direct") ? Gesture.none : Gesture.greet, s.gesture);
       assertEquals("Hello! Nice to meet you!", s.speech);
       assertTrue(s.ttsDone && s.motionDone);
       assertTrue(

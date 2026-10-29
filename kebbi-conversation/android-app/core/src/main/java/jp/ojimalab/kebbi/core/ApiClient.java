@@ -68,6 +68,12 @@ public final class ApiClient implements RuntimePorts.Backend, AutoCloseable {
       String language,
       List<String> gestures,
       Result result) {
+    return respond(session, turn, text, language,
+        new SelectionOptions("category", "basic", gestures, Collections.emptyList()), result);
+  }
+
+  public RuntimePorts.Cancel respond(String session, String turn, String text, String language,
+      SelectionOptions options, Result result) {
     AtomicBoolean canceled = new AtomicBoolean();
     AtomicReference<HttpURLConnection> c = new AtomicReference<>();
     Future<?> future =
@@ -79,7 +85,10 @@ public final class ApiClient implements RuntimePorts.Backend, AutoCloseable {
                 body.addProperty("conversation_id", turn);
                 body.addProperty("text", text);
                 body.addProperty("language", language);
-                body.add("available_gestures", new Gson().toJsonTree(gestures));
+                body.add("available_gestures", new Gson().toJsonTree(options.gestures));
+                body.addProperty("selection_mode", options.mode);
+                body.addProperty("gesture_profile", options.profile);
+                body.add("available_motions", new Gson().toJsonTree(options.motions));
                 Reply reply = Reply.parse(exchange("/api/respond", "POST", body.toString(), c));
                 if (!closed && !canceled.get()) result.success(reply);
               } catch (Exception error) {

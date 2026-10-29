@@ -62,7 +62,7 @@ def test_live_contract_history_and_unknown_label(caplog):
             r=client.post('/api/respond',json=request())
             assert r.status_code==200 and r.json()['gesture']=='none'
     assert captured[0]['model']=='test-model'
-    assert captured[0]['store'] is False and captured[0]['response_format']=={'type':'json_object'}
+    assert captured[0]['store'] is False and captured[0]['response_format']['json_schema']['strict'] is True
     assert len(captured[1]['messages'])==4
     assert 'private-secret' not in caplog.text
 
@@ -119,3 +119,56 @@ def test_disabled_history():
     with TestClient(app) as client:
         client.post('/api/respond',json=request())
         assert app.state.sessions.entries['test-session'].history==[]
+
+
+def test_direct_schema_and_candidate_description():
+    captured=[]
+    def handler(req):
+        captured.append(json.loads(req.content))
+        return envelope(json.dumps({'speech':'Yes, I agree.','gesture':'none','language':'en','timing':'speech_start','motion_id':'666_BA_Nodhead'}))
+    with live_client(handler) as client:
+        r=client.post('/api/respond',json=request(selection_mode='direct',available_motions=[{'id':'666_BA_Nodhead','description':'acknowledge: nod head for agreement'}]))
+        assert r.status_code==200 and r.json()['motion_id']=='666_BA_Nodhead'
+    schema=captured[0]['response_format']['json_schema']['schema']
+    assert schema['properties']['motion_id']['enum']==[None,'666_BA_Nodhead']
+    assert schema['properties']['gesture']['enum']==['none']
+    assert 'nod head for agreement' in captured[0]['messages'][0]['content']
+
+@pytest.mark.parametrize('mode,profile,gesture,motion,expected_gesture,expected_motion',[
+    ('direct','basic','praise','invented','none',None),
+    ('direct','basic','greet',None,'none',None),
+    ('category','basic','empathy','666_BA_Nodhead','none',None),
+    ('category','expanded','empathy','666_BA_Nodhead','empathy',None),
+])
+def test_modes_enforce_their_contract(mode,profile,gesture,motion,expected_gesture,expected_motion):
+    def handler(req):
+        return envelope(json.dumps({'speech':'I hear you.','gesture':gesture,'language':'en','timing':'speech_start','motion_id':motion}))
+    with live_client(handler) as client:
+        r=client.post('/api/respond',json=request(selection_mode=mode,gesture_profile=profile))
+        assert r.status_code==200
+        assert r.json()['gesture']==expected_gesture and r.json().get('motion_id')==expected_motion
+
+@pytest.mark.parametrize('data',[
+    request(selection_mode='execute'),request(gesture_profile='unknown'),
+    request(available_motions=[{'id':'x','description':''}]),
+    request(available_motions=[{'id':'x','description':'a'*301}]),
+    request(available_motions=[{'id':'x','description':'ok'}]*257),
+])
+def test_invalid_experiment_settings(data):
+    with TestClient(create_app()) as client:
+        assert client.post('/api/respond',json=data).status_code==422
+
+
+def test_experiment_histories_are_isolated_and_all_forgotten():
+    with TestClient(create_app()) as client:
+        for mode,profile in [('category','basic'),('category','expanded'),('direct','basic')]:
+            assert client.post('/api/respond',json=request(selection_mode=mode,gesture_profile=profile)).status_code==200
+        assert len(client.app.state.sessions.entries)==3
+        assert all(len(e.history)==2 for e in client.app.state.sessions.entries.values())
+        assert client.delete('/api/sessions/test-session').status_code==200
+        assert not client.app.state.sessions.entries
+
+
+def test_requested_language_cannot_change_in_reply():
+    with live_client(lambda req:envelope(json.dumps({'speech':'Hi','gesture':'none','language':'ja','timing':'speech_start'}))) as client:
+        assert client.post('/api/respond',json=request(language='en')).status_code==502

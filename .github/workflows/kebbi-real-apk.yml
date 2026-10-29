@@ -6,7 +6,10 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/kebbi-real-apk.yml"
-      - "kebbi-conversation/android-app/app/src/real/**"
+      - "kebbi-conversation/android-app/**"
+      - "kebbi-conversation/backend/**"
+      - "kebbi-conversation/config/**"
+      - "kebbi-conversation/scripts/verify.sh"
 
 permissions:
   contents: read
@@ -27,6 +30,15 @@ jobs:
         run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;34.0.0"'
       - name: Download and verify manufacturer SDK
         run: bash scripts/download-nuwa-sdk.sh
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install backend test dependencies
+        run: python -m pip install -r kebbi-conversation/backend/requirements-dev.txt
+      - name: Verify backend, controller and three HTTP experiment paths
+        env:
+          KEBBI_PYTHON: python
+        run: bash kebbi-conversation/scripts/verify.sh
       - name: Build real debug APK
         working-directory: kebbi-conversation/android-app
         run: bash gradlew --no-daemon :app:assembleRealDebug

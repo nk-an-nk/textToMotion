@@ -66,12 +66,33 @@ public final class MotionRegistry {
     played.put(m.id, now);
   }
 
+  public List<SelectionOptions.Candidate> candidates(Set<String> available, long now) {
+    Map<String, SelectionOptions.Candidate> result = new LinkedHashMap<>();
+    for (Gesture g : Gesture.values()) for (Motion m : map.get(g)) {
+      if (m.enabled && available.contains(m.id) && eligible(m, now) && !result.containsKey(m.id)) {
+        if (result.size() >= 256) break;
+        String description = g.name() + (m.scene.isEmpty() ? "" : ": " + m.scene);
+        result.put(m.id, new SelectionOptions.Candidate(m.id, description));
+      }
+    }
+    return new ArrayList<>(result.values());
+  }
+
+  public Motion selectId(String id, Set<String> available, long now) {
+    if (id == null || !available.contains(id)) return null;
+    for (List<Motion> group : map.values()) for (Motion m : group)
+      if (m.id.equals(id) && m.enabled && eligible(m, now)) return m;
+    return null;
+  }
+
   public List<String> availableGestures(Set<String> available) {
+    return availableGestures(available, Long.MAX_VALUE);
+  }
+
+  public List<String> availableGestures(Set<String> available, long now) {
     List<String> result = new ArrayList<>();
     for (Gesture g : Gesture.values())
-      if (g == Gesture.none
-          || map.get(g).stream().anyMatch(m -> m.enabled && available.contains(m.id)))
-        result.add(g.name());
+      if (g == Gesture.none || select(g, available, now) != null) result.add(g.name());
     return result;
   }
 }

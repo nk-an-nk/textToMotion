@@ -8,9 +8,9 @@ flowchart TD
   Controller --> HTTP[ApiClient / HTTP worker]
   HTTP --> API[FastAPI / bounded sessions]
   API --> LLM[Mock または OpenAI互換LLM]
-  LLM --> Reply[speech / gesture / language / timing]
+  LLM --> Reply[speech / gesture または motion_id / language / timing]
   Reply --> Controller
-  Controller --> Mapping[MotionRegistry]
+  Controller --> Mapping[MotionRegistry: カテゴリ対応表 または ID候補の検証]
   Controller --> TTS[RobotAdapter TTS]
   Mapping --> Motion[RobotAdapter motion]
   TTS --> Done[個別完了フラグ]
@@ -54,3 +54,7 @@ ASR開始/完了、LLM要求/応答、TTS要求/開始通知/完了、モーシ�
 metricsにASR・LLM・ターンの時間、発話/モーション開始遅延、両開始通知の時刻差を記録します。
 開始通知がない場合の数値は省略し、要求時刻からの指標を別フィールドで記録します。
 端末とサーバーの絶対時刻は減算しません。TTS開始要求と実際の音の開始は別の概念です。
+
+## 選択方式
+
+カテゴリ経由（従来7種/拡張15種）と、候補IDをLLMが直接選ぶ方式を要求ごとに選択できます。キーはバックエンドにだけ保持します。条件間の会話履歴は分離し、端末でも条件変更時に新しいセッションを作ります。候補・契約・比較手順は [実験手順](experiments.md) を参照してください。

@@ -30,6 +30,15 @@ public final class ConversationController implements RobotAdapter.Events {
       language = "en";
   private Gesture gesture = Gesture.none;
   private boolean motionEnabled = true;
+  private String selectionMode = "category", gestureProfile = "basic";
+
+  public void experiment(String mode, String profile) {
+    new SelectionOptions(mode, profile, Collections.emptyList(), Collections.emptyList());
+    if (state != State.IDLE) throw new IllegalStateException("turn_active");
+    if (!selectionMode.equals(mode) || !gestureProfile.equals(profile)) newSession();
+    selectionMode = mode;
+    gestureProfile = profile;
+  }
   private final Set<String> available = new TreeSet<>();
   private final Map<String, Long> times = new LinkedHashMap<>();
   private Cancel timer = () -> {}, request = () -> {};
@@ -94,6 +103,8 @@ public final class ConversationController implements RobotAdapter.Events {
     times.putIfAbsent(name, now);
     Map<String, Object> fields = new LinkedHashMap<>();
     fields.put("elapsed_ms", now - turnStart);
+    fields.put("selection_mode", selectionMode);
+    fields.put("gesture_profile", gestureProfile);
     log.event(turn, name, fields);
   }
 
@@ -171,6 +182,12 @@ public final class ConversationController implements RobotAdapter.Events {
     publish();
     deadline(25000, State.PROCESSING);
     long current = token;
+    List<String> labels = new ArrayList<>(motionEnabled ? registry.availableGestures(available, scheduler.now())
+        : Collections.singletonList("none"));
+    if (gestureProfile.equals("basic")) labels.removeIf(g -> !Gesture.basic(Gesture.safe(g)));
+    // Use a mutable copy before filtering even when motion is disabled.
+    SelectionOptions options = new SelectionOptions(selectionMode, gestureProfile, labels,
+        motionEnabled ? registry.candidates(available, scheduler.now()) : Collections.emptyList());
     try {
       request =
           backend.respond(
@@ -178,16 +195,28 @@ public final class ConversationController implements RobotAdapter.Events {
               turn,
               text,
               language,
-              motionEnabled
-                  ? registry.availableGestures(available)
-                  : Collections.singletonList("none"),
+              options,
               new Backend.Result() {
                 public void success(Reply reply) {
                   scheduler.execute(
                       () -> {
                         if (current != token || state != State.PROCESSING) return;
                         event("llm_response_received");
-                        output(reply.speech, reply.gesture, reply.language, null);
+                        boolean direct = options.mode.equals("direct");
+                        boolean offered = options.motions.stream().anyMatch(m -> m.id.equals(reply.motionId));
+                        Motion selected = direct && offered && motionEnabled
+                            ? registry.selectId(reply.motionId, available, scheduler.now()) : null;
+                        Gesture category = !direct && options.gestures.contains(reply.gesture.name())
+                            ? reply.gesture : Gesture.none;
+                        Map<String, Object> selection = new LinkedHashMap<>();
+                        selection.put("selection_mode", options.mode);
+                        selection.put("gesture_profile", options.profile);
+                        selection.put("gesture", category.name());
+                        selection.put("requested_motion_id", reply.motionId);
+                        selection.put("candidate_count", options.motions.size());
+                        selection.put("fallback", direct && reply.motionId != null && selected == null);
+                        log.event(turn, "llm_selection", selection);
+                        output(reply.speech, category, reply.language, selected);
                       });
                 }
 
@@ -368,6 +397,10 @@ public final class ConversationController implements RobotAdapter.Events {
     timer.cancel();
     event("turn_complete");
     Map<String, Object> values = new LinkedHashMap<>();
+    values.put("selection_mode", selectionMode);
+    values.put("gesture_profile", gestureProfile);
+    values.put("gesture", gesture.name());
+    values.put("motion_id", motion);
     values.put("turn_ms", scheduler.now() - turnStart);
     metric(values, "asr_ms", "asr_start", "asr_complete");
     metric(values, "llm_ms", "llm_request_start", "llm_response_received");

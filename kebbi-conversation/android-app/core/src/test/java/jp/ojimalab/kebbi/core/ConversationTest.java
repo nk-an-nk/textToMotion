@@ -96,11 +96,17 @@ public class ConversationTest {
     Result result;
     boolean canceled;
     List<String> gestures;
+    SelectionOptions options;
 
     public Cancel respond(String s, String t, String text, String l, List<String> g, Result r) {
       result = r;
       gestures = g;
       return () -> canceled = true;
+    }
+
+    public Cancel respond(String s, String t, String text, String l, SelectionOptions o, Result r) {
+      options = o;
+      return respond(s, t, text, l, o.gestures, r);
     }
 
     public void forget(String s) {}
@@ -346,5 +352,73 @@ public class ConversationTest {
         events.contains("tts_start_notification")
             && events.contains("motion_start_notification")
             && events.contains("metrics"));
+  }
+
+  @Test public void directSelectsOnlyOfferedRegisteredId() {
+    c.experiment("direct", "basic");
+    c.submit("Hello");
+    assertEquals("direct", server.options.mode);
+    assertEquals("mock_wave", server.options.motions.get(0).id);
+    server.result.success(new Reply("Hi!", Gesture.none, "en", "mock_wave"));
+    assertEquals(1, robot.play);
+    assertEquals("mock_wave", snapshot.motion);
+  }
+
+  @Test public void directDoesNotFallBackToCategoryForInventedId() {
+    c.experiment("direct", "basic");
+    c.submit("Hello");
+    server.result.success(new Reply("Hi!", Gesture.greet, "en", "invented"));
+    assertEquals(0, robot.play);
+    assertEquals(1, robot.speak);
+  }
+
+  @Test public void directRevalidatesAvailabilityAfterNetworkResponse() {
+    c.experiment("direct", "basic");
+    c.submit("Hello");
+    robot.e.motions(Collections.emptyList());
+    server.result.success(new Reply("Hi!", Gesture.none, "en", "mock_wave"));
+    assertEquals(0, robot.play);
+  }
+
+  @Test public void directCannotPlayNewlyRegisteredButUnofferedId() {
+    c.experiment("direct", "basic");
+    c.submit("Hello");
+    registry.assign(Gesture.greet, new Motion("other"));
+    robot.e.motions(Arrays.asList("mock_wave", "other"));
+    server.result.success(new Reply("Hi!", Gesture.none, "en", "other"));
+    assertEquals(0, robot.play);
+  }
+
+  @Test public void candidatesRespectDisableAndCooldownAcrossModes() {
+    Motion m = registry.entries(Gesture.greet).get(0);
+    registry.started(m, 0);
+    assertTrue(registry.candidates(c.motions(), 1000).isEmpty());
+    assertEquals(1, registry.candidates(c.motions(), 5000).size());
+    m.enabled = false;
+    assertTrue(registry.candidates(c.motions(), 5000).isEmpty());
+    assertNull(registry.selectId(m.id, c.motions(), 5000));
+  }
+
+  @Test public void expandedProfileOffersMoreCategoriesAndDisabledMotionOffersNone() {
+    registry.assign(Gesture.empathy, new Motion("mock_wave"));
+    c.submit("sad");
+    assertFalse(server.options.gestures.contains("empathy"));
+    c.stop();
+    c.experiment("category", "expanded");
+    c.submit("sad");
+    assertTrue(server.options.gestures.contains("empathy"));
+    c.stop();
+    c.settings("en", false);
+    c.submit("Hello");
+    assertEquals(Collections.singletonList("none"), server.options.gestures);
+    assertTrue(server.options.motions.isEmpty());
+  }
+
+  @Test public void categoryIgnoresDirectMotionFieldAndReplyParserAcceptsNull() {
+    c.submit("Hello");
+    server.result.success(new Reply("Hi!", Gesture.none, "en", "mock_wave"));
+    assertEquals(0, robot.play);
+    Reply r = Reply.parse("{\"speech\":\"Hi\",\"gesture\":\"none\",\"language\":\"en\",\"timing\":\"speech_start\",\"motion_id\":null}");
+    assertNull(r.motionId);
   }
 }

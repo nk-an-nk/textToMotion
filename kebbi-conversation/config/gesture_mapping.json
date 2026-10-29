@@ -1,4 +1,18 @@
 {
-  "greet": [], "acknowledge": [], "praise": [], "surprise": [],
-  "explain": [], "think": [], "question": [], "none": []
+  "greet": [],
+  "acknowledge": [],
+  "praise": [],
+  "surprise": [],
+  "explain": [],
+  "think": [],
+  "question": [],
+  "none": [],
+  "joy": [],
+  "empathy": [],
+  "encourage": [],
+  "apologize": [],
+  "farewell": [],
+  "confused": [],
+  "excited": [],
+  "calm": []
 }

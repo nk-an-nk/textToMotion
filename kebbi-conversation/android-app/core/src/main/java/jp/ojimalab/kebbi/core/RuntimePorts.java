@@ -36,6 +36,11 @@ public final class RuntimePorts {
         List<String> gestures,
         Result result);
 
+    default Cancel respond(String session, String turn, String text, String language,
+        SelectionOptions options, Result result) {
+      return respond(session, turn, text, language, options.gestures, result);
+    }
+
     void forget(String session);
   }
 

@@ -27,7 +27,7 @@ public final class MainActivity extends Activity {
   private LinearLayout root;
   private TextView sdkStatus, backendStatus, stateStatus, userText, replyText, selection, errorText;
   private EditText input;
-  private Spinner testGesture;
+  private Spinner testGesture, experiment;
   private Button listen, asrOnly, send, tts, combined, motionButton;
   private long engine;
   private boolean active;
@@ -114,6 +114,8 @@ public final class MainActivity extends Activity {
             },
             registry);
     controller.settings(prefs.getString("language", "en"), prefs.getBoolean("motion", true));
+    int condition = prefs.getInt("experiment", 0);
+    controller.experiment(condition == 2 ? "direct" : "category", condition == 1 ? "expanded" : "basic");
     controller.connect();
     health();
   }
@@ -185,6 +187,25 @@ public final class MainActivity extends Activity {
     stateStatus = label(root, "状態: IDLE", 18);
     errorText = label(root, "", 15);
     errorText.setTextColor(0xffa02020);
+    label(root, "実験条件（切替時に会話履歴をリセット）", 16);
+    experiment = spinner(root, Arrays.asList("② カテゴリ経由・従来7種", "② カテゴリ経由・拡張15種", "① 動作IDをLLMが直接選択"));
+    experiment.setSelection(prefs.getInt("experiment", 0));
+    experiment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      public void onNothingSelected(AdapterView<?> p) {}
+      public void onItemSelected(AdapterView<?> p, android.view.View v, int position, long id) {
+        if (position == prefs.getInt("experiment", 0)) return;
+        prefs.edit().putInt("experiment", position).apply();
+        if (controller != null) controller.experiment(position == 2 ? "direct" : "category", position == 1 ? "expanded" : "basic");
+      }
+    });
+    button(root, "LLMに渡す動作候補を確認", () -> {
+      if (controller == null) return;
+      List<SelectionOptions.Candidate> candidates = registry.candidates(controller.motions(), scheduler.now());
+      StringBuilder text = new StringBuilder("現在の候補: " + candidates.size() + "件\n登録・有効化済みでクールダウン中でない動作（最大256件）\n");
+      for (SelectionOptions.Candidate m : candidates) text.append("\n").append(m.id).append("\n").append(m.description).append("\n");
+      TextView body = label(panel(), text.toString(), 16);
+      new AlertDialog.Builder(this).setTitle("LLMの直接選択候補").setView(scroll((LinearLayout)body.getParent())).setPositiveButton("閉じる", null).show();
+    });
     listen = button(root, "音声認識 → 会話", () -> startAsr(false));
     listen.setId(1001);
     button(
@@ -210,18 +231,9 @@ public final class MainActivity extends Activity {
     selection = label(root, "ジェスチャー: none / モーション: なし", 16);
     selection.setId(1006);
     label(root, "機能別テスト", 20);
-    testGesture =
-        spinner(
-            root,
-            Arrays.asList(
-                "greet",
-                "acknowledge",
-                "praise",
-                "surprise",
-                "explain",
-                "think",
-                "question",
-                "none"));
+    List<String> labels = new ArrayList<>();
+    for (Gesture g : Gesture.values()) labels.add(g.name());
+    testGesture = spinner(root, labels);
     tts = button(root, "TTSのみ", () -> test(false));
     combined = button(root, "TTS + ジェスチャー", () -> test(true));
     asrOnly = button(root, "ASRのみ", () -> startAsr(true));
@@ -281,6 +293,7 @@ public final class MainActivity extends Activity {
     selection.setText(
         "ジェスチャー: " + s.gesture + " / モーション: " + (s.motion.isEmpty() ? "なし" : s.motion));
     errorText.setText(s.message);
+    experiment.setEnabled(s.state == State.IDLE);
     boolean idle = s.connected && s.state == State.IDLE;
     for (Button b : Arrays.asList(listen, asrOnly, send, tts, combined, motionButton))
       b.setEnabled(idle);
@@ -411,7 +424,7 @@ public final class MainActivity extends Activity {
   private void showMotions() {
     if (controller == null) return;
     LinearLayout p = panel();
-    label(p, "一覧は接続先のSDK / モックから取得しています。", 15);
+    label(p, "一覧は接続先のSDK / モックから取得しています。有効な割り当てを直接選択方式の候補にも使います。", 15);
     lastNames = new ArrayList<>(controller.motions());
     Spinner ids = new Spinner(this);
     adminNames =
@@ -425,7 +438,7 @@ public final class MainActivity extends Activity {
     CheckBox enabled = check(p, "この割り当てを有効化", true), mp4 = check(p, "モーションのMP4表示", false);
     EditText duration = edit(p, "動作時間 ms（参考メタデータ）", "4000"),
         cooldown = edit(p, "クールダウン ms", "5000"),
-        scene = edit(p, "推奨する場面", "");
+        scene = edit(p, "動作の説明・推奨場面（LLMに渡す、200字以内）", "");
     duration.setInputType(InputType.TYPE_CLASS_NUMBER);
     cooldown.setInputType(InputType.TYPE_CLASS_NUMBER);
     TextView summary = label(p, "", 13);
