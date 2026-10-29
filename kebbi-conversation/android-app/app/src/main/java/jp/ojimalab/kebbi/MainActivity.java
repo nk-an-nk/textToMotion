@@ -202,7 +202,7 @@ public final class MainActivity extends Activity {
     errorText = label(root, "", 15);
     errorText.setTextColor(0xffa02020);
     label(root, "実験条件（切替時に会話履歴をリセット）", 16);
-    experiment = spinner(root, Arrays.asList("② カテゴリ経由・従来7種", "② カテゴリ経由・拡張15種", "① 動作IDをLLMが直接選択"));
+    experiment = spinner(root, Arrays.asList("② カテゴリ経由・従来7種", "② カテゴリ経由・拡張25種", "① 動作IDをLLMが直接選択"));
     experiment.setSelection(prefs.getInt("experiment", 0));
     experiment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       public void onNothingSelected(AdapterView<?> p) {}

@@ -9,6 +9,7 @@ public enum Gesture {
   think,
   question,
   joy, empathy, encourage, apologize, farewell, confused, excited, calm,
+  sadness, anger, fear, disgust, affection, animal, dance, exercise, daily_action, movement,
   none;
 
   public static boolean basic(Gesture g) {

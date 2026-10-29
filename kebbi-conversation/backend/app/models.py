@@ -3,11 +3,11 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 BASIC_GESTURES = ("greet", "acknowledge", "praise", "surprise", "explain", "think", "question", "none")
-GESTURES = (*BASIC_GESTURES[:-1], "joy", "empathy", "encourage", "apologize", "farewell", "confused", "excited", "calm", "none")
+GESTURES = (*BASIC_GESTURES[:-1], "joy", "empathy", "encourage", "apologize", "farewell", "confused", "excited", "calm", "sadness", "anger", "fear", "disgust", "affection", "animal", "dance", "exercise", "daily_action", "movement", "none")
 GESTURE_DESCRIPTIONS = dict(zip(GESTURES, (
     "greeting", "acknowledging/listening", "specific praise", "surprise", "explaining",
     "thinking", "asking a question", "quiet happiness", "empathy/comfort", "encouragement",
-    "apology", "saying goodbye", "gentle confusion", "excitement", "calming/reassuring", "no motion")))
+    "apology", "saying goodbye", "gentle confusion", "excitement", "calming/reassuring", "expressing sadness", "expressing anger", "fear or being scared", "disgust", "affection or a hug", "imitating an animal", "dancing or playing music", "sports or exercise", "acting out an everyday action", "looking, pointing or moving directionally", "no motion")))
 
 class MotionCandidate(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
@@ -49,7 +49,7 @@ class Request(BaseModel):
     conversation_id: str | None = None
     text: str = Field(min_length=1, max_length=1000)
     language: Language = "en"
-    available_gestures: list[str] = Field(default_factory=lambda: list(GESTURES), max_length=16)
+    available_gestures: list[str] = Field(default_factory=lambda: list(GESTURES), max_length=26)
     selection_mode: Literal["category", "direct"] = "category"
     gesture_profile: Literal["basic", "expanded"] = "basic"
     available_motions: list[MotionCandidate] = Field(default_factory=list, max_length=4096)
