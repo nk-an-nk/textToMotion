@@ -78,7 +78,7 @@ def create_app(settings=None, transport=None):
                     history.extend([{"role": "user", "content": request.text}, {"role": "assistant", "content": reply.speech}])
                     del history[:-2*settings.history_turns]
             event("llm_response_received", gesture=reply.gesture, motion_id=reply.motion_id,
-                  selection_mode=request.selection_mode, gesture_profile=request.gesture_profile,
+                  selection_mode=request.selection_mode, gesture_profile=request.gesture_profile, sentence_count=len(reply.sentences or []),
                   **({"user_text": request.text, "speech": reply.speech} if settings.log_content else {}))
             response.headers["X-Conversation-Id"] = turn
             response.headers["Cache-Control"] = "no-store"

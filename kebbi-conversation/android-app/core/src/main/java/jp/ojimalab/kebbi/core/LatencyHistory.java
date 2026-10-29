@@ -14,6 +14,8 @@ public final class LatencyHistory {
   public static final class Entry {
     public String turnId, mode, profile, input, language, status, errorCode, motionId;
     public long recordedAt;
+    public int sentenceCount;
+    public List<String> motionIds = new ArrayList<>();
     public Map<String, Long> timings = new LinkedHashMap<>();
   }
 
@@ -29,6 +31,12 @@ public final class LatencyHistory {
     e.status = allowed(fields.get("status"), "completed", "completed", "partial", "error", "cancelled");
     e.errorCode = text(fields.get("error_code"), 80);
     e.motionId = text(fields.get("motion_id"), 200);
+    Object count=fields.get("sentence_count");
+    if (count instanceof Number) e.sentenceCount=Math.max(0,Math.min(6,((Number)count).intValue()));
+    Object ids=fields.get("motion_ids");
+    if (ids instanceof List<?>) for (Object id : (List<?>)ids) {
+      String safe=text(id,200); if (!safe.isEmpty() && e.motionIds.size()<6) e.motionIds.add(safe);
+    }
     for (String key : KEYS) {
       Object value = fields.get(key);
       if (!(value instanceof Number)) continue;
@@ -66,6 +74,7 @@ public final class LatencyHistory {
         fields.put("selection_mode", e.mode); fields.put("gesture_profile", e.profile);
         fields.put("input_mode", e.input); fields.put("language", e.language); fields.put("status", e.status);
         fields.put("error_code", e.errorCode); fields.put("motion_id", e.motionId);
+        fields.put("sentence_count", e.sentenceCount); fields.put("motion_ids", e.motionIds);
         history.record(e.turnId, fields, e.recordedAt);
       } catch (RuntimeException ignored) { /* Recover other valid records. */ }
     }
@@ -73,7 +82,7 @@ public final class LatencyHistory {
   }
 
   private static String seconds(Long n) { return n == null ? "—" : String.format(Locale.JAPAN, "%.3f秒", n/1000.0); }
-  private static String condition(Entry e) { return e.mode.equals("direct") ? "① ID直接" : "② カテゴリ" + (e.profile.equals("expanded") ? "15種" : "7種"); }
+  private static String condition(Entry e) { return e.mode.equals("direct") ? "① ID直接" : "② カテゴリ" + (e.profile.equals("expanded") ? "25種" : "7種"); }
   private static String input(Entry e) { return (e.input.equals("conversation_voice") ? "音声会話" : e.input.equals("conversation_text") ? "テキスト会話" : e.input) + "・" + ("ja".equals(e.language) ? "日本語" : "en".equals(e.language) ? "英語" : "言語未記録"); }
   private static String time(Entry e) { return new SimpleDateFormat("MM/dd HH:mm:ss", Locale.JAPAN).format(new Date(e.recordedAt)); }
   private static String values(Entry e) {
@@ -87,7 +96,7 @@ public final class LatencyHistory {
   public String latestText() {
     Entry e = latest();
     return e == null ? "返答速度: まだ記録がありません" : "最新の返答速度（" + condition(e) + "・" + input(e) + "）\n"
-        + values(e) + "\n" + time(e) + " / " + e.status;
+        + values(e) + "\n" + time(e) + " / " + e.status + (e.sentenceCount>0 ? " / " + e.sentenceCount + "文" : "");
   }
 
   /** Averages never mix input paths, failures or non-conversation diagnostics. */
@@ -118,6 +127,7 @@ public final class LatencyHistory {
     List<Entry> reversed = new ArrayList<>(rows.values()); Collections.reverse(reversed);
     for (Entry e : reversed) out.append("\n────────\n").append(time(e)).append(" / ").append(condition(e)).append(" / ").append(input(e)).append(" / ").append(e.status)
         .append("\n").append(values(e)).append("\nID: ").append(e.motionId.isEmpty()?"なし":e.motionId)
+        .append(e.motionIds.isEmpty()?"":"\n文の動作ID: "+String.join(" / ",e.motionIds))
         .append(e.errorCode.isEmpty()?"":"\n"+e.errorCode);
     return out.toString();
   }
@@ -129,12 +139,12 @@ public final class LatencyHistory {
   }
 
   public String csv() {
-    StringBuilder out = new StringBuilder("recorded_at_epoch_ms,conversation_id,selection_mode,gesture_profile,input_mode,language,status,error_code,motion_id");
+    StringBuilder out = new StringBuilder("recorded_at_epoch_ms,conversation_id,selection_mode,gesture_profile,input_mode,language,status,error_code,motion_id,sentence_count,motion_ids");
     for (String key : KEYS) out.append(',').append(key);
     out.append("\r\n");
     for (Entry e : rows.values()) {
       out.append(e.recordedAt);
-      for (String s : Arrays.asList(e.turnId,e.mode,e.profile,e.input,e.language,e.status,e.errorCode,e.motionId)) out.append(',').append(csvCell(s));
+      for (String s : Arrays.asList(e.turnId,e.mode,e.profile,e.input,e.language,e.status,e.errorCode,e.motionId,Integer.toString(e.sentenceCount),String.join("|",e.motionIds))) out.append(',').append(csvCell(s));
       for (String key : KEYS) out.append(',').append(e.timings.containsKey(key)?e.timings.get(key):"");
       out.append("\r\n");
     }

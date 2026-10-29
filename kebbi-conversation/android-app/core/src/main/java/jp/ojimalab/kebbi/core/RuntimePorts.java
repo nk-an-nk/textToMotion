@@ -61,5 +61,8 @@ public final class RuntimePorts {
     public boolean connected, ttsDone, motionDone;
     public String text, speech, motion, message, turnId;
     public Gesture gesture;
+    public boolean continuous;
+    public int sentenceIndex, sentenceCount;
+    public String currentSentence;
   }
 }

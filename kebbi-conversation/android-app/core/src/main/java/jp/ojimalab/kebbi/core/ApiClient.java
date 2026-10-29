@@ -85,6 +85,7 @@ public final class ApiClient implements RuntimePorts.Backend, AutoCloseable {
                 body.addProperty("conversation_id", turn);
                 body.addProperty("text", text);
                 body.addProperty("language", language);
+                body.addProperty("sentence_plan", true);
                 body.add("available_gestures", new Gson().toJsonTree(options.gestures));
                 body.addProperty("selection_mode", options.mode);
                 body.addProperty("gesture_profile", options.profile);

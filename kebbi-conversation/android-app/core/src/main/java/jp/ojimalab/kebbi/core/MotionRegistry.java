@@ -60,11 +60,15 @@ public final class MotionRegistry {
   }
 
   public Motion select(Gesture gesture, Set<String> available, long now, boolean expanded) {
+    return selectForSentence(gesture,available,now,expanded,Collections.emptyList());
+  }
+
+  public Motion selectForSentence(Gesture gesture, Set<String> available, long now, boolean expanded, Collection<String> playedThisReply) {
     if (gesture == Gesture.none) return null;
     Motion result = null;
     long oldest = Long.MAX_VALUE;
     for (Motion m : map.get(gesture)) {
-      if (!m.enabled || (expanded && m.basicOnly) || !available.contains(m.id) || !eligible(m, now)) continue;
+      if (!m.enabled || (expanded && m.basicOnly) || !available.contains(m.id) || (!eligible(m, now) && !playedThisReply.contains(m.id))) continue;
       long last = played.containsKey(m.id) ? played.get(m.id) : Long.MIN_VALUE;
       if (result == null || last < oldest) { result = m; oldest = last; }
     }

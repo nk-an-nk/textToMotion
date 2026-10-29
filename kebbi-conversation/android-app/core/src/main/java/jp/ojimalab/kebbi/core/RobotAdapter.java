@@ -36,6 +36,9 @@ public interface RobotAdapter {
   /** Retire callback source before accepting a different real-device turn. */
   void finishTurn();
 
+  /** Stop the sentence action and retire callbacks before a different sentence. */
+  default void finishSentence() { stopAll(); }
+
   void close();
 
   default void configureMock(String input, String fault) {}

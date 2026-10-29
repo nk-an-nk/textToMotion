@@ -1,10 +1,12 @@
 import asyncio
 import json
 import httpx
-from .models import Reply, GESTURE_DESCRIPTIONS
+from .models import Reply, Sentence, SentencePlan, split_sentences, GESTURE_DESCRIPTIONS
 
 SYSTEM = """You are Kebbi, a kind, natural conversation partner for children learning English or Japanese.
-Use short, age-appropriate sentences. Respect the child. Ask a simple follow-up when useful.
+Use short, age-appropriate sentences. Respect the child. Continue the recent conversation naturally.
+Usually ask one short relevant follow-up question unless the child is ending the conversation.
+Do not repeat greetings or restart the conversation when history is present.
 Do not overpraise. Do not request names, addresses, contact details or secrets.
 Return ONLY a JSON object: speech (1-400 characters), gesture, language (en or ja),
 timing (speech_start), motion_id (a supplied ID or null). Never output motor commands.
@@ -35,7 +37,29 @@ def selection_contract(request):
     else:
         context["rule"] = "Select gesture from available_gestures based on your reply; motion_id must be null. The app maps the category to an existing motion."
         context["available_gestures"] = {g: GESTURE_DESCRIPTIONS[g] for g in gestures}
-    return SYSTEM + "\n" + json.dumps(context, ensure_ascii=False), schema
+    instructions = SYSTEM
+    if request.sentence_plan:
+        if direct and ids:
+            motion_schema = {"type": "string", "minLength": 1, "maxLength": 200}
+            if len(ids)<=996 and (len(ids)<=250 or sum(map(len,ids))<=15000):motion_schema["enum"]=ids
+        if not direct:
+            gestures=[g for g in gestures if g!="none"] or ["none"]
+        item={"type":"object","additionalProperties":False,
+              "properties":{"speech":{"type":"string","minLength":1,"maxLength":400},
+                            "gesture":{"type":"string","enum":gestures},"motion_id":motion_schema},
+              "required":["speech","gesture","motion_id"]}
+        schema={"type":"object","additionalProperties":False,
+                "properties":{"sentences":{"type":"array","minItems":1,"maxItems":6,"items":item},
+                              "language":{"type":"string","enum":[request.language]},
+                              "timing":{"type":"string","enum":["speech_start"]}},
+                "required":["sentences","language","timing"]}
+        instructions += ("\nFor this request the output contract REPLACES the flat reply: return only sentences, language, timing. "
+            "sentences is an array of 1-6 objects, each with speech, gesture, motion_id. "
+            "Each object MUST contain exactly one complete sentence and exactly one motion selection. "
+            "All spoken text together must be at most 400 characters. Prefer 2-3 short sentences. "
+            "Choose a suitable action for every sentence when candidates exist. "
+            "In direct mode prefer distinct IDs for different sentences. No extra LLM calls will select later actions.")
+    return instructions + "\n" + json.dumps(context, ensure_ascii=False), schema
 
 def constrain_reply(reply, request):
     if reply.language != request.language:
@@ -44,6 +68,21 @@ def constrain_reply(reply, request):
         ids = {m.id for m in request.available_motions}
         return reply.model_copy(update={"gesture": "none", "motion_id": reply.motion_id if reply.motion_id in ids else None})
     return reply.model_copy(update={"gesture": reply.gesture if reply.gesture in request.allowed_gestures else "none", "motion_id": None})
+
+def normalize_plan(plan, request):
+    if plan.language!=request.language:raise LlmError("invalid_llm_response")
+    sentences=[]
+    for item in plan.sentences:
+        checked=constrain_reply(Reply(speech=item.speech,gesture=item.gesture,language=plan.language,
+                                     timing=plan.timing,motion_id=item.motion_id),request)
+        for text in split_sentences(checked.speech):
+            sentences.append(Sentence(speech=text,gesture=checked.gesture,motion_id=checked.motion_id))
+    if not 1<=len(sentences)<=6:raise LlmError("invalid_llm_response")
+    speech=(" " if plan.language=="en" else "").join(s.speech for s in sentences)
+    if len(speech)>400:raise LlmError("invalid_llm_response")
+    first=sentences[0]
+    return Reply(speech=speech,gesture=first.gesture,language=plan.language,timing=plan.timing,
+                 motion_id=first.motion_id,sentences=sentences)
 
 class LlmError(Exception):
     def __init__(self, code):
@@ -86,7 +125,10 @@ class Llm:
                     choice = envelope["choices"][0]
                     if choice.get("finish_reason") != "stop":
                         raise ValueError("Incomplete or refused response")
-                    reply = Reply.model_validate_json(choice["message"]["content"])
+                    raw=choice["message"]["content"]
+                    if request.sentence_plan:
+                        return normalize_plan(SentencePlan.model_validate_json(raw),request)
+                    reply = Reply.model_validate_json(raw)
             except (httpx.TimeoutException, TimeoutError) as error:
                 raise LlmError("llm_timeout") from error
             except httpx.HTTPError as error:
@@ -98,4 +140,14 @@ class Llm:
             candidate = next((m for m in request.available_motions if reply.gesture in m.description.lower()
                               or hints.get(reply.gesture, "__no_match__") in m.id.lower()), None)
             reply = reply.model_copy(update={"motion_id": candidate.id if candidate else None})
-        return constrain_reply(reply, request)
+        reply=constrain_reply(reply, request)
+        if request.sentence_plan:
+            parts=split_sentences(reply.speech)
+            sentences=[]
+            for i,text in enumerate(parts):
+                id=reply.motion_id
+                if request.selection_mode=="direct" and request.available_motions:
+                    id=request.available_motions[i%len(request.available_motions)].id
+                sentences.append(Sentence(speech=text,gesture=reply.gesture,motion_id=id))
+            return normalize_plan(SentencePlan(sentences=sentences,language=request.language,timing="speech_start"),request)
+        return reply

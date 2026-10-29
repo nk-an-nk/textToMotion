@@ -196,3 +196,53 @@ def test_preclassified_mapping_endpoint(tmp_path):
         assert client.get('/api/motion-mapping').json()==body
         path.write_text('invalid')
         assert client.get('/api/motion-mapping').status_code==404
+
+
+def test_sentence_plan_mock_splits_punctuation_and_retains_history():
+    app=create_app()
+    with TestClient(app) as client:
+        r=client.post('/api/respond',json=request(text='Hello',sentence_plan=True))
+        assert r.status_code==200
+        assert [s['speech'] for s in r.json()['sentences']]==['Hello!','Nice to meet you!']
+        assert app.state.sessions.entries['test-session'].history[-1]['content']=='Hello! Nice to meet you!'
+
+
+def test_sentence_plan_schema_and_per_sentence_candidate_validation():
+    captured=[]
+    def handler(req):
+        captured.append(json.loads(req.content))
+        return envelope(json.dumps({'sentences':[
+            {'speech':'こんにちは！元気？','gesture':'none','motion_id':'known'},
+            {'speech':'一緒に遊ぼう。','gesture':'none','motion_id':'invented'}], 'language':'ja','timing':'speech_start'}))
+    with live_client(handler) as client:
+        r=client.post('/api/respond',json=request(text='こんにちは',language='ja',sentence_plan=True,selection_mode='direct',available_motions=[{'id':'known','description':'a greeting'}]))
+        assert r.status_code==200
+        assert [s['speech'] for s in r.json()['sentences']]==['こんにちは！','元気？','一緒に遊ぼう。']
+        assert r.json()['sentences'][-1].get('motion_id') is None
+        schema=captured[0]['response_format']['json_schema']['schema']
+        assert set(schema['properties'])=={'sentences','language','timing'}
+        assert schema['properties']['sentences']['items']['properties']['motion_id']['enum']==['known']
+
+@pytest.mark.parametrize('parts',[[],[{'speech':'x','gesture':'greet','motion_id':None}]*7,[{'speech':'x'*401,'gesture':'greet','motion_id':None}],[{'speech':' ','gesture':'greet','motion_id':None}]])
+def test_invalid_sentence_plans_are_rejected(parts):
+    with live_client(lambda req:envelope(json.dumps({'sentences':parts,'language':'en','timing':'speech_start'}))) as client:
+        assert client.post('/api/respond',json=request(sentence_plan=True)).status_code==502
+
+
+def test_english_decimal_and_japanese_sentence_boundaries():
+    from app.models import split_sentences
+    assert split_sentences('It is 3.14. Do you like it?')==['It is 3.14.','Do you like it?']
+    assert split_sentences('「そうだね！」次は何をする？')==['「そうだね！」','次は何をする？']
+
+
+def test_same_session_keeps_multiturn_context_in_sentence_mode():
+    payloads=[]
+    def handler(req):
+        payloads.append(json.loads(req.content))
+        return envelope(json.dumps({'sentences':[{'speech':'What color is your panda?','gesture':'question','motion_id':None}], 'language':'en','timing':'speech_start'}))
+    with live_client(handler) as client:
+        assert client.post('/api/respond',json=request(sentence_plan=True,text='I like pandas')).status_code==200
+        assert client.post('/api/respond',json=request(sentence_plan=True,text='Black and white')).status_code==200
+    assert payloads[1]['messages'][1:]==[
+        {'role':'user','content':'I like pandas'}, {'role':'assistant','content':'What color is your panda?'},
+        {'role':'user','content':'Black and white'}]

@@ -238,11 +238,11 @@ public final class MainActivity extends Activity {
     });
     mappingStatus = label(root, "② 事前分類表: 確認待ち", 14);
     button(root, "事前分類表を再取得", () -> { mappingFetched = false; loadPreclassifiedMapping(); });
-    listen = button(root, "音声認識 → 会話", () -> startAsr(false));
+    listen = button(root, "会話を開始（返答後も自動で聞き取り）", () -> startAsr(false));
     listen.setId(1001);
     button(
         root,
-        "停止",
+        "会話を終了 / 停止",
         () -> {
           if (controller != null) controller.stop();
         });
@@ -321,7 +321,9 @@ public final class MainActivity extends Activity {
         "SDK: "
             + (s.connected ? "接続済み" : "接続待ち / 再接続が必要")
             + (RobotFactory.REAL ? "" : " (MockRobotAdapter)"));
-    stateStatus.setText("状態: " + s.state + " / TTS完了=" + s.ttsDone + " / Motion完了=" + s.motionDone);
+    stateStatus.setText("状態: " + s.state + " / TTS完了=" + s.ttsDone + " / Motion完了=" + s.motionDone
+        + (s.continuous ? "\n会話継続中（終了 / 停止で聞き取りを終了）" : "")
+        + (s.sentenceCount>0 ? " / 文 " + (s.sentenceIndex+1) + "/" + s.sentenceCount : ""));
     stateStatus.setId(1007);
     userText.setText("認識した発話: " + s.text);
     replyText.setText("Kebbiの応答: " + s.speech);
@@ -335,9 +337,9 @@ public final class MainActivity extends Activity {
       }
       if (!mappingFetched) loadPreclassifiedMapping();
     }
-    experiment.setEnabled(s.state == State.IDLE);
-    conversationLanguage.setEnabled(s.state == State.IDLE);
-    boolean idle = s.connected && s.state == State.IDLE;
+    experiment.setEnabled(s.state == State.IDLE && !s.continuous);
+    conversationLanguage.setEnabled(s.state == State.IDLE && !s.continuous);
+    boolean idle = s.connected && s.state == State.IDLE && !s.continuous;
     for (Button b : Arrays.asList(listen, asrOnly, send, tts, combined, motionButton))
       b.setEnabled(idle);
     if (!s.speech.isEmpty() && !s.turnId.equals(lastContent)) {
@@ -452,7 +454,7 @@ public final class MainActivity extends Activity {
     robot.configureMock(
         input.getText().toString().isEmpty() ? "Hello, Kebbi!" : input.getText().toString(),
         prefs.getString("mock_fault", "none"));
-    controller.listen(only);
+    if (only) controller.listen(true); else controller.startConversation();
   }
 
   private boolean pendingAsrOnly;
@@ -473,7 +475,7 @@ public final class MainActivity extends Activity {
   }
 
   private void settings() {
-    if (controller != null && controller.state() != State.IDLE) controller.stop();
+    if (controller != null) controller.stop();
     LinearLayout p = panel();
     label(p, "接続と言語", 19);
     EditText url = edit(p, "バックエンドURL", prefs.getString("url", "http://10.0.2.2:8000"));

@@ -73,7 +73,9 @@ public class HttpFlowTest {
           completed);
       Snapshot s = latest.get();
       assertEquals(State.IDLE, s.state);
-      assertEquals("mock_wave", s.motion);
+      assertEquals(2, s.sentenceCount);
+      assertEquals(2, Collections.frequency(events,"sentence_complete"));
+      assertEquals(2, Collections.frequency(events,"tts_request"));
       assertEquals(mode.equals("direct") ? Gesture.none : Gesture.greet, s.gesture);
       assertEquals("Hello! Nice to meet you!", s.speech);
       assertTrue(s.ttsDone && s.motionDone);
@@ -84,7 +86,7 @@ public class HttpFlowTest {
                   "tts_request",
                   "motion_request",
                   "tts_complete",
-                  "motion_complete",
+                  "sentence_complete",
                   "metrics")));
     } finally {
       if (app.get() != null) ui.submit(() -> app.get().close()).get(3, TimeUnit.SECONDS);

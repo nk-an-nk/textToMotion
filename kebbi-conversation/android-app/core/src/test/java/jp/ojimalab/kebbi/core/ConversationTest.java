@@ -57,7 +57,7 @@ public class ConversationTest {
   static class Robot implements RobotAdapter {
     Events e;
     long token;
-    int speak, play, stop;
+    int speak, play, stop, listens;
     String listenLanguage, speakLanguage;
 
     public void connect(Events e) {
@@ -67,6 +67,7 @@ public class ConversationTest {
     }
 
     public void listen(long t, String l) {
+      listens++;
       listenLanguage = l;
       token = t;
     }
@@ -100,8 +101,10 @@ public class ConversationTest {
     boolean canceled;
     List<String> gestures;
     SelectionOptions options;
+    List<String> sessions=new ArrayList<>();
 
     public Cancel respond(String s, String t, String text, String l, List<String> g, Result r) {
+      sessions.add(s);
       result = r;
       gestures = g;
       return () -> canceled = true;
@@ -485,5 +488,77 @@ public class ConversationTest {
     robot.e.asr(robot.token, "こんにちは", null);
     server.result.success(new Reply("こんにちは！", Gesture.greet, "ja"));
     assertEquals("ja", robot.speakLanguage);
+  }
+
+  private Reply twoSentencePlan() {
+    return new Reply("Hello. How are you?",Gesture.greet,"en",null,Arrays.asList(
+      new Reply.Sentence("Hello.",Gesture.greet,null),
+      new Reply.Sentence("How are you?",Gesture.question,null)));
+  }
+
+  @Test public void eachSentenceStartsItsOneActionAtTtsStartAndRetiresOldCallbacks() {
+    registry.assign(Gesture.question,new Motion("other"));
+    robot.e.motions(Arrays.asList("mock_wave","other"));
+    c.submit("Hello");server.result.success(twoSentencePlan());
+    long first=robot.token;
+    assertEquals(1,robot.speak);assertEquals(0,robot.play);
+    robot.e.ttsStarted(first);robot.e.ttsStarted(first);
+    assertEquals(1,robot.play);
+    robot.e.ttsDone(first,null);
+    assertEquals(1,robot.stop);assertEquals(1,robot.speak);
+    clock.advance(80);
+    long second=robot.token;assertNotEquals(first,second);
+    assertEquals(2,robot.speak);assertEquals(1,robot.play);
+    robot.e.ttsDone(first,null);robot.e.motionDone(first,"mock_wave",null);
+    assertEquals(State.SPEAKING,c.state());
+    robot.e.ttsStarted(second);assertEquals(2,robot.play);
+    robot.e.ttsDone(second,null);
+    assertEquals(State.IDLE,c.state());assertEquals(2,robot.stop);
+    assertEquals(2,Collections.frequency(events,"sentence_complete"));
+  }
+
+  @Test public void missingTtsStartDoesNotPlayAnActionAfterSpeechEnds() {
+    c.submit("Hello");server.result.success(twoSentencePlan());
+    robot.e.ttsDone(robot.token,null);
+    assertEquals(0,robot.play);
+    clock.advance(80);robot.e.ttsDone(robot.token,null);
+    assertEquals(State.IDLE,c.state());assertEquals(0,robot.play);
+    assertEquals("tts_start_missing_motion_skipped",snapshot.message);
+  }
+
+  @Test public void continuousConversationKeepsSessionAndStopPreventsNextListening() {
+    c.startConversation();assertEquals(State.LISTENING,c.state());
+    robot.e.asr(robot.token,"I like pandas",null);server.reply();
+    robot.e.ttsDone(robot.token,null);robot.e.motionDone(robot.token,"mock_wave",null);
+    assertEquals(State.IDLE,c.state());clock.advance(699);assertEquals(1,robot.listens);
+    clock.advance(1);assertEquals(State.LISTENING,c.state());assertEquals(2,robot.listens);
+    robot.e.asr(robot.token,"Black and white",null);
+    assertEquals(2,server.sessions.size());assertEquals(server.sessions.get(0),server.sessions.get(1));
+    c.stop();clock.advance(60000);
+    assertEquals(State.IDLE,c.state());assertEquals(2,robot.listens);assertFalse(snapshot.continuous);
+  }
+
+  @Test public void noListeningBetweenSentencesAndSilenceRearmsUntilStop() {
+    c.startConversation();robot.e.asr(robot.token,"Hello",null);server.result.success(twoSentencePlan());
+    robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);clock.advance(80);
+    assertEquals(1,robot.listens);assertEquals(State.SPEAKING,c.state());
+    robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);
+    clock.advance(700);assertEquals(2,robot.listens);assertEquals(State.LISTENING,c.state());
+    clock.advance(15000);clock.advance(700);assertEquals(3,robot.listens);
+    c.stop();clock.advance(60000);assertEquals(3,robot.listens);
+  }
+
+  @Test public void stopDuringSentenceReconnectCancelsPendingSecondSentence() {
+    c.submit("Hello");server.result.success(twoSentencePlan());
+    robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);
+    c.stop();robot.e.connected(true);clock.advance(20000);
+    assertEquals(1,robot.speak);assertEquals(State.IDLE,c.state());
+  }
+
+  @Test public void sentenceParserChecksFullReplyAndPerSentenceFields() {
+    String json="{\"speech\":\"Hello. How are you?\",\"gesture\":\"greet\",\"language\":\"en\",\"timing\":\"speech_start\",\"sentences\":[{\"speech\":\"Hello.\",\"gesture\":\"greet\"},{\"speech\":\"How are you?\",\"gesture\":\"question\"}]}";
+    Reply r=Reply.parse(json);assertTrue(r.sentencePlan);assertEquals(2,r.sentences.size());
+    try { Reply.parse(json.replace("Hello. How are you?","Mismatch"));fail(); }
+    catch (IllegalArgumentException expected) {}
   }
 }

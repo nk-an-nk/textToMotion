@@ -23,6 +23,15 @@ public final class ConversationController implements RobotAdapter.Events {
   private long token, turnStart;
   private boolean turnActive;
   private String inputMode = "";
+  private boolean playingPlan, waitingForSentence, continuous, autoPending;
+  private int sentenceIndex=-1, asrErrors;
+  private String currentSentence="";
+  private List<Reply.Sentence> sentences=Collections.emptyList();
+  private SelectionOptions planOptions;
+  private Motion pendingMotion;
+  private final Map<String,Long> sentenceTimes=new LinkedHashMap<>();
+  private final List<String> motionRequests=new ArrayList<>();
+  private Cancel autoTimer=()->{}, sentenceResume=()->{};
   private String session = UUID.randomUUID().toString(),
       turn = "",
       text = "",
@@ -97,16 +106,23 @@ public final class ConversationController implements RobotAdapter.Events {
     s.message = message;
     s.turnId = turn;
     s.gesture = gesture;
+    s.continuous=continuous;
+    s.sentenceIndex=sentenceIndex;
+    s.sentenceCount=sentences.size();
+    s.currentSentence=currentSentence;
     view.render(s);
   }
 
   private void event(String name) {
     long now = scheduler.now();
     times.putIfAbsent(name, now);
+    if (playingPlan) sentenceTimes.putIfAbsent(name, now);
     Map<String, Object> fields = new LinkedHashMap<>();
     fields.put("elapsed_ms", now - turnStart);
     fields.put("selection_mode", selectionMode);
     fields.put("gesture_profile", gestureProfile);
+    if (playingPlan) { fields.put("sentence_index", sentenceIndex+1); fields.put("sentence_count", sentences.size()); }
+    if (!motion.isEmpty()) fields.put("motion_id",motion);
     log.event(turn, name, fields);
   }
 
@@ -129,6 +145,9 @@ public final class ConversationController implements RobotAdapter.Events {
 
   private boolean begin(String kind) {
     if (closed || !ready || state != State.IDLE) return false;
+    autoTimer.cancel();autoPending=false;
+    playingPlan=false;waitingForSentence=false;sentenceIndex=-1;currentSentence="";
+    sentences=Collections.emptyList();pendingMotion=null;motionRequests.clear();
     turnActive = true;
     inputMode = kind;
     token++;
@@ -146,6 +165,20 @@ public final class ConversationController implements RobotAdapter.Events {
     motionStarted = false;
     event("turn_start");
     return true;
+  }
+
+  public void startConversation() {
+    if (closed || !ready || state!=State.IDLE) return;
+    continuous=true;asrErrors=0;listen(false);
+  }
+
+  private void scheduleListening() {
+    if (!continuous || closed || !ready || state!=State.IDLE || autoPending) return;
+    autoPending=true;long captured=token;
+    autoTimer=scheduler.later(700,()->{
+      autoPending=false;
+      if (captured==token && continuous && ready && !closed && state==State.IDLE) listen(false);
+    });
   }
 
   public void listen(boolean only) {
@@ -206,6 +239,7 @@ public final class ConversationController implements RobotAdapter.Events {
                       () -> {
                         if (current != token || state != State.PROCESSING) return;
                         event("llm_response_received");
+                        if (reply.sentencePlan) { startPlan(reply, options); return; }
                         boolean direct = options.mode.equals("direct");
                         boolean offered = options.motions.stream().anyMatch(m -> m.id.equals(reply.motionId));
                         Motion selected = direct && offered && motionEnabled
@@ -283,12 +317,79 @@ public final class ConversationController implements RobotAdapter.Events {
       if (selected != null) {
         registry.started(selected, scheduler.now());
         event("motion_request");
+        motionRequests.add(selected.id);
         robot.play(current, selected);
       }
       if (current == token) completeIfDone();
     } catch (RuntimeException error) {
       fail("robot_command_error");
     }
+  }
+
+  private void startPlan(Reply reply, SelectionOptions options) {
+    sentences=reply.sentences;planOptions=options;playingPlan=true;sentenceIndex=0;
+    speech=reply.speech;startSentence();
+  }
+
+  private void startSentence() {
+    waitingForSentence=false;sentenceResume.cancel();timer.cancel();
+    token++;sentenceTimes.clear();pendingMotion=null;
+    Reply.Sentence item=sentences.get(sentenceIndex);
+    currentSentence=item.speech;
+    gesture=planOptions.mode.equals("category") && planOptions.gestures.contains(item.gesture.name()) ? item.gesture : Gesture.none;
+    if (motionEnabled) {
+      if (planOptions.mode.equals("direct")) {
+        boolean offered=planOptions.motions.stream().anyMatch(m -> m.id.equals(item.motionId));
+        if (offered && available.contains(item.motionId)) {
+          Motion candidate=registry.find(item.motionId);
+          if (candidate.valid() && (registry.eligible(candidate,scheduler.now()) || motionRequests.contains(candidate.id))) pendingMotion=candidate;
+        }
+      } else pendingMotion=registry.selectForSentence(gesture, available, scheduler.now(),gestureProfile.equals("expanded"),motionRequests);
+    }
+    motion=pendingMotion==null ? "" : pendingMotion.id;
+    ttsDone=false;motionDone=pendingMotion==null;ttsStarted=false;motionStarted=false;
+    state=State.SPEAKING;
+    event("sentence_start");publish();deadline(45000,State.SPEAKING);
+    long captured=token;
+    try { event("tts_request");robot.speak(captured,currentSentence,language); }
+    catch (RuntimeException error) { fail("tts_error"); }
+  }
+
+  private void startSentenceMotion() {
+    if (pendingMotion==null || motionDone) return;
+    try {
+      registry.started(pendingMotion,scheduler.now());
+      motionRequests.add(pendingMotion.id);
+      event("motion_request");robot.play(token,pendingMotion);
+    } catch (RuntimeException error) {
+      motionDone=true;message="motion_error";event("motion_error");
+    }
+  }
+
+  private void finishSentence() {
+    timer.cancel();
+    if (!motionDone) event(ttsStarted ? "sentence_motion_cutoff" : "sentence_motion_skipped");
+    motionDone=true;event("sentence_complete");
+    Map<String,Object> row=new LinkedHashMap<>();
+    row.put("sentence_index",sentenceIndex+1);row.put("sentence_count",sentences.size());
+    row.put("motion_id",motion);row.put("gesture",gesture.name());
+    if (sentenceTimes.containsKey("tts_start_notification") && sentenceTimes.containsKey("motion_start_notification"))
+      row.put("start_difference_ms",sentenceTimes.get("motion_start_notification")-sentenceTimes.get("tts_start_notification"));
+    row.put("elapsed_ms",scheduler.now()-turnStart);log.event(turn,"sentence_metrics",row);
+    if (sentenceIndex+1>=sentences.size()) { finish(true);return; }
+    token++;sentenceIndex++;waitingForSentence=true;pendingMotion=null;
+    long captured=token;
+    timer=scheduler.later(10000,()->{ if (captured==token && waitingForSentence) fail("sentence_sdk_timeout"); });
+    try { robot.finishSentence(); }
+    catch (RuntimeException error) { fail("sentence_reset_error");return; }
+    if (ready) scheduleSentence();
+  }
+
+  private void scheduleSentence() {
+    sentenceResume.cancel();long captured=token;
+    sentenceResume=scheduler.later(80,()->{
+      if (captured==token && waitingForSentence && ready && !closed && state==State.SPEAKING) startSentence();
+    });
   }
 
   private boolean accepts(long current, State expected) {
@@ -300,8 +401,12 @@ public final class ConversationController implements RobotAdapter.Events {
         () -> {
           if (closed) return;
           ready = connected;
-          if (!ready && state != State.IDLE) fail("sdk_disconnected");
-          else publish();
+          if (!ready && state != State.IDLE && !waitingForSentence) fail("sdk_disconnected");
+          else {
+            publish();
+            if (ready && waitingForSentence) scheduleSentence();
+            else scheduleListening();
+          }
         });
   }
 
@@ -330,10 +435,15 @@ public final class ConversationController implements RobotAdapter.Events {
             fail(error);
             return;
           }
-          if (result == null || result.trim().isEmpty() || result.length() > 1000) {
+          if (result == null || result.trim().isEmpty()) {
+            fail("asr_no_speech");
+            return;
+          }
+          if (result.length() > 1000) {
             fail("asr_empty_or_long");
             return;
           }
+          asrErrors=0;
           text = result.trim();
           if (asrOnly) finish();
           else process();
@@ -346,6 +456,7 @@ public final class ConversationController implements RobotAdapter.Events {
           if (accepts(current, State.SPEAKING) && !ttsDone && !ttsStarted) {
             ttsStarted = true;
             event("tts_start_notification");
+            if (playingPlan) startSentenceMotion();
           }
         });
   }
@@ -360,6 +471,11 @@ public final class ConversationController implements RobotAdapter.Events {
             return;
           }
           ttsDone = true;
+          if (playingPlan) {
+            if (!ttsStarted && pendingMotion!=null) message="tts_start_missing_motion_skipped";
+            finishSentence();
+            return;
+          }
           publish();
           completeIfDone();
         });
@@ -397,21 +513,25 @@ public final class ConversationController implements RobotAdapter.Events {
     if (state == State.SPEAKING && ttsDone && motionDone) finish();
   }
 
-  private void finish() {
-    timer.cancel();
+  private void finish() { finish(false); }
+
+  private void finish(boolean endSentence) {
+    timer.cancel();sentenceResume.cancel();
     event("turn_complete");
     recordMetrics(message.isEmpty() ? "completed" : "partial", message);
     token++;
     state = State.IDLE;
     ttsDone = true;
     motionDone = true;
+    playingPlan=false;waitingForSentence=false;
     try {
-      robot.finishTurn();
+      if (endSentence) robot.finishSentence(); else robot.finishTurn();
     } catch (RuntimeException ignored) {
       ready = false;
       message = "sdk_reset_error";
     }
     publish();
+    scheduleListening();
   }
 
   private void recordMetrics(String status, String code) {
@@ -422,6 +542,8 @@ public final class ConversationController implements RobotAdapter.Events {
     values.put("error_code", code == null ? "" : code);
     values.put("input_mode", inputMode);
     values.put("language", language);
+    values.put("sentence_count", sentences.isEmpty()?1:sentences.size());
+    values.put("motion_ids", new ArrayList<>(motionRequests));
     values.put("selection_mode", selectionMode);
     values.put("gesture_profile", gestureProfile);
     values.put("gesture", gesture.name());
@@ -440,6 +562,9 @@ public final class ConversationController implements RobotAdapter.Events {
   }
 
   private void fail(String code) {
+    boolean retrySilence=continuous && state==State.LISTENING &&
+        (code.equals("listening_timeout") || code.equals("asr_no_speech") ||
+         (code.equals("asr_error") && ++asrErrors<3));
     message = code;
     state = State.ERROR;
     event("error");
@@ -447,9 +572,12 @@ public final class ConversationController implements RobotAdapter.Events {
     recordMetrics("error", code);
     publish();
     stop();
+    if (retrySilence) { continuous=true;scheduleListening();publish(); }
   }
 
   public void stop() {
+    continuous=false;autoPending=false;waitingForSentence=false;playingPlan=false;
+    autoTimer.cancel();sentenceResume.cancel();pendingMotion=null;
     recordMetrics("cancelled", "user_or_lifecycle_stop");
     token++;
     timer.cancel();
