@@ -54,3 +54,5 @@
 バックエンドの自動テストでは、選択モデルが文章生成だけに使われること、動作モデルが固定されること、文章を保持したまま各文に動作を割り当てること、不正な出力や未許可モデルの拒否、履歴の分離・破棄を検証します。JavaのHTTP結合テストでは従来方式と全モデルの指定を3つの動作選択条件で通します。
 
 モデルの仕様: [OpenAI Docs: GPT-4.1](https://developers.openai.com/api/docs/models/gpt-4.1)、[GPT-4.1 mini](https://developers.openai.com/api/docs/models/gpt-4.1-mini)。4.1・5.4系は既存モデルとの比較用にバージョンを固定しています。追加した5・6系は、[GPT-5.4 mini](https://developers.openai.com/api/docs/models/gpt-5.4-mini)、[GPT-5.4](https://developers.openai.com/api/docs/models/gpt-5.4)、[GPT-6 Luna](https://developers.openai.com/api/docs/models/gpt-6-luna)、[GPT-6.1 Sol](https://developers.openai.com/api/docs/models/gpt-6.1-sol)、[推論設定](https://developers.openai.com/api/docs/guides/reasoning)を確認しています。
+
+2026-10-29、利用者からGPT-6.1 Sol・日本語・カテゴリ25種で、実機の発声・動作とモデル名・文章生成時間の表示を確認したとの報告を得ました。品質や速度の優劣の判定とは区別し、[実機確認記録](device-verification.md)に記載しています。
