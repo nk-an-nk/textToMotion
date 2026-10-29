@@ -140,3 +140,15 @@ USB経由のADB reverseがロボット側のlocalhostをMac側のlocalhostへ中
 未計測は0ではなく空欄/—です。単独ASR/TTS/動作テストは平均に混ぜません。
 `files/latency-history.json` をADBのrun-asから回収することもできます。
 「速度履歴を消去」で初期化でき、モデルや分類表を変更して比較をやり直すときにも使えます。
+
+## GIFを使った事前分類と自動比較
+
+`prepare-motion-catalog.py --catalog SDK一覧.json --output 結果ディレクトリ --key-file キーファイル` で、公式GIFを時系列6フレームの画像に展開し、視覚入力としてLLMに渡します。分類は会話前に一度行い、キャッシュを再利用します。GIF原本は保存せず、説明・分類・根拠・確信度と小さなフレーム画像を保存します。`requirements-analysis.txt` が必要です。
+
+公式ページの動作実名は294件で、ページのループ回数295とは異なります。実機SDKの全一覧とは一致しません。GIFの取得可否は各行のevidenceへ記録します。GIFが見つからないIDはname_onlyとして名称からの推定に限定し、分類表で再確認対象にします。
+
+会話中、①は全IDとGIF由来/名称由来の動作説明を渡して直接IDを選ばせ、②は事前カテゴリだけを渡します。両条件でGIFを毎回送ることはしません。画像の前処理コストを両条件の会話時間から外して、選択方式の差を測ります。
+
+`compare-selection.py --mapping motion-mapping.json --output 結果ディレクトリ` は、合成した同じ4発話を各条件に2回ずつ、新規セッション・順序を交替させて送ります。3条件の初回はウォームアップとして別記録し、集計から除外します。分類の準備時間も別記録です。純粋なAPI往復の比較で、KebbiのASR/TTS/物理動作を実行するテストではありません。返答文字数、入力サイズ、失敗数も残し、小標本であることを明示します。
+
+画像APIにはアニメーションGIFをそのまま送らず、時系列のPNGフレーム画像として渡します。[OpenAI画像入力仕様](https://developers.openai.com/api/docs/guides/images-vision?api-mode=chat)。

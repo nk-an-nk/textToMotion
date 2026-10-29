@@ -366,7 +366,7 @@ public final class MainActivity extends Activity {
         if (count == 0) throw new IllegalArgumentException();
         registry.replaceMappings(replacement);
         prefs.edit().putString("mapping", registry.json()).apply();
-        mappingStatus.setText("② 事前分類表: 適用済み / SDK " + controller.motions().size() + "動作（名称に基づく暫定分類）");
+        mappingStatus.setText("② 事前分類表: 適用済み / SDK " + controller.motions().size() + "動作 / GIF " + (response.has("gif_count") ? response.get("gif_count").getAsInt() : 0) + "件・その他は名称等の暫定分類");
       } catch (RuntimeException e) { mappingStatus.setText("② 事前分類表: 不正な表のため未適用"); }
     }), message -> scheduler.execute(() -> {
       if (current == engine && active) mappingStatus.setText("② " + message);

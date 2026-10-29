@@ -6,6 +6,7 @@ import java.util.*;
 public final class MotionRegistry {
   private final EnumMap<Gesture, List<Motion>> map = new EnumMap<>(Gesture.class);
   private final Map<String, Long> played = new HashMap<>();
+  private Map<String, Motion> indexed;
 
   public MotionRegistry() {
     for (Gesture g : Gesture.values()) map.put(g, new ArrayList<>());
@@ -36,18 +37,21 @@ public final class MotionRegistry {
   }
 
   public void assign(Gesture g, Motion m) {
+    indexed = null;
     if (g == Gesture.none || !m.valid()) throw new IllegalArgumentException("invalid_mapping");
     map.get(g).removeIf(old -> old.id.equals(m.id));
     map.get(g).add(m);
   }
 
   public void replaceMappings(MotionRegistry other) {
+    indexed = null;
     for (Gesture g : Gesture.values()) {
       map.get(g).clear(); map.get(g).addAll(other.map.get(g));
     }
   }
 
   public void remove(Gesture g, String id) {
+    indexed = null;
     map.get(g).removeIf(m -> m.id.equals(id));
   }
 
@@ -64,8 +68,12 @@ public final class MotionRegistry {
   }
 
   public Motion find(String id) {
-    for (List<Motion> group : map.values()) for (Motion m : group) if (m.id.equals(id)) return m;
-    return new Motion(id);
+    if (indexed == null) {
+      indexed = new HashMap<>();
+      for (List<Motion> group : map.values()) for (Motion m : group) indexed.putIfAbsent(m.id, m);
+    }
+    Motion found = indexed.get(id);
+    return found == null ? new Motion(id) : found;
   }
 
   public boolean eligible(Motion m, long now) {
