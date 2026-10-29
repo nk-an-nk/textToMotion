@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/kebbi-real-apk.yml"
+      - "kebbi-conversation/android-app/app/src/real/**"
 
 permissions:
   contents: read

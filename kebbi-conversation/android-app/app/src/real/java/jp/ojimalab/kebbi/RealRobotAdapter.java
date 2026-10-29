@@ -115,11 +115,14 @@ public final class RealRobotAdapter implements RobotAdapter {
 
             @Override
             public void onStopOfMotionPlay(String name) {
-              long token = turn;
               post(
                   source,
                   () -> {
-                    if (name.equals(playing)) events.motionDone(token, name, "motion_stopped");
+                    // This service sends play_stop before motion_complete on normal playback.
+                    // Explicit user cancellation is already handled by the controller token.
+                    // Wait for completion/error; an isolated stop is bounded by the output timeout.
+                    if (name.equals(playing))
+                      android.util.Log.i("KebbiSdk", "motion_stop_notification:" + name);
                   });
             }
 
