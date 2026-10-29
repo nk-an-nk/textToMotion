@@ -1,0 +1,42 @@
+name: Build Kebbi real APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/kebbi-real-apk.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install Android build packages
+        run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;34.0.0"'
+      - name: Download and verify manufacturer SDK
+        run: bash scripts/download-nuwa-sdk.sh
+      - name: Build real debug APK
+        working-directory: kebbi-conversation/android-app
+        run: bash gradlew --no-daemon :app:assembleRealDebug
+      - name: Record APK checksum
+        working-directory: kebbi-conversation/android-app/app/build/outputs/apk/real/debug
+        run: sha256sum app-real-debug.apk > SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kebbi-real-debug
+          path: |
+            kebbi-conversation/android-app/app/build/outputs/apk/real/debug/app-real-debug.apk
+            kebbi-conversation/android-app/app/build/outputs/apk/real/debug/SHA256SUMS
+          retention-days: 1
+          if-no-files-found: error
