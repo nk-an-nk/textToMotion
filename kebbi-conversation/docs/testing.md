@@ -87,3 +87,9 @@ APK SHA-256: `fa08e37590d0128f5c2f2b0e04aa4ca2e16a4052d842f932dc4a0643fdda50b3`�
 英語・日本語それぞれ各条件8要求のAPI速度比較は [計測結果](selection-benchmark.md) を参照してください。合成した発話によるバックエンド比較で、全2,097動作の物理試験ではありません。
 
 日本語でのASR→LLM→TTS＋手の動作、速度表示と端末の速度履歴ファイルまで実機で確認しました。[実機記録](device-verification.md)を参照してください。
+
+## 文単位出力と継続会話（0.6.0）
+
+バックエンド44件、Androidコア（文ごとの操作世代、停止、無言再開、セッション継続、速度優先出力）、3条件の実HTTP連携、mock/realビルドが [GitHub Actions](https://github.com/nk-an-nk/textToMotion/actions/runs/40836705036) で成功しました。
+実機で一文一動作・ボタンなしの会話継続・文脈保持を確認し、同期方式を比較して速度優先版へ更新しました。文間119〜189ms、開始通知差−10〜0msの2応答を確認し、利用者も自然さの改善を確認しました。
+[実機記録](device-verification.md) と [継続会話の仕様](sentence-conversation.md) を参照してください。

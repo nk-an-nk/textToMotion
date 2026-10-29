@@ -75,3 +75,5 @@ SDKが再接続し、返答終了後の700ms待機を経て次の認識を始め
 返答は原則1〜2文とし、長い返答や短文を毎回細切れにすることを避けます。最大6文・400字の制限は維持します。
 
 仕様：[メーカーAPIのmotionPrepare/motionPlay](https://developer-docs.nuwarobotics.com/sdk/javadoc/reference/com/nuwarobotics/service/agent/NuwaRobotAPI.html#motionPrepare(java.lang.String))。
+
+0.6の実機2応答では文間119〜189ms、SDKの動作開始通知−TTS開始通知は−10〜0msとなり、利用者から自然さの改善を確認しました。[詳細記録](device-verification.md)。
