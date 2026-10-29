@@ -6,9 +6,12 @@
 既存のCodespaceでは `git pull --ff-only` 後、`bash kebbi-conversation/scripts/setup.sh` を実行してください。
 新規環境ではpostCreateCommandがバックエンドの仮想環境と依存関係も準備します。
 
-Macで手動実行する場合はJDK 17をJAVA_HOMEに、Android SDKをANDROID_HOMEに設定します。
-この作業端末ではJDKは `/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home`、SDKは `~/Library/Android/sdk` です。
-Android StudioにはcompileSdk 35、Build Tools 34.0.0が必要です。
+実機版APKはGitHub Actionsの「Build Kebbi real APK」から手動ビルドできます。
+成果物 `kebbi-real-debug` をダウンロードして展開します（保持期間1日）。
+Codespacesが起動できない場合も、MacへAndroid SDKやエミュレータを入れずにAPKを用意できます。
+Macは実機へのUSBインストール用のADBのみを使用します。
+
+任意でMac上でもビルドする場合にはJDK 17、compileSdk 35、Build Tools 34.0.0を別途用意します。
 
 ## バックエンド
 
