@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <application>
+    <activity android:name=".TtsBenchmarkActivity" android:exported="true"
+        android:permission="android.permission.DUMP"
+        android:configChanges="orientation|screenSize" />
+  </application>
+</manifest>
