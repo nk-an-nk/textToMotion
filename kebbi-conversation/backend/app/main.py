@@ -83,7 +83,9 @@ def create_app(settings=None, transport=None):
                   selection_mode=request.selection_mode, gesture_profile=request.gesture_profile, sentence_count=len(reply.sentences or []),
                   **({"reply_model": reply.reply_model, "motion_model": reply.motion_model,
                       "text_generation_ms": reply.text_generation_ms, "motion_selection_ms": reply.motion_selection_ms,
-                      "reply_reasoning_effort": reply.reply_reasoning_effort}
+                      "reply_reasoning_effort": reply.reply_reasoning_effort,
+                      "category_selection_ms": reply.category_selection_ms, "id_selection_ms": reply.id_selection_ms,
+                      "motion_id_selection": reply.motion_id_selection}
                      if reply.reply_model else {}),
                   **({"user_text": request.text, "speech": reply.speech} if settings.log_content else {}))
             response.headers["X-Conversation-Id"] = turn

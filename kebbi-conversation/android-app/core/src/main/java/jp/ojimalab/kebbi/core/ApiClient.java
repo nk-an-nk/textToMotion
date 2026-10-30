@@ -32,7 +32,7 @@ public final class ApiClient implements RuntimePorts.Backend, AutoCloseable {
     active.set(c);
     try {
       c.setConnectTimeout(5000);
-      c.setReadTimeout(45000);
+      c.setReadTimeout(65000);
       c.setRequestMethod(method);
       c.setInstanceFollowRedirects(false);
       c.setRequestProperty("Accept", "application/json");
@@ -89,6 +89,7 @@ public final class ApiClient implements RuntimePorts.Backend, AutoCloseable {
                 if (!options.replyModel.isEmpty()) body.addProperty("reply_model", options.replyModel);
                 body.add("available_gestures", new Gson().toJsonTree(options.gestures));
                 body.addProperty("selection_mode", options.mode);
+                body.addProperty("category_motion_selection", options.categoryMotionSelection);
                 body.addProperty("gesture_profile", options.profile);
                 body.add("available_motions", new Gson().toJsonTree(options.motions));
                 Reply reply = Reply.parse(exchange("/api/respond", "POST", body.toString(), c));

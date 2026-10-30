@@ -16,9 +16,26 @@ public class LatencyHistoryTest {
     assertTrue(h.summaryText().contains("文章生成 1.000秒（n=1）"));
     assertTrue(h.summaryText().contains("文章生成 2.000秒（n=1）"));
     assertTrue(h.latestText().contains("gpt-4.1-2025-04-14"));
-    assertTrue(h.latestText().contains("動作選択 0.900秒"));
+    assertTrue(h.latestText().contains("動作選択合計 0.900秒"));
     assertEquals(h.json(),LatencyHistory.parse(h.json()).json());
     assertTrue(h.csv().contains("reply_model,motion_model"));
+  }
+  @Test public void categoryIdStagesRoundTripAndOldAlgorithmsNeverMix() {
+    LatencyHistory h=new LatencyHistory();
+    for (String selector : Arrays.asList("rule","llm")) {
+      Map<String,Object> f=fields("completed","conversation_text",2000);
+      f.put("selection_mode","category");f.put("reply_model",SelectionOptions.REPLY_MODELS.get(0));
+      f.put("motion_id_selection",selector);f.put("category_selection_ms",1000L);
+      f.put("id_selection_ms",selector.equals("llm")?2000L:0L);
+      f.put("motion_selection_ms",selector.equals("llm")?3000L:1000L);
+      h.record(UUID.randomUUID().toString(),f,0);
+    }
+    assertEquals(h.json(),LatencyHistory.parse(h.json()).json());
+    assertTrue(h.summaryText().contains("ID選択 LLM"));
+    assertTrue(h.summaryText().contains("ID選択 端末ルール"));
+    assertTrue(h.summaryText().contains("カテゴリ選択 1.000秒（n=1）"));
+    assertTrue(h.latestText().contains("ID選択 2.000秒"));
+    assertTrue(h.csv().contains("category_selection_ms,id_selection_ms"));
   }
   private Map<String,Object> fields(String status, String input, long llm) {
     Map<String,Object> f = new LinkedHashMap<>();

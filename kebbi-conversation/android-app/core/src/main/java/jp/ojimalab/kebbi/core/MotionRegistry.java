@@ -114,6 +114,31 @@ public final class MotionRegistry {
     return m.valid() && eligible(m, now) ? m : null;
   }
 
+  /** Offer only enabled, available category memberships, retaining profile aliases for basic mode. */
+  public List<SelectionOptions.Candidate> categoryCandidates(Set<String> available, long now, boolean expanded) {
+    Map<String,List<String>> groups = new TreeMap<>();
+    Map<String,Motion> details = new HashMap<>();
+    for (Gesture g : Gesture.values()) {
+      if (g == Gesture.none || (!expanded && !Gesture.basic(g))) continue;
+      for (Motion m : map.get(g)) {
+        if (!m.valid() || !m.enabled || (expanded && m.basicOnly) || !available.contains(m.id) || !eligible(m,now)) continue;
+        groups.computeIfAbsent(m.id,k -> new ArrayList<>()).add(g.name());
+        details.putIfAbsent(m.id,m);
+      }
+    }
+    List<SelectionOptions.Candidate> result = new ArrayList<>();
+    for (Map.Entry<String,List<String>> entry : groups.entrySet()) {
+      Motion m=details.get(entry.getKey());
+      String description="SDK motion: "+m.id+ (m.scene.isEmpty()?"":"; "+m.scene);
+      result.add(new SelectionOptions.Candidate(m.id,description.substring(0,Math.min(300,description.length())),entry.getValue()));
+    }
+    return result;
+  }
+
+  public boolean categoryContains(Gesture gesture,String id,boolean expanded) {
+    return id != null && map.get(gesture).stream().anyMatch(m -> m.id.equals(id) && m.enabled && (!expanded || !m.basicOnly));
+  }
+
   public List<String> availableGestures(Set<String> available) {
     return availableGestures(available, Long.MAX_VALUE);
   }

@@ -13,6 +13,14 @@ class MotionCandidate(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
     id: str = Field(min_length=1, max_length=200)
     description: str = Field(min_length=1, max_length=300)
+    categories: list[str] = Field(default_factory=list, max_length=25)
+
+    @field_validator("categories")
+    @classmethod
+    def valid_categories(cls, value):
+        if any(g not in GESTURES or g == "none" for g in value):
+            raise ValueError("invalid motion category")
+        return list(dict.fromkeys(value))
 
     @field_validator("id", "description")
     @classmethod
@@ -92,6 +100,9 @@ class Reply(BaseModel):
     reply_reasoning_effort: Literal["none", "low"] | None = None
     text_generation_ms: int | None = Field(default=None, ge=0, le=60000)
     motion_selection_ms: int | None = Field(default=None, ge=0, le=60000)
+    category_selection_ms: int | None = Field(default=None, ge=0, le=60000)
+    id_selection_ms: int | None = Field(default=None, ge=0, le=60000)
+    motion_id_selection: Literal["rule", "llm"] | None = None
 
     @field_validator("speech")
     @classmethod
@@ -115,6 +126,7 @@ class Request(BaseModel):
     available_gestures: list[str] = Field(default_factory=lambda: list(GESTURES), max_length=26)
     sentence_plan: bool = False
     selection_mode: Literal["category", "direct"] = "category"
+    category_motion_selection: Literal["rule", "llm"] = "rule"
     gesture_profile: Literal["basic", "expanded"] = "basic"
     available_motions: list[MotionCandidate] = Field(default_factory=list, max_length=4096)
     reply_model: str | None = Field(default=None, max_length=100)
@@ -154,6 +166,8 @@ class Request(BaseModel):
 
     @property
     def history_key(self):
+        if self.selection_mode == "category" and self.category_motion_selection == "llm":
+            return f"{self.session_id}:category:{self.gesture_profile}:{self.language}:reply:{self.reply_model}:id-llm"
         if self.reply_model:
             return f"{self.session_id}:{self.selection_mode}:{self.gesture_profile}:{self.language}:reply:{self.reply_model}"
         if self.selection_mode == "category" and self.gesture_profile == "basic":

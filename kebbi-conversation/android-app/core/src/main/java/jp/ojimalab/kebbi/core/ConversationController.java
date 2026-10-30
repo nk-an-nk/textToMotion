@@ -230,14 +230,15 @@ public final class ConversationController implements RobotAdapter.Events {
     state = State.PROCESSING;
     event("llm_request_start");
     publish();
-    deadline(replyModel.isEmpty() ? 25000 : 47000, State.PROCESSING);
+    deadline(replyModel.isEmpty() ? 25000 : selectionMode.equals("category") ? 67000 : 47000, State.PROCESSING);
     long current = token;
     List<String> labels = new ArrayList<>(motionEnabled ? registry.availableGestures(available, scheduler.now(), gestureProfile.equals("expanded"))
         : Collections.singletonList("none"));
     if (gestureProfile.equals("basic")) labels.removeIf(g -> !Gesture.basic(Gesture.safe(g)));
     // Use a mutable copy before filtering even when motion is disabled.
     SelectionOptions options = new SelectionOptions(selectionMode, gestureProfile, labels,
-        motionEnabled && selectionMode.equals("direct") ? registry.candidates(available, scheduler.now()) : Collections.emptyList(), replyModel);
+        !motionEnabled ? Collections.emptyList() : selectionMode.equals("direct") ? registry.candidates(available, scheduler.now())
+            : !replyModel.isEmpty() ? registry.categoryCandidates(available,scheduler.now(),gestureProfile.equals("expanded")) : Collections.emptyList(), replyModel);
     try {
       request =
           backend.respond(
@@ -254,6 +255,9 @@ public final class ConversationController implements RobotAdapter.Events {
                         generation.putAll(reply.generation);
                         if (!options.replyModel.isEmpty() && !options.replyModel.equals(generation.get("reply_model"))) {
                           fail("reply_model_mismatch"); return;
+                        }
+                        if (options.categoryMotionSelection.equals("llm") && (!reply.sentencePlan || !"llm".equals(generation.get("motion_id_selection")))) {
+                          fail("invalid_backend_response"); return;
                         }
                         event("llm_response_received");
                         if (reply.sentencePlan) { startPlan(reply, options); return; }
@@ -355,11 +359,14 @@ public final class ConversationController implements RobotAdapter.Events {
     currentSentence=item.speech;
     gesture=planOptions.mode.equals("category") && planOptions.gestures.contains(item.gesture.name()) ? item.gesture : Gesture.none;
     if (motionEnabled) {
-      if (planOptions.mode.equals("direct")) {
-        boolean offered=planOptions.motions.stream().anyMatch(m -> m.id.equals(item.motionId));
+      if (planOptions.mode.equals("direct") || planOptions.categoryMotionSelection.equals("llm")) {
+        boolean categoryId=planOptions.mode.equals("category");
+        boolean offered=planOptions.motions.stream().anyMatch(m -> m.id.equals(item.motionId)
+            && (!categoryId || m.categories.contains(gesture.name())));
         if (offered && available.contains(item.motionId)) {
           Motion candidate=registry.find(item.motionId);
-          if (candidate.valid() && (registry.eligible(candidate,scheduler.now()) || motionRequests.contains(candidate.id))) pendingMotion=candidate;
+          if (candidate.valid() && (!categoryId || registry.categoryContains(gesture,item.motionId,gestureProfile.equals("expanded")))
+              && (registry.eligible(candidate,scheduler.now()) || motionRequests.contains(candidate.id))) pendingMotion=candidate;
         }
       } else pendingMotion=registry.selectForSentence(gesture, available, scheduler.now(),gestureProfile.equals("expanded"),motionRequests);
     }

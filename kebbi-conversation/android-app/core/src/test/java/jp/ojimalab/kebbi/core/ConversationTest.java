@@ -609,4 +609,44 @@ public class ConversationTest {
     app.stop();clock.advance(1000);
     assertEquals(1,fast.speak);assertEquals(State.IDLE,app.state());
   }
+  private Reply selectedCategoryPlan(String id,String gesture) {
+    return Reply.parse("{\"speech\":\"Hello.\",\"gesture\":\""+gesture+"\",\"language\":\"en\",\"timing\":\"speech_start\","
+      +"\"reply_model\":\""+SelectionOptions.REPLY_MODELS.get(0)+"\",\"motion_id_selection\":\"llm\","
+      +"\"sentences\":[{\"speech\":\"Hello.\",\"gesture\":\""+gesture+"\",\"motion_id\":"+(id==null?"null":"\""+id+"\"")+"}]}");
+  }
+
+  @Test public void categoryLlmUsesChosenIdInsteadOfFirstLocalCandidate() {
+    registry.assign(Gesture.greet,new Motion("other"));
+    robot.e.motions(Arrays.asList("mock_wave","other"));
+    c.replyModel(SelectionOptions.REPLY_MODELS.get(0));c.submit("Hello");
+    assertEquals("llm",server.options.categoryMotionSelection);
+    assertTrue(server.options.motions.stream().anyMatch(m -> m.id.equals("other") && m.categories.contains("greet")));
+    server.result.success(selectedCategoryPlan("other","greet"));
+    assertEquals("other",snapshot.motion);assertEquals(1,robot.play);
+  }
+
+  @Test public void categoryLlmDoesNotExecuteCrossCategoryIdOrPickFallback() {
+    registry.assign(Gesture.question,new Motion("other"));
+    robot.e.motions(Arrays.asList("mock_wave","other"));
+    c.replyModel(SelectionOptions.REPLY_MODELS.get(0));c.submit("Hello");
+    server.result.success(selectedCategoryPlan("other","greet"));
+    assertEquals(0,robot.play);assertEquals(1,robot.speak);
+  }
+
+  @Test public void categoryLlmNullDoesNotTriggerLocalRotation() {
+    c.replyModel(SelectionOptions.REPLY_MODELS.get(0));c.submit("Hello");
+    server.result.success(selectedCategoryPlan(null,"greet"));
+    assertEquals(0,robot.play);assertEquals(1,robot.speak);
+  }
+
+  @Test public void categoryLlmCandidatesExcludeDisabledCooldownAndCoarseAliases() {
+    Motion disabled=new Motion("disabled");disabled.enabled=false;registry.assign(Gesture.greet,disabled);
+    Motion alias=new Motion("alias");alias.basicOnly=true;registry.assign(Gesture.greet,alias);
+    registry.started(registry.find("mock_wave"),0);
+    Set<String> available=new HashSet<>(Arrays.asList("mock_wave","disabled","alias"));
+    assertTrue(registry.categoryCandidates(available,1000,true).isEmpty());
+    assertEquals(1,registry.categoryCandidates(available,1000,false).size());
+    assertEquals(1,registry.categoryCandidates(available,6000,true).size());
+  }
+
 }

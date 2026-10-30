@@ -58,7 +58,7 @@ public final class Reply {
     if (!"speech_start".equals(string(o, "timing")))
       throw new IllegalArgumentException("invalid_timing");
     for (String key : o.keySet())
-      if (!java.util.Arrays.asList("speech", "gesture", "language", "timing", "motion_id", "sentences", "reply_model", "motion_model", "text_generation_ms", "motion_selection_ms", "reply_reasoning_effort").contains(key))
+      if (!java.util.Arrays.asList("speech", "gesture", "language", "timing", "motion_id", "sentences", "reply_model", "motion_model", "text_generation_ms", "motion_selection_ms", "category_selection_ms", "id_selection_ms", "motion_id_selection", "reply_reasoning_effort").contains(key))
         throw new IllegalArgumentException("unexpected_field");
     String id = !o.has("motion_id") || o.get("motion_id").isJsonNull() ? null : string(o, "motion_id");
     List<Sentence> sentences=null;
@@ -79,12 +79,17 @@ public final class Reply {
       if (!model.matches("[A-Za-z0-9._-]{1,100}")) throw new IllegalArgumentException("invalid_model");
       generation.put(key, model);
     }
-    for (String key : Arrays.asList("text_generation_ms", "motion_selection_ms")) if (o.has(key)) {
+    for (String key : Arrays.asList("text_generation_ms", "motion_selection_ms", "category_selection_ms", "id_selection_ms")) if (o.has(key)) {
       JsonElement value = o.get(key);
       if (!value.isJsonPrimitive() || !value.getAsJsonPrimitive().isNumber()) throw new IllegalArgumentException("invalid_timing");
       double n = value.getAsDouble();
       if (Double.isNaN(n) || Double.isInfinite(n) || n != Math.rint(n) || n < 0 || n > 60000) throw new IllegalArgumentException("invalid_timing");
       generation.put(key, value.getAsLong());
+    }
+    if (o.has("motion_id_selection")) {
+      String selection=string(o,"motion_id_selection");
+      if (!Arrays.asList("rule","llm").contains(selection)) throw new IllegalArgumentException("invalid_motion_id_selection");
+      generation.put("motion_id_selection",selection);
     }
     if (o.has("reply_reasoning_effort")) {
       String effort = string(o, "reply_reasoning_effort");

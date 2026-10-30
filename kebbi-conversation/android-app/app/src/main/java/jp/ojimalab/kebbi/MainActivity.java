@@ -235,6 +235,7 @@ public final class MainActivity extends Activity {
     label(root, "返答文章だけモデルを切替。動作選択は固定モデル。5・6系は推論lowで比較します。", 14);
     label(root, "実験条件（切替時に会話履歴をリセット）", 16);
     experiment = spinner(root, Arrays.asList("② カテゴリ経由・従来7種", "② カテゴリ経由・拡張25種", "① 動作IDをLLMが直接選択"));
+    label(root, "②はLLMがカテゴリを選び、その候補内の動作IDもLLMが選択します。", 14);
     experiment.setSelection(prefs.getInt("experiment", 0));
     experiment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       public void onNothingSelected(AdapterView<?> p) {}
@@ -246,11 +247,12 @@ public final class MainActivity extends Activity {
     });
     button(root, "LLMに渡す動作候補を確認", () -> {
       if (controller == null) return;
-      List<SelectionOptions.Candidate> candidates = registry.candidates(controller.motions(), scheduler.now());
-      StringBuilder text = new StringBuilder("現在の候補: " + candidates.size() + "件 / SDK一覧 " + controller.motions().size() + "件\n①はSDK全動作から選択（クールダウン中を除く）。②は事前分類表から選択。\n");
-      for (SelectionOptions.Candidate m : candidates) text.append("\n").append(m.id).append("\n").append(m.description).append("\n");
+      List<SelectionOptions.Candidate> candidates = experiment.getSelectedItemPosition() == 2 ? registry.candidates(controller.motions(), scheduler.now())
+          : registry.categoryCandidates(controller.motions(),scheduler.now(),experiment.getSelectedItemPosition()==1);
+      StringBuilder text = new StringBuilder("現在の候補: " + candidates.size() + "件 / SDK一覧 " + controller.motions().size() + "件\n①はSDK全動作から選択（クールダウン中を除く）。②はLLMがカテゴリを選び、そのカテゴリ内のIDもLLMが選択。\n");
+      for (SelectionOptions.Candidate m : candidates) text.append("\n").append(m.id).append("\n").append(m.description).append("\nカテゴリ: ").append(String.join(", ",m.categories)).append("\n");
       TextView body = label(panel(), text.toString(), 16);
-      new AlertDialog.Builder(this).setTitle("LLMの直接選択候補").setView(scroll((LinearLayout)body.getParent())).setPositiveButton("閉じる", null).show();
+      new AlertDialog.Builder(this).setTitle("LLMに渡す動作候補").setView(scroll((LinearLayout)body.getParent())).setPositiveButton("閉じる", null).show();
     });
     mappingStatus = label(root, "② 事前分類表: 確認待ち", 14);
     button(root, "事前分類表を再取得", () -> { mappingFetched = false; loadPreclassifiedMapping(); });

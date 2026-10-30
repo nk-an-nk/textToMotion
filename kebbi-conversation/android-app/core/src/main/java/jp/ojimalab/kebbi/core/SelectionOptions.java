@@ -6,6 +6,7 @@ import java.util.*;
 public final class SelectionOptions {
   public final String mode, profile;
   public final String replyModel;
+  public final String categoryMotionSelection;
   public static final List<String> REPLY_MODELS = Collections.unmodifiableList(Arrays.asList(
       "gpt-4.1-mini-2025-04-14", "gpt-4.1-2025-04-14",
       "gpt-5.4-mini-2026-03-17", "gpt-5.4-2026-03-05", "gpt-6-luna", "gpt-6.1-sol"));
@@ -14,9 +15,14 @@ public final class SelectionOptions {
 
   public static final class Candidate {
     public final String id, description;
+    public final List<String> categories;
     public Candidate(String id, String description) {
+      this(id,description,Collections.emptyList());
+    }
+    public Candidate(String id, String description, List<String> categories) {
       this.id = id;
       this.description = description;
+      this.categories = Collections.unmodifiableList(new ArrayList<>(categories));
     }
   }
 
@@ -31,6 +37,7 @@ public final class SelectionOptions {
     this.profile = profile;
     if (!replyModel.isEmpty() && !REPLY_MODELS.contains(replyModel)) throw new IllegalArgumentException("invalid_reply_model");
     this.replyModel = replyModel;
+    this.categoryMotionSelection = mode.equals("category") && !replyModel.isEmpty() ? "llm" : "rule";
     this.gestures = Collections.unmodifiableList(new ArrayList<>(gestures));
     this.motions = Collections.unmodifiableList(new ArrayList<>(motions));
   }
