@@ -51,3 +51,22 @@ python3 kebbi-conversation/scripts/tts_benchmark.py \
 
 メーカーのAPI説明: [startTTS](https://developer-docs.nuwarobotics.com/sdk/javadoc/reference/com/nuwarobotics/service/agent/NuwaRobotAPI.html)、
 [onSpeakState / onTTSComplete](https://developer-docs.nuwarobotics.com/sdk/javadoc/reference/com/nuwarobotics/service/agent/VoiceEventListener.html)。
+
+## AIR-H201での実測（2026-10-30）
+
+アプリ0.7.2、SDK 2.1.0.08。33回すべて正常完了し、各文章1回のウォームアップを除外した30回を集計しました。
+値は `startTTS` 直前〜START通知入口で、単位はmsです。
+
+| 文章長 | 回数 | 平均 | 中央値 | p95 | 最小 | 最大 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 短文・12文字 | 10 | 11.810 | 10.440 | 18.907 | 7.060 | 22.035 |
+| 中文・33文字 | 10 | 14.147 | 13.657 | 19.467 | 9.561 | 19.858 |
+| 長文・73文字 | 10 | 11.968 | 11.273 | 20.108 | 7.542 | 22.855 |
+| 全体 | 30 | 12.642 | 11.553 | 21.055 | 7.060 | 22.855 |
+
+SDK呼出し自体の平均は0.395ms。START通知〜完了通知の平均は短文2.777秒、中文6.506秒、長文15.713秒です。
+後者は読み上げを含む時間で、音声合成だけの計算時間ではありません。
+単一端末・単一セッションの参考値です。声と速度は変更していませんが、NUWA側の実効設定値は未取得です。
+過去の約242msは動作準備なども含む別の区間なので、今回の値との差をTTS高速化と解釈しないでください。
+STARTと実音声開始が一致するかは未検証であり、音声合成全体がボトルネックかどうかはこの値だけでは断定できません。
+[計測用APKのクラウド検証](https://github.com/nk-an-nk/textToMotion/actions/runs/41019054017)は成功しました。
