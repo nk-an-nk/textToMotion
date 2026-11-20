@@ -24,6 +24,6 @@ done
 export KEBBI_TEST_BACKEND="http://127.0.0.1:$(cat "$work/port")"
 curl --fail --silent "$KEBBI_TEST_BACKEND/health"
 cd "$root/android-app"
-if ! ./gradlew :core:test :app:assembleMockDebug --rerun-tasks --console=plain; then cat "$work/backend.log"; exit 1; fi
+if ! ./gradlew :core:test :app:testMockDebugUnitTest :app:assembleMockDebug --rerun-tasks --console=plain; then cat "$work/backend.log"; exit 1; fi
 # The real flavor is optional; explicitly enable when the vendor AAR has been supplied.
 if [[ "${KEBBI_VERIFY_REAL:-false}" == true ]]; then ./gradlew :app:assembleRealDebug --console=plain; fi

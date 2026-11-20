@@ -1,6 +1,7 @@
-package jp.ojimalab.kebbi;
+package jp.ojimalab.kebbi.data;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.AtomicFile;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -10,8 +11,8 @@ import jp.ojimalab.kebbi.core.LatencyHistory;
 /** Small app-private history, independent of optional conversation logging. */
 public final class LatencyStore {
   private final AtomicFile file;
-  public LatencyHistory history = new LatencyHistory();
-  public String warning = "";
+  private LatencyHistory history = new LatencyHistory();
+  private String warning = "";
 
   public LatencyStore(Context context) {
     file = new AtomicFile(new File(context.getFilesDir(), "latency-history.json"));
@@ -32,6 +33,21 @@ public final class LatencyStore {
   }
 
   public void clear() { history.clear(); save(); }
+
+  public String latestText() { return history.latestText(); }
+
+  public String historyText() { return history.historyText(); }
+
+  public String csv() { return "\uFEFF" + history.csv(); }
+
+  public String warning() { return warning; }
+
+  public void exportCsv(Context context, Uri location, String csv) throws IOException {
+    try (OutputStream out = context.getContentResolver().openOutputStream(location)) {
+      if (out == null) throw new IOException("No CSV output stream");
+      out.write(csv.getBytes(StandardCharsets.UTF_8));
+    }
+  }
 
   private void save() {
     FileOutputStream out = null;
