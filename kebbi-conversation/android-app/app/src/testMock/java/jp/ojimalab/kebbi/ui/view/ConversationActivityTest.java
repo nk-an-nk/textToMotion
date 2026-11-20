@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
 import java.time.Duration;
 import jp.ojimalab.kebbi.core.SelectionOptions;
-import jp.ojimalab.kebbi.data.LatencyStore;
 import jp.ojimalab.kebbi.ui.viewmodel.ConversationViewModel;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +61,7 @@ public class ConversationActivityTest {
   }
 
   @Test
-  public void mockSpeechAndGestureUpdateTheScreenAndPersistTiming() {
+  public void mockSpeechAndGestureUpdateTheScreenAndTimingExport() {
     try (ActivityController<ConversationActivity> lifecycle =
         Robolectric.buildActivity(ConversationActivity.class).setup()) {
       ConversationActivity activity = lifecycle.get();
@@ -78,10 +77,11 @@ public class ConversationActivityTest {
       shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(2));
       assertTrue(text(activity, 1007).contains("IDLE"));
       assertTrue(text(activity, 1008).contains("completed"));
-      assertFalse(text(activity, 1008), text(activity, 1008).contains("保存に失敗"));
-      LatencyStore reloaded = new LatencyStore(activity.getApplication());
-      assertEquals("", reloaded.warning());
-      assertTrue(reloaded.latestText(), reloaded.latestText().contains("completed"));
+      ConversationViewModel model = new ViewModelProvider(activity).get(ConversationViewModel.class);
+      String csv = model.latencyCsv();
+      assertTrue(csv.contains("completed"));
+      assertTrue(csv.contains("mock_wave"));
+      assertFalse(csv.contains("こんにちは"));
     }
   }
 
