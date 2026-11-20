@@ -59,6 +59,8 @@ public class ConversationTest {
     long token;
     int speak, play, stop, listens;
     String listenLanguage, speakLanguage;
+    final Map<Long, SpeechInput.Listener> recognition = new HashMap<>();
+    final Map<Long, SpeechOutput.Listener> playback = new HashMap<>();
 
     public void connect(Events e) {
       this.e = e;
@@ -66,18 +68,34 @@ public class ConversationTest {
       e.motions(Arrays.asList("mock_wave"));
     }
 
-    public void listen(long t, String l) {
+    public void listen(long t, String l, SpeechInput.Listener listener) {
       listens++;
       listenLanguage = l;
       token = t;
+      recognition.put(t, listener);
     }
 
     public void stopListening() {}
 
-    public void speak(long t, String s, String l) {
+    public void speak(long t, String s, String l, SpeechOutput.Listener listener) {
       speakLanguage = l;
       token = t;
       speak++;
+      playback.put(t, listener);
+    }
+
+    public void stopSpeaking() {}
+
+    void asr(long token, String text, String error) {
+      recognition.get(token).complete(text, error);
+    }
+
+    void ttsStarted(long token) {
+      playback.get(token).started();
+    }
+
+    void ttsDone(long token, String error) {
+      playback.get(token).completed(error);
     }
 
     public void play(long t, Motion m) {
@@ -173,9 +191,9 @@ public class ConversationTest {
   @Test
   public void ttsThenMotion() {
     output();
-    robot.e.ttsStarted(robot.token);
+    robot.ttsStarted(robot.token);
     robot.e.motionStarted(robot.token, "mock_wave");
-    robot.e.ttsDone(robot.token, null);
+    robot.ttsDone(robot.token, null);
     assertEquals(State.SPEAKING, c.state());
     robot.e.motionDone(robot.token, "mock_wave", null);
     assertEquals(State.IDLE, c.state());
@@ -187,7 +205,7 @@ public class ConversationTest {
     output();
     robot.e.motionDone(robot.token, "mock_wave", null);
     assertEquals(State.SPEAKING, c.state());
-    robot.e.ttsDone(robot.token, null);
+    robot.ttsDone(robot.token, null);
     assertEquals(State.IDLE, c.state());
   }
 
@@ -195,16 +213,16 @@ public class ConversationTest {
   public void duplicateCallbacksAndLatePreviousTurn() {
     output();
     long old = robot.token;
-    robot.e.ttsDone(old, null);
-    robot.e.ttsDone(old, null);
+    robot.ttsDone(old, null);
+    robot.ttsDone(old, null);
     robot.e.motionDone(old, "wrong", null);
     assertEquals(State.SPEAKING, c.state());
     robot.e.motionDone(old, "mock_wave", null);
     c.submit("again");
     server.reply();
-    robot.e.ttsDone(old, null);
+    robot.ttsDone(old, null);
     assertEquals(State.SPEAKING, c.state());
-    robot.e.ttsDone(robot.token, null);
+    robot.ttsDone(robot.token, null);
     assertEquals(State.IDLE, c.state());
   }
 
@@ -220,12 +238,12 @@ public class ConversationTest {
   @Test
   public void cooldownAndUnavailableFallback() {
     output();
-    robot.e.ttsDone(robot.token, null);
+    robot.ttsDone(robot.token, null);
     robot.e.motionDone(robot.token, "mock_wave", null);
     c.submit("again");
     server.reply();
     assertEquals(1, robot.play);
-    robot.e.ttsDone(robot.token, null);
+    robot.ttsDone(robot.token, null);
     assertEquals(State.IDLE, c.state());
     assertNull(registry.select(Gesture.greet, Collections.emptySet(), 99999));
     clock.advance(5000);
@@ -240,7 +258,7 @@ public class ConversationTest {
     clock.advance(45000);
     assertEquals(State.IDLE, c.state());
     assertTrue(robot.stop > 0);
-    robot.e.ttsDone(old, null);
+    robot.ttsDone(old, null);
     assertEquals(State.IDLE, c.state());
   }
 
@@ -250,18 +268,18 @@ public class ConversationTest {
     clock.advance(15000);
     assertEquals(State.IDLE, c.state());
     c.listen(false);
-    robot.e.asr(robot.token, "", null);
+    robot.asr(robot.token, "", null);
     assertEquals(State.IDLE, c.state());
   }
 
   @Test
   public void asrOnlyAndAsrConversation() {
     c.listen(true);
-    robot.e.asr(robot.token, "Hello", null);
+    robot.asr(robot.token, "Hello", null);
     assertEquals(State.IDLE, c.state());
     assertNull(server.result);
     c.listen(false);
-    robot.e.asr(robot.token, "Hello", null);
+    robot.asr(robot.token, "Hello", null);
     assertEquals(State.PROCESSING, c.state());
     server.reply();
     assertEquals(State.SPEAKING, c.state());
@@ -283,7 +301,7 @@ public class ConversationTest {
   @Test
   public void speechAndMotionOnly() {
     c.testSpeech("hello", Gesture.none, false);
-    robot.e.ttsDone(robot.token, null);
+    robot.ttsDone(robot.token, null);
     assertEquals(State.IDLE, c.state());
     c.testMotion("mock_wave");
     assertEquals(State.SPEAKING, c.state());
@@ -296,14 +314,14 @@ public class ConversationTest {
     output();
     robot.e.motionDone(robot.token, "mock_wave", "motion_error");
     assertEquals(State.SPEAKING, c.state());
-    robot.e.ttsDone(robot.token, null);
+    robot.ttsDone(robot.token, null);
     assertEquals(State.IDLE, c.state());
   }
 
   @Test
   public void ttsFailureAndDisconnectRecover() {
     output();
-    robot.e.ttsDone(robot.token, "tts_error");
+    robot.ttsDone(robot.token, "tts_error");
     assertEquals(State.IDLE, c.state());
     c.submit("again");
     server.reply();
@@ -478,9 +496,9 @@ public class ConversationTest {
         (t,n,f) -> { if (n.equals("metrics")) recorded.add(new LinkedHashMap<>(f)); },
         s -> {}, registry);
     app.connect(); app.listen(false); clock.advance(3000);
-    robot.e.asr(robot.token, "Hello", null); clock.advance(1000); server.reply();
-    clock.advance(200); robot.e.ttsStarted(robot.token);
-    clock.advance(800); robot.e.ttsDone(robot.token, null); robot.e.motionDone(robot.token, "mock_wave", null);
+    robot.asr(robot.token, "Hello", null); clock.advance(1000); server.reply();
+    clock.advance(200); robot.ttsStarted(robot.token);
+    clock.advance(800); robot.ttsDone(robot.token, null); robot.e.motionDone(robot.token, "mock_wave", null);
     assertEquals(1, recorded.size());
     assertEquals(1000L, recorded.get(0).get("llm_ms"));
     assertEquals(1200L, recorded.get(0).get("reply_latency_ms"));
@@ -503,7 +521,7 @@ public class ConversationTest {
   @Test public void japaneseSelectionReachesRecognitionAndSpeech() {
     c.settings("ja", true); c.listen(false);
     assertEquals("ja", robot.listenLanguage);
-    robot.e.asr(robot.token, "こんにちは", null);
+    robot.asr(robot.token, "こんにちは", null);
     server.result.success(new Reply("こんにちは！", Gesture.greet, "ja"));
     assertEquals("ja", robot.speakLanguage);
   }
@@ -522,16 +540,16 @@ public class ConversationTest {
     assertEquals(0,robot.speak);assertEquals(1,robot.play);
     clock.advance(2300);assertEquals(0,robot.speak);
     robot.e.motionStarted(first,"mock_wave");robot.e.motionStarted(first,"mock_wave");
-    assertEquals(1,robot.speak);robot.e.ttsStarted(first);
-    robot.e.ttsDone(first,null);
+    assertEquals(1,robot.speak);robot.ttsStarted(first);
+    robot.ttsDone(first,null);
     assertEquals(1,robot.stop);assertEquals(1,robot.speak);
     clock.advance(80);
     long second=robot.token;assertNotEquals(first,second);
     assertEquals(1,robot.speak);assertEquals(2,robot.play);
-    robot.e.ttsDone(first,null);robot.e.motionDone(first,"mock_wave",null);
+    robot.ttsDone(first,null);robot.e.motionDone(first,"mock_wave",null);
     assertEquals(State.SPEAKING,c.state());
-    robot.e.motionStarted(second,"other");assertEquals(2,robot.speak);robot.e.ttsStarted(second);
-    robot.e.ttsDone(second,null);
+    robot.e.motionStarted(second,"other");assertEquals(2,robot.speak);robot.ttsStarted(second);
+    robot.ttsDone(second,null);
     assertEquals(State.IDLE,c.state());assertEquals(2,robot.stop);
     assertEquals(2,Collections.frequency(events,"sentence_complete"));
   }
@@ -546,21 +564,21 @@ public class ConversationTest {
 
   @Test public void continuousConversationKeepsSessionAndStopPreventsNextListening() {
     c.startConversation();assertEquals(State.LISTENING,c.state());
-    robot.e.asr(robot.token,"I like pandas",null);server.reply();
-    robot.e.ttsDone(robot.token,null);robot.e.motionDone(robot.token,"mock_wave",null);
+    robot.asr(robot.token,"I like pandas",null);server.reply();
+    robot.ttsDone(robot.token,null);robot.e.motionDone(robot.token,"mock_wave",null);
     assertEquals(State.IDLE,c.state());clock.advance(699);assertEquals(1,robot.listens);
     clock.advance(1);assertEquals(State.LISTENING,c.state());assertEquals(2,robot.listens);
-    robot.e.asr(robot.token,"Black and white",null);
+    robot.asr(robot.token,"Black and white",null);
     assertEquals(2,server.sessions.size());assertEquals(server.sessions.get(0),server.sessions.get(1));
     c.stop();clock.advance(60000);
     assertEquals(State.IDLE,c.state());assertEquals(2,robot.listens);assertFalse(snapshot.continuous);
   }
 
   @Test public void noListeningBetweenSentencesAndSilenceRearmsUntilStop() {
-    c.startConversation();robot.e.asr(robot.token,"Hello",null);server.result.success(twoSentencePlan());
-    robot.e.motionStarted(robot.token,"mock_wave");robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);clock.advance(80);
+    c.startConversation();robot.asr(robot.token,"Hello",null);server.result.success(twoSentencePlan());
+    robot.e.motionStarted(robot.token,"mock_wave");robot.ttsStarted(robot.token);robot.ttsDone(robot.token,null);clock.advance(80);
     assertEquals(1,robot.listens);assertEquals(State.SPEAKING,c.state());
-    robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);
+    robot.ttsStarted(robot.token);robot.ttsDone(robot.token,null);
     clock.advance(700);assertEquals(2,robot.listens);assertEquals(State.LISTENING,c.state());
     clock.advance(15000);clock.advance(700);assertEquals(3,robot.listens);
     c.stop();clock.advance(60000);assertEquals(3,robot.listens);
@@ -568,7 +586,7 @@ public class ConversationTest {
 
   @Test public void stopDuringSentenceReconnectCancelsPendingSecondSentence() {
     c.submit("Hello");server.result.success(twoSentencePlan());
-    robot.e.motionStarted(robot.token,"mock_wave");robot.e.ttsStarted(robot.token);robot.e.ttsDone(robot.token,null);
+    robot.e.motionStarted(robot.token,"mock_wave");robot.ttsStarted(robot.token);robot.ttsDone(robot.token,null);
     c.stop();robot.e.connected(true);clock.advance(20000);
     assertEquals(1,robot.speak);assertEquals(State.IDLE,c.state());
   }
@@ -592,12 +610,12 @@ public class ConversationTest {
     app.submit("Hello");server.result.success(twoSentencePlan());
     assertEquals(1,fast.play);assertEquals(1,fast.speak);
     long first=fast.token;
-    fast.e.ttsStarted(first);fast.e.ttsDone(first,null);
+    fast.ttsStarted(first);fast.ttsDone(first,null);
     clock.advance(9);assertEquals(1,fast.speak);
     clock.advance(1);assertEquals(2,fast.speak);assertEquals(2,fast.play);
     long second=fast.token;
-    fast.e.ttsDone(first,null);assertEquals(State.SPEAKING,app.state());
-    fast.e.ttsStarted(second);fast.e.ttsDone(second,null);
+    fast.ttsDone(first,null);assertEquals(State.SPEAKING,app.state());
+    fast.ttsStarted(second);fast.ttsDone(second,null);
     assertEquals(State.IDLE,app.state());
   }
 
@@ -605,7 +623,7 @@ public class ConversationTest {
     FastRobot fast=new FastRobot();
     ConversationController app=new ConversationController(fast,server,clock,(t,n,f)->{},s->{},registry);
     app.connect();app.submit("Hello");server.result.success(twoSentencePlan());
-    fast.e.ttsStarted(fast.token);fast.e.ttsDone(fast.token,null);
+    fast.ttsStarted(fast.token);fast.ttsDone(fast.token,null);
     app.stop();clock.advance(1000);
     assertEquals(1,fast.speak);assertEquals(State.IDLE,app.state());
   }

@@ -11,18 +11,38 @@ flowchart TD
   LLM --> Reply[文ごとの speech / gesture または motion_id]
   Reply --> Controller
   Controller --> Mapping[MotionRegistry: カテゴリ対応表 または ID候補の検証]
-  Controller --> TTS[RobotAdapter TTS]
-  Mapping --> Motion[RobotAdapter motion]
+  Controller --> TTS[SpeechOutput]
+  Mapping --> Motion[MotionOutput]
   TTS --> Done[個別完了フラグ]
   Motion --> Done
   Done --> Idle[両方完了 → IDLE]
 ```
 
+## 音声エンジンの差し替え
+
+`ConversationController` の生成時に、音声入力 `SpeechInput`、音声出力 `SpeechOutput`、動作 `MotionOutput` を個別に渡します。標準構成は同じ `RobotAdapter` を3か所に渡し、NUWA SDKの接続を共有します。モック版も同じ構成で動きます。
+
+認識だけを変更する場合は、画面の会話エンジン構築時に入力を差し替えます。
+
+```java
+ConversationController controller = new ConversationController(
+    replacementInput, robot, robot, backend, scheduler, log, view, registry);
+```
+
+発声だけを変更する場合は、第2引数に `SpeechOutput` の実装を渡します。音声入力の結果通知と、音声の再生開始・完了通知は、各要求に渡されたリスナーへ返します。通知は任意のスレッドから返せますが、会話状態の更新はコントローラのスケジューラに集約されます。停止後や次の文に進んだ後に届いた通知は、要求の世代で判定して破棄します。
+
+- 音声入力の実装が聞き取りの確定を担当します。アプリが録音を扱う実装なら、将来は手動確定や無音時間による自動確定を選べます。
+- 音声出力は音声合成の完了と再生の開始を区別し、再生開始時に `started()` を通知します。
+- 動作と音声出力が同じ対応アダプタの場合は、NUWAのモーション準備を使う同期経路を選びます。別の音声出力を渡した場合は、動作開始通知を受けてからその音声出力に再生を要求します。外部合成の待ち時間や実際に音が出るまでの時間は、接続するエンジンで確認します。
+- 複数の機能を共有する実装は、`stopAll()` で所有する操作を停止します。別々に渡した音声実装はコントローラから停止・解放されます。
+
+`SpeechReplacementTest` では認識だけ、発声だけをそれぞれ差し替え、標準に相当する動作経路と、停止後に古い通知が届いた場合を確認します。
+
 ## 状態と並行処理
 
 `IDLE → LISTENING → PROCESSING → SPEAKING → IDLE`。
 手動入力ではLISTENINGを省略します。ASR単独テストは認識完了でIDLEへ戻ります。
-SPEAKING中は文ごとの動作開始通知からTTSを始め、文末で長い動作を止めて次の文へ進みます。単独テスト・旧応答ではTTSとモーションの完了フラグを別々に保持します。動作なしの場合、初めからモーション完了として扱います。
+SPEAKING中は文ごとに発声と動作を進め、文末で長い動作を止めて次の文へ進みます。単独テスト・旧応答ではTTSとモーションの完了フラグを別々に保持します。動作なしの場合、初めからモーション完了として扱います。
 エラーはERRORの通知後に停止・キャンセルしてIDLEへ戻ります。原因コードは画面とJSONログに残ります。
 
 すべての状態変更は同じUIスケジューラーへ集約します。HTTPは専用Executorで実行し、応答はUIへ戻します。

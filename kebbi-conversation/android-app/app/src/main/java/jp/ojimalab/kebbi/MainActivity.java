@@ -114,6 +114,8 @@ public final class MainActivity extends Activity {
     controller =
         new ConversationController(
             robot,
+            robot,
+            robot,
             api,
             scheduler,
             (turn, event, fields) -> {

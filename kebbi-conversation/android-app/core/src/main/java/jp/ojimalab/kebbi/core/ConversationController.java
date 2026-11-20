@@ -5,8 +5,11 @@ import static jp.ojimalab.kebbi.core.RuntimePorts.*;
 import java.util.*;
 
 /** All mutable state is confined to the supplied UI scheduler. */
-public final class ConversationController implements RobotAdapter.Events {
-  private final RobotAdapter robot;
+public final class ConversationController implements MotionOutput.Events {
+  private final SpeechInput speechInput;
+  private final SpeechOutput speechOutput;
+  private final MotionOutput motionOutput;
+  private final RobotAdapter pairedOutput;
   private final Backend backend;
   private final Scheduler scheduler;
   private final Log log;
@@ -72,7 +75,23 @@ public final class ConversationController implements RobotAdapter.Events {
       Log log,
       View view,
       MotionRegistry registry) {
-    this.robot = robot;
+    this(robot, robot, robot, backend, scheduler, log, view, registry);
+  }
+
+  public ConversationController(
+      SpeechInput speechInput,
+      SpeechOutput speechOutput,
+      MotionOutput motionOutput,
+      Backend backend,
+      Scheduler scheduler,
+      Log log,
+      View view,
+      MotionRegistry registry) {
+    this.speechInput = Objects.requireNonNull(speechInput);
+    this.speechOutput = Objects.requireNonNull(speechOutput);
+    this.motionOutput = Objects.requireNonNull(motionOutput);
+    pairedOutput = speechOutput == motionOutput && motionOutput instanceof RobotAdapter
+        && ((RobotAdapter) motionOutput).supportsSentenceOutput() ? (RobotAdapter) motionOutput : null;
     this.backend = backend;
     this.scheduler = scheduler;
     this.log = log;
@@ -83,7 +102,7 @@ public final class ConversationController implements RobotAdapter.Events {
   public void connect() {
     if (!closed)
       try {
-        robot.connect(this);
+        motionOutput.connect(this);
       } catch (RuntimeException error) {
         ready = false;
         message = "sdk_connection_error";
@@ -202,7 +221,8 @@ public final class ConversationController implements RobotAdapter.Events {
     event("asr_start");
     deadline(15000, State.LISTENING);
     try {
-      robot.listen(token, language);
+      long current = token;
+      speechInput.listen(current, language, (text, error) -> asr(current, text, error));
     } catch (RuntimeException error) {
       fail("asr_error");
     }
@@ -222,7 +242,7 @@ public final class ConversationController implements RobotAdapter.Events {
   private void process() {
     timer.cancel();
     try {
-      robot.stopListening();
+      speechInput.stopListening();
     } catch (RuntimeException error) {
       fail("asr_stop_error");
       return;
@@ -310,7 +330,7 @@ public final class ConversationController implements RobotAdapter.Events {
   private void output(String utterance, Gesture category, String lang, Motion forced) {
     timer.cancel();
     try {
-      robot.stopListening();
+      speechInput.stopListening();
     } catch (RuntimeException error) {
       fail("asr_stop_error");
       return;
@@ -332,14 +352,14 @@ public final class ConversationController implements RobotAdapter.Events {
       // Flags are initialized before either API call, so synchronous callbacks are safe.
       if (!ttsDone) {
         event("tts_request");
-        robot.speak(current, speech, lang);
+        speechOutput.speak(current, speech, lang, playbackListener(current));
       }
       if (current != token || state != State.SPEAKING) return;
       if (selected != null) {
         registry.started(selected, scheduler.now());
         event("motion_request");
         motionRequests.add(selected.id);
-        robot.play(current, selected);
+        motionOutput.play(current, selected);
       }
       if (current == token) completeIfDone();
     } catch (RuntimeException error) {
@@ -375,12 +395,13 @@ public final class ConversationController implements RobotAdapter.Events {
     state=State.SPEAKING;
     event("sentence_start");publish();deadline(45000,State.SPEAKING);
     if (pendingMotion==null) requestSentenceSpeech();
-    else if (robot.supportsSentenceOutput()) {
+    else if (pairedOutput != null) {
       sentenceSpeechRequested=true;
       try {
         registry.started(pendingMotion,scheduler.now());motionRequests.add(pendingMotion.id);
         event("motion_request");event("tts_request");
-        robot.outputSentence(token,pendingMotion,currentSentence,language);
+        pairedOutput.outputSentence(token, pendingMotion, currentSentence, language,
+            playbackListener(token));
       } catch (RuntimeException error) { fail("sentence_output_error"); }
     } else startSentenceMotion();
   }
@@ -388,7 +409,10 @@ public final class ConversationController implements RobotAdapter.Events {
   private void requestSentenceSpeech() {
     if (!playingPlan || sentenceSpeechRequested || state!=State.SPEAKING) return;
     sentenceSpeechRequested=true;motionStartWait.cancel();
-    try { event("tts_request");robot.speak(token,currentSentence,language); }
+    try {
+      event("tts_request");
+      speechOutput.speak(token, currentSentence, language, playbackListener(token));
+    }
     catch (RuntimeException error) { fail("tts_error"); }
   }
 
@@ -402,7 +426,7 @@ public final class ConversationController implements RobotAdapter.Events {
       motionStartWait=scheduler.later(8000,()->{
         if (captured==token && playingPlan && !sentenceSpeechRequested) fail("motion_start_timeout");
       });
-      robot.play(token,pendingMotion);
+      motionOutput.play(token,pendingMotion);
     } catch (RuntimeException error) {
       motionDone=true;message="motion_error";event("motion_error");motionStartWait.cancel();requestSentenceSpeech();
     }
@@ -422,14 +446,14 @@ public final class ConversationController implements RobotAdapter.Events {
     token++;sentenceIndex++;waitingForSentence=true;pendingMotion=null;
     long captured=token;
     timer=scheduler.later(10000,()->{ if (captured==token && waitingForSentence) fail("sentence_sdk_timeout"); });
-    try { robot.finishSentence(); }
+    try { motionOutput.finishSentence(); }
     catch (RuntimeException error) { fail("sentence_reset_error");return; }
     if (ready) scheduleSentence();
   }
 
   private void scheduleSentence() {
     sentenceResume.cancel();long captured=token;
-    sentenceResume=scheduler.later(robot.supportsSentenceOutput()?10:80,()->{
+    sentenceResume=scheduler.later(pairedOutput != null ? 10 : 80,()->{
       if (captured==token && waitingForSentence && ready && !closed && state==State.SPEAKING) startSentence();
     });
   }
@@ -462,13 +486,13 @@ public final class ConversationController implements RobotAdapter.Events {
         });
   }
 
-  public void asr(long current, String result, String error) {
+  private void asr(long current, String result, String error) {
     scheduler.execute(
         () -> {
           if (!accepts(current, State.LISTENING)) return;
           event("asr_complete");
           try {
-            robot.stopListening();
+            speechInput.stopListening();
           } catch (RuntimeException failure) {
             fail("asr_stop_error");
             return;
@@ -492,7 +516,21 @@ public final class ConversationController implements RobotAdapter.Events {
         });
   }
 
-  public void ttsStarted(long current) {
+  private SpeechOutput.Listener playbackListener(long current) {
+    return new SpeechOutput.Listener() {
+      @Override
+      public void started() {
+        ttsStarted(current);
+      }
+
+      @Override
+      public void completed(String error) {
+        ttsDone(current, error);
+      }
+    };
+  }
+
+  private void ttsStarted(long current) {
     scheduler.execute(
         () -> {
           if (accepts(current, State.SPEAKING) && !ttsDone && !ttsStarted && (!playingPlan || sentenceSpeechRequested)) {
@@ -502,7 +540,7 @@ public final class ConversationController implements RobotAdapter.Events {
         });
   }
 
-  public void ttsDone(long current, String error) {
+  private void ttsDone(long current, String error) {
     scheduler.execute(
         () -> {
           if (!accepts(current, State.SPEAKING) || ttsDone || (playingPlan && !sentenceSpeechRequested)) return;
@@ -572,7 +610,7 @@ public final class ConversationController implements RobotAdapter.Events {
     motionDone = true;
     playingPlan=false;waitingForSentence=false;
     try {
-      if (endSentence) robot.finishSentence(); else robot.finishTurn();
+      if (endSentence) motionOutput.finishSentence(); else motionOutput.finishTurn();
     } catch (RuntimeException ignored) {
       ready = false;
       message = "sdk_reset_error";
@@ -635,7 +673,17 @@ public final class ConversationController implements RobotAdapter.Events {
     ttsDone = true;
     motionDone = true;
     try {
-      robot.stopAll();
+      if (speechInput != motionOutput) speechInput.stopListening();
+    } catch (RuntimeException ignored) {
+      event("asr_stop_error");
+    }
+    try {
+      if (speechOutput != motionOutput) speechOutput.stopSpeaking();
+    } catch (RuntimeException ignored) {
+      event("tts_stop_error");
+    }
+    try {
+      motionOutput.stopAll();
     } catch (RuntimeException ignored) {
       ready = false;
     }
@@ -658,7 +706,18 @@ public final class ConversationController implements RobotAdapter.Events {
     if (closed) return;
     stop();
     closed = true;
-    robot.close();
-    backend.forget(session);
+    try {
+      if (speechInput != motionOutput) speechInput.close();
+    } finally {
+      try {
+        if (speechOutput != motionOutput && speechOutput != speechInput) speechOutput.close();
+      } finally {
+        try {
+          motionOutput.close();
+        } finally {
+          backend.forget(session);
+        }
+      }
+    }
   }
 }
