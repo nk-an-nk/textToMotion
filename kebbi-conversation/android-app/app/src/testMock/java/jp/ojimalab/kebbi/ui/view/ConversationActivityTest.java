@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
 import java.time.Duration;
 import jp.ojimalab.kebbi.core.SelectionOptions;
+import jp.ojimalab.kebbi.data.LatencyStore;
 import jp.ojimalab.kebbi.ui.viewmodel.ConversationViewModel;
 import org.junit.Before;
 import org.junit.Test;
@@ -77,7 +78,10 @@ public class ConversationActivityTest {
       shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(2));
       assertTrue(text(activity, 1007).contains("IDLE"));
       assertTrue(text(activity, 1008).contains("completed"));
-      assertTrue(new java.io.File(app.getFilesDir(), "latency-history.json").isFile());
+      assertFalse(text(activity, 1008), text(activity, 1008).contains("保存に失敗"));
+      LatencyStore reloaded = new LatencyStore(activity.getApplication());
+      assertEquals("", reloaded.warning());
+      assertTrue(reloaded.latestText(), reloaded.latestText().contains("completed"));
     }
   }
 

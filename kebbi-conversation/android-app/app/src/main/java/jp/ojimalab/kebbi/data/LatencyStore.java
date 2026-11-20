@@ -2,7 +2,7 @@ package jp.ojimalab.kebbi.data;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.AtomicFile;
+import androidx.core.util.AtomicFile;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
