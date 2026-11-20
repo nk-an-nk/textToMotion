@@ -6,6 +6,7 @@ public final class MockRobotAdapter implements RobotAdapter {
   private final RuntimePorts.Scheduler scheduler;
   private Events events;
   private long epoch;
+  private long listeningGeneration, speakingGeneration;
   private String input = "Hello, Kebbi!", fault = "none";
   public static final List<String> MOTIONS = Arrays.asList("mock_wave", "mock_nod", "mock_praise");
 
@@ -33,18 +34,33 @@ public final class MockRobotAdapter implements RobotAdapter {
         });
   }
 
-  public void listen(long token, String language) {
+  public void listen(long token, String language, SpeechInput.Listener listener) {
+    long generation = ++listeningGeneration;
     if (fault.equals("asr_timeout")) return;
     String captured = input, error = fault.equals("asr_error") ? "asr_error" : null;
-    emit(300, () -> events.asr(token, captured, error));
+    emit(300, () -> {
+      if (generation == listeningGeneration) listener.complete(captured, error);
+    });
   }
 
-  public void stopListening() {} // Turn tokens also reject any delayed ASR result.
+  public void stopListening() {
+    listeningGeneration++;
+  }
 
-  public void speak(long token, String text, String language) {
-    emit(20, () -> events.ttsStarted(token));
+  public void speak(long token, String text, String language, SpeechOutput.Listener listener) {
+    long generation = ++speakingGeneration;
+    emit(20, () -> {
+      if (generation == speakingGeneration) listener.started();
+    });
     if (!fault.equals("tts_timeout"))
-      emit(700, () -> events.ttsDone(token, fault.equals("tts_error") ? "tts_error" : null));
+      emit(700, () -> {
+        if (generation == speakingGeneration)
+          listener.completed(fault.equals("tts_error") ? "tts_error" : null);
+      });
+  }
+
+  public void stopSpeaking() {
+    speakingGeneration++;
   }
 
   public void play(long token, Motion motion) {

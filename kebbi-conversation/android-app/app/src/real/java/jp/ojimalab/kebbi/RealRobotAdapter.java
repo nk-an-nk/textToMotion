@@ -184,7 +184,7 @@ public final class RealRobotAdapter implements RobotAdapter {
     post(source,()->{ if (generation==voiceGeneration) action.run(); });
   }
 
-  private void callbacks(long token) {
+  private void callbacks(long token, SpeechInput.Listener input, SpeechOutput.Listener output) {
     requireReady();
     turn = token;
     long source = epoch;
@@ -193,6 +193,7 @@ public final class RealRobotAdapter implements RobotAdapter {
         new VoiceEventCallback() {
           @Override
           public void onSpeech2TextComplete(boolean error, String raw) {
+            if (input == null) return;
             postVoice(
                 source, generation,
                 () -> {
@@ -202,26 +203,27 @@ public final class RealRobotAdapter implements RobotAdapter {
                       result = new org.json.JSONObject(raw).optString("result", "");
                     } catch (Exception ignored) {
                     }
-                  events.asr(token, result, error ? "asr_error" : null);
+                  input.complete(result, error ? "asr_error" : null);
                 });
           }
 
           @Override
           public void onTTSComplete(boolean error) {
-            postVoice(source, generation, () -> events.ttsDone(token, error ? "tts_error" : null));
+            if (output != null)
+              postVoice(source, generation, () -> output.completed(error ? "tts_error" : null));
           }
 
           @Override
           public void onSpeakState(
               VoiceEventListener.SpeakType type, VoiceEventListener.SpeakState state) {
-            if (state == VoiceEventListener.SpeakState.START)
-              postVoice(source, generation, () -> events.ttsStarted(token));
+            if (output != null && state == VoiceEventListener.SpeakState.START)
+              postVoice(source, generation, output::started);
           }
         });
   }
 
-  public void listen(long token, String language) {
-    callbacks(token);
+  public void listen(long token, String language, SpeechInput.Listener listener) {
+    callbacks(token, listener, null);
     api.setListenParameter(
         VoiceEventListener.ListenType.RECOGNIZE,
         "language",
@@ -233,9 +235,13 @@ public final class RealRobotAdapter implements RobotAdapter {
     if (ready && api != null) api.stopListen();
   }
 
-  public void speak(long token, String text, String language) {
-    callbacks(token);
+  public void speak(long token, String text, String language, SpeechOutput.Listener listener) {
+    callbacks(token, null, listener);
     api.startTTS(text, language.equals("ja") ? NuwaRobotAPI.JAPAN : NuwaRobotAPI.ENGLISH);
+  }
+
+  public void stopSpeaking() {
+    if (ready && api != null) api.stopTTS();
   }
 
   public void play(long token, Motion motion) {
@@ -247,8 +253,10 @@ public final class RealRobotAdapter implements RobotAdapter {
 
   public boolean supportsSentenceOutput() { return true; }
 
-  public void outputSentence(long token,Motion motion,String text,String language) {
-    callbacks(token);playing=motion.id;
+  public void outputSentence(long token, Motion motion, String text, String language,
+      SpeechOutput.Listener listener) {
+    callbacks(token, null, listener);
+    playing=motion.id;
     PreparedSentence item=new PreparedSentence(token,epoch,motion,text,language);prepared=item;
     api.motionMediaDisable(!motion.showMp4);
     android.util.Log.i("KebbiSdk","sentence_motion_prepare_request:"+motion.id);
