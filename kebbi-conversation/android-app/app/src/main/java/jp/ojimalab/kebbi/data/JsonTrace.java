@@ -1,4 +1,4 @@
-package jp.ojimalab.kebbi;
+package jp.ojimalab.kebbi.data;
 
 import android.content.*;
 import android.util.Log;
@@ -13,9 +13,9 @@ public final class JsonTrace implements RuntimePorts.Log {
   private final ArrayDeque<String> rows = new ArrayDeque<>();
   private final Gson gson = new Gson();
 
-  public JsonTrace(Context context, SharedPreferences settings) {
+  public JsonTrace(Context context, SettingsStore settings) {
     this.context = context;
-    this.settings = settings;
+    this.settings = settings.preferences();
   }
 
   public synchronized void event(String turn, String event, Map<String, Object> fields) {

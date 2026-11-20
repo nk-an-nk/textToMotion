@@ -18,11 +18,24 @@ flowchart TD
   Done --> Idle[両方完了 → IDLE]
 ```
 
+## Android画面のMVVM
+
+操作は `ui/view` の `ConversationActivity` から `ui/viewmodel` の `ConversationViewModel` に渡します。ViewModelが会話コアの通知や端末に保存された情報から `ConversationUiState` を作り、画面は `LiveData` で状態を受け取って表示します。
+
+| ディレクトリ | 責務 |
+| --- | --- |
+| `ui/view` | ウィジェット、設定・モーション・履歴のダイアログ、マイク権限、CSV保存先の選択 |
+| `ui/viewmodel` | 画面操作の処理、会話エンジンの起動と終了、状態の公開 |
+| `data` | 端末設定・モーション表・計測履歴・ログの永続化 |
+| `android-app/core` | 会話の状態遷移、発話と動作の制御、バックエンドとの契約、音声・動作のインターフェース |
+
+画面がバックグラウンドに移ったときは会話エンジンを停止します。前の接続から遅れて返る通信結果はViewModelの接続世代で除外します。AndroidのアプリIDと既存の起動コンポーネント名 `jp.ojimalab.kebbi.MainActivity` は維持し、そのコンポーネントから新しい会話画面を開きます。
+
 ## 音声エンジンの差し替え
 
 `ConversationController` の生成時に、音声入力 `SpeechInput`、音声出力 `SpeechOutput`、動作 `MotionOutput` を個別に渡します。標準構成は同じ `RobotAdapter` を3か所に渡し、NUWA SDKの接続を共有します。モック版も同じ構成で動きます。
 
-認識だけを変更する場合は、画面の会話エンジン構築時に入力を差し替えます。
+認識だけを変更する場合は、ViewModelの会話エンジン構築時に入力を差し替えます。
 
 ```java
 ConversationController controller = new ConversationController(

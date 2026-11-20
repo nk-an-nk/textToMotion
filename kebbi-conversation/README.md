@@ -35,7 +35,9 @@ MacへのSDK・エミュレータのインストールは不要です。
 ## 構成
 
 - `android-app/core`: Android非依存の会話状態管理・同期制御・契約検証・HTTPクライアント・モック
-- `android-app/app`: 研究用画面・設定・モーション管理・JSONログ
+- `android-app/app/src/main/java/jp/ojimalab/kebbi/ui/view`: 会話画面、ダイアログ、Androidの権限・保存先選択
+- `android-app/app/src/main/java/jp/ojimalab/kebbi/ui/viewmodel`: 会話画面の操作と表示状態（MVVM）
+- `android-app/app/src/main/java/jp/ojimalab/kebbi/data`: 設定、モーション表、速度履歴、JSONログの保存
 - `app/src/real`: NUWA SDK接続のみを隔離
 - `backend/app`: FastAPI、モック/外部LLM、メモリ内の会話履歴
 - `config/gesture_mapping.json`: 実機向けの初期マッピング。すべて空配列
@@ -65,7 +67,7 @@ bash kebbi-conversation/scripts/verify.sh
 KEBBI_VERIFY_REAL=true bash kebbi-conversation/scripts/verify.sh
 ```
 
-Pythonの単体/APIテスト、Javaの状態管理テスト、実際のHTTPによるFastAPIモックLLM→MockRobotAdapter→IDLEの結合テスト、モックAPKのビルドを実行します。
+Pythonの単体/APIテスト、Javaの状態管理テスト、実際のHTTPによるFastAPIモックLLM→MockRobotAdapter→IDLEの結合テスト、モック画面のRobolectricテスト、モックAPKのビルドを実行します。
 Kebbi実機のテストは自動テストと区別しています。[手順と制約](docs/testing.md)を参照してください。
 
 ## ログと制約

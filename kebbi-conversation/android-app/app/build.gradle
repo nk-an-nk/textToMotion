@@ -18,6 +18,7 @@ android {
     }
     sourceSets { real.assets.srcDirs += rootProject.file('../config') }
     compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    testOptions.unitTests.includeAndroidResources = true
 }
 // No reference to the vendor AAR in the mock dependency graph.
 // Accept a replacement SDK with -PnuwaSdk=/absolute/path/to/sdk.aar.
@@ -28,6 +29,11 @@ tasks.matching { it.name == 'preRealDebugBuild' || it.name == 'preRealReleaseBui
 }
 dependencies {
     implementation project(':core')
+    implementation 'androidx.activity:activity:1.8.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.6.2'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.13'
     realImplementation files(sdkPath.get())
     realImplementation 'androidx.appcompat:appcompat:1.7.0'
     realImplementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.22')
